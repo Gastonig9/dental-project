@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { Appointment } from '@prisma/client';
 import { AppointmentRequestDto } from 'src/dtos';
@@ -17,6 +18,16 @@ export class AppointmentRepository {
 
   async GetAppointmentById(id: number): Promise<Appointment> {
     return this.context.appointment.findFirst({ where: { id } });
+  }
+
+  async checkDentistAvailability(dentistId: number, date: Date) {
+    const appointments = await this.context.appointment.findMany({
+      where: {
+        dentistId,
+        date,
+      },
+    });
+    return appointments;
   }
 
   async deleteAppointmentById(id: number): Promise<Appointment> {

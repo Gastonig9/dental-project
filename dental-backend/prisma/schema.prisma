@@ -52,4 +52,5 @@ model Appointment {
   patientId Int 
   state AppointmentState
   results String
+  dni Int
 }

@@ -11,6 +11,10 @@ export class DentistService {
     return this.repository.addDentist(data);
   }
 
+  async findDentist(id: number): Promise<Dentist> {
+    return this.repository.getDentistById(id);
+  }
+
   async getAllDentist(): Promise<Dentist[]> {
     return this.repository.getAllDentist();
   }
