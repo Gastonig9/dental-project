@@ -46,6 +46,7 @@ export class DentistRepository {
     return this.context.dentist.findMany({
       include: {
         appointments: true,
+        user: true,
       },
     });
   }

@@ -13,9 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum DentistLevel {
+enum EnumRoles {
   OWNER
   ASSOCIATED
+  SECRETARY
+  CLIENT
 }
 
 enum AppointmentState {
@@ -24,24 +26,58 @@ enum AppointmentState {
   REALIZED
 }
 
+model User {
+  id Int @id   @default(autoincrement())
+   email     String   @unique
+   username  String   @unique
+   fullname  String
+   password  String
+   role  Roles @relation(fields: [role_name], references: [name])
+   role_name EnumRoles
+   dentist   Dentist?
+   secretary Secretary?
+   owner     Owner?
+}
+
+model Roles {
+  id Int @id   @default(autoincrement())
+  name EnumRoles @unique
+  user_id User[]
+}
+
 model Dentist {
   id Int @id   @default(autoincrement())
-  name String
-  surname String
+  // specialty  String
+  notes      String?
   appointments Appointment[]
-  level DentistLevel
+  user User  @relation(fields: [userId], references: [id],onDelete: Cascade)
+  userId Int @unique 
 }
+
 
 
 model Patient {
   id Int @id   @default(autoincrement())
-  name String
-  surname String
-  gender  String
-  dni Int
+  name       String  
+  surname    String 
+  gender     String
+  dni        Int
   appointments Appointment[]
 }
 
+model Secretary {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @unique
+  user       User    @relation(fields: [userId], references: [id],onDelete: Cascade)
+
+}
+
+model Owner {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @unique
+  user       User     @relation(fields: [userId], references: [id])
+
+}
 
 model Appointment {
   id Int  @id   @default(autoincrement())
