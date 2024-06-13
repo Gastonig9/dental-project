@@ -1,1 +1,1 @@
-export { LEVEL_DENTIST } from './level-dentist.enum';
+export { ROLES } from './roles.enum';

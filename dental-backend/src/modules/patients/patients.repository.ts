@@ -34,8 +34,7 @@ export class PatientRepository {
             date: true,
             dentist: {
               select: {
-                name: true,
-                surname: true,
+                user: true,
               },
             },
           },

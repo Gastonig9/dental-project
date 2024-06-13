@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "EnumRoles" ADD VALUE 'SECRETARY';
