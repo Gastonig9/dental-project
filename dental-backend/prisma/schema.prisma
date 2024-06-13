@@ -13,9 +13,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum DentistLevel {
+enum EnumRoles {
   OWNER
   ASSOCIATED
+  CLIENT
 }
 
 enum AppointmentState {
@@ -24,12 +25,30 @@ enum AppointmentState {
   REALIZED
 }
 
+
+model Users {
+  id Int @id   @default(autoincrement())
+  first_name String
+  last_name String
+  role  Roles @relation(fields: [role_name], references: [name])
+  role_name EnumRoles
+  dentist  Dentist?
+  patient  Patient?
+}
+
+model Roles {
+  id Int @id   @default(autoincrement())
+  name EnumRoles @unique
+  user_id Users[]
+}
+
 model Dentist {
   id Int @id   @default(autoincrement())
   name String
   surname String
   appointments Appointment[]
-  level DentistLevel
+  user Users  @relation(fields: [user_id], references: [id])
+  user_id Int @unique
 }
 
 
@@ -40,6 +59,8 @@ model Patient {
   gender  String
   dni Int
   appointments Appointment[]
+  user Users  @relation(fields: [user_id], references: [id])
+  user_id Int @unique
 }
 
 
