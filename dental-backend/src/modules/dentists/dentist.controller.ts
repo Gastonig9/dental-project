@@ -2,6 +2,9 @@ import { Controller, Get } from '@nestjs/common';
 import { Dentist } from '@prisma/client';
 import { DentistService } from './dentist.service';
 
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('Dentistas')
 @Controller('/dentist')
 export class DentistController {
   constructor(private readonly service: DentistService) {}

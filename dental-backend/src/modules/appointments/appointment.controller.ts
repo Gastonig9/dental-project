@@ -3,7 +3,9 @@ import { AppointmentService } from './appointment.service';
 import { Appointment } from '@prisma/client';
 import { ApiBody } from '@nestjs/swagger';
 import { AppointmentRequestDto } from '../../dtos';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Citas')
 @Controller('/appointments')
 export class AppointmentController {
   constructor(private readonly service: AppointmentService) {}

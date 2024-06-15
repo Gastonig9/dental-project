@@ -10,5 +10,6 @@ import { SecretaryModule } from '../secretary/secretary.module';
   imports: [AppContextModule, DentistModule, SecretaryModule],
   controllers: [UserController],
   providers: [UserRepository, UserService],
+  exports: [UserRepository],
 })
 export class UserModule {}
