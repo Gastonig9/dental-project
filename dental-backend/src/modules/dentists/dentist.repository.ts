@@ -18,25 +18,8 @@ export class DentistRepository {
         id,
       },
       select: {
-        id: true,
-        name: true,
-        surname: true,
-        level: true,
-        appointments: {
-          select: {
-            id: true,
-            date: true,
-            patient: {
-              select: {
-                id: true,
-                name: true,
-                surname: true,
-              },
-            },
-            state: true,
-            results: true,
-          },
-        },
+        user: true,
+        appointments: true
       },
     });
   }

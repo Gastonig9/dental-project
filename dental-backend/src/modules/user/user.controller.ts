@@ -4,7 +4,7 @@ import { User } from '@prisma/client';
 import { ApiBody } from '@nestjs/swagger';
 import { UserRequestDto } from '../../dtos';
 
-@Controller('/user')
+@Controller('api/user')
 export class UserController {
   constructor(private readonly service: UserService) {}
 
@@ -18,7 +18,7 @@ export class UserController {
     return await this.service.getUser(parseInt(id));
   }
 
-  @Post()
+  @Post('/register-user')
   @ApiBody({ type: UserRequestDto })
   async addUser(@Body() data: User): Promise<User> {
     return await this.service.addUser(data);

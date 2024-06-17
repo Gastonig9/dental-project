@@ -8,6 +8,6 @@ import { DentistService } from './dentist.service';
   imports: [AppContextModule],
   controllers: [DentistController],
   providers: [DentistRepository, DentistService],
-  exports: [DentistRepository],
+  exports: [DentistRepository, DentistService],
 })
 export class DentistModule {}

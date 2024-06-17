@@ -42,4 +42,8 @@ export class PatientRepository {
       },
     });
   }
+
+  async getPatientByDni(dni: number): Promise<Patient | null> {
+    return this.context.patient.findFirst({ where: { dni } });
+  }
 }

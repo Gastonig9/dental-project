@@ -48,6 +48,7 @@ model Roles {
 model Dentist {
   id Int @id   @default(autoincrement())
   // specialty  String
+  fullname String
   notes      String?
   appointments Appointment[]
   user User  @relation(fields: [userId], references: [id],onDelete: Cascade)
@@ -57,11 +58,14 @@ model Dentist {
 
 
 model Patient {
-  id Int @id   @default(autoincrement())
-  name       String  
-  surname    String 
-  gender     String
-  dni        Int
+  id        Int          @id @default(autoincrement())
+  name      String
+  surname   String
+  gender    String
+  pEmail    String
+  dni       Int
+  phone     Int
+  adress    String
   appointments Appointment[]
 }
 
@@ -80,13 +84,13 @@ model Owner {
 }
 
 model Appointment {
-  id Int  @id   @default(autoincrement())
-  date DateTime
-  dentist  Dentist @relation(fields: [dentistId], references: [id])
-  dentistId Int 
-  patient Patient @relation(fields: [patientId],references: [id])
-  patientId Int 
-  state AppointmentState
-  results String
-  dni Int
+  id        Int          @id @default(autoincrement())
+  date      DateTime
+  dentist   Dentist      @relation(fields: [dentistId], references: [id])
+  dentistId Int
+  patient   Patient      @relation(fields: [patientId], references: [id])
+  patientId Int
+  state     AppointmentState
+  results   String
+  reason    String
 }

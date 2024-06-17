@@ -1,9 +1,10 @@
-import { $Enums, Appointment } from '@prisma/client';
-import { IsString, IsNumber, IsDateString, IsEnum } from 'class-validator';
+/* eslint-disable prettier/prettier */
+import { $Enums } from '@prisma/client';
+import { IsString, IsNumber, IsDateString, IsEnum, IsEmail } from 'class-validator';
 
-export class AppointmentRequestDto implements Omit<Appointment, 'id'> {
+export class AppointmentRequestDto {
   @IsString()
-  @IsEnum($Enums)
+  @IsEnum($Enums.AppointmentState)
   state: $Enums.AppointmentState;
 
   @IsString()
@@ -18,6 +19,29 @@ export class AppointmentRequestDto implements Omit<Appointment, 'id'> {
   @IsDateString()
   date: Date;
 
+  @IsString()
+  reason: string
+
+  //PATIENT
+  @IsString()
+  patientName?: string;
+
+  @IsString()
+  @IsEmail()
+  patientEmail?: string;
+
+  @IsString()
+  patientSurname?: string;
+
+  @IsString()
+  patientGender?: string;
+
+  @IsString()
+  patientAdress?: string;
+
   @IsNumber()
-  dni: number;
+  patientDni?: number;
+
+  @IsNumber()
+  patientPhone?: number;
 }
