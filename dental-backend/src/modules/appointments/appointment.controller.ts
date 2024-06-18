@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Delete, Body, Param, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Res, HttpStatus } from '@nestjs/common';
 import { AppointmentService } from './appointment.service';
 import { Appointment } from '@prisma/client';
 import { ApiBody } from '@nestjs/swagger';
@@ -37,6 +37,24 @@ export class AppointmentController {
       });
     }
 
+  }
+
+  @Put('/confirm-appointment/:appointmentId')
+  async confirmAppointment(@Param('appointmentId') appointmentId: string, @Res() res: Response) {
+    try {
+      const appointmentConfirmed = await this.service.ConfirmAppointment(parseInt(appointmentId))
+      return res.status(HttpStatus.OK).json({
+        statusCode: 200,
+        message: "El turno ha sido confirmado",
+        appointmentConfirmed
+      });
+    } catch (error) {
+      return res.json({
+        error: error.message,
+        message: "An error ocurred",
+        statusCode: error.status
+      });
+    }
   }
 
   @Delete(':id')

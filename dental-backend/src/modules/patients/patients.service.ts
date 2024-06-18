@@ -12,7 +12,7 @@ export class PatientService {
     return this.repository.addPatient(patient);
   }
 
-  async getPatient(id: number): Promise<PatientResponseDto> {
+  async getPatient(id: number): Promise<Patient> {
     return this.repository.getPatientById(id);
   }
 

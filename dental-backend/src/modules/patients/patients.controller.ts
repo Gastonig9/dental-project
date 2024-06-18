@@ -20,7 +20,7 @@ export class PatientController {
   }
 
   @Get(':id')
-  async getPatient(@Param('id') id: string): Promise<PatientResponseDto> {
+  async getPatient(@Param('id') id: string): Promise<Patient> {
     return await this.service.getPatient(parseInt(id));
   }
 }

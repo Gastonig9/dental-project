@@ -27,6 +27,8 @@ export class PatientRepository {
       select: {
         name: true,
         surname: true,
+        pEmail: true,
+        adress: true,
         gender: true,
         dni: true,
         appointments: {
