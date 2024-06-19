@@ -4,7 +4,9 @@ import { Appointment } from '@prisma/client';
 import { ApiBody } from '@nestjs/swagger';
 import { AppointmentRequestDto } from '../../dtos';
 import { ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/decorators/public.decorator';
 
+@Public()
 @ApiTags('Citas')
 @Controller('/appointments')
 export class AppointmentController {

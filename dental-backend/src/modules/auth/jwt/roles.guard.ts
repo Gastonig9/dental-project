@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { ROLES_KEY } from '../../../decorator/roles.decorator';
+import { ROLES_KEY } from '../../../decorators/roles.decorator';
 import { $Enums } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 
