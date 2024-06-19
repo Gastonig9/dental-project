@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { Context } from 'src/prisma/prisma.context';
-import { RegisterAuthDto } from '../auth/dto/login-register.dto';
+import { RegisterAuthDto } from '../auth/dto/register-auth.dto';
 
 @Injectable()
 export class UserRepository {
@@ -11,7 +11,7 @@ export class UserRepository {
     return this.context.user.findMany();
   }
 
-  async AddUser(data: RegisterAuthDto): Promise<RegisterAuthDto> {
+  async AddUser(data: RegisterAuthDto): Promise<User> {
     return this.context.user.create({ data });
   }
 

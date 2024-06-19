@@ -3,6 +3,7 @@ import { UserRepository } from './user.repository';
 import { User } from '@prisma/client';
 import { DentistRepository } from '../dentists/dentist.repository';
 import { SecretaryService } from '../secretary/secretary.service';
+// import { RegisterAuthDto } from '../auth/dto/register-auth.dto';
 
 @Injectable()
 export class UserService {
