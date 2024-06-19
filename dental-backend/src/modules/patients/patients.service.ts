@@ -2,7 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { Patient } from '@prisma/client';
 import { PatientRepository } from './patients.repository';
-import { PatientRequestDto, PatientResponseDto } from 'src/dtos';
+import { PatientRequestDto } from 'src/dtos';
 
 @Injectable()
 export class PatientService {
@@ -16,8 +16,14 @@ export class PatientService {
     return this.repository.getPatientById(id);
   }
 
-  async getAllPatients(): Promise<Patient[]> {
-    return this.repository.getAllPatients();
+  async getAllPatients(dni?: string, name?: string, gender?: string): Promise<Patient[]> {
+    try {
+      const dniNumber = dni ? parseInt(dni) : undefined;
+      return this.repository.getAllPatients(dniNumber, name, gender);
+    } catch (error) {
+      throw error
+    }
+
   }
 
   async getPatientByDni(dni: number): Promise<Patient> {

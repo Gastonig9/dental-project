@@ -77,8 +77,6 @@ export class AppointmentService {
       const confirmState = $Enums.AppointmentState.REALIZED;
       const dentist = await this.dentistService.findDentist(appointment.dentistId);
       const patient = await this.patientService.getPatient(appointment.patientId);
-      console.log("El paciente: ", patient)
-      console.log("El dentista: ", dentist)
 
       if (!patient || !dentist) {
         throw new NotFoundException('No se pudo encontrar al paciente o al dentista');
