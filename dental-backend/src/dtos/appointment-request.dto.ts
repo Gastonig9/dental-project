@@ -22,26 +22,26 @@ export class AppointmentRequestDto {
   @IsString()
   reason: string
 
-  //PATIENT
-  @IsString()
-  patientName?: string;
+  // //PATIENT
+  // @IsString()
+  // patientName?: string;
 
-  @IsString()
-  @IsEmail()
-  patientEmail?: string;
+  // @IsString()
+  // @IsEmail()
+  // patientEmail?: string;
 
-  @IsString()
-  patientSurname?: string;
+  // @IsString()
+  // patientSurname?: string;
 
-  @IsString()
-  patientGender?: string;
+  // @IsString()
+  // patientGender?: string;
 
-  @IsString()
-  patientAdress?: string;
+  // @IsString()
+  // patientAdress?: string;
 
-  @IsNumber()
-  patientDni?: number;
+  // @IsNumber()
+  // patientDni?: number;
 
-  @IsNumber()
-  patientPhone?: number;
+  // @IsNumber()
+  // patientPhone?: number;
 }

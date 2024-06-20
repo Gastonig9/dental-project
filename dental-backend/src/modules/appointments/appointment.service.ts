@@ -24,32 +24,14 @@ export class AppointmentService {
 
   async addAppointment(data: AppointmentRequestDto): Promise<Appointment> {
     try {
-      const { reason, dentistId, date, patientName, patientSurname, patientEmail, patientGender, patientPhone, patientDni, patientAdress } = data;
+      const { reason, dentistId, patientId, date } = data;
       const state = $Enums.AppointmentState.PENDING;
 
-      // Verificar si el paciente ya existe por DNI
-      let patient = await this.patientService.getPatientByDni(patientDni);
-
-      if (!patient) {
-        // Si el paciente no existe, se agrega a la tabla de Pacientes
-        const newPatient = {
-          name: patientName,
-          surname: patientSurname,
-          gender: patientGender,
-          dni: patientDni,
-          adress: patientAdress,
-          phone: patientPhone,
-          pEmail: patientEmail
-        };
-
-        patient = await this.patientService.addPatient(newPatient);
-      }
-
       // Verificar si ya existe una cita para la misma fecha y dentista
-      // const verifyDate = await this.repository.CheckDentistAvailability(dentistId, new Date(date));
-      // if (verifyDate) {
-      //   throw new ConflictException('Ya hay un turno asignado a esta fecha y dentista');
-      // }
+      const verifyDate = await this.checkAvailability(dentistId, new Date(date));
+      if (!verifyDate) {
+        throw new ConflictException('Ya hay un turno asignado para esta fecha y horario');
+      }
 
       // Crear nueva cita
       const newAppointment = {
@@ -57,8 +39,8 @@ export class AppointmentService {
         results: '',
         reason,
         date,
-        dentistId,
-        patientId: patient.id,
+        dentistId, 
+        patientId: patientId,
       };
 
       return await this.repository.AddAppointment(newAppointment);
@@ -107,3 +89,57 @@ export class AppointmentService {
     return this.repository.deleteAppointmentById(id);
   }
 }
+
+
+
+
+
+
+
+
+
+
+// async addAppointment(data: AppointmentRequestDto): Promise<Appointment> {
+//   try {
+//     const { reason, dentistId, date, patientName, patientSurname, patientEmail, patientGender, patientPhone, patientDni, patientAdress } = data;
+//     const state = $Enums.AppointmentState.PENDING;
+
+//     // Verificar si el paciente ya existe por DNI
+//     let patient = await this.patientService.getPatientByDni(patientDni);
+
+//     if (!patient) {
+//       // Si el paciente no existe, se agrega a la tabla de Pacientes
+//       const newPatient = {
+//         name: patientName,
+//         surname: patientSurname,
+//         gender: patientGender,
+//         dni: patientDni,
+//         adress: patientAdress,
+//         phone: patientPhone,
+//         pEmail: patientEmail
+//       };
+
+//       patient = await this.patientService.addPatient(newPatient);
+//     }
+
+//     // Verificar si ya existe una cita para la misma fecha y dentista
+//     // const verifyDate = await this.repository.CheckDentistAvailability(dentistId, new Date(date));
+//     // if (verifyDate) {
+//     //   throw new ConflictException('Ya hay un turno asignado a esta fecha y dentista');
+//     // }
+
+//     // Crear nueva cita
+//     const newAppointment = {
+//       state: state,
+//       results: '',
+//       reason,
+//       date,
+//       dentistId,
+//       patientId: patient.id,
+//     };
+
+//     return await this.repository.AddAppointment(newAppointment);
+//   } catch (error) {
+//     throw error;
+//   }
+// }
