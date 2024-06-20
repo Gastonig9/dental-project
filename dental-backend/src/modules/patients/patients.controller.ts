@@ -33,4 +33,14 @@ export class PatientController {
   async getPatient(@Param('id') id: string): Promise<Patient> {
     return await this.patientService.getPatient(parseInt(id));
   }
+
+  // Endpoint temporal para mockear pacientes
+  @Post('mock-patients')
+  async mockPatients(): Promise<{ statusCode: number; patients: Patient[] }> {
+    const patients = await this.patientService.mockPatients();
+    return {
+      statusCode: HttpStatus.OK,
+      patients,
+    };
+  }
 }
