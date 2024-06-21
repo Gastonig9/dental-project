@@ -1,9 +1,16 @@
-import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Delete, Param, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '@prisma/client';
-import { ApiBody } from '@nestjs/swagger';
-import { UserRequestDto } from '../../dtos';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { RolesGuard } from '../auth/jwt/roles.guard';
+import { Public } from 'src/decorators/public.decorator';
+// import { UserRequestDto } from '../../dtos';
+// import { ResponseAuthDto } from '../auth/dto/response-auth.dto';
 
+
+@Public()
+@ApiBearerAuth()
+@ApiTags('Users')
 @Controller('api/user')
 export class UserController {
   constructor(private readonly service: UserService) {}
@@ -13,6 +20,7 @@ export class UserController {
     return await this.service.getAllUsers();
   }
 
+  @UseGuards(RolesGuard)
   @Get(':id')
   async getUser(@Param('id') id: string): Promise<User> {
     return await this.service.getUser(parseInt(id));
@@ -25,6 +33,7 @@ export class UserController {
   }
 
   @Delete(':id')
+  @UseGuards(RolesGuard)
   async deleteUser(@Param('id') id: string): Promise<User> {
     return await this.service.deleteUser(parseInt(id));
   }

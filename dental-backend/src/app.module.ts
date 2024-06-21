@@ -5,15 +5,17 @@ import { PatientModule } from './modules/patients/patients.module';
 import { DentistModule } from './modules/dentists/dentist.module';
 import { UserModule } from './modules/user/user.module';
 import { SecretaryModule } from './modules/secretary/secretary.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
-    AppointmentModule,
+    AuthModule,
+    UserModule,
     PatientModule,
     DentistModule,
-    UserModule,
     SecretaryModule,
+    AppointmentModule,
     MailerModule.forRoot({
       transport: {
         service: process.env.service,

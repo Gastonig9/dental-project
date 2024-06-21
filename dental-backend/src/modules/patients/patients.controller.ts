@@ -4,8 +4,12 @@ import { ApiBody } from '@nestjs/swagger';
 import { Patient } from '@prisma/client';
 import { PatientRequestDto, PatientResponseDto } from 'src/dtos';
 import { PatientService } from './patients.service';
+import { ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/decorators/public.decorator';
 import { Response } from 'express';
 
+@Public()
+@ApiTags('Pacientes')
 @Controller('/patient')
 export class PatientController {
   constructor(private readonly patientService: PatientService) { }
