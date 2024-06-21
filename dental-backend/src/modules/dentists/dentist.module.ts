@@ -9,6 +9,6 @@ import { AuthModule } from '../auth/auth.module';
   imports: [AppContextModule, forwardRef(() => AuthModule)],
   controllers: [DentistController],
   providers: [DentistRepository, DentistService],
-  exports: [DentistRepository],
+  exports: [DentistRepository, DentistService],
 })
 export class DentistModule {}

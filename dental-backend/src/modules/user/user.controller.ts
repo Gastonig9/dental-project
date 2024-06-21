@@ -7,10 +7,11 @@ import { Public } from 'src/decorators/public.decorator';
 // import { UserRequestDto } from '../../dtos';
 // import { ResponseAuthDto } from '../auth/dto/response-auth.dto';
 
+
 @Public()
 @ApiBearerAuth()
 @ApiTags('Users')
-@Controller('/user')
+@Controller('api/user')
 export class UserController {
   constructor(private readonly service: UserService) {}
 
@@ -25,11 +26,11 @@ export class UserController {
     return await this.service.getUser(parseInt(id));
   }
 
-  // @Post()
-  // @ApiBody({ type: UserRequestDto })
-  // async addUser(@Body() data: User): Promise<ResponseAuthDto> {
-  //   return await this.service.addUser(data);
-  // }
+  @Post('/register-user')
+  @ApiBody({ type: UserRequestDto })
+  async addUser(@Body() data: User): Promise<User> {
+    return await this.service.addUser(data);
+  }
 
   @Delete(':id')
   @UseGuards(RolesGuard)

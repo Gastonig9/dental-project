@@ -1,19 +1,47 @@
-import { $Enums, Appointment } from '@prisma/client';
-import { ApiProperty } from '@nestjs/swagger';
+/* eslint-disable prettier/prettier */
+import { $Enums } from '@prisma/client';
+import { IsString, IsNumber, IsDateString, IsEnum, IsEmail } from 'class-validator';
 
-export class AppointmentRequestDto implements Omit<Appointment, 'id'> {
-  @ApiProperty()
+export class AppointmentRequestDto {
+  @IsString()
+  @IsEnum($Enums.AppointmentState)
   state: $Enums.AppointmentState;
 
-  @ApiProperty()
+  @IsString()
   results: string;
 
-  @ApiProperty()
+  @IsNumber()
   dentistId: number;
 
-  @ApiProperty()
+  @IsNumber()
   patientId: number;
 
-  @ApiProperty()
+  @IsDateString()
   date: Date;
+
+  @IsString()
+  reason: string
+
+  // //PATIENT
+  // @IsString()
+  // patientName?: string;
+
+  // @IsString()
+  // @IsEmail()
+  // patientEmail?: string;
+
+  // @IsString()
+  // patientSurname?: string;
+
+  // @IsString()
+  // patientGender?: string;
+
+  // @IsString()
+  // patientAdress?: string;
+
+  // @IsNumber()
+  // patientDni?: number;
+
+  // @IsNumber()
+  // patientPhone?: number;
 }
