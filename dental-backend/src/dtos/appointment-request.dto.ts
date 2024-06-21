@@ -1,26 +1,32 @@
-/* eslint-disable prettier/prettier */
+import { ApiProperty } from '@nestjs/swagger';
 import { $Enums } from '@prisma/client';
-import { IsString, IsNumber, IsDateString, IsEnum, IsEmail } from 'class-validator';
+import { IsString, IsNumber, IsDateString, IsEnum } from 'class-validator';
 
 export class AppointmentRequestDto {
+  @ApiProperty()
   @IsString()
   @IsEnum($Enums.AppointmentState)
   state: $Enums.AppointmentState;
 
+  @ApiProperty()
   @IsString()
   results: string;
 
+  @ApiProperty()
   @IsNumber()
   dentistId: number;
 
+  @ApiProperty()
   @IsNumber()
   patientId: number;
 
+  @ApiProperty()
   @IsDateString()
   date: Date;
 
+  @ApiProperty()
   @IsString()
-  reason: string
+  reason: string;
 
   // //PATIENT
   // @IsString()

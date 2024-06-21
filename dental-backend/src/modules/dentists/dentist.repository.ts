@@ -12,7 +12,10 @@ export class DentistRepository {
     return this.context.dentist.create({ data });
   }
 
-  async assignAppointmentToDentist(appointmentId: number, dentistId: number): Promise<Dentist> {
+  async assignAppointmentToDentist(
+    appointmentId: number,
+    dentistId: number,
+  ): Promise<Dentist> {
     return this.context.dentist.update({
       where: { id: dentistId },
       data: {
@@ -33,11 +36,11 @@ export class DentistRepository {
         user: true,
         fullname: true,
         notes: true,
-        appointments: true
+        appointments: true,
       },
     });
   }
-  
+
   async getAllDentist(): Promise<Dentist[]> {
     return this.context.dentist.findMany({
       include: {

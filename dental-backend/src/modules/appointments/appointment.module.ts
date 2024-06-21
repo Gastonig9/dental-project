@@ -15,6 +15,15 @@ import { AppointmentReminderService } from 'src/utils/appointment-reminder.servi
 @Module({
   imports: [AppContextModule, AuthModule],
   controllers: [AppointmentController],
-  providers: [AppointmentRepository, AppointmentService, PatientService, PatientRepository, DentistService, DentistRepository, EmailService, AppointmentReminderService],
+  providers: [
+    AppointmentRepository,
+    AppointmentService,
+    PatientService,
+    PatientRepository,
+    DentistService,
+    DentistRepository,
+    EmailService,
+    AppointmentReminderService,
+  ],
 })
 export class AppointmentModule {}

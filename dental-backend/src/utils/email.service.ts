@@ -5,18 +5,20 @@ import { Appointment, Dentist, Patient } from '@prisma/client';
 
 @Injectable()
 export class EmailService {
+  constructor(private readonly mailerService: MailerService) {}
 
-constructor(private readonly mailerService: MailerService) { }
-
-
-async sendConfirmEmail(patient: Patient, appointmentInfo: Appointment, dentist: Dentist) {
-  const sumHoursToDate = new Date(appointmentInfo.date)
-  sumHoursToDate.setHours(sumHoursToDate.getHours() + 3)
+  async sendConfirmEmail(
+    patient: Patient,
+    appointmentInfo: Appointment,
+    dentist: Dentist,
+  ) {
+    const sumHoursToDate = new Date(appointmentInfo.date);
+    sumHoursToDate.setHours(sumHoursToDate.getHours() + 3);
     this.mailerService.sendMail({
-        from: 'DataJob',
-        to: patient.pEmail,
-        subject: "Se ha confirmado tu turno",
-        html: `<h1>¡Hola, ${patient.name}!</h1>
+      from: 'DataJob',
+      to: patient.pEmail,
+      subject: 'Se ha confirmado tu turno',
+      html: `<h1>¡Hola, ${patient.name}!</h1>
                <br></br/>
                <p>El turno ha sido confirmado</p>
                <br></br/>
@@ -30,16 +32,16 @@ async sendConfirmEmail(patient: Patient, appointmentInfo: Appointment, dentist: 
                <small><b>No responder a este correo</b></small>
                <h3>¡Muchas gracias por elegirnos !</h3>`,
     });
-}
+  }
 
-async sendReminderEmail(patient: Patient, appointment: Appointment) {
-  const sumHoursToDate = new Date(appointment.date)
-  sumHoursToDate.setHours(sumHoursToDate.getHours() + 3)
-  this.mailerService.sendMail({
-    from: 'DataJob',
-    to: patient.pEmail,
-    subject: 'Recordatorio de turno',
-    html: `<h1>¡Hola, ${patient.name}!</h1>
+  async sendReminderEmail(patient: Patient, appointment: Appointment) {
+    const sumHoursToDate = new Date(appointment.date);
+    sumHoursToDate.setHours(sumHoursToDate.getHours() + 3);
+    this.mailerService.sendMail({
+      from: 'DataJob',
+      to: patient.pEmail,
+      subject: 'Recordatorio de turno',
+      html: `<h1>¡Hola, ${patient.name}!</h1>
            <p>Este es un recordatorio para tu turno programado.</p>
            <p><b>Información del turno:</b></p>
            <ul>
@@ -48,7 +50,6 @@ async sendReminderEmail(patient: Patient, appointment: Appointment) {
            </ul>
            <small><b>No responder a este correo</b></small>
            <p>¡Gracias por elegirnos!</p>`,
-  });
-}
-
+    });
+  }
 }

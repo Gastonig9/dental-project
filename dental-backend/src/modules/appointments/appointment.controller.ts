@@ -1,20 +1,27 @@
-/* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Put, Delete, Body, Param, Res, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+  Res,
+  HttpStatus,
+} from '@nestjs/common';
 import { AppointmentService } from './appointment.service';
 import { Appointment } from '@prisma/client';
 import { ApiBody } from '@nestjs/swagger';
 import { AppointmentRequestDto } from '../../dtos';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/decorators/public.decorator';
+import { Response } from 'express';
 
 @Public()
 @ApiTags('Citas')
-@Controller('/appointments')
-import { Response } from 'express';
-
 @Controller('api/appointments')
 export class AppointmentController {
-  constructor(private readonly service: AppointmentService) { }
+  constructor(private readonly service: AppointmentService) {}
 
   @Get()
   async getAllAppointments(): Promise<Appointment[]> {
@@ -28,37 +35,44 @@ export class AppointmentController {
 
   @Post('/create-appointment')
   @ApiBody({ type: AppointmentRequestDto })
-  async addAppointment(@Body() data: AppointmentRequestDto, @Res() res: Response) {
+  async addAppointment(
+    @Body() data: AppointmentRequestDto,
+    @Res() res: Response,
+  ) {
     try {
       const appointmentInfo = await this.service.addAppointment(data);
       return res.status(HttpStatus.OK).json({
         statusCode: 200,
-        appointmentInfo
+        appointmentInfo,
       });
     } catch (error) {
       return res.json({
         error: error.message,
-        message: "An error ocurred",
-        statusCode: error.status
+        message: 'An error ocurred',
+        statusCode: error.status,
       });
     }
-
   }
 
   @Put('/confirm-appointment/:appointmentId')
-  async confirmAppointment(@Param('appointmentId') appointmentId: string, @Res() res: Response) {
+  async confirmAppointment(
+    @Param('appointmentId') appointmentId: string,
+    @Res() res: Response,
+  ) {
     try {
-      const appointmentConfirmed = await this.service.ConfirmAppointment(parseInt(appointmentId))
+      const appointmentConfirmed = await this.service.ConfirmAppointment(
+        parseInt(appointmentId),
+      );
       return res.status(HttpStatus.OK).json({
         statusCode: 200,
-        message: "El turno ha sido confirmado",
-        appointmentConfirmed
+        message: 'El turno ha sido confirmado',
+        appointmentConfirmed,
       });
     } catch (error) {
       return res.json({
         error: error.message,
-        message: "An error ocurred",
-        statusCode: error.status
+        message: 'An error ocurred',
+        statusCode: error.status,
       });
     }
   }

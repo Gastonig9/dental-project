@@ -12,7 +12,11 @@ export class PatientRepository {
     return this.context.patient.create({ data });
   }
 
-  async getAllPatients(dni?: number, name?: string, gender?: string): Promise<Patient[]> {
+  async getAllPatients(
+    dni?: number,
+    name?: string,
+    gender?: string,
+  ): Promise<Patient[]> {
     const where: any = {};
 
     if (dni) {
@@ -28,7 +32,7 @@ export class PatientRepository {
       where.gender = {
         contains: gender,
         mode: 'insensitive',
-      }
+      };
     }
 
     return this.context.patient.findMany({

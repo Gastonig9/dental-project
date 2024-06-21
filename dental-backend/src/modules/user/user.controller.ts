@@ -1,12 +1,19 @@
-import { Controller, Get, Delete, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Delete,
+  Param,
+  UseGuards,
+  Post,
+  Body,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '@prisma/client';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { RolesGuard } from '../auth/jwt/roles.guard';
 import { Public } from 'src/decorators/public.decorator';
-// import { UserRequestDto } from '../../dtos';
-// import { ResponseAuthDto } from '../auth/dto/response-auth.dto';
-
+import { UserRequestDto } from 'src/dtos';
+import { DentistDto } from 'src/dtos';
 
 @Public()
 @ApiBearerAuth()
@@ -23,6 +30,7 @@ export class UserController {
   @UseGuards(RolesGuard)
   @Get(':id')
   async getUser(@Param('id') id: string): Promise<User> {
+    const hello = '';
     return await this.service.getUser(parseInt(id));
   }
 
