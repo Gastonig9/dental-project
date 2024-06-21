@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { Patient } from '@prisma/client';
 import { PatientRequestDto } from 'src/dtos';
@@ -11,8 +12,27 @@ export class PatientRepository {
     return this.context.patient.create({ data });
   }
 
-  async getAllPatients(): Promise<Patient[]> {
+  async getAllPatients(dni?: number, name?: string, gender?: string): Promise<Patient[]> {
+    const where: any = {};
+
+    if (dni) {
+      where.dni = dni;
+    }
+    if (name) {
+      where.name = {
+        contains: name,
+        mode: 'insensitive',
+      };
+    }
+    if (gender) {
+      where.gender = {
+        contains: gender,
+        mode: 'insensitive',
+      }
+    }
+
     return this.context.patient.findMany({
+      where,
       include: {
         appointments: true,
       },
@@ -27,6 +47,8 @@ export class PatientRepository {
       select: {
         name: true,
         surname: true,
+        pEmail: true,
+        adress: true,
         gender: true,
         dni: true,
         appointments: {
@@ -41,5 +63,9 @@ export class PatientRepository {
         },
       },
     });
+  }
+
+  async getPatientByDni(dni: number): Promise<Patient | null> {
+    return this.context.patient.findFirst({ where: { dni } });
   }
 }

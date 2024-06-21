@@ -8,5 +8,6 @@ import { PatientService } from './patients.service';
   imports: [AppContextModule],
   controllers: [PatientController],
   providers: [PatientRepository, PatientService],
+  exports: [PatientService],
 })
 export class PatientModule {}

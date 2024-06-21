@@ -27,6 +27,7 @@ export class UserService {
       await this.dentistRepository.addDentist({
         notes: '',
         userId: response.id,
+        fullname: user.fullname,
       });
     }
 
