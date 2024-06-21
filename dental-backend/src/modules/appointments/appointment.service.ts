@@ -83,7 +83,7 @@ export class AppointmentService {
   async checkAvailability(dentistId: number, date: Date): Promise<boolean> {
     const findAppointments = await this.repository.CheckDentistAvailability(dentistId, date)
     return findAppointments.length === 0;
-  }
+  }  
 
   async deleteAppointment(id: number): Promise<Appointment> {
     return this.repository.deleteAppointmentById(id);

@@ -9,10 +9,11 @@ import { PatientRepository } from '../patients/patients.repository';
 import { DentistService } from '../dentists/dentist.service';
 import { DentistRepository } from '../dentists/dentist.repository';
 import { EmailService } from 'src/utils/email.service';
+import { AppointmentReminderService } from 'src/utils/appointment-reminder.service';
 
 @Module({
   imports: [AppContextModule],
   controllers: [AppointmentController],
-  providers: [AppointmentRepository, AppointmentService, PatientService, PatientRepository, DentistService, DentistRepository, EmailService],
+  providers: [AppointmentRepository, AppointmentService, PatientService, PatientRepository, DentistService, DentistRepository, EmailService, AppointmentReminderService],
 })
 export class AppointmentModule {}

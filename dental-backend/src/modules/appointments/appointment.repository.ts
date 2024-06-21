@@ -6,7 +6,7 @@ import { Context } from 'src/prisma/prisma.context';
 
 @Injectable()
 export class AppointmentRepository {
-  constructor(private readonly context: Context) {}
+  constructor(private readonly context: Context) { }
 
   async GetAllAppointments(): Promise<Appointment[]> {
     return this.context.appointment.findMany();
