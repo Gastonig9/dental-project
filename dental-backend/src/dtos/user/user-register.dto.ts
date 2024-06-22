@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { $Enums } from '@prisma/client';
 import { IsEmail, MaxLength, MinLength } from 'class-validator';
 
-export class RegisterAuthDto {
+export class UserRegisterDto {
   @ApiProperty()
   @IsEmail()
   email: string;

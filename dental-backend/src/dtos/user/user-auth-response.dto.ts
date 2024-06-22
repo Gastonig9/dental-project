@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 
-export class ResponseAuthDto {
+export class UserAuthResponseDto {
   token: string;
   user: Omit<User, 'id' | 'password'>;
 }
