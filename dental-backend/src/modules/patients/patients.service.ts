@@ -10,7 +10,12 @@ export class PatientService {
   constructor(private readonly repository: PatientRepository) {}
 
   async addPatient(patient: PatientRequestDto): Promise<Patient> {
-    return this.repository.addPatient(patient);
+    try {
+      return this.repository.addPatient(patient);
+    } catch (error) {
+      throw error
+    }
+    
   }
 
   async getPatient(id: number): Promise<Patient> {

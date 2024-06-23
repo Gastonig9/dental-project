@@ -24,24 +24,7 @@ export class RecordController {
           record,
         });
       } catch (error) {
-        let status = HttpStatus.INTERNAL_SERVER_ERROR;
-        let message = 'Interval server error';
-  
-        if (error instanceof PrismaClientValidationError) {
-          status = HttpStatus.BAD_REQUEST;
-          message = "Uno o mas campos son incorrectos";
-        }
-
-        if(error instanceof NotFoundException) {
-            status = HttpStatus.NOT_FOUND
-            message = "Ya existe un historial medico para este paciente"
-        }
-  
-        return res.status(status).json({
-          error: message,
-          message: 'Ocurrio un error',
-          statusCode: status,
-        });
+        throw error;
       }
     }
 
