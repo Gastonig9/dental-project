@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { RecordRepository } from './record.repository';
 import { MedicalHistoryRequestDto } from 'src/dtos/record.dto';
 import { MedicalHistory } from '@prisma/client';
@@ -10,11 +10,22 @@ export class RecordService {
         private readonly recordRepository: RecordRepository,
     ) {}
 
+    async getAllRecords() {
+        return this.recordRepository.getRecords();
+    }
+
+    async verifyPatientRecord(pId: number) {
+        return this.recordRepository.verifyPatientRecord(pId)
+    }
+
     async addNewRecord(data: MedicalHistoryRequestDto): Promise<MedicalHistory> {
         try {
+            const { patientId } = data;
+            const recordExist = await this.verifyPatientRecord(patientId)
+            if(recordExist) throw new NotFoundException('Ya existe un historial medico para este paciente')
             return this.recordRepository.addRecord(data);
         } catch (error) {
-            return error
+            throw error
         }
 
     }

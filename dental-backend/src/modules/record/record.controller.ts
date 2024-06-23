@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Post, Body, Put, Param, ParseIntPipe, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, ParseIntPipe, Res, HttpStatus, NotFoundException } from '@nestjs/common';
 import { RecordService } from './record.service';
 import { MedicalHistoryRequestDto } from 'src/dtos/record.dto';
 import { MedicalHistory } from '@prisma/client';
@@ -25,11 +25,16 @@ export class RecordController {
         });
       } catch (error) {
         let status = HttpStatus.INTERNAL_SERVER_ERROR;
-        let message = 'An error occurred';
+        let message = 'Interval server error';
   
         if (error instanceof PrismaClientValidationError) {
           status = HttpStatus.BAD_REQUEST;
           message = "Uno o mas campos son incorrectos";
+        }
+
+        if(error instanceof NotFoundException) {
+            status = HttpStatus.NOT_FOUND
+            message = "Ya existe un historial medico para este paciente"
         }
   
         return res.status(status).json({

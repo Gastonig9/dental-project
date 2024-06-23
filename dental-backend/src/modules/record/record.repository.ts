@@ -16,6 +16,12 @@ export class RecordRepository {
         return this.context.medicalHistory.findMany();
     }
 
+    async verifyPatientRecord(patientId:number) {
+        return this.context.medicalHistory.findFirst({ where: {
+            patientId
+        } });
+    }
+
     async updateRecord(id: number, data: Partial<MedicalHistoryRequestDto>): Promise<MedicalHistory> {
         return this.context.medicalHistory.update({
             where: { id },
