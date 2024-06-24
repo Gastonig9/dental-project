@@ -1,10 +1,24 @@
-import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Delete,
+  Param,
+  UseGuards,
+  Post,
+  Body,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '@prisma/client';
-import { ApiBody } from '@nestjs/swagger';
-import { UserRequestDto } from '../../dtos';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { RolesGuard } from '../auth/jwt/roles.guard';
+import { Public } from 'src/decorators/public.decorator';
+import { UserRequestDto } from 'src/dtos';
+import { DentistDto } from 'src/dtos';
 
-@Controller('/user')
+@Public()
+@ApiBearerAuth()
+@ApiTags('Users')
+@Controller('api/user')
 export class UserController {
   constructor(private readonly service: UserService) {}
 
@@ -13,18 +27,21 @@ export class UserController {
     return await this.service.getAllUsers();
   }
 
+  @UseGuards(RolesGuard)
   @Get(':id')
   async getUser(@Param('id') id: string): Promise<User> {
+    const hello = '';
     return await this.service.getUser(parseInt(id));
   }
 
-  @Post()
+  @Post('/register-user')
   @ApiBody({ type: UserRequestDto })
   async addUser(@Body() data: User): Promise<User> {
     return await this.service.addUser(data);
   }
 
   @Delete(':id')
+  @UseGuards(RolesGuard)
   async deleteUser(@Param('id') id: string): Promise<User> {
     return await this.service.deleteUser(parseInt(id));
   }

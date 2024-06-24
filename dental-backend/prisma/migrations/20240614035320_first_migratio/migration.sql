@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "EnumRoles" AS ENUM ('OWNER', 'ASSOCIATED', 'CLIENT');
+CREATE TYPE "EnumRoles" AS ENUM ('OWNER', 'ASSOCIATED', 'SECRETARY', 'CLIENT');
 
 -- CreateEnum
 CREATE TYPE "AppointmentState" AS ENUM ('PENDING', 'CANCEL', 'REALIZED');
@@ -27,6 +27,7 @@ CREATE TABLE "Roles" (
 -- CreateTable
 CREATE TABLE "Dentist" (
     "id" SERIAL NOT NULL,
+    "fullname" TEXT NOT NULL,
     "notes" TEXT,
     "userId" INTEGER NOT NULL,
 
@@ -39,7 +40,10 @@ CREATE TABLE "Patient" (
     "name" TEXT NOT NULL,
     "surname" TEXT NOT NULL,
     "gender" TEXT NOT NULL,
+    "pEmail" TEXT NOT NULL,
     "dni" INTEGER NOT NULL,
+    "phone" INTEGER NOT NULL,
+    "adress" TEXT NOT NULL,
 
     CONSTRAINT "Patient_pkey" PRIMARY KEY ("id")
 );
@@ -68,6 +72,7 @@ CREATE TABLE "Appointment" (
     "patientId" INTEGER NOT NULL,
     "state" "AppointmentState" NOT NULL,
     "results" TEXT NOT NULL,
+    "reason" TEXT NOT NULL,
 
     CONSTRAINT "Appointment_pkey" PRIMARY KEY ("id")
 );
@@ -94,10 +99,10 @@ CREATE UNIQUE INDEX "Owner_userId_key" ON "Owner"("userId");
 ALTER TABLE "User" ADD CONSTRAINT "User_role_name_fkey" FOREIGN KEY ("role_name") REFERENCES "Roles"("name") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Dentist" ADD CONSTRAINT "Dentist_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Dentist" ADD CONSTRAINT "Dentist_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Secretary" ADD CONSTRAINT "Secretary_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Secretary" ADD CONSTRAINT "Secretary_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Owner" ADD CONSTRAINT "Owner_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

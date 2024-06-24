@@ -1,3 +1,8 @@
+
 export const Landing = () => {
-  return <></>;
+  return (
+    <>
+      
+    </>
+  );
 };

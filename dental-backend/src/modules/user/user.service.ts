@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { User } from '@prisma/client';
 import { DentistRepository } from '../dentists/dentist.repository';
-import { ROLES } from 'src/enums';
 import { SecretaryService } from '../secretary/secretary.service';
+import { ROLES } from 'src/enums';
+// import { RegisterAuthDto } from '../auth/dto/register-auth.dto';
 
 @Injectable()
 export class UserService {
@@ -23,10 +24,12 @@ export class UserService {
 
   async addUser(user: User): Promise<User> {
     const response = await this.repository.AddUser(user);
+
     if (user.role_name === ROLES.OWNER || user.role_name === ROLES.ASSOCIATED) {
       await this.dentistRepository.addDentist({
         notes: '',
         userId: response.id,
+        fullname: user.fullname,
       });
     }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Secretary, User } from '@prisma/client';
+import { Secretary } from '@prisma/client';
 import { SecretaryResponseDto } from 'src/dtos';
 import { Context } from 'src/prisma/prisma.context';
 

@@ -13,7 +13,6 @@ export default {
       screens: {
         xs: "360px",
         // => @media (min-width: 360px) { ... }
-
         sm: "640px",
         // => @media (min-width: 640px) { ... }
 
@@ -29,7 +28,7 @@ export default {
         "2xl": "1536px",
         // => @media (min-width: 1536px) { ... }
       },
-      plugins: [],
     },
   },
+  plugins: [],
 };
