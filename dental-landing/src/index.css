@@ -63,9 +63,88 @@
   font-style: normal;
 }
 
-/* .CallToAction-img-container{
-  background-image: url('assets/img/landing/dentists-smiling-posing-dental-clinic.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-} */
+.poppins-thin-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.poppins-extralight-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.poppins-light-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.poppins-regular-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.poppins-medium-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.poppins-extrabold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.poppins-black-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+
+/* review carousel styles */
+.splide__arrow svg {
+  display: none;
+}
+
+.splide__track--draggable{
+  padding-bottom: 1.5rem;
+}
+
+/* map responsiveness */
+.responsive-map{
+  width: 300px;
+  height: 300px;
+  margin-right: auto;
+
+}
+
+@media screen and (min-width: 1024px){
+  .responsive-map{
+    width: 500px;
+    height: 500px;
+  }
+}
+
+@media screen and (min-width: 1536px){
+  .responsive-map{
+    width: 831px;
+    height: 608px;
+  }
+}
