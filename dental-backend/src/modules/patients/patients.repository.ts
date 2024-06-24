@@ -39,6 +39,7 @@ export class PatientRepository {
       where,
       include: {
         appointments: true,
+        medicalHistories: true
       },
     });
   }
