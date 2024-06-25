@@ -1,8 +1,10 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, Logger } from '@nestjs/common';
 import * as cron from 'node-cron';
 import { EmailService } from './email.service';
 import { AppointmentService } from 'src/modules/appointments/appointment.service';
 import { PatientService } from 'src/modules/patients/patients.service';
+import { WhatsappService } from './whatsapp.service';
 
 @Injectable()
 export class AppointmentReminderService {
@@ -12,6 +14,7 @@ export class AppointmentReminderService {
     private readonly appointmentService: AppointmentService,
     private readonly patientService: PatientService,
     private readonly emailService: EmailService,
+    private readonly whatsappService: WhatsappService,
   ) {
     cron.schedule('* * * * *', () => {
       this.logger.debug(
@@ -23,7 +26,7 @@ export class AppointmentReminderService {
 
   async sendAppointmentReminders() {
     try {
-      const minutesBeforeReminder = 60;
+      const minutesBeforeReminder = 3;
       const now = new Date();
       const appointments = await this.appointmentService.getAllAppointments();
 
@@ -52,7 +55,6 @@ export class AppointmentReminderService {
           this.logger.debug(`Diferencia en minutos: ${timeDifference}`);
 
           if (
-            appointment.state === 'REALIZED' &&
             timeDifference === minutesBeforeReminder &&
             timeDifference > 0 &&
             this.isSameDay(now, adjustedAppointmentDate)
@@ -62,6 +64,10 @@ export class AppointmentReminderService {
             );
             await this.emailService.sendReminderEmail(patient, appointment);
             this.logger.debug(`Recordatorio enviado a: ${patient.pEmail}`);
+
+            const whatsappMessage = `Hola ${patient.name}, le recordamos su cita a las ${appointmentHours}:${appointmentMinutes}.`;
+            await this.whatsappService.sendWhatsAppMessage('+5401130458590', whatsappMessage);
+            this.logger.debug(`Recordatorio de WhatsApp enviado a: ${patient.phone}`);
           } else {
             this.logger.debug(
               `Cita no cumple la condición para recordatorio: ${appointment.date}`,
