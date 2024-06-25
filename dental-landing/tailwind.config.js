@@ -7,7 +7,7 @@ export default {
         acento: "#58D68D",
         background: "#F9F9FF",
         typography: "#18212B",
-        lightgray: "#EEEEF0",
+        lightgray: "#F5F5F5",
         darkgray: "#DAE3DE",
       },
       screens: {

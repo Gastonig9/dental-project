@@ -7,6 +7,7 @@ import { UserModule } from './modules/user/user.module';
 import { SecretaryModule } from './modules/secretary/secretary.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { RecordModule } from './modules/record/record.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
     DentistModule,
     SecretaryModule,
     AppointmentModule,
+    RecordModule,
     MailerModule.forRoot({
       transport: {
         service: process.env.service,

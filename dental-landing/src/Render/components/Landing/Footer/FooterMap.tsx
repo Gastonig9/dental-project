@@ -34,10 +34,10 @@ function MyComponent() {
   return isLoaded ? (
     <GoogleMap
       center={center}
-      zoom={11}
+      zoom={10}
       onLoad={onLoad}
       onUnmount={onUnmount}
-      mapContainerClassName="rounded-3xl shadow-2xl  responsive-map"
+      mapContainerClassName="rounded-3xl shadow-2xl  responsive-map w-full lg:basis-1/2"
     >
       <Marker
         position={{ lat: -34.592409765174374, lng: -58.39356461166401 }}

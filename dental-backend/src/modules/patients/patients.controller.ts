@@ -23,7 +23,11 @@ export class PatientController {
   @Post()
   @ApiBody({ type: PatientRequestDto })
   async addPatient(@Body() data: PatientRequestDto): Promise<Patient> {
-    return this.patientService.addPatient(data);
+    try {
+      return this.patientService.addPatient(data);
+    } catch (error) {
+      throw error;
+    }
   }
 
   @Get('get-patients')
