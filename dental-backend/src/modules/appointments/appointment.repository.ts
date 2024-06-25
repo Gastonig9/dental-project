@@ -8,7 +8,11 @@ export class AppointmentRepository {
   constructor(private readonly context: Context) {}
 
   async GetAllAppointments(): Promise<Appointment[]> {
-    return this.context.appointment.findMany();
+    return this.context.appointment.findMany({
+      orderBy: {
+        date: 'asc',
+      },
+    });
   }
 
   async AddAppointment(data: AppointmentRequestDto): Promise<Appointment> {
