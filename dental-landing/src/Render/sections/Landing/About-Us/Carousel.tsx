@@ -43,7 +43,10 @@ const Carousel = () => {
       >
         {images.map((image, index) => (
           <SplideSlide className="">
-            <div key={index} className="w-[360px] h-[515px] flex rounded-[50px] shadow-2xl">
+            <div
+              key={index}
+              className="w-[360px] h-[515px] flex rounded-[50px] shadow-2xl"
+            >
               <picture className="relative shadow-2xl rounded-[50px] ">
                 <img
                   src={image}
