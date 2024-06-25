@@ -1,4 +1,3 @@
-import React from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css/sea-green";
 
@@ -129,7 +128,7 @@ const Reviews = () => {
   return (
     <section className="bg-[#f5f5f5] text-[#3C3C43] pt-8 pb-3">
       {/* phones */}
-      <div className="sm:hidden mx-auto max-w-[1648px]" >
+      <div className="sm:hidden mx-auto max-w-[1648px]">
         <Splide
           aria-label="My Favorite Images"
           options={{
@@ -140,13 +139,20 @@ const Reviews = () => {
         >
           {mockReviews.map((review) => (
             <SplideSlide>
-              <div className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg" key={review.id}>
+              <div
+                className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg"
+                key={review.id}
+              >
                 <div className="flex flex-col leading-6">
                   <p className="text-[19px] font-semibold">{review.title}</p>
                   <p className="text-[19px] font-semibold">{review.subtitle}</p>
                 </div>
-                <p className="mt-4 text-[16px] leading-5">{review.description}</p>
-                <h3 className="mt-2 xl:text-2xl">{`⭐`.repeat(review.stars)}</h3>
+                <p className="mt-4 text-[16px] leading-5">
+                  {review.description}
+                </p>
+                <h3 className="mt-2 xl:text-2xl">
+                  {`⭐`.repeat(review.stars)}
+                </h3>
               </div>
             </SplideSlide>
           ))}
@@ -165,13 +171,20 @@ const Reviews = () => {
         >
           {mockReviews.map((review) => (
             <SplideSlide>
-              <div className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg" key={review.id}>
+              <div
+                className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg"
+                key={review.id}
+              >
                 <div className="flex flex-col leading-6">
                   <p className="text-[19px] font-semibold">{review.title}</p>
                   <p className="text-[19px] font-semibold">{review.subtitle}</p>
                 </div>
-                <p className="mt-4 text-[16px] leading-5">{review.description}</p>
-                <h3 className="mt-2 xl:text-2xl">{`⭐`.repeat(review.stars)}</h3>
+                <p className="mt-4 text-[16px] leading-5">
+                  {review.description}
+                </p>
+                <h3 className="mt-2 xl:text-2xl">
+                  {`⭐`.repeat(review.stars)}
+                </h3>
               </div>
             </SplideSlide>
           ))}
@@ -190,13 +203,20 @@ const Reviews = () => {
         >
           {mockReviews.map((review) => (
             <SplideSlide>
-              <div className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg pb-10" key={review.id}>
+              <div
+                className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg pb-10"
+                key={review.id}
+              >
                 <div className="flex flex-col leading-6">
                   <p className="text-[19px] font-semibold">{review.title}</p>
                   <p className="text-[19px] font-semibold">{review.subtitle}</p>
                 </div>
-                <p className="mt-4 text-[16px] leading-5">{review.description}</p>
-                <h3 className="mt-2 xl:text-2xl">{`⭐`.repeat(review.stars)}</h3>
+                <p className="mt-4 text-[16px] leading-5">
+                  {review.description}
+                </p>
+                <h3 className="mt-2 xl:text-2xl">
+                  {`⭐`.repeat(review.stars)}
+                </h3>
               </div>
             </SplideSlide>
           ))}
