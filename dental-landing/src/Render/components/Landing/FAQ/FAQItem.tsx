@@ -50,7 +50,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
     <div className=" border border-black rounded-lg mb-2 bg-lightgray">
       <button
         onClick={onClick}
-        className="w-full text-left p-5 flex justify-between items-center"
+        className="w-full text-left p-5 lg:p-10 flex justify-between items-center"
       >
         <span>{question}</span>
         <span>{isOpen ? "-" : "+"}</span>
