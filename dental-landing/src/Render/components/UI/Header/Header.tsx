@@ -34,7 +34,7 @@ export const Header = () => {
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-40 mx-10">
           <a href="#" className="text-lg">
-            Blog
+            Especialidades
           </a>
           <a href="#" className="text-lg">
             Nosotros
@@ -91,7 +91,7 @@ export const Header = () => {
                   href="#"
                   className="-mx-3 block rounded-lg px-3 py-2 text-lg font-semibold leading-7"
                 >
-                  Blog
+                  Especialidades
                 </a>
                 <a
                   href="#"

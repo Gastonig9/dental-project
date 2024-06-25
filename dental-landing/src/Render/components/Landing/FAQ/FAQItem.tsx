@@ -50,12 +50,12 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
     <div className=" border border-black rounded-lg mb-2 bg-lightgray">
       <button
         onClick={onClick}
-        className="w-full text-left p-8 flex justify-between items-center"
+        className="w-full text-left p-5 flex justify-between items-center"
       >
         <span>{question}</span>
-        <span className="">{isOpen ? "-" : "+"}</span>
+        <span>{isOpen ? "-" : "+"}</span>
       </button>
-      {isOpen && <p className="py-4 px-10">{answer}</p>}
+      {isOpen && <p className="pb-8 px-8">{answer}</p>}
     </div>
   );
 };
@@ -68,9 +68,8 @@ const Accordion: React.FC = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto my-8">
-      <h2 className="text-2xl font-bold mb-4"></h2>
-      <div className="divide-y">
+    <div className="mx-0 lg:mx-36 my-8">
+      <div>
         {FAQInfo.map((item, index) => (
           <AccordionItem
             key={index}
@@ -87,7 +86,7 @@ const Accordion: React.FC = () => {
 
 export const FAQItem: React.FC = () => {
   return (
-    <div className="p-4">
+    <div className="pt-0 lg:p-4">
       <Accordion />
     </div>
   );
