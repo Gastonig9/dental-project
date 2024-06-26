@@ -155,6 +155,7 @@ const Reviews = () => {
                   {`⭐`.repeat(review.stars)}
                 </h3>
               </div>
+              <div className="splide__arrows hidden" />
             </SplideSlide>
           ))}
         </Splide>
@@ -187,6 +188,7 @@ const Reviews = () => {
                   {`⭐`.repeat(review.stars)}
                 </h3>
               </div>
+              <div className="splide__arrows hidden" />
             </SplideSlide>
           ))}
         </Splide>
@@ -219,6 +221,7 @@ const Reviews = () => {
                   {`⭐`.repeat(review.stars)}
                 </h3>
               </div>
+              <div className="splide__arrows hidden" />
             </SplideSlide>
           ))}
         </Splide>

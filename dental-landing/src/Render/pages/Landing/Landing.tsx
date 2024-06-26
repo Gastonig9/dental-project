@@ -17,7 +17,7 @@ export const Landing = () => {
       <Reviews />
       <FAQ />
       <Footer />
-      <WhatsappBtn /> 
+      <WhatsappBtn />
     </>
   );
 };

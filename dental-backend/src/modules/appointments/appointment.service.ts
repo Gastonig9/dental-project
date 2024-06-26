@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { AppointmentRepository } from './appointment.repository';
@@ -20,7 +21,11 @@ export class AppointmentService {
   ) {}
 
   async getAppointment(id: number): Promise<Appointment> {
-    return this.repository.GetAppointmentById(id);
+    const appointment = await this.repository.GetAppointmentById(id);
+
+    if (!appointment) throw new NotFoundException('Cita no encontrada');
+
+    return appointment;
   }
 
   async getAllAppointments(): Promise<Appointment[]> {
@@ -55,7 +60,7 @@ export class AppointmentService {
 
       return await this.repository.AddAppointment(newAppointment);
     } catch (error) {
-      throw error;
+      throw new InternalServerErrorException('Error al crear la cita');
     }
   }
 
@@ -106,7 +111,7 @@ export class AppointmentService {
 
       return updatedAppointment;
     } catch (error) {
-      throw error;
+      throw new InternalServerErrorException('Error al confirmar la cita');
     }
   }
 
@@ -119,7 +124,12 @@ export class AppointmentService {
   }
 
   async deleteAppointment(id: number): Promise<Appointment> {
-    return this.repository.deleteAppointmentById(id);
+    const appointment = await this.repository.deleteAppointmentById(id);
+    if (!appointment) {
+      throw new NotFoundException('Appointment not found');
+    }
+
+    return appointment;
   }
 }
 
