@@ -3,6 +3,10 @@ import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import "./Login.css";
 
 function Login() {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  }
+
   return (
     <section className="min-h-screen min-w-full login-bg-img flex items-center justify-center">
       <div className="login-form w-[350px] md:w-[500px] lg:w-[929px] h-[495px] mx-auto my-2 bg-lightgray bg-opacity-60 p-5 lg:p-8 rounded-xl border border-slate-700">
@@ -17,7 +21,7 @@ function Login() {
             </button>
           </Link>
         </div>
-        <form action="" className="my-5 mx-auto w-[90%] lg:w-[50%]">
+        <form onSubmit={handleSubmit} className="my-5 mx-auto w-[90%] lg:w-[50%]">
           <h2 className="text-center lg:text-left poppins-medium text-xl mb-8">Inicio de sesión</h2>
           <div className="flex flex-col poppins-regular">
             <label htmlFor="email">
@@ -47,7 +51,7 @@ function Login() {
                 </a>
               </div>
             </div>
-            <button className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14">
+            <button type="submit" className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14">
               <span>Continuar</span>
             </button>
           </div>
