@@ -1,3 +1,5 @@
+
+import { Dashboard } from "../pages/Dashboard/Dashboard";
 import Example from "../pages/Example/Example";
 import Example2 from "../pages/Example2/Example2";
 import Example3 from "../pages/Example3/Example3";
@@ -11,6 +13,7 @@ function App() {
     <Routes>
       <Route path="/" element={ <Landing /> } />
       <Route path="/login" element={ <Login /> } />
+      <Route path="/dashboard" element={ <Dashboard/> } />
       <Route path="/*" element={ <NotFound /> } />
       <Route path="/example" element={ <Example /> } />
       <Route path="/example2" element={ <Example2 /> } />

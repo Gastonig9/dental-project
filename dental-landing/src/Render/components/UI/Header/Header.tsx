@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -47,7 +48,7 @@ export const Header = () => {
           </a>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-lg">
+          <Link to="/login" className="text-lg">
             <button className="flex items-center bg-acento p-3 rounded-lg">
               Profesional
               <ChevronRightIcon
@@ -55,7 +56,7 @@ export const Header = () => {
                 aria-hidden="true"
               />
             </button>
-          </a>
+          </Link>
         </div>
       </nav>
 
@@ -113,7 +114,7 @@ export const Header = () => {
                 </a>
               </div>
               <div className="py-6">
-                <a href="#" className="text-lg">
+                <Link to="/login" className="text-lg">
                   <button className="flex items-center bg-acento p-3 rounded-lg">
                     Profesional
                     <ChevronRightIcon
@@ -121,7 +122,7 @@ export const Header = () => {
                       aria-hidden="true"
                     />
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
