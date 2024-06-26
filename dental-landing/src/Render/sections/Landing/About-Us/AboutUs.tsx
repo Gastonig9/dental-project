@@ -3,7 +3,7 @@ import Carousel from "./Carousel";
 export const AboutUs = () => {
   return (
     <>
-      <section className="relative bg-background lg:py-[183px]">
+      <section className="relative bg-background lg:pt-[183px]">
         <div className="flex flex-col sm:flex-row justify-center items-center mx-auto px-4 lg:px-8">
           <div className="mt-[105px] lg:mt-[132px]">
             {/* Section Titile */}
@@ -27,9 +27,9 @@ export const AboutUs = () => {
             </p>
           </div>
           {/* Doc Photo */}
-          <picture className="bg-[#d9d9d9] w-[391px] h-[366px] lg:w-[765px] lg:h-[656px] lg:rounded-[50px] ml-[54px]">
+          <picture className="bg-[#d9d9d9] h-[366px] lg:w-[765px] lg:h-[656px] lg:rounded-[50px] ml-[54px]">
             <img
-              className="lg:rounded-[50px] object-cover h-full w-full opacity-60 lg:opacity-100"
+              className="lg:rounded-[50px] object-cover h-full w-full opacity-60 md:opacity-100"
               src="./imgs/about-us/dental-squoosh.jpg"
               alt="FOTO DOC"
             />

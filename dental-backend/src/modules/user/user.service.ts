@@ -1,4 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { User } from '@prisma/client';
 import { UNION_ROLES } from 'src/types';
@@ -31,10 +35,8 @@ export class UserService {
     const userExist = await this.userRepository.GetUserByEmail(user.email);
 
     if (!userExist)
-      throw new HttpException(
-        'Email or Password is incorrect',
-        HttpStatus.UNAUTHORIZED,
-      );
+      throw new UnauthorizedException('Email y/o Contraseña incorrectos');
+
     const { id, password: hashPassword, ...userWithoutId } = userExist;
 
     const isEqual = await this.authService.comparePassword({
@@ -43,10 +45,7 @@ export class UserService {
     });
 
     if (!isEqual)
-      throw new HttpException(
-        'Email or Password is incorrect',
-        HttpStatus.UNAUTHORIZED,
-      );
+      throw new UnauthorizedException('Email y/o Contraseña incorrectos');
 
     const token = await this.authService.generateToken({
       id,
@@ -60,7 +59,11 @@ export class UserService {
   }
 
   async getUser(id: number): Promise<User> {
-    return this.userRepository.GetUserById(id);
+    const user = await this.userRepository.GetUserById(id);
+
+    if (!user) throw new NotFoundException('Usuario no encontrado');
+
+    return user;
   }
 
   async getAllUsers(): Promise<User[]> {
@@ -68,7 +71,11 @@ export class UserService {
   }
 
   async deleteUser(id: number): Promise<User> {
-    return this.userRepository.DeleteUserById(id);
+    const user = await this.userRepository.DeleteUserById(id);
+
+    if (!user) throw new NotFoundException('usuario no encontrado');
+
+    return user;
   }
 
   private AddUserType: {
