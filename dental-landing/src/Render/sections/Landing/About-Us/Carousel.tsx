@@ -1,8 +1,12 @@
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css/sea-green";
-import { IoIosArrowBack } from "react-icons/io";
 
 const Carousel = () => {
+  const splideStyles = {
+    padding: 0,
+    paddingBottom: "1.5rem",
+  };
+
   const images = [
     "./public/imgs/about-us/carousel/1.jpg",
     "./public/imgs/about-us/carousel/2.jpg",
@@ -12,53 +16,42 @@ const Carousel = () => {
   ];
 
   return (
-    <div className=" flex  justify-center ">
-      <IoIosArrowBack />
+    <section className="pt-[47px] lg:pt-[213px]">
       <Splide
-        className=""
+        style={splideStyles}
         aria-label="Dental Images Carousel"
         options={{
-          arrow: true,
           type: "loop",
           drag: "free",
           perPage: 4,
           perMove: 1,
           focus: 0,
           autoplay: true,
-          padding: { top: 100 },
-          width: "100%",
           breakpoints: {
-            640: {
+            390: {
               perPage: 2,
-              gap: ".7rem",
-              height: "300px",
             },
-            480: {
-              perPage: 1,
-              gap: ".7rem",
-              height: "150px",
+            768: {
+              perPage: 3,
             },
           },
         }}
       >
         {images.map((image, index) => (
-          <SplideSlide className="">
-            <div
-              key={index}
-              className="w-[360px] h-[515px] flex rounded-[50px] shadow-2xl"
-            >
-              <picture className="relative shadow-2xl rounded-[50px] ">
+          <SplideSlide>
+            <div key={index} className="flex justify-center pb-10">
+              <picture className="relative h-[269px] w-[180px] lg:w-[360px] lg:h-[515px]">
                 <img
                   src={image}
                   alt={`Slide ${index}`}
-                  className="object-cover w-full h-full rounded-[50px] "
+                  className="object-cover w-full h-full rounded-[10px] lg:rounded-[50px] shadow-2xl"
                 />
               </picture>
             </div>
           </SplideSlide>
         ))}
       </Splide>
-    </div>
+    </section>
   );
 };
 
