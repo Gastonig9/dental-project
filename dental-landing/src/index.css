@@ -153,6 +153,15 @@
   }
 }
 
+.personalInfo-input-style {
+  width: 250px;
+  height: 44px;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #424242;
+  background: #f5f5f5;
+}
+
 /* review carousel styles */
 .splide__arrows svg {
   fill: #58d68d !important;

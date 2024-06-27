@@ -28,6 +28,10 @@ export class AppointmentRequestDto {
   @IsString()
   reason: string;
 
+  @ApiProperty()
+  @IsString()
+  odontograma: string;
+
   // //PATIENT
   // @IsString()
   // patientName?: string;

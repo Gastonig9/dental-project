@@ -117,4 +117,5 @@ model Appointment {
   state     AppointmentState
   results   String
   reason    String
+  odontograma String? 
 }

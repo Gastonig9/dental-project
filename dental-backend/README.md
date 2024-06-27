@@ -34,6 +34,10 @@ $ npm install
 
 ## Running the app
 
+#si hay cambios en el schema
+$ npx prisma migrate dev
+$ npm run seeds - solo si no tenes cargada la tabla de roles
+
 ```bash
 # development
 $ npm run start
