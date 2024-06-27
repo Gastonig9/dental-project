@@ -14,7 +14,6 @@ export class AppointmentReminderService {
     private readonly appointmentService: AppointmentService,
     private readonly patientService: PatientService,
     private readonly emailService: EmailService,
-    private readonly whatsappService: WhatsappService,
   ) {
     cron.schedule('* * * * *', () => {
       this.logger.debug(
@@ -64,10 +63,6 @@ export class AppointmentReminderService {
             );
             await this.emailService.sendReminderEmail(patient, appointment);
             this.logger.debug(`Recordatorio enviado a: ${patient.pEmail}`);
-
-            const whatsappMessage = `Hola ${patient.name}, le recordamos su cita a las ${appointmentHours}:${appointmentMinutes}.`;
-            await this.whatsappService.sendWhatsAppMessage('+5401130458590', whatsappMessage);
-            this.logger.debug(`Recordatorio de WhatsApp enviado a: ${patient.phone}`);
           } else {
             this.logger.debug(
               `Cita no cumple la condición para recordatorio: ${appointment.date}`,
