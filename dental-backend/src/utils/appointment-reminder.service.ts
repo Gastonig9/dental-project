@@ -1,8 +1,10 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, Logger } from '@nestjs/common';
 import * as cron from 'node-cron';
 import { EmailService } from './email.service';
 import { AppointmentService } from 'src/modules/appointments/appointment.service';
 import { PatientService } from 'src/modules/patients/patients.service';
+import { WhatsappService } from './whatsapp.service';
 
 @Injectable()
 export class AppointmentReminderService {
@@ -23,7 +25,7 @@ export class AppointmentReminderService {
 
   async sendAppointmentReminders() {
     try {
-      const minutesBeforeReminder = 60;
+      const minutesBeforeReminder = 3;
       const now = new Date();
       const appointments = await this.appointmentService.getAllAppointments();
 
@@ -52,7 +54,6 @@ export class AppointmentReminderService {
           this.logger.debug(`Diferencia en minutos: ${timeDifference}`);
 
           if (
-            appointment.state === 'REALIZED' &&
             timeDifference === minutesBeforeReminder &&
             timeDifference > 0 &&
             this.isSameDay(now, adjustedAppointmentDate)

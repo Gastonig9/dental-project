@@ -11,6 +11,7 @@ import { DentistService } from '../dentists/dentist.service';
 import { DentistRepository } from '../dentists/dentist.repository';
 import { EmailService } from 'src/utils/email.service';
 import { AppointmentReminderService } from 'src/utils/appointment-reminder.service';
+import { WhatsappService } from 'src/utils/whatsapp.service';
 
 @Module({
   imports: [AppContextModule, AuthModule],
@@ -24,6 +25,7 @@ import { AppointmentReminderService } from 'src/utils/appointment-reminder.servi
     DentistRepository,
     EmailService,
     AppointmentReminderService,
+    WhatsappService
   ],
 })
 export class AppointmentModule {}
