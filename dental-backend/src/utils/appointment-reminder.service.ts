@@ -4,7 +4,6 @@ import * as cron from 'node-cron';
 import { EmailService } from './email.service';
 import { AppointmentService } from 'src/modules/appointments/appointment.service';
 import { PatientService } from 'src/modules/patients/patients.service';
-import { WhatsappService } from './whatsapp.service';
 
 @Injectable()
 export class AppointmentReminderService {
