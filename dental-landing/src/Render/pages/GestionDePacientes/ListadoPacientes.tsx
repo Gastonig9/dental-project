@@ -135,7 +135,7 @@ const ListadoPacientes = () => {
               <input
                 type="text"
                 className="outline-none text-[19px] poppins font-bold bg-transparent"
-                placeholder="Buscar..."
+                placeholder="Buscar.."
                 onChange={handleChange}
                 value={inputData}
               />
