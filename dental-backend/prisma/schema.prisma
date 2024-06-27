@@ -13,9 +13,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum DentistLevel {
+enum EnumRoles {
   OWNER
   ASSOCIATED
+  SECRETARY
+  CLIENT
+}
+
+enum EnumInfoBoolean {
+  SI 
+  NO 
+  SIN_INFORMACION
 }
 
 enum AppointmentState {
@@ -24,32 +32,89 @@ enum AppointmentState {
   REALIZED
 }
 
+model User {
+  id Int @id   @default(autoincrement())
+   email     String   @unique
+   username  String   @unique
+   fullname  String
+   password  String
+   role  Roles @relation(fields: [role_name], references: [name])
+   role_name EnumRoles
+   dentist   Dentist?
+   secretary Secretary?
+   owner     Owner?
+}
+
+model Roles {
+  id Int @id   @default(autoincrement())
+  name EnumRoles @unique
+  user_id User[]
+}
+
 model Dentist {
   id Int @id   @default(autoincrement())
-  name String
-  surname String
+  // specialty  String
+  fullname String
+  notes      String?
   appointments Appointment[]
-  level DentistLevel
+  user User  @relation(fields: [userId], references: [id],onDelete: Cascade)
+  userId Int @unique 
 }
 
+model MedicalHistory {
+  id Int @id   @default(autoincrement())
+  patient   Patient      @relation(fields: [patientId], references: [id])
+  patientId Int
+  someDisease String
+  someTreatment String
+  consumeMedicaments String
+  allergyMedicament String
+  operations String
+  smokes EnumInfoBoolean
+  pregnant EnumInfoBoolean
+  attendance String
+  pains EnumInfoBoolean
+  dentalMobility EnumInfoBoolean
+  swollenFace EnumInfoBoolean
+  injuries EnumInfoBoolean
+  observations String
+}
 
 model Patient {
-  id Int @id   @default(autoincrement())
-  name String
-  surname String
-  gender  String
-  dni Int
+  id        Int          @id @default(autoincrement())
+  name      String
+  surname   String
+  gender    String
+  pEmail    String
+  dni       Int
+  phone     Int
+  adress    String
   appointments Appointment[]
+  medicalHistories MedicalHistory[]
 }
 
+model Secretary {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @unique
+  user       User    @relation(fields: [userId], references: [id],onDelete: Cascade)
+
+}
+
+model Owner {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @unique
+  user       User     @relation(fields: [userId], references: [id])
+
+}
 
 model Appointment {
-  id Int  @id   @default(autoincrement())
-  date DateTime
-  dentist  Dentist @relation(fields: [dentistId], references: [id])
-  dentistId Int 
-  patient Patient @relation(fields: [patientId],references: [id])
-  patientId Int 
-  state AppointmentState
-  results String
+  id        Int          @id @default(autoincrement())
+  date      DateTime
+  dentist   Dentist      @relation(fields: [dentistId], references: [id])
+  dentistId Int
+  patient   Patient      @relation(fields: [patientId], references: [id])
+  patientId Int
+  state     AppointmentState
+  results   String
+  reason    String
 }

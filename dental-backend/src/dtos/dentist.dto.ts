@@ -1,13 +1,7 @@
-import { $Enums, Dentist } from '@prisma/client';
-import { ApiProperty } from '@nestjs/swagger';
+import { Dentist } from '@prisma/client';
 
 export class DentistDto implements Omit<Dentist, 'id'> {
-  @ApiProperty()
-  name: string;
-
-  @ApiProperty()
-  surname: string;
-
-  @ApiProperty()
-  level: $Enums.DentistLevel;
+  notes: string;
+  userId: number;
+  fullname: string;
 }
