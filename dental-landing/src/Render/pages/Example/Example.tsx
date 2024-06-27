@@ -1,12 +1,20 @@
-import React from 'react'
-import Navbar from '../../components/Platform/Navbar'
+import React from "react";
+import Navbar from "../../components/Platform/Navbar";
+
+
 
 const Example = () => {
+
+
   return (
     <div>
       <Navbar />
     </div>
-  )
-}
+  );
+};
 
-export default Example
+export default Example;
+
+
+
+

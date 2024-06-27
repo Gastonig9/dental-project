@@ -49,24 +49,24 @@ const Navbar = () => {
               <MdClose />
             </button>
             
-            <div className={`flex items-center gap-1 ${location.pathname === '/example' ? 'text-black' : 'text-[#00000050] '} `}>
+            <div className={`flex items-center gap-1 ${location.pathname === '/gestionDePacientes/*' ? 'text-black' : 'text-[#00000050] '} `}>
               <IoPeople />
-              <Link to="/example" >
-                <h3 className="text-[16px] font-semibold">Gestión de pacientes</h3>
+              <Link to="/gestionDePacientes/listadoPacientes" >
+                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Gestión de pacientes</h3>
               </Link>
             </div>
 
             <div className={`flex items-center gap-1 ${location.pathname === '/example2' ? 'text-black' : 'text-[#00000050] '} `}>
               <FaCalendar />
               <Link to="/example2" >
-                <h3 className="text-[16px] font-semibold">Gestión de turnos</h3>
+                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Gestión de turnos</h3>
               </Link>
             </div>
 
             <div className={`flex items-center gap-1 ${location.pathname === '/example3' ? 'text-black' : 'text-[#00000050] '} `}>
               <IoStatsChart />
               <Link to="/example3" >
-                <h3 className="text-[16px] font-semibold">Reportes</h3>
+                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Reportes</h3>
               </Link>
             </div>
 
@@ -80,7 +80,7 @@ const Navbar = () => {
 
       {/* desktop navbar */}
       <nav
-        className={`bg-acento absolute top-0 left-0 h-screen rounded-tr-[80px] duration-300 shadow-xl z-10 hidden lg:block ${
+        className={`bg-acento fixed top-0 left-0 h-screen rounded-tr-[80px] duration-300 shadow-xl z-10 hidden lg:block ${
           desktopMenu ? "w-[390px]" : "w-[173px]"
         }`}
       >
@@ -97,7 +97,7 @@ const Navbar = () => {
             {/* people icon */}
             <div
               className={`flex items-center gap-1 ${
-                location.pathname === "/example"
+                location.pathname.startsWith("/gestionDePacientes")
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
@@ -105,8 +105,8 @@ const Navbar = () => {
               <IoPeople className="text-5xl" />
               {desktopMenu && (
 
-                <Link to="/example" >  
-                  <h3 className="text-[16px] font-semibold">Gestionar Pacientes</h3>
+                <Link to="/gestionDePacientes/listadoPacientes" >  
+                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Gestionar Pacientes</h3>
                 </Link>
               )}
             </div>
@@ -122,7 +122,7 @@ const Navbar = () => {
               <FaCalendar className="text-5xl" />
               {desktopMenu && (
                 <Link to="/example2" >  
-                  <h3 className="text-[16px] font-semibold">Gestionar Turnos</h3>
+                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Gestionar Turnos</h3>
                 </Link>
               )}
             </div>
@@ -138,7 +138,7 @@ const Navbar = () => {
               <IoStatsChart className="text-5xl" />
               {desktopMenu && (
                 <Link to="/example3" >  
-                  <h3 className="text-[16px] font-semibold">Reportes</h3>
+                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Reportes</h3>
                 </Link>
               )}
             </div>
@@ -146,7 +146,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <header className="h-[127px] bg-[#DAE3DE] absolute top-0 w-full hidden lg:flex">
+      <header className="h-[127px] bg-[#DAE3DE] fixed top-0 w-full hidden lg:flex">
         <div className="flex justify-between items-center w-10/12 mx-auto pl-[120px]  ">
           <h3 className="text-[33px] font-semibold">Logo</h3>
           <div className="flex items-center gap-2 bg-[#B4B4B4] py-3 px-8 rounded-3xl">
