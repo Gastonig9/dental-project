@@ -6,6 +6,7 @@ import { UserService } from './user.service';
 import { DentistModule } from '../dentists/dentist.module';
 import { SecretaryModule } from '../secretary/secretary.module';
 import { AuthModule } from '../auth/auth.module';
+import { EmailService } from 'src/utils/email.service';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { AuthModule } from '../auth/auth.module';
     forwardRef(() => AuthModule),
   ],
   controllers: [UserController],
-  providers: [UserRepository, UserService],
+  providers: [UserRepository, UserService, EmailService],
   exports: [UserRepository],
 })
 export class UserModule {}
