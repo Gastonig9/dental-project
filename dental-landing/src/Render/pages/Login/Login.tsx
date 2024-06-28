@@ -1,11 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import "./Login.css";
+import { useState } from "react";
 
-function Login() {
+export const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  }
+
+    try {
+      const response = await axios.post("http://localhost:3000/api/user/login-user", {
+        email,
+        password,
+      });
+      console.log("Login successful:", response.data);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
+  };
 
   return (
     <section className="min-h-screen min-w-full login-bg-img flex items-center justify-center">
@@ -30,6 +47,8 @@ function Login() {
                 id="email"
                 name="email"
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
                 placeholder="Ejemplo@gmail.com "
               />
@@ -40,6 +59,8 @@ function Login() {
                 id="password"
                 name="password"
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-8"
                 placeholder="*******"
               />
@@ -60,5 +81,3 @@ function Login() {
     </section>
   );
 }
-
-export default Login;
