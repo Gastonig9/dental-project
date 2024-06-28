@@ -11,6 +11,8 @@ import { SecretaryService } from '../secretary/secretary.service';
 import { ROLES } from '../../enums/roles.enum';
 import { AuthService } from '../auth/auth.service';
 import { UserAuthResponseDto, UserLoginDto, UserRegisterDto } from 'src/dtos';
+import { RequestResetPasswordDto, ResetPasswordDto } from 'src/dtos/user';
+import { EmailService } from 'src/utils/email.service';
 
 @Injectable()
 export class UserService {
@@ -19,6 +21,7 @@ export class UserService {
     private readonly dentistRepository: DentistRepository,
     private readonly secretaryService: SecretaryService,
     private readonly authService: AuthService,
+    private readonly mailService: EmailService,
   ) {}
 
   async register(user: UserRegisterDto): Promise<User> {
@@ -76,6 +79,37 @@ export class UserService {
     if (!user) throw new NotFoundException('usuario no encontrado');
 
     return user;
+  }
+
+  async requestResetPassword(
+    requestResetPasswordDto: RequestResetPasswordDto,
+  ): Promise<void> {
+    const { email } = requestResetPasswordDto;
+    const user: User = await this.userRepository.GetUserByEmail(email);
+
+    if (!user) throw new NotFoundException('usuario no encontrado');
+
+    const resetPasswordToken = crypto.randomUUID().toString();
+
+    await this.userRepository.UpdateUser({ resetPasswordToken }, user.id);
+    // Send email
+    await this.mailService.sendResetPasswordEmail({
+      email,
+      resetPasswordToken,
+    });
+  }
+
+  async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<void> {
+    const { resetPasswordToken, password } = resetPasswordDto;
+    const user: User =
+      await this.userRepository.GetUserByResetPasswordToken(resetPasswordToken);
+
+    const hashPassword = await this.authService.hashPassword(password);
+
+    await this.userRepository.UpdateUser(
+      { password: hashPassword, resetPasswordToken: null },
+      user.id,
+    );
   }
 
   private AddUserType: {

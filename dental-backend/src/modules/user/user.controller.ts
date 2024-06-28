@@ -6,6 +6,9 @@ import {
   UseGuards,
   Post,
   Body,
+  Patch,
+  Res,
+  HttpStatus,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '@prisma/client';
@@ -13,6 +16,8 @@ import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { RolesGuard } from '../auth/jwt/roles.guard';
 import { Public } from 'src/decorators/public.decorator';
 import { UserAuthResponseDto, UserLoginDto, UserRegisterDto } from 'src/dtos';
+import { RequestResetPasswordDto, ResetPasswordDto } from 'src/dtos/user';
+import { Response } from 'express';
 
 @Public()
 @ApiBearerAuth()
@@ -48,5 +53,29 @@ export class UserController {
   @UseGuards(RolesGuard)
   async deleteUser(@Param('id') id: string): Promise<User> {
     return await this.service.deleteUser(parseInt(id));
+  }
+
+  @Patch('/request-reset-password')
+  async requestResetPassword(
+    @Body() requestResetPasswordDto: RequestResetPasswordDto,
+    @Res() res: Response,
+  ) {
+    await this.service.requestResetPassword(requestResetPasswordDto);
+
+    return res.status(HttpStatus.OK).json({
+      statusCode: 200,
+    });
+  }
+
+  @Patch('/reset-password')
+  async resetPassword(
+    @Body() resetPasswordDto: ResetPasswordDto,
+    @Res() res: Response,
+  ) {
+    await this.service.resetPassword(resetPasswordDto);
+
+    return res.status(HttpStatus.OK).json({
+      statusCode: 200,
+    });
   }
 }
