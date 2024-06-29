@@ -40,7 +40,12 @@ export class UserService {
     if (!userExist)
       throw new UnauthorizedException('Email y/o Contraseña incorrectos');
 
-    const { id, password: hashPassword, ...userWithoutId } = userExist;
+    const {
+      id,
+      password: hashPassword,
+      resetPasswordToken: _reset,
+      ...userWithoutId
+    } = userExist;
 
     const isEqual = await this.authService.comparePassword({
       hashPassword,
