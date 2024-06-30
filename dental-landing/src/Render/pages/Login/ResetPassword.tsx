@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useSearchParams } from "react-router-dom";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 
-export const UpdatePassword = () => {
+export const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -100,4 +100,4 @@ export const UpdatePassword = () => {
   );
 };
 
-export default UpdatePassword;
+export default ResetPassword;
