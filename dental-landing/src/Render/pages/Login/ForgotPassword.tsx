@@ -1,29 +1,29 @@
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import "./Login.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ChevronLeftIcon } from "@heroicons/react/20/solid";
+import axios from "axios";
+import "./Login.css";
 
-export const Login = () => {
+export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/user/login-user",
+      const response = await axios.patch(
+        "http://localhost:3000/api/user/request-reset-password",
         {
           email,
-          password,
         }
       );
-      console.log("Login successful:", response.data);
-      navigate("/dashboard");
+      if (response.status === 200) {
+        setMessage(
+          "Se ha enviado un correo con las instrucciones para restablecer la contraseña."
+        );
+      }
     } catch (error) {
-      console.error("Error logging in:", error);
+      setMessage("No se pudo enviar el correo. Por favor, inténtelo de nuevo.");
     }
   };
 
@@ -31,7 +31,7 @@ export const Login = () => {
     <section className="min-h-screen min-w-full login-bg-img flex items-center justify-center">
       <div className="login-form w-[350px] md:w-[500px] lg:w-[929px] h-[495px] mx-auto my-2 bg-lightgray bg-opacity-60 p-5 lg:p-8 rounded-xl border border-slate-700">
         <div>
-          <Link to="/">
+          <Link to="/login">
             <button className="flex items-center bg-transparent poppins-medium">
               <ChevronLeftIcon
                 className="h-5 w-5 flex-none text-black"
@@ -46,11 +46,11 @@ export const Login = () => {
           className="my-5 mx-auto w-[90%] lg:w-[50%]"
         >
           <h2 className="text-center lg:text-left poppins-medium text-xl mb-8">
-            Inicio de sesión
+            Olvidé mi constraseña
           </h2>
           <div className="flex flex-col poppins-regular">
             <label htmlFor="email">
-              <p className="font-medium text-slate-700">Usuario</p>
+              <p className="font-medium text-slate-700">Correo</p>
               <input
                 id="email"
                 name="email"
@@ -59,28 +59,21 @@ export const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
                 placeholder="Ejemplo@gmail.com "
+                required
               />
             </label>
-            <label htmlFor="password">
-              <p className="font-medium text-slate-700">Contraseña</p>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-8"
-                placeholder="*******"
+            <label htmlFor="message">
+              <p className="font-medium text-slate-700">Mensaje</p>
+              <textarea
+                readOnly
+                id="message"
+                name="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-full object-cover py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-8"
+                placeholder=""
               />
             </label>
-            <div className="text-center lg:text-left">
-              <Link
-                to="/forgot-password"
-                className="font-medium text-[#4053FF]"
-              >
-                Olvidé mi contraseña
-              </Link>
-            </div>
             <button
               type="submit"
               className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14"

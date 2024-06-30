@@ -15,5 +15,6 @@ export class SecretaryResponseDto
     fullname: string;
     password: string;
     role_name: $Enums.EnumRoles;
+    resetPasswordToken: string | null;
   };
 }

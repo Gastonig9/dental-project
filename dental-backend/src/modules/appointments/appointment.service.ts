@@ -45,35 +45,29 @@ export class AppointmentService {
   
 
   async addAppointment(data: AppointmentRequestDto): Promise<Appointment> {
-    try {
-      const { reason, dentistId, patientId, date } = data;
-      const state = $Enums.AppointmentState.PENDING;
+    const { reason, dentistId, patientId, date, odontograma = '' } = data;
+    const state = $Enums.AppointmentState.PENDING;
 
-      // Verificar si ya existe una cita para la misma fecha y dentista
-      const verifyDate = await this.checkAvailability(
-        dentistId,
-        new Date(date),
+    // Verificar si ya existe una cita para la misma fecha y dentista
+    const verifyDate = await this.checkAvailability(dentistId, new Date(date));
+    if (!verifyDate) {
+      throw new ConflictException(
+        'Ya hay un turno asignado para esta fecha y horario',
       );
-      if (!verifyDate) {
-        throw new ConflictException(
-          'Ya hay un turno asignado para esta fecha y horario',
-        );
-      }
-
-      // Crear nueva cita
-      const newAppointment = {
-        state: state,
-        results: '',
-        reason,
-        date,
-        dentistId,
-        patientId: patientId,
-      };
-
-      return await this.repository.AddAppointment(newAppointment);
-    } catch (error) {
-      throw new InternalServerErrorException('Error al crear la cita');
     }
+
+    // Crear nueva cita
+    const newAppointment = {
+      state: state,
+      results: '',
+      reason,
+      date,
+      dentistId,
+      patientId: patientId,
+      odontograma,
+    };
+
+    return await this.repository.AddAppointment(newAppointment);
   }
 
   async ConfirmAppointment(appointmentId: number): Promise<Appointment> {

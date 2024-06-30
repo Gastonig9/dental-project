@@ -27,6 +27,9 @@ import { RecordModule } from './modules/record/record.module';
           user: process.env.userMail,
           pass: process.env.passMail,
         },
+        tls: {
+          rejectUnauthorized: false,
+        },
       },
       defaults: {
         from: '"No Reply" <noreply@example.com>',

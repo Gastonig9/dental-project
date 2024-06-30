@@ -15,6 +15,17 @@ export class UserRepository {
     return this.context.user.create({ data });
   }
 
+  async UpdateUser(data: Partial<User>, id: number): Promise<void> {
+    await this.context.user.update({
+      where: {
+        id,
+      },
+      data: {
+        ...data,
+      },
+    });
+  }
+
   async GetUserById(id: number): Promise<User> {
     return this.context.user.findFirst({ where: { id } });
   }
@@ -25,5 +36,9 @@ export class UserRepository {
 
   async DeleteUserById(id: number): Promise<User> {
     return this.context.user.delete({ where: { id } });
+  }
+
+  async GetUserByResetPasswordToken(resetPasswordToken: string) {
+    return this.context.user.findFirst({ where: { resetPasswordToken } });
   }
 }
