@@ -1,11 +1,13 @@
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, createContext } from "react";
 import { PersonalInfo } from "../../components/Platform/NewPatientTabContent/PersonalInfo";
-import Prestaciones from "../../sections/PatientManagement/Prestaciones";
+import MedicalHistory from "./MedicalHistory";
+import { PatientContextProvider } from "../contexts/patientContext";
 
 export const NewPatient = () => {
   const [activeTab, setActiveTab] = useState("My Account");
+  const UserContext = createContext(null)
 
   return (
     <section className="mx-auto max-w-[1594px]">
@@ -36,7 +38,9 @@ export const NewPatient = () => {
             </button>
             <button
               className={`text-lg font-medium ${
-                activeTab === "medical-record" ? "text-black" : "text-[#9D9D9D]"
+                activeTab === "medical-record"
+                  ? "text-black"
+                  : "text-[#9D9D9D]"
               }`}
               onClick={() => setActiveTab("medical-record")}
             >
@@ -50,22 +54,16 @@ export const NewPatient = () => {
             >
               Prestaciones
             </button>
+            
           </div>
-          <div className="p-4 rounded-lg">
-            {activeTab === "personal-information" && (
-              <section>
-                <PersonalInfo />
-              </section>
-            )}
-            {activeTab === "medical-record" && (
-              <section>Content for Historia clínica</section>
-            )}
-            {activeTab === "prestaciones" && (
-              <section>
-                <Prestaciones />
-              </section>
-            )}
-          </div>
+
+          <PatientContextProvider>
+            <div className="p-4 rounded-lg">
+              {activeTab === "personal-information" && <section><PersonalInfo/></section>}
+              {/* {activeTab === "prestaciones" && (<section>Content for Prestaciones</section>)} */}
+              {activeTab === "medical-record" &&  <MedicalHistory /> }
+            </div>
+          </PatientContextProvider>
         </div>
       </main>
     </section>

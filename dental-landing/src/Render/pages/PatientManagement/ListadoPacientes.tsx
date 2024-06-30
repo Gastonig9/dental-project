@@ -114,7 +114,7 @@ const ListadoPacientes = () => {
 
       {/* desktop layout */}
       <main className="mt-[150px] ml-[220px] pr-10 hidden lg:block p-10">
-        <section className="border-2 border-black bg-[#f5f5f5] rounded-[35px] max-w-[1594px] h-[826px] overflow-y-scroll shadow-2xl p-10 ">
+        <section className="border-2 border-black bg-[#f5f5f5] rounded-[35px] max-w-[1594px] h-[826px]  shadow-2xl p-10 relative">
           {/* header */}
           <div className="grid newxl:grid-cols-12 gap-2 newxl:gap-0">
             {/* titles */}
@@ -144,11 +144,11 @@ const ListadoPacientes = () => {
 
           {/* list of patients */}
           {loading ? <Spinner /> : 
-            <div className="flex flex-col gap-y-[33px] mt-5">
+            <div className="flex flex-col gap-y-[33px] mt-5 overflow-y-scroll h-[546px] ">
               {patients.map((paciente) => (
                 <div
                   key={String(paciente.id)}
-                  className="grid grid-cols-12 justify-between w-full ml-auto bg-[#D9D9D9] rounded-[20px] pl-[96px] py-8 pr-[48px] "
+                  className="grid grid-cols-12 justify-between w-full ml-auto bg-[#D9D9D9] rounded-[20px] pl-[96px] py-9 pr-[48px] "
                 >
                   <div className="grid col-span-10 grid-cols-2 items-center xl:grid-cols-6 text-[19px] font-bold flex ">
                     <h3 className="xl:col-span-2">
@@ -174,11 +174,10 @@ const ListadoPacientes = () => {
             </div>
           }
 
-          <div className="flex justify-end mt-3">
-            <button className="text[19px] bg-acento hover:bg-green-500 font-bold rounded-[10px] py-2 px-4 mt-[75px] ">
-              Agregar nuevo paciente
-            </button>
-          </div>
+          
+          <button className="text[19px] bg-acento hover:bg-green-500 font-bold rounded-[10px] py-2 px-4 mt-[63px] absolute bottom-10 right-10">
+            Agregar nuevo paciente
+          </button>
         </section>
       </main>
     </>

@@ -80,7 +80,7 @@ const Navbar = () => {
 
       {/* desktop navbar */}
       <nav
-        className={`bg-acento fixed top-0 left-0 h-screen rounded-tr-[80px] duration-300 shadow-xl z-10 hidden lg:block ${
+        className={`bg-acento fixed top-0 left-0 h-screen rounded-tr-[80px] duration-300 shadow-xl z-[11] hidden lg:block ${
           desktopMenu ? "w-[390px]" : "w-[173px]"
         }`}
       >
@@ -97,7 +97,7 @@ const Navbar = () => {
             {/* people icon */}
             <div
               className={`flex items-center gap-1 ${
-                location.pathname.startsWith("/gestionDePacientes")
+                location.pathname.startsWith("/patient-management")
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
@@ -105,7 +105,7 @@ const Navbar = () => {
               <IoPeople className="text-5xl" />
               {desktopMenu && (
 
-                <Link to="/gestionDePacientes/listadoPacientes" >  
+                <Link to="/patient-management/patients-list" >  
                   <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Gestionar Pacientes</h3>
                 </Link>
               )}
@@ -146,7 +146,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <header className="h-[127px] bg-[#DAE3DE] fixed top-0 w-full hidden lg:flex">
+      <header className="h-[127px] bg-[#DAE3DE] fixed top-0 w-full hidden lg:flex z-10">
         <div className="flex justify-between items-center w-10/12 mx-auto pl-[120px]  ">
           <h3 className="text-[33px] font-semibold">Logo</h3>
           <div className="flex items-center gap-2 bg-[#B4B4B4] py-3 px-8 rounded-3xl">

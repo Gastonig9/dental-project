@@ -1,5 +1,5 @@
 import { Dashboard } from "../pages/Dashboard/Dashboard";
-import ListadoPacientes from "../pages/GestionDePacientes/ListadoPacientes";
+import ListadoPacientes from "../pages/PatientManagement/ListadoPacientes";
 import { Landing } from "../pages/Landing/Landing";
 import { Login } from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
@@ -20,6 +20,10 @@ function App() {
       <Route path="/*" element={<NotFound />} />
       <Route
         path="/gestionDePacientes/listadoPacientes"
+        element={<ListadoPacientes />}
+      />
+      <Route
+        path="/patient-management/patients-list"
         element={<ListadoPacientes />}
       />
     </Routes>
