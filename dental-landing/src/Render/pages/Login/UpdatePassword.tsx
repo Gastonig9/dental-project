@@ -1,29 +1,36 @@
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import axios from "axios";
+import { Link, useSearchParams } from "react-router-dom";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import "./Login.css";
-import { useState } from "react";
 
-export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+export const UpdatePassword = () => {
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [searchParams] = useSearchParams();
+  const resetPasswordToken = searchParams.get("token");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    if (newPassword !== confirmPassword) {
+      setMessage("Las contraseñas no coinciden.");
+      return;
+    }
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/user/login-user",
+      const response = await axios.patch(
+        `http://localhost:3000/api/user/reset-password?token=${resetPasswordToken}`,
         {
-          email,
-          password,
+          resetPasswordToken,
+          password: newPassword,
         }
       );
-      console.log("Login successful:", response.data);
-      navigate("/dashboard");
+      if (response.status === 200) {
+        setMessage("Contraseña actualizada correctamente.");
+      }
     } catch (error) {
-      console.error("Error logging in:", error);
+      setMessage(
+        "No se pudo actualizar la contraseña. Por favor, inténtelo de nuevo."
+      );
     }
   };
 
@@ -31,7 +38,7 @@ export const Login = () => {
     <section className="min-h-screen min-w-full login-bg-img flex items-center justify-center">
       <div className="login-form w-[350px] md:w-[500px] lg:w-[929px] h-[495px] mx-auto my-2 bg-lightgray bg-opacity-60 p-5 lg:p-8 rounded-xl border border-slate-700">
         <div>
-          <Link to="/">
+          <Link to="/forgot-password">
             <button className="flex items-center bg-transparent poppins-medium">
               <ChevronLeftIcon
                 className="h-5 w-5 flex-none text-black"
@@ -49,37 +56,36 @@ export const Login = () => {
             Inicio de sesión
           </h2>
           <div className="flex flex-col poppins-regular">
-            <label htmlFor="email">
-              <p className="font-medium text-slate-700">Usuario</p>
+            <label htmlFor="newPassword">
+              <p className="font-medium text-slate-700">Nueva contraseña</p>
               <input
-                id="email"
-                name="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                id="newPassword"
+                name="newPassword"
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
                 className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
-                placeholder="Ejemplo@gmail.com "
+                placeholder="******"
               />
             </label>
-            <label htmlFor="password">
-              <p className="font-medium text-slate-700">Contraseña</p>
+            <label htmlFor="confirmPassword">
+              <p className="font-medium text-slate-700">
+                Repetir nueva contraseña
+              </p>
               <input
-                id="password"
-                name="password"
+                id="confirmPassword"
+                name="confirmPassword"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-8"
-                placeholder="*******"
+                placeholder="******"
               />
             </label>
             <div className="text-center lg:text-left">
-              <Link
-                to="/forgot-password"
-                className="font-medium text-[#4053FF]"
-              >
-                Olvidé mi contraseña
-              </Link>
+              {message && (
+                <p className="text-center text-green-500">{message}</p>
+              )}
             </div>
             <button
               type="submit"
@@ -93,3 +99,5 @@ export const Login = () => {
     </section>
   );
 };
+
+export default UpdatePassword;
