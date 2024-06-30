@@ -1,10 +1,10 @@
 import React from "react";
 import { FaTimes, FaSquare, FaCircle } from "react-icons/fa";
 
-interface Tooth {
-  id: number;
-  state: number;
-}
+// interface Tooth {
+//   id: number;
+//   state: number;
+// }
 
 interface OdontogramProps {
   teethStates: { [key: number]: number };

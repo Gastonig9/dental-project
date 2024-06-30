@@ -6,7 +6,7 @@ import NotFound from "../pages/NotFound/NotFound";
 import { Routes, Route } from "react-router-dom";
 import { NewPatient } from "../pages/PatientManagement/NewPatient";
 import { ForgotPassword } from "../pages/Login/ForgotPassword";
-import UpdatePassword from "../pages/Login/UpdatePassword";
+import { ResetPassword } from "../pages/Login/ResetPassword";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/user/forgot-password" element={<ForgotPassword />} />
-      <Route path="/user/reset-password" element={<UpdatePassword />} />
+      <Route path="/user/reset-password" element={<ResetPassword />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/patient-management/new-patient" element={<NewPatient />} />
       <Route path="/*" element={<NotFound />} />
