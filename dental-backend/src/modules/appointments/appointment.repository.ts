@@ -12,6 +12,10 @@ export class AppointmentRepository {
       orderBy: {
         date: 'asc',
       },
+      include: {
+        patient: true,
+        dentist: true,
+      },
     });
   }
 

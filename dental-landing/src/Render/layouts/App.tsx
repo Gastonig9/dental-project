@@ -1,7 +1,7 @@
 
 import { Dashboard } from "../pages/Dashboard/Dashboard";
 import Example from "../pages/Example/Example";
-import Example2 from "../pages/Example2/Example2";
+import GestionTurnos from "../pages/GestionTurnos/GestionTurnos";
 import Example3 from "../pages/Example3/Example3";
 import { Landing } from "../pages/Landing/Landing";
 import Login from "../pages/Login/Login";
@@ -16,7 +16,7 @@ function App() {
       <Route path="/dashboard" element={ <Dashboard/> } />
       <Route path="/*" element={ <NotFound /> } />
       <Route path="/example" element={ <Example /> } />
-      <Route path="/example2" element={ <Example2 /> } />
+      <Route path="/example2" element={ <GestionTurnos /> } />
       <Route path="/example3" element={ <Example3 /> } />
     </Routes>
   );
