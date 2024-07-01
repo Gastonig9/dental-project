@@ -1,11 +1,12 @@
 
 import { Dashboard } from "../pages/Dashboard/Dashboard";
-import ListadoPacientes from "../pages/PatientManagement/ListadoPacientes";
 import { Landing } from "../pages/Landing/Landing";
 import { Login } from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
 import { Routes, Route } from "react-router-dom";
 import { NewPatient } from "../pages/PatientManagement/NewPatient";
+import PatientsList from "../pages/PatientManagement/PatientsList";
+import { SeeEditPatient } from "../pages/PatientManagement/SeeEditPatient";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       <Route path="/login" element={ <Login /> } />
       <Route path="/dashboard" element={ <Dashboard/> } />
       <Route path="/patient-management/new-patient" element={ <NewPatient/> } />
-      <Route path="/patient-management/patients-list" element={ <ListadoPacientes /> } />
+      <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
+      <Route path="/patient-management/seeEditPatient/:id" element={ <SeeEditPatient /> } />
       <Route path="/*" element={ <NotFound /> } />
     </Routes>
   );
