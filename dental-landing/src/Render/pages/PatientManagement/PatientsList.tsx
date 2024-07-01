@@ -5,6 +5,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { ImPencil } from "react-icons/im";
 import axios from "axios";
 import Spinner from "../../components/Platform/Spinner";
+import { Link } from "react-router-dom";
 
 interface PatientsModel {
   id: Number;
@@ -19,7 +20,7 @@ interface PatientsModel {
   medicalHistories: [];
 }
 
-const ListadoPacientes = () => {
+const PatientsList = () => {
   const [data, setData] = useState<PatientsModel[]>([]);
   const [patients, setPatients] = useState<PatientsModel[]>([]);
   const [loading, setLoading] = useState(false);
@@ -34,6 +35,7 @@ const ListadoPacientes = () => {
       .then((res) => {
         setData(res.data.patients)
         setPatients(res.data.patients);
+        console.log(res.data.patients)
         setLoading(false);
       })
       .catch((err) => {
@@ -98,8 +100,14 @@ const ListadoPacientes = () => {
                     N° DNI: {String(paciente.dni)}{" "}
                   </h4>
                   <div className="flex items-center justify-end gap-2 col-span-2">
-                    <IoIosArrowForward />
-                    <ImPencil />
+                    <Link to={`/patient-management/seeEditPatient/${paciente.id}`}>
+                      <IoIosArrowForward />
+                    </Link>
+
+                    <Link to={`/patient-management/seeEditPatient/${paciente.id}`}>
+                      <ImPencil />
+                    </Link>
+
                   </div>
                 </div>
               ))}
@@ -163,11 +171,14 @@ const ListadoPacientes = () => {
                   </div>
 
                   <div className="flex col-span-2 items-center gap-7 justify-end">
-                    <div className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 xl:gap-[10]">
+                    <Link className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 xl:gap-[10]" to={`/patient-management/seeEditPatient/${paciente.id}`}>
                       <p className="hidden newxl:block">Ver ficha médica</p>
                       <IoIosArrowForward />
-                    </div>
-                    <ImPencil />
+                    </Link>
+
+                    <Link to={`/patient-management/seeEditPatient/${paciente.id}`}>
+                      <ImPencil />
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -175,13 +186,14 @@ const ListadoPacientes = () => {
           }
 
           
-          <button className="text[19px] bg-acento hover:bg-green-500 font-bold rounded-[10px] py-2 px-4 mt-[63px] absolute bottom-10 right-10">
+          <Link className="text[19px] bg-acento hover:bg-green-500 font-bold rounded-[10px] py-2 px-4 mt-[63px] absolute bottom-10 right-10" to="/patient-management/new-patient">
             Agregar nuevo paciente
-          </button>
+          </Link>
+
         </section>
       </main>
     </>
   );
 };
 
-export default ListadoPacientes;
+export default PatientsList;
