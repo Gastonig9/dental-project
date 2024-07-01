@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   ConflictException,
   Injectable,
@@ -29,8 +30,19 @@ export class AppointmentService {
   }
 
   async getAllAppointments(): Promise<Appointment[]> {
-    return this.repository.GetAllAppointments();
+    const appointments = await this.repository.GetAllAppointments();
+  
+    return appointments.map((appointment) => {
+      const adjustedAppointmentDate = new Date(appointment.date);
+      adjustedAppointmentDate.setHours(adjustedAppointmentDate.getHours() + 3);
+  
+      return {
+        ...appointment,
+        date: adjustedAppointmentDate,
+      };
+    });
   }
+  
 
   async addAppointment(data: AppointmentRequestDto): Promise<Appointment> {
     const { reason, dentistId, patientId, date, odontograma = '' } = data;
