@@ -16,7 +16,6 @@ export class PatientResponseDto implements Omit<Patient, 'id'> {
   gender: string;
   dni: number;
   phone: number;
-  adress: string;
   pEmail: string;
   @ApiProperty()
   appointmentList: {
