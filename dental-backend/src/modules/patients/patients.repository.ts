@@ -49,23 +49,8 @@ export class PatientRepository {
       where: {
         id,
       },
-      select: {
-        name: true,
-        surname: true,
-        pEmail: true,
-        adress: true,
-        gender: true,
-        dni: true,
-        appointments: {
-          select: {
-            date: true,
-            dentist: {
-              select: {
-                user: true,
-              },
-            },
-          },
-        },
+      include: {
+        appointments: true,
         medicalHistories: true,
       },
     });
