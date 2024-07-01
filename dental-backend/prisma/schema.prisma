@@ -92,6 +92,15 @@ model Patient {
   dni       Int
   phone     Int
   adress    String
+  age Int?
+  floor String?
+  street String?
+  nationality String?
+  locality String?
+  establishment String?
+  socialWork String?
+  apartment String?
+  birthDate String?
   appointments Appointment[]
   medicalHistories MedicalHistory[]
 }
