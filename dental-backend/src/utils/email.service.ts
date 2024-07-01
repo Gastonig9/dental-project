@@ -52,4 +52,23 @@ export class EmailService {
            <p>¡Gracias por elegirnos!</p>`,
     });
   }
+
+  async sendResetPasswordEmail({
+    email,
+    resetPasswordToken,
+  }: {
+    email: string;
+    resetPasswordToken: string;
+  }) {
+    this.mailerService.sendMail({
+      from: 'foofakesender@outlook.com',
+      to: email,
+      subject: 'Recordatorio de turno',
+      html: `<h2>!Restauracion de Contraseña!</h2>
+        
+         <p><a href='http://localhost:5173/user/reset-password?token=${resetPasswordToken}' target='_blank'>Restaurar Contraseña</a></p>
+           
+           <small><b>No responder a este correo</b></small>`,
+    });
+  }
 }

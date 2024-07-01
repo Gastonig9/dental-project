@@ -204,3 +204,115 @@
     height: 608px;
   }
 }
+
+/* Archivo CSS: calendarStyles.css */
+.custom-event {
+  width: 100%;
+  background-color: #58d68d;
+  color: #000000;
+  padding: 0px 10px;
+  border: none !important;
+  border-radius: 4px;
+  display: inline-block;
+  text-align: start;
+  font-size: 24px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.custom-event .event-buttons {
+  display: flex ;
+  align-items: center;
+  gap: 20px;
+  width: 20%;
+  margin-top: 5px;
+}
+
+.custom-event .event-buttons div {
+  width: 22%;
+  padding: 6px;
+}
+
+
+.custom-event .event-buttons img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.custom-event .event-buttons img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+/* CALENDAR HEADER */
+
+.fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+  width: 100%;
+  color: #000000;
+  font-size: 24px;
+}
+
+.fc-header-toolbar.fc-toolbar.fc-toolbar-ltr .fc-toolbar-chunk button {
+  color: #000000;
+  background-color: #58d68d;
+}
+
+/* CALENDAR BODY */
+
+.fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
+  width: 60%;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 200px;
+  border-radius: 15px !important;
+}
+
+.fc-view-harness.fc-view-harness-active {
+  width: 100%;
+  background-color: #f5f5f5 !important;
+  padding: 120px 120px !important;
+}
+
+.fc-v-event {
+  border: 2px solid black;
+}
+
+.fc-event-main {
+  background-color: #58d68d;
+  border: #000000 !important;
+}
+
+/* Calendar Mobile */
+
+@media (max-width: 953px) {
+  .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 19px;
+  }
+
+  .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr .fc-toolbar-chunk button {
+    margin: 5px;
+  }
+
+  .fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
+    width: 100%;
+    margin-left: 0px;
+
+  }
+
+  .custom-event .event-buttons {
+    width: 50%;
+  }
+
+  .custom-event .event-buttons div {
+    width: 50%;
+    padding: 6px;
+  }
+}
+

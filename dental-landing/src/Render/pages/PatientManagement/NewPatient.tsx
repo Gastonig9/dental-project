@@ -4,13 +4,16 @@ import { useState, createContext } from "react";
 import { PersonalInfo } from "../../components/Platform/NewPatientTabContent/PersonalInfo";
 import MedicalHistory from "./MedicalHistory";
 import { PatientContextProvider } from "../contexts/patientContext";
+import Navbar from "../../components/Platform/Navbar";
 
 export const NewPatient = () => {
   const [activeTab, setActiveTab] = useState("My Account");
   const UserContext = createContext(null)
 
   return (
-    <section className="mx-auto max-w-[1594px]">
+    <>
+    <Navbar/>
+    <section className="mx-auto max-w-[1594px] mt-[150px]">
       <div className="flex items-center mb-6">
         <Link to="/" className="me-16">
           <button className="flex items-center bg-transparent poppins-medium">
@@ -28,7 +31,9 @@ export const NewPatient = () => {
           <div className="flex space-x-16 mb-4 poppins-regular text-[19px]">
             <button
               className={`text-lg font-medium ${
-                activeTab === "personal-information" ? "text-black" : "text-[#9D9D9D]"
+                activeTab === "personal-information"
+                  ? "text-black"
+                  : "text-[#9D9D9D]"
               }`}
               onClick={() => setActiveTab("personal-information")}
             >
@@ -65,5 +70,6 @@ export const NewPatient = () => {
         </div>
       </main>
     </section>
+    </>
   );
 };

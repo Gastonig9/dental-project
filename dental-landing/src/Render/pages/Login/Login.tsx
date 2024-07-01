@@ -13,10 +13,13 @@ export const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3000/api/user/login-user", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/user/login-user",
+        {
+          email,
+          password,
+        }
+      );
       console.log("Login successful:", response.data);
       navigate("/dashboard");
     } catch (error) {
@@ -38,8 +41,13 @@ export const Login = () => {
             </button>
           </Link>
         </div>
-        <form onSubmit={handleSubmit} className="my-5 mx-auto w-[90%] lg:w-[50%]">
-          <h2 className="text-center lg:text-left poppins-medium text-xl mb-8">Inicio de sesión</h2>
+        <form
+          onSubmit={handleSubmit}
+          className="my-5 mx-auto w-[90%] lg:w-[50%]"
+        >
+          <h2 className="text-center lg:text-left poppins-medium text-xl mb-8">
+            Inicio de sesión
+          </h2>
           <div className="flex flex-col poppins-regular">
             <label htmlFor="email">
               <p className="font-medium text-slate-700">Usuario</p>
@@ -66,13 +74,17 @@ export const Login = () => {
               />
             </label>
             <div className="text-center lg:text-left">
-              <div>
-                <a href="#" className="font-medium text-[#4053FF]">
-                  Olvidé mi contraseña
-                </a>
-              </div>
+              <Link
+                to="/forgot-password"
+                className="font-medium text-[#4053FF]"
+              >
+                Olvidé mi contraseña
+              </Link>
             </div>
-            <button type="submit" className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14">
+            <button
+              type="submit"
+              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14"
+            >
               <span>Continuar</span>
             </button>
           </div>
@@ -80,4 +92,4 @@ export const Login = () => {
       </div>
     </section>
   );
-}
+};

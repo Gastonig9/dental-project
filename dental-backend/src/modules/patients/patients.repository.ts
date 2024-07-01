@@ -39,7 +39,7 @@ export class PatientRepository {
       where,
       include: {
         appointments: true,
-        medicalHistories: true
+        medicalHistories: true,
       },
     });
   }
@@ -66,6 +66,7 @@ export class PatientRepository {
             },
           },
         },
+        medicalHistories: true,
       },
     });
   }

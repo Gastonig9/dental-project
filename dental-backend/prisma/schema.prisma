@@ -38,6 +38,7 @@ model User {
    username  String   @unique
    fullname  String
    password  String
+   resetPasswordToken String?
    role  Roles @relation(fields: [role_name], references: [name])
    role_name EnumRoles
    dentist   Dentist?
@@ -65,19 +66,21 @@ model MedicalHistory {
   id Int @id   @default(autoincrement())
   patient   Patient      @relation(fields: [patientId], references: [id])
   patientId Int
-  someDisease String
+  someDisease String 
   someTreatment String
   consumeMedicaments String
   allergyMedicament String
   operations String
   smokes EnumInfoBoolean
   pregnant EnumInfoBoolean
-  attendance String
+  attendance String?
+  takeSomeMedication String?
   pains EnumInfoBoolean
-  dentalMobility EnumInfoBoolean
-  swollenFace EnumInfoBoolean
-  injuries EnumInfoBoolean
-  observations String
+  blowToTeeth String? //golpe en dientes
+  dentalMobility EnumInfoBoolean 
+  swollenFace EnumInfoBoolean //cara inchada
+  injuries EnumInfoBoolean //lesion tejidos blandos
+  observations String? 
 }
 
 model Patient {
@@ -89,6 +92,15 @@ model Patient {
   dni       Int
   phone     Int
   adress    String
+  age Int?
+  floor String?
+  street String?
+  nationality String?
+  locality String?
+  establishment String?
+  socialWork String?
+  apartment String?
+  birthDate String?
   appointments Appointment[]
   medicalHistories MedicalHistory[]
 }
