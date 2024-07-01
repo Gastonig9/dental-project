@@ -1,45 +1,127 @@
+import { usePatientContext } from "../../../pages/contexts/patientContext";
+import { Patient } from "../../../../types/dtos/user/NewPatient.type";
+import axios from "axios";
+
 export const PersonalInfo = () => {
+  const { paciente, setPaciente } = usePatientContext();
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setPaciente({ ...paciente, [name]: value } as Patient);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3000/api/patient", {
+        name: "string",
+        adress: "string",
+        pEmail: "string",
+        phone: 0,
+        surname: "string",
+        gender: "string",
+        dni: 0,
+      });
+      console.log("Patient information saved:", paciente);
+      return response.data
+    } catch (error) {
+      console.error("Error saving: ", error);
+    }
+  };
+
   return (
     <div>
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <p className="poppins-semibold text-[19px] mb-4">Datos personales</p>
         <div className="mb-6 poppins-light text-[16px] space-y-4">
           <div className="flex space-x-9">
             <div className="flex flex-col">
-              <label htmlFor="">Nombre</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="name">Nombre</label>
+              <input
+                id="name"
+                type="text"
+                name="name"
+                value={paciente?.name || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="">Apellido</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="surname">Apellido</label>
+              <input
+                type="text"
+                name="surname"
+                value={paciente?.surname || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
           </div>
           <div className="flex space-x-9">
             <div className="flex flex-col">
-              <label htmlFor="">DNI</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="dni">DNI</label>
+              <input
+                id="dni"
+                type="number"
+                name="dni"
+                value={paciente?.dni || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="">Edad</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="age">Edad</label>
+              <input
+                type="text"
+                name="age"
+                value={paciente?.age || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="">Nacionalidad</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="nationality">Nacionalidad</label>
+              <input
+                type="text"
+                name="nationality"
+                value={paciente?.nationality || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
           </div>
           <div className="flex space-x-9">
             <div className="flex flex-col">
-              <label htmlFor="">Género</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="gender">Género</label>
+              <input
+                id="gender"
+                type="text"
+                name="gender"
+                value={paciente?.gender || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="">Fecha De Nacimiento</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="birthDate">Fecha De Nacimiento</label>
+              <input
+                type="text"
+                name="birthDate"
+                value={paciente?.birthDate || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="">Email</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="pEmail">Email</label>
+              <input
+                id="pEmail"
+                type="text"
+                name="pEmail"
+                value={paciente?.pEmail || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
           </div>
         </div>
@@ -47,41 +129,89 @@ export const PersonalInfo = () => {
         <div className="poppins-light text-[16px] space-y-4">
           <div className="flex space-x-9">
             <div className="flex flex-col">
-              <label htmlFor="">Calle</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="street">Calle</label>
+              <input
+                type="text"
+                name="street"
+                value={paciente?.street || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="">Número</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="phone">Número</label>
+              <input
+                id="phone"
+                type="number"
+                name="phone"
+                value={paciente?.phone || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
           </div>
           <div className="flex space-x-9">
             <div className="flex flex-col">
-              <label htmlFor="">Piso</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="floor">Piso</label>
+              <input
+                type="text"
+                name="floor"
+                value={paciente?.floor || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="">Dpto</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="apartment">Dpto</label>
+              <input
+                type="text"
+                name="apartment"
+                value={paciente?.apartment || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="">localidad</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="locality">localidad</label>
+              <input
+                type="text"
+                name="locality"
+                value={paciente?.locality || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
           </div>
           <div className="flex space-x-9">
             <div className="flex flex-col">
-              <label htmlFor="">Establecimiento</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="establishment">Establecimiento</label>
+              <input
+                type="text"
+                name="establishment"
+                value={paciente?.establishment || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="">Obra social</label>
-              <input type="text" className="personalInfo-input-style" />
+              <label htmlFor="socialWork">Obra Social</label>
+              <input
+                type="text"
+                name="socialWork"
+                value={paciente?.socialWork || ""}
+                onChange={handleChange}
+                className="personalInfo-input-style"
+              />
             </div>
           </div>
         </div>
         <div className="flex justify-end">
-          <button className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]">Guardar</button>
+          <button
+            type="submit"
+            className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]"
+          >
+            Guardar
+          </button>
         </div>
       </form>
     </div>

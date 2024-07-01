@@ -1,14 +1,15 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { Patient } from '../../../types/dtos/user/NewPatient.type'
 
 interface InitialState {
-  paciente: object | null;
-  setPaciente: (paciente: object) => void;
+  paciente: Patient | null;
+  setPaciente: (paciente: Patient) => void;
 }
 
 const PatientContext = createContext<InitialState | null>(null);
 
 export const PatientContextProvider = ({ children }: {children: React.ReactNode}) => {
-  const [paciente, setPaciente] = useState<object | null>(null);
+  const [paciente, setPaciente] = useState<Patient | null>(null);
 
   const data = {
     paciente,

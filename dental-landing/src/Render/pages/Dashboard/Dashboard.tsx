@@ -4,10 +4,13 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
+import Navbar from "../../components/Platform/Navbar";
 
 export const Dashboard = () => {
   return (
-    <main className="min-h-screen min-w-full flex flex-col lg:flex-row justify-center items-start mt-11 bg-background">
+    <>
+    <Navbar/>
+    <main className="min-h-screen min-w-full flex flex-col lg:flex-row justify-center items-start mt-[125px] pt-6 bg-background">
       <section className="mx-auto lg:mx-0 lg:me-[108px]">
         <div className="mb-8">
           <h1 className="poppins-bold text-[23px] lg:text-[40px] mb-2">
@@ -88,5 +91,6 @@ export const Dashboard = () => {
         </Link>
       </div>
     </main>
+    </>
   );
 };
