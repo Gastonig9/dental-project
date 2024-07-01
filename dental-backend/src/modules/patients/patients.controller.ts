@@ -7,7 +7,7 @@ import {
   Query,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiQuery } from '@nestjs/swagger';
 import { Patient } from '@prisma/client';
 import { PatientRequestDto } from 'src/dtos';
 import { PatientService } from './patients.service';
@@ -31,6 +31,9 @@ export class PatientController {
   }
 
   @Get('get-patients')
+  @ApiQuery({ name: 'gender', required: false })
+  @ApiQuery({ name: 'dni', required: false })
+  @ApiQuery({ name: 'name', required: false })
   async getAllPatients(
     @Query('dni') dni?: string,
     @Query('name') name?: string,
