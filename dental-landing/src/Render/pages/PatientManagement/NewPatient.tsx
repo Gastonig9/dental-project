@@ -1,7 +1,7 @@
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, createContext } from "react";
-import { PersonalInfo } from "../../components/Platform/NewPatientTabContent/PersonalInfo";
+import { PersonalInfo } from "../../sections/PatientManagement/PersonalInfo";
 import MedicalHistory from "./MedicalHistory";
 import { PatientContextProvider } from "../contexts/patientContext";
 import Navbar from "../../components/Platform/Navbar";
