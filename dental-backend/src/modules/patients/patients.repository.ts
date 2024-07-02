@@ -59,4 +59,16 @@ export class PatientRepository {
   async getPatientByDni(dni: number): Promise<Patient | null> {
     return this.context.patient.findFirst({ where: { dni } });
   }
+
+  async updatePatientById(
+    id: number,
+    data: Partial<Patient>,
+  ): Promise<Patient | null> {
+    return this.context.patient.update({
+      where: {
+        id,
+      },
+      data: { ...data },
+    });
+  }
 }
