@@ -13,8 +13,8 @@ export const NewPatient = () => {
   return (
     <>
     <Navbar/>
-    <section className="mx-auto max-w-[1594px] mt-[150px]">
-      <div className="flex items-center mb-6">
+    <section className="mx-auto max-w-[1594px] mt-[150px] ">
+      <div className="flex items-center mb-6 ">
         <Link to="/" className="me-16">
           <button className="flex items-center bg-transparent poppins-medium">
             <ChevronLeftIcon
@@ -26,7 +26,7 @@ export const NewPatient = () => {
         </Link>
         <h1 className="poppins-semibold text-[33px]">Nuevo paciente</h1>
       </div>
-      <main className="w-[90%] max-w-[1594px] h-[740px] rounded-[35px] bg-lightgray border border-[#424242] py-[30px] px-[78px] mx-auto">
+      <main className="w-[90%] max-w-[1594px] h-[740px] rounded-[35px] bg-lightgray border border-[#424242] py-[30px] px-[78px] mx-auto overflow-y-scroll">
         <div>
           <div className="flex space-x-16 mb-4 poppins-regular text-[19px]">
             <button

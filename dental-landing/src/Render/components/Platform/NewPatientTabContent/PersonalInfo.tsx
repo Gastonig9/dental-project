@@ -13,17 +13,18 @@ export const PersonalInfo = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/api/patient", {
+      await axios.post("http://localhost:3000/patient", {
         name: "string",
-        adress: "string",
         pEmail: "string",
         phone: 0,
         surname: "string",
         gender: "string",
         dni: 0,
+      })
+      .then((res)=>{
+        setPaciente(res.data)
       });
       console.log("Patient information saved:", paciente);
-      return response.data
     } catch (error) {
       console.error("Error saving: ", error);
     }
