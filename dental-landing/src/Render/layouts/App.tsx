@@ -10,27 +10,31 @@ import PatientsList from "../pages/PatientManagement/PatientsList";
 import { SeeEditPatient } from "../pages/PatientManagement/SeeEditPatient";
 import { ForgotPassword } from "../pages/Login/ForgotPassword";
 import { ResetPassword } from "../pages/Login/ResetPassword";
+import { AuthProvider } from "../pages/contexts/AuthContext";
+import PrivateRoute from "../guards/PrivateRoute";
 
 
 function App() {
   return (
-    <Routes>
-
-      <Route path="/" element={ <Landing /> } />
-      <Route path="/login" element={ <Login /> } />
-      <Route path="/dashboard" element={ <Dashboard/> } />
-      <Route path="/patient-management/new-patient" element={ <NewPatient/> } />
-      <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
-      <Route path="/patient-management/seeEditPatient/:id" element={ <SeeEditPatient /> } />
-      <Route path="/*" element={ <NotFound /> } />
-
-
-      <Route path="/user/forgot-password" element={<ForgotPassword />} />
-      <Route path="/user/reset-password" element={<ResetPassword />} />
-      <Route path="/appointments" element={ <GestionTurnos /> } />
-
-
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/user/forgot-password" element={<ForgotPassword />} />
+        <Route path="/user/reset-password" element={<ResetPassword />} />
+        <Route path="/*" element={<NotFound />} />
+        {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
+        {/* PROTECTED ROUTES */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/appointments" element={<GestionTurnos />} />
+          <Route path="/patient-management/new-patient" element={<NewPatient />}/>
+          <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
+          <Route path="/patient-management/seeEditPatient/:id" element={ <SeeEditPatient /> } />
+        </Route>
+        {/* PROTECTED ROUTES */}
+      </Routes>
+    </AuthProvider>
   );
 }
 

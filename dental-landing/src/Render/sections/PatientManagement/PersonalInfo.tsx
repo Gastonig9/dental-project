@@ -1,38 +1,47 @@
-import { usePatientContext } from "../../../pages/contexts/patientContext";
-import { Patient } from "../../../../types/dtos/user/NewPatient.type";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { usePatientContext } from "../../pages/contexts/patientContext";
+import { Patient } from "../../../types/dtos/Patient/NewPatient.type";
 
 export const PersonalInfo = () => {
-  const { paciente, setPaciente } = usePatientContext();
+  const { register, handleSubmit, setValue } = useForm<Patient>();
+  const { patientData: patient, setPatientData: setPatient } = usePatientContext();
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setPaciente({ ...paciente, [name]: value } as Patient);
-  };
+  useEffect(() => {
+    if (patient) {
+      for (const key in patient) {
+        if (Object.prototype.hasOwnProperty.call(patient, key)) {
+          setValue(key as keyof Patient, patient[key as keyof Patient]);
+        }
+      }
+    }
+  }, [patient, setValue]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = async (data: Patient) => {
     try {
-      await axios.post("http://localhost:3000/patient", {
-        name: "string",
-        pEmail: "string",
-        phone: 0,
-        surname: "string",
-        gender: "string",
-        dni: 0,
-      })
-      .then((res)=>{
-        setPaciente(res.data)
+      const response = await axios.post("http://localhost:3000/patient", data);
+      setPatient(response.data);
+      Swal.fire({
+        title: "Guardado",
+        text: "Información personal guardada con éxito.",
+        icon: "success",
       });
-      console.log("Patient information saved:", paciente);
+      console.log("Patient information saved:", response.data);
     } catch (error) {
       console.error("Error saving: ", error);
+      Swal.fire({
+        title: "Error",
+        text: "Ocurrió un error al guardar la información.",
+        icon: "error",
+      });
     }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <p className="poppins-semibold text-[19px] mb-4">Datos personales</p>
         <div className="mb-6 poppins-light text-[16px] space-y-4">
           <div className="flex space-x-9">
@@ -41,19 +50,16 @@ export const PersonalInfo = () => {
               <input
                 id="name"
                 type="text"
-                name="name"
-                value={paciente?.name || ""}
-                onChange={handleChange}
+                {...register("name")}
                 className="personalInfo-input-style"
               />
             </div>
             <div className="flex flex-col">
               <label htmlFor="surname">Apellido</label>
               <input
+                id="surname"
                 type="text"
-                name="surname"
-                value={paciente?.surname || ""}
-                onChange={handleChange}
+                {...register("surname")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -64,29 +70,25 @@ export const PersonalInfo = () => {
               <input
                 id="dni"
                 type="number"
-                name="dni"
-                value={paciente?.dni || ""}
-                onChange={handleChange}
+                {...register("dni")}
                 className="personalInfo-input-style"
               />
             </div>
             <div className="flex flex-col">
               <label htmlFor="age">Edad</label>
               <input
-                type="text"
-                name="age"
-                value={paciente?.age || ""}
-                onChange={handleChange}
+                id="age"
+                type="number"
+                {...register("age")}
                 className="personalInfo-input-style"
               />
             </div>
             <div className="flex flex-col">
               <label htmlFor="nationality">Nacionalidad</label>
               <input
+                id="nationality"
                 type="text"
-                name="nationality"
-                value={paciente?.nationality || ""}
-                onChange={handleChange}
+                {...register("nationality")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -97,19 +99,16 @@ export const PersonalInfo = () => {
               <input
                 id="gender"
                 type="text"
-                name="gender"
-                value={paciente?.gender || ""}
-                onChange={handleChange}
+                {...register("gender")}
                 className="personalInfo-input-style"
               />
             </div>
             <div className="flex flex-col">
               <label htmlFor="birthDate">Fecha De Nacimiento</label>
               <input
-                type="text"
-                name="birthDate"
-                value={paciente?.birthDate || ""}
-                onChange={handleChange}
+                id="birthDate"
+                type="date"
+                {...register("birthDate")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -118,9 +117,7 @@ export const PersonalInfo = () => {
               <input
                 id="pEmail"
                 type="text"
-                name="pEmail"
-                value={paciente?.pEmail || ""}
-                onChange={handleChange}
+                {...register("pEmail")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -132,10 +129,9 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="street">Calle</label>
               <input
+                id="street"
                 type="text"
-                name="street"
-                value={paciente?.street || ""}
-                onChange={handleChange}
+                {...register("street")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -144,9 +140,7 @@ export const PersonalInfo = () => {
               <input
                 id="phone"
                 type="number"
-                name="phone"
-                value={paciente?.phone || ""}
-                onChange={handleChange}
+                {...register("phone")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -155,30 +149,27 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="floor">Piso</label>
               <input
+                id="floor"
                 type="text"
-                name="floor"
-                value={paciente?.floor || ""}
-                onChange={handleChange}
+                {...register("floor")}
                 className="personalInfo-input-style"
               />
             </div>
             <div className="flex flex-col">
               <label htmlFor="apartment">Dpto</label>
               <input
+                id="apartment"
                 type="text"
-                name="apartment"
-                value={paciente?.apartment || ""}
-                onChange={handleChange}
+                {...register("apartment")}
                 className="personalInfo-input-style"
               />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="locality">localidad</label>
+              <label htmlFor="locality">Localidad</label>
               <input
+                id="locality"
                 type="text"
-                name="locality"
-                value={paciente?.locality || ""}
-                onChange={handleChange}
+                {...register("locality")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -187,20 +178,18 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="establishment">Establecimiento</label>
               <input
+                id="establishment"
                 type="text"
-                name="establishment"
-                value={paciente?.establishment || ""}
-                onChange={handleChange}
+                {...register("establishment")}
                 className="personalInfo-input-style"
               />
             </div>
             <div className="flex flex-col">
               <label htmlFor="socialWork">Obra Social</label>
               <input
+                id="socialWork"
                 type="text"
-                name="socialWork"
-                value={paciente?.socialWork || ""}
-                onChange={handleChange}
+                {...register("socialWork")}
                 className="personalInfo-input-style"
               />
             </div>

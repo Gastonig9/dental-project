@@ -1,45 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { usePatientContext } from "../contexts/patientContext";
 
 const MedicalHistory = () => {
-  // enum EnumInfoBoolean {
-  //   SI,
-  //   NO,
-  //   SIN_INFORMACION,
-  // }
-
-  // interface PatientFormat {
-  //   patientId: number;
-  //   someDisease: string;
-  //   someTreatment: string;
-  //   consumeMedicaments: string;
-  //   allergyMedicament: string;
-  //   operations: string;
-  //   smokes: EnumInfoBoolean;
-  //   pregnant: EnumInfoBoolean;
-  //   attendance?: string;
-  //   takeSomeMedication?: string;
-  //   pains: EnumInfoBoolean;
-  //   blowToTeeth?: string; //golpe en dientes
-  //   dentalMobility: EnumInfoBoolean;
-  //   swollenFace: EnumInfoBoolean; //cara inchada
-  //   injuries: EnumInfoBoolean; //lesion tejidos blandos
-  //   observations?: string;
-  // }
-  
   const { register, handleSubmit } = useForm();
-  const { paciente, setPaciente } = usePatientContext();
+  const { patientData: patient } = usePatientContext();
 
   useEffect(() => {
-    console.log("FROM CONTEXT: ", paciente);
-  }, [paciente]);
+    console.log(patient);
+  }, [patient]);
 
   const onSubmit = (data: any) => {
     console.log(data);
-    data.patientId = 2;
     axios
       .post("http://localhost:3000/records/create-record", data)
       .then((res) => {
@@ -57,7 +31,7 @@ const MedicalHistory = () => {
 
   return (
     <>
-      <main className="grid gap-y-10 lg:grid-cols-2 lg:-gap-x-10 xl:gap-x-[136px] poppins ">
+      <main className="grid gap-y-10 lg:grid-cols-2 lg:-gap-x-10 xl:gap-x-[136px] poppins">
         {/* FIRST FORM */}
         <div>
           <h3 className="font-bold ">Antecedentes médicos</h3>
@@ -238,8 +212,6 @@ const MedicalHistory = () => {
             </button>
           </form>
         </div>
-
-        
       </main>
     </>
   );

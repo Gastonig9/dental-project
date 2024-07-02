@@ -1,17 +1,17 @@
 export interface Patient {
-  name: string;
-  surname: string;
-  dni: number;
-  age: string;
-  nationality: string;
-  gender: string;
-  birthDate: string;
-  pEmail: string;
-  street: string;
-  phone: number;
-  floor: string;
-  apartment: string;
-  locality: string;
-  establishment: string;
-  socialWork: string;
+  age: number,
+  floor: string,
+  street: string,
+  nationality: string,
+  locality: string,
+  establishment: string,
+  socialWork: string,
+  apartment: string,
+  birthDate: string,
+  name: string,
+  pEmail: string,
+  phone: number,
+  surname: string,
+  gender: string,
+  dni: number
 }
