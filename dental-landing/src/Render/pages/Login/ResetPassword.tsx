@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useSearchParams } from "react-router-dom";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
+import "./Login.css";
 
 export const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -18,7 +19,7 @@ export const ResetPassword = () => {
     }
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/user/reset-password?token=${resetPasswordToken}`,
+        `http://localhost:3000/api/user/reset-password`,
         {
           resetPasswordToken,
           password: newPassword,

@@ -1,15 +1,18 @@
 import { Dashboard } from "../pages/Dashboard/Dashboard";
+
 import GestionTurnos from "../pages/GestionTurnos/GestionTurnos";
-import ListadoPacientes from "../pages/PatientManagement/ListadoPacientes";
 import { Landing } from "../pages/Landing/Landing";
 import { Login } from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
 import { Routes, Route } from "react-router-dom";
 import { NewPatient } from "../pages/PatientManagement/NewPatient";
+import PatientsList from "../pages/PatientManagement/PatientsList";
+import { SeeEditPatient } from "../pages/PatientManagement/SeeEditPatient";
 import { ForgotPassword } from "../pages/Login/ForgotPassword";
 import { ResetPassword } from "../pages/Login/ResetPassword";
 import { AuthProvider } from "../pages/contexts/AuthContext";
 import PrivateRoute from "../guards/PrivateRoute";
+
 
 function App() {
   return (
@@ -30,11 +33,11 @@ function App() {
           <Route path="/*" element={<NotFound />} />
           <Route
             path="/gestionDePacientes/listadoPacientes"
-            element={<ListadoPacientes />}
+            element={<PatientsList />}
           />
           <Route
             path="/patient-management/patients-list"
-            element={<ListadoPacientes />}
+            element={<PatientsList />}
           />
         </Route>
       </Routes>

@@ -87,7 +87,7 @@ export const Login = () => {
             </label>
             <div className="text-center lg:text-left">
               <Link
-                to="/forgot-password"
+                to="/user/forgot-password"
                 className="font-medium text-[#4053FF]"
               >
                 Olvidé mi contraseña

@@ -91,7 +91,6 @@ model Patient {
   pEmail    String
   dni       Int
   phone     Int
-  adress    String
   age Int?
   floor String?
   street String?
