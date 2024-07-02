@@ -24,7 +24,7 @@ export const SeeEditPatient = () => {
           </Link>
           <h1 className="poppins-semibold text-[33px]">Información del paciente</h1>
         </div>
-        <main className="w-[90%] max-w-[1594px] h-[740px] rounded-[35px] bg-lightgray border border-[#424242] py-[30px] px-[78px] mx-auto">
+        <main className="w-[90%] max-w-[1594px] h-[740px] rounded-[35px] bg-lightgray border border-[#424242] py-[30px] px-[78px] mx-auto overflow-y-scroll">
           <div>
             <div className="flex space-x-16 mb-4 poppins-regular text-[19px]">
               <button
@@ -58,7 +58,7 @@ export const SeeEditPatient = () => {
             <div className="p-4 rounded-lg">
               {activeTab === "personal-information" && (
                 <section>
-                  <PersonalInfo />
+                  PONER SU COMPONENTE DE INFORMACIÓN AQUÍ
                 </section>
               )}
               {/* {activeTab === "prestaciones" && (<section>Content for Prestaciones</section>)} */}
