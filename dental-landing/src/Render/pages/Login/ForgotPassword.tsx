@@ -62,18 +62,7 @@ export const ForgotPassword = () => {
                 required
               />
             </label>
-            <label htmlFor="message">
-              <p className="font-medium text-slate-700">Mensaje</p>
-              <textarea
-                readOnly
-                id="message"
-                name="message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="w-full object-cover py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-8"
-                placeholder=""
-              />
-            </label>
+            {message && <p className="text-center text-green-500">{message}</p>}
             <button
               type="submit"
               className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14"
