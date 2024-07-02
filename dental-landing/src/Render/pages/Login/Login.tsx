@@ -25,6 +25,7 @@ export const Login = () => {
       
       // Store the token in localStorage
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
       
       // Call the login method from AuthContext
       login(response.data.token);
