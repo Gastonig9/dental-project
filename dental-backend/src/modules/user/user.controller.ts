@@ -20,7 +20,7 @@ import { RequestResetPasswordDto, ResetPasswordDto } from 'src/dtos/user';
 import { Response } from 'express';
 import { Roles } from 'src/decorators/roles.decorator';
 
-// @Public()
+@Public()
 @ApiBearerAuth()
 @ApiTags('Users')
 @Controller('api/user')

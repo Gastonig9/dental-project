@@ -8,27 +8,37 @@ import { Routes, Route } from "react-router-dom";
 import { NewPatient } from "../pages/PatientManagement/NewPatient";
 import { ForgotPassword } from "../pages/Login/ForgotPassword";
 import { ResetPassword } from "../pages/Login/ResetPassword";
+import { AuthProvider } from "../pages/contexts/AuthContext";
+import PrivateRoute from "../guards/PrivateRoute";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/user/forgot-password" element={<ForgotPassword />} />
-      <Route path="/user/reset-password" element={<ResetPassword />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/appointments" element={ <GestionTurnos /> } />
-      <Route path="/patient-management/new-patient" element={<NewPatient />} />
-      <Route path="/*" element={<NotFound />} />
-      <Route
-        path="/gestionDePacientes/listadoPacientes"
-        element={<ListadoPacientes />}
-      />
-      <Route
-        path="/patient-management/patients-list"
-        element={<ListadoPacientes />}
-      />
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/user/forgot-password" element={<ForgotPassword />} />
+        <Route path="/user/reset-password" element={<ResetPassword />} />
+
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/appointments" element={<GestionTurnos />} />
+          <Route
+            path="/patient-management/new-patient"
+            element={<NewPatient />}
+          />
+          <Route path="/*" element={<NotFound />} />
+          <Route
+            path="/gestionDePacientes/listadoPacientes"
+            element={<ListadoPacientes />}
+          />
+          <Route
+            path="/patient-management/patients-list"
+            element={<ListadoPacientes />}
+          />
+        </Route>
+      </Routes>
+    </AuthProvider>
   );
 }
 
