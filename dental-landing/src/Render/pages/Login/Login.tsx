@@ -3,6 +3,7 @@ import axios from "axios";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import "./Login.css";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,8 +23,14 @@ export const Login = () => {
       );
       console.log("Login successful:", response.data);
       navigate("/dashboard");
+      console.log("Login successful:", response.data);
     } catch (error) {
       console.error("Error logging in:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error de autenticación",
+        text: "verifica tus credenciales",
+      });
     }
   };
 

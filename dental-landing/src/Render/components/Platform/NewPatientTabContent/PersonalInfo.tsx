@@ -5,7 +5,7 @@ import axios from "axios";
 export const PersonalInfo = () => {
   const { paciente, setPaciente } = usePatientContext();
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPaciente({ ...paciente, [name]: value } as Patient);
   };
@@ -13,21 +13,71 @@ export const PersonalInfo = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/api/patient", {
-        name: "string",
-        adress: "string",
-        pEmail: "string",
-        phone: 0,
-        surname: "string",
-        gender: "string",
-        dni: 0,
-      });
-      console.log("Patient information saved:", paciente);
-      return response.data
+      const response = await axios.post("http://localhost:3000/patient", paciente);
+      console.log("Patient information saved:", response.data);
+      setPaciente(response.data);
     } catch (error) {
       console.error("Error saving: ", error);
     }
   };
+
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post("http://localhost:3000/patient", {
+  //       age: 0,
+  //       floor: "string",
+  //       street: "string",
+  //       nationality: "string",
+  //       locality: "string",
+  //       establishment: "string",
+  //       socialWork: "string",
+  //       apartment: "string",
+  //       birthDate: "string",
+  //       name: "string",
+  //       adress: "string",
+  //       pEmail: "string",
+  //       phone: 0,
+  //       surname: "string",
+  //       gender: "string",
+  //       dni: 0,
+  //     });
+  //     console.log("Patient information saved:", response.data);
+  //     setPaciente(response.data);
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error("Error saving: ", error);
+  //   }
+  // };
+
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post("http://localhost:3000/patient", {
+  //       age: paciente?.age,
+  //       floor: paciente?.floor,
+  //       street: paciente?.street,
+  //       nationality: paciente?.nationality,
+  //       locality: paciente?.locality,
+  //       establishment: paciente?.establishment,
+  //       socialWork: paciente?.socialWork,
+  //       apartment: paciente?.apartment,
+  //       birthDate: paciente?.birthDate,
+  //       name: paciente?.name,
+  //       adress: paciente?.adress,
+  //       pEmail: paciente?.pEmail,
+  //       phone: paciente?.phone,
+  //       surname: paciente?.surname,
+  //       gender: paciente?.gender,
+  //       dni: paciente?.dni,
+  //     });
+  //     console.log("Patient information saved:", response.data);
+  //     setPaciente(response.data);
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error("Error saving: ", error);
+  //   }
+  // };
 
   return (
     <div>
@@ -49,6 +99,7 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="surname">Apellido</label>
               <input
+                id="surname"
                 type="text"
                 name="surname"
                 value={paciente?.surname || ""}
@@ -72,7 +123,8 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="age">Edad</label>
               <input
-                type="text"
+                id="age"
+                type="number"
                 name="age"
                 value={paciente?.age || ""}
                 onChange={handleChange}
@@ -82,6 +134,7 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="nationality">Nacionalidad</label>
               <input
+                id="nationality"
                 type="text"
                 name="nationality"
                 value={paciente?.nationality || ""}
@@ -105,7 +158,8 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="birthDate">Fecha De Nacimiento</label>
               <input
-                type="text"
+                id="birthDate"
+                type="date"
                 name="birthDate"
                 value={paciente?.birthDate || ""}
                 onChange={handleChange}
@@ -131,6 +185,7 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="street">Calle</label>
               <input
+                id="street"
                 type="text"
                 name="street"
                 value={paciente?.street || ""}
@@ -154,6 +209,7 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="floor">Piso</label>
               <input
+                id="floor"
                 type="text"
                 name="floor"
                 value={paciente?.floor || ""}
@@ -164,6 +220,7 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="apartment">Dpto</label>
               <input
+                id="apartment"
                 type="text"
                 name="apartment"
                 value={paciente?.apartment || ""}
@@ -174,6 +231,7 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="locality">localidad</label>
               <input
+                id="locality"
                 type="text"
                 name="locality"
                 value={paciente?.locality || ""}
@@ -186,6 +244,7 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="establishment">Establecimiento</label>
               <input
+                id="establishment"
                 type="text"
                 name="establishment"
                 value={paciente?.establishment || ""}
@@ -196,6 +255,7 @@ export const PersonalInfo = () => {
             <div className="flex flex-col">
               <label htmlFor="socialWork">Obra Social</label>
               <input
+                id="socialWork"
                 type="text"
                 name="socialWork"
                 value={paciente?.socialWork || ""}
