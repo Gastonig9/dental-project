@@ -8,15 +8,15 @@ const Carousel = () => {
   };
 
   const images = [
-    "./public/imgs/about-us/carousel/1.jpg",
-    "./public/imgs/about-us/carousel/2.jpg",
-    "./public/imgs/about-us/carousel/3.jpg",
-    "./public/imgs/about-us/carousel/4.jpg",
-    "./public/imgs/about-us/carousel/5.jpg",
+    "/src/assets/img/landing/about-us/carousel/1.jpg",
+    "/src/assets/img/landing/about-us/carousel/2.jpg",
+    "/src/assets/img/landing/about-us/carousel/3.jpg",
+    "/src/assets/img/landing/about-us/carousel/4.jpg",
+    "/src/assets/img/landing/about-us/carousel/5.jpg",
   ];
 
   return (
-    <section className="pt-[47px] lg:pt-[213px]">
+    <section className="py-[57px] lg:pt-[213px]">
       <Splide
         style={splideStyles}
         aria-label="Dental Images Carousel"
@@ -39,7 +39,7 @@ const Carousel = () => {
       >
         {images.map((image, index) => (
           <SplideSlide>
-            <div key={index} className="flex justify-center pb-10">
+            <div key={index} className="flex justify-center">
               <picture className="relative h-[269px] w-[180px] lg:w-[360px] lg:h-[515px]">
                 <img
                   src={image}
