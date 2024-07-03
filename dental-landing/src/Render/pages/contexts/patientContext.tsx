@@ -1,33 +1,35 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { Patient } from "../../../types/dtos/Patient/NewPatient.type";
 
 interface InitialState {
-  paciente: object | null;
-  setPaciente: (paciente: object) => void;
+  patientData: Patient | null;
+  setPatientData: React.Dispatch<React.SetStateAction<Patient | null>>;
 }
 
-const PatientContext = createContext<InitialState | null>(null);
+const PatientContext = createContext<InitialState | undefined>(undefined);
 
-export const PatientContextProvider = ({ children }: {children: React.ReactNode}) => {
-  const [paciente, setPaciente] = useState<object | null>(null);
+export const PatientContextProvider: React.FC<{
+  children: React.ReactNode;
+}> = ({ children }) => {
+  const [patientData, setPatientData] = useState<Patient | null>(null);
 
-  const data = {
-    paciente,
-    setPaciente,
-  };
+  useEffect(() => {
+    console.log("From Context:", patientData);
+  }, [patientData]);
 
-   useEffect(()=>{
-    console.log(paciente)
-   }, [paciente])
-
-  return <PatientContext.Provider value={data}> { children } </PatientContext.Provider>;
+  return (
+    <PatientContext.Provider value={{ patientData, setPatientData }}>
+      {children}
+    </PatientContext.Provider>
+  );
 };
 
-
-export const usePatientContext = () => {
+export const usePatientContext = (): InitialState => {
   const context = useContext(PatientContext);
-
   if (!context) {
-    throw new Error();
+    throw new Error(
+      "usePatientContext must be used within a PatientContextProvider"
+    );
   }
   return context;
 };

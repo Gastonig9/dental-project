@@ -3,10 +3,34 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class PatientRequestDto implements Omit<Patient, 'id'> {
   @ApiProperty()
-  name: string;
+  age: number;
 
   @ApiProperty()
-  adress: string;
+  floor: string;
+
+  @ApiProperty()
+  street: string;
+
+  @ApiProperty()
+  nationality: string;
+
+  @ApiProperty()
+  locality: string;
+
+  @ApiProperty()
+  establishment: string;
+
+  @ApiProperty()
+  socialWork: string;
+
+  @ApiProperty()
+  apartment: string;
+
+  @ApiProperty()
+  birthDate: string;
+
+  @ApiProperty()
+  name: string;
 
   @ApiProperty()
   pEmail: string;
@@ -22,4 +46,7 @@ export class PatientRequestDto implements Omit<Patient, 'id'> {
 
   @ApiProperty()
   dni: number;
+
+  @ApiProperty()
+  odontograma: string | null;
 }

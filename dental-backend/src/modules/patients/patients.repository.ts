@@ -39,7 +39,7 @@ export class PatientRepository {
       where,
       include: {
         appointments: true,
-        medicalHistories: true
+        medicalHistories: true,
       },
     });
   }
@@ -49,28 +49,26 @@ export class PatientRepository {
       where: {
         id,
       },
-      select: {
-        name: true,
-        surname: true,
-        pEmail: true,
-        adress: true,
-        gender: true,
-        dni: true,
-        appointments: {
-          select: {
-            date: true,
-            dentist: {
-              select: {
-                user: true,
-              },
-            },
-          },
-        },
+      include: {
+        appointments: true,
+        medicalHistories: true,
       },
     });
   }
 
   async getPatientByDni(dni: number): Promise<Patient | null> {
     return this.context.patient.findFirst({ where: { dni } });
+  }
+
+  async updatePatientById(
+    id: number,
+    data: Partial<Patient>,
+  ): Promise<Patient | null> {
+    return this.context.patient.update({
+      where: {
+        id,
+      },
+      data: { ...data },
+    });
   }
 }

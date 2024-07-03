@@ -6,13 +6,15 @@ import {
   Param,
   Query,
   HttpStatus,
+  Put,
 } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiQuery } from '@nestjs/swagger';
 import { Patient } from '@prisma/client';
 import { PatientRequestDto } from 'src/dtos';
 import { PatientService } from './patients.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/decorators/public.decorator';
+import { UpdatePatientDto } from 'src/dtos';
 
 @Public()
 @ApiTags('Pacientes')
@@ -31,6 +33,9 @@ export class PatientController {
   }
 
   @Get('get-patients')
+  @ApiQuery({ name: 'gender', required: false })
+  @ApiQuery({ name: 'dni', required: false })
+  @ApiQuery({ name: 'name', required: false })
   async getAllPatients(
     @Query('dni') dni?: string,
     @Query('name') name?: string,
@@ -50,6 +55,15 @@ export class PatientController {
   @Get(':id')
   async getPatient(@Param('id') id: string): Promise<Patient> {
     return await this.patientService.getPatient(parseInt(id));
+  }
+
+  @Put(':id')
+  @ApiBody({ type: UpdatePatientDto })
+  async updatePatient(
+    @Param('id') id: string,
+    @Body() data: Partial<Patient>,
+  ): Promise<Patient> {
+    return await this.patientService.updatePatientById(parseInt(id), data);
   }
 
   // Endpoint temporal para mockear pacientes

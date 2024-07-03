@@ -18,6 +18,7 @@ import { Public } from 'src/decorators/public.decorator';
 import { UserAuthResponseDto, UserLoginDto, UserRegisterDto } from 'src/dtos';
 import { RequestResetPasswordDto, ResetPasswordDto } from 'src/dtos/user';
 import { Response } from 'express';
+// import { Roles } from 'src/decorators/roles.decorator';
 
 @Public()
 @ApiBearerAuth()
@@ -36,7 +37,7 @@ export class UserController {
   async getUser(@Param('id') id: string): Promise<User> {
     return await this.service.getUser(parseInt(id));
   }
-
+  @UseGuards(RolesGuard)
   @Post('/register-user')
   @ApiBody({ type: UserRegisterDto })
   async RegisterUser(@Body() data: User): Promise<User> {

@@ -3,30 +3,43 @@ import axios from "axios";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import "./Login.css";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import { useAuth } from "../contexts/AuthContext";
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/user/login-user",
-        {
-          email,
-          password,
-        }
-      );
-      console.log("Login successful:", response.data);
-      navigate("/dashboard");
+      const response = await axios.post('http://localhost:3000/api/user/login-user', {
+        email,
+        password,
+      });
+
+      console.log('Login successful:', response.data);
+      
+      // Store the token in localStorage
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      
+      // Call the login method from AuthContext
+      login(response.data.token);
+      
+      navigate('/dashboard');
     } catch (error) {
-      console.error("Error logging in:", error);
+      console.error('Error logging in:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error de autenticación',
+        text: 'verifica tus credenciales',
+      });
     }
   };
-
   return (
     <section className="min-h-screen min-w-full login-bg-img flex items-center justify-center">
       <div className="login-form w-[350px] md:w-[500px] lg:w-[929px] h-[495px] mx-auto my-2 bg-lightgray bg-opacity-60 p-5 lg:p-8 rounded-xl border border-slate-700">
@@ -75,7 +88,7 @@ export const Login = () => {
             </label>
             <div className="text-center lg:text-left">
               <Link
-                to="/forgot-password"
+                to="/user/forgot-password"
                 className="font-medium text-[#4053FF]"
               >
                 Olvidé mi contraseña

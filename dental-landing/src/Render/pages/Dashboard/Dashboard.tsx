@@ -4,16 +4,42 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
+import Navbar from "../../components/Platform/Navbar";
+import { useEffect, useState } from "react";
 
 export const Dashboard = () => {
+  const userData = JSON.parse(localStorage.getItem('user') || '{}');
+
+  const [currentDate, setCurrentDate] = useState<string>('');
+
+  useEffect(() => {
+    // Function to get the current date in a desired format
+    const getCurrentDate = () => {
+      const date = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'America/Argentina/Buenos_Aires',
+      };
+      return date.toLocaleDateString('es-AR', options);
+    };
+
+    // Set the current date when the component mounts
+    setCurrentDate(getCurrentDate());
+  }, []);
+
   return (
-    <main className="min-h-screen min-w-full flex flex-col lg:flex-row justify-center items-start mt-11 bg-background">
+    <>
+    <Navbar/>
+    <main className="min-h-screen min-w-full flex flex-col lg:flex-row justify-center items-center mt-[100px] ms-0 lg:ms-[100px] pt-6 bg-background">
       <section className="mx-auto lg:mx-0 lg:me-[108px]">
         <div className="mb-8">
           <h1 className="poppins-bold text-[23px] lg:text-[40px] mb-2">
-            Bienvenido [Nombre usuario]
+            Bienvenido {userData.fullname}
           </h1>
-          <p className="poppins-regular text-[19px]">[Fecha del día]</p>
+          <p className="poppins-regular text-[19px]">{currentDate}</p>
         </div>
 
         {/* SEARCH MOBILE */}
@@ -41,21 +67,24 @@ export const Dashboard = () => {
             />
           </div>
         </div>
-        <div className="poppins-bold hidden lg:flex">
-          <Link to="/">
-            <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[25px]">
-              <UsersIcon
-                className="text-[25px] h-7 w-7 flex-none text-black me-2"
-                aria-hidden="true"
-              />
-              <span className="me-8">Gestionar usuarios</span>
-              <ChevronRightIcon
-                className="text-[25px] h-7 w-7 flex-none text-black"
-                aria-hidden="true"
-              />
-            </button>
-          </Link>
-        </div>
+         {/* Render the button only if role_name is not 'SECRETARY' */}
+         {userData.role_name !== 'SECRETARY' && (
+            <div className="poppins-bold hidden lg:flex">
+              <Link to="/">
+                <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[25px]">
+                  <UsersIcon
+                    className="text-[25px] h-7 w-7 flex-none text-black me-2"
+                    aria-hidden="true"
+                  />
+                  <span className="me-8">Gestionar usuarios</span>
+                  <ChevronRightIcon
+                    className="text-[25px] h-7 w-7 flex-none text-black"
+                    aria-hidden="true"
+                  />
+                </button>
+              </Link>
+            </div>
+          )}
       </section>
       <section className="flex justify-center items-center mx-auto lg:mx-0 pt-14">
         <div className="w-[349px] lg:w-[840px] h-[646px] lg:h-[665px] bg-lightgray border border-[#424242] rounded-[20px] lg:rounded-[30px] px-3 lg:px-14 py-4 lg:py-12">
@@ -72,6 +101,8 @@ export const Dashboard = () => {
       </section>
 
       {/* GESTINAR USUARIOS BUTTON MOBILE */}
+      {/* Render the button only if role_name is not 'SECRETARY' */}
+      {userData.role_name !== 'SECRETARY' && (
       <div className="flex lg:hidden poppins-bold mx-auto my-14">
         <Link to="/">
           <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[20px]">
@@ -87,6 +118,8 @@ export const Dashboard = () => {
           </button>
         </Link>
       </div>
+      )}
     </main>
+    </>
   );
 };
