@@ -2,7 +2,7 @@ export interface Patient {
   name: string;
   surname: string;
   dni: number;
-  age: string;
+  age: number;
   nationality: string;
   gender: string;
   birthDate: string;
@@ -15,6 +15,7 @@ export interface Patient {
   establishment: string;
   socialWork: string;
   services: Prestacion;
+  id?: number
 }
 
 export interface Prestacion {

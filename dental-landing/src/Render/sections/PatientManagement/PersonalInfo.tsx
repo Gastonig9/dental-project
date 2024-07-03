@@ -21,6 +21,10 @@ export const PersonalInfo = () => {
 
   const onSubmit = async (data: Patient) => {
     try {
+      data.dni = Number(data.dni)
+      data.age = Number(data.age)
+      data.phone = Number(data.phone)
+
       const response = await axios.post("http://localhost:3000/patient", data);
       setPatient(response.data);
       Swal.fire({
