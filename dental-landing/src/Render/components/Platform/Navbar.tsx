@@ -121,7 +121,7 @@ const Navbar = () => {
             >
               <FaCalendar className="text-5xl" />
               {desktopMenu && (
-                <Link to="/example2" >  
+                <Link to="/appointments" >  
                   <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Gestionar Turnos</h3>
                 </Link>
               )}

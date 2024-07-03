@@ -14,8 +14,12 @@ export interface Patient {
   locality: string;
   establishment: string;
   socialWork: string;
+
   services: Prestacion;
   id?: number
+
+  odontograma?: string | null;
+
 }
 
 export interface Prestacion {
@@ -28,8 +32,8 @@ export interface Prestacion {
 
 export interface ToothDetail {
   toothNumber: number;
-  position: "center" | "top" | "bottom" | "left" | "right";
   reference: string;
+  position: string;
 }
 
 export interface ToothState {
