@@ -7,7 +7,8 @@ import { Patient } from "../../../types/dtos/Patient/NewPatient.type";
 
 export const PersonalInfo = () => {
   const { register, handleSubmit, setValue } = useForm<Patient>();
-  const { patientData: patient, setPatientData: setPatient } = usePatientContext();
+  const { patientData: patient, setPatientData: setPatient } =
+    usePatientContext();
 
   useEffect(() => {
     if (patient) {
@@ -21,7 +22,7 @@ export const PersonalInfo = () => {
 
   const onSubmit = async (data: Patient) => {
     try {
-      
+
       data.dni = Number(data.dni);
       data.age = Number(data.age);
       data.phone = Number(data.phone);

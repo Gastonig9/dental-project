@@ -9,11 +9,14 @@ const MedicalHistory = () => {
   const { patientData: patient } = usePatientContext();
 
   useEffect(() => {
-    console.log(patient);
+    console.log("Got CONTEXT ID: ",patient);
   }, [patient]);
 
   const onSubmit = (data: any) => {
     console.log(data);
+    if(patient  !== null){
+      data.patientId = patient.id
+    }
     axios
       .post("http://localhost:3000/records/create-record", data)
       .then((res) => {
@@ -125,14 +128,13 @@ const MedicalHistory = () => {
               className=" py-1 px-4 rounded-lg"
             />
 
-            {/* <label htmlFor="input9">Tomó algún medicamento? Cuál?</label>
-            <select id="input9" {... register("tookMedicine")} defaultValue={"SIN_INFORMACION"}
-              className=' py-1 px-4 rounded-lg'
-            >
-              <option value="SIN_INFORMACION" disabled>Seleccione opción</option>
-              <option  value="SI">SI</option>
-              <option  value="NO">NO</option>
-            </select>  */}
+            <label htmlFor="input9">Tomó algún medicamento? Cuál?</label>
+            <input
+              id="input9"
+              type="text"
+              {...register("takeSomeMedication")}
+              className=" py-1 px-4 rounded-lg"
+            />
 
             <label htmlFor="input10">Ha tenido dolor? Describa el tipo</label>
             <select
@@ -148,14 +150,15 @@ const MedicalHistory = () => {
               <option value="NO">NO</option>
             </select>
 
-            {/* <label htmlFor="input11">Sufrió algún golpe en los dientes? Cómo se produjo?</label>
-            <select id="input11" {... register("hitTeeth")} defaultValue={"SIN_INFORMACION"} 
-              className=' py-1 px-4 rounded-lg'
-            >
-              <option value="SIN_INFORMACION" disabled>Seleccione opción</option>
-              <option  value="SI">SI</option>
-              <option  value="NO">NO</option>
-            </select> */}
+            <label htmlFor="input11">
+              Sufrió algún golpe en los dientes? Cómo se produjo?
+            </label>
+            <input
+              id="input11"
+              type="text"
+              {...register("blowToTeeth")}
+              className=" py-1 px-4 rounded-lg"
+            />
 
             <label htmlFor="input12">Tiene movilidad en sus dientes?</label>
             <select

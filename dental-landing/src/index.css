@@ -279,12 +279,11 @@
 /* CALENDAR BODY */
 
 .fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
-  width: 60%;
+  width: 80%;
   height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 200px;
   border-radius: 15px !important;
 }
 
@@ -301,6 +300,26 @@
 .fc-event-main {
   background-color: #58d68d;
   border: #000000 !important;
+}
+
+/* Personalizar la scrollbar del cuerpo del calendario */
+.fc-scroller::-webkit-scrollbar {
+  width: 12px;
+}
+
+.fc-scroller::-webkit-scrollbar-track {
+  background: #f5f5f5; 
+  border-radius: 10px;
+}
+
+.fc-scroller::-webkit-scrollbar-thumb {
+  background-color: #908e8e; 
+  border-radius: 10px;
+  border: 3px solid #f5f5f5; 
+}
+
+.fc-scroller::-webkit-scrollbar-thumb:hover {
+  background-color: #58d68d;
 }
 
 /* Calendar Mobile */

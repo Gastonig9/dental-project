@@ -50,6 +50,7 @@ export class PatientService {
         nationality: 'argentina',
         socialWork: 'nose',
         street: 'Colon',
+        odontograma: null,
       };
       mockPatients.push(newMockPatient);
     }
@@ -72,5 +73,12 @@ export class PatientService {
 
   async getPatientByDni(dni: number): Promise<Patient> {
     return this.repository.getPatientByDni(dni);
+  }
+
+  async updatePatientById(
+    id: number,
+    patient: Partial<Patient>,
+  ): Promise<Patient> {
+    return this.repository.updatePatientById(id, patient);
   }
 }

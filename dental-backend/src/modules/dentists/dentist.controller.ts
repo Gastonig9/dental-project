@@ -12,7 +12,11 @@ export class DentistController {
   constructor(private readonly service: DentistService) {}
 
   @Get()
-  async getAllDentist(): Promise<Dentist[]> {
-    return await this.service.getAllDentist();
+  async getAllDentist() {
+    const dentists = await this.service.getAllDentist();
+    return {
+      statusCode: 200,
+      dentists,
+    };
   }
 }
