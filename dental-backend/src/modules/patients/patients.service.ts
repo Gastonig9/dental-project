@@ -40,7 +40,7 @@ export class PatientService {
         gender: 'Male',
         pEmail: faker.internet.exampleEmail(),
         dni: faker.number.int({ min: 1000000, max: 40000000 }), // Assuming DNI is a 8-digit number
-        phone: 42421212,
+        phone: 42421212n,
         age: 9,
         apartment: 'nose',
         birthDate: '/20/3/1994',

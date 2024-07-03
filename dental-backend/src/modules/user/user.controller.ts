@@ -9,14 +9,23 @@ import {
   Patch,
   Res,
   HttpStatus,
+  Put,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '@prisma/client';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { RolesGuard } from '../auth/jwt/roles.guard';
 import { Public } from 'src/decorators/public.decorator';
-import { UserAuthResponseDto, UserLoginDto, UserRegisterDto } from 'src/dtos';
-import { RequestResetPasswordDto, ResetPasswordDto } from 'src/dtos/user';
+import {
+  UserAuthResponseDto,
+  UserLoginDto,
+  UserUpdateDto,
+  RequestResetPasswordDto,
+  ResetPasswordDto,
+  UserRegisterDto,
+} from 'src/dtos';
+
 import { Response } from 'express';
 // import { Roles } from 'src/decorators/roles.decorator';
 
@@ -37,11 +46,22 @@ export class UserController {
   async getUser(@Param('id') id: string): Promise<User> {
     return await this.service.getUser(parseInt(id));
   }
+
   @UseGuards(RolesGuard)
   @Post('/register-user')
   @ApiBody({ type: UserRegisterDto })
   async RegisterUser(@Body() data: User): Promise<User> {
     return await this.service.register(data);
+  }
+
+  @UseGuards(RolesGuard)
+  @Put('/:id')
+  @ApiBody({ type: UserUpdateDto })
+  async UpdateUser(
+    @Body() data: User,
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<User> {
+    return await this.service.updateUser(id, data);
   }
 
   @Post('/login-user')
