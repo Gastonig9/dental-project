@@ -18,7 +18,7 @@ export class UpdatePatientDto implements Partial<Patient> {
   dni?: number;
 
   @ApiProperty()
-  phone?: number;
+  phone?: bigint;
 
   @ApiProperty()
   floor?: string;
