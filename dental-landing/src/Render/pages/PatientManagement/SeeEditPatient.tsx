@@ -4,6 +4,7 @@ import { useState } from "react";
 import { PersonalInfo } from "../../sections/PatientManagement/PersonalInfo";
 import Navbar from "../../components/Platform/Navbar";
 import SeeEditMedicalHistory from "./SeeEditMedicalHistory";
+import { SeeEditPersonalInfo } from "../PatientManagement/SeeEditPersonalInfo";
 
 export const SeeEditPatient = () => {
   const [activeTab, setActiveTab] = useState("personal-information");
@@ -58,7 +59,7 @@ export const SeeEditPatient = () => {
             <div className="p-4 rounded-lg">
               {activeTab === "personal-information" && (
                 <section>
-                  <PersonalInfo />
+                  <SeeEditPersonalInfo />
                 </section>
               )}
               {/* {activeTab === "prestaciones" && (<section>Content for Prestaciones</section>)} */}

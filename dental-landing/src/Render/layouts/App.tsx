@@ -12,6 +12,7 @@ import { ForgotPassword } from "../pages/Login/ForgotPassword";
 import { ResetPassword } from "../pages/Login/ResetPassword";
 import { AuthProvider } from "../pages/contexts/AuthContext";
 import PrivateRoute from "../guards/PrivateRoute";
+import { EditUserInfo } from "../pages/UserManagement/EditUserInfo";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/user/reset-password" element={<ResetPassword />} />
         <Route path="/*" element={<NotFound />} />
         {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
+        <Route path="/user-management/edit-user" element={ <EditUserInfo /> } />
         {/* PROTECTED ROUTES */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -31,6 +33,7 @@ function App() {
           <Route path="/patient-management/new-patient" element={<NewPatient />}/>
           <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
           <Route path="/patient-management/seeEditPatient/:id" element={ <SeeEditPatient /> } />
+          
         </Route>
         {/* PROTECTED ROUTES */}
       </Routes>

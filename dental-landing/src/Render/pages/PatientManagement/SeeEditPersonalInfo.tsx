@@ -1,33 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { usePatientContext } from "../../pages/contexts/patientContext";
-import { Patient } from "../../../types/dtos/Patient/NewPatient.type";
+import { useParams } from "react-router-dom";
 
-export const PersonalInfo = () => {
-  const { register, handleSubmit, setValue } = useForm<Patient>();
-  const { patientData: patient, setPatientData: setPatient } = usePatientContext();
+export const SeeEditPersonalInfo = () => {
+  const { id } = useParams();
+  const [patientInfo, setPatientInfo] = useState({});
+  const [allowEdition, setAllowEdition] = useState(false);
+  const { register, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
-    if (patient) {
-      for (const key in patient) {
-        if (Object.prototype.hasOwnProperty.call(patient, key)) {
-          setValue(key as keyof Patient, patient[key as keyof Patient]);
+    axios
+      .get(`http://localhost:3000/patient/${id}`)
+      .then((res) => {
+        setPatientInfo(res.data);
+        const patient = res.data;
+        for (const key in patient) {
+          if (Object.prototype.hasOwnProperty.call(patient, key)) {
+            setValue(key, patient[key]);
+          }
         }
-      }
-    }
-  }, [patient, setValue]);
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+      });
+  }, [id, setValue]);
 
-  const onSubmit = async (data: Patient) => {
+  const onSubmit = async (data: any) => {
     try {
-      
       data.dni = Number(data.dni);
       data.age = Number(data.age);
       data.phone = Number(data.phone);
 
-      const response = await axios.post("http://localhost:3000/patient", data);
-      setPatient(response.data);
+      const response = await axios.post(
+        `http://localhost:3000/patient/${id}`,
+        data
+      );
+      setPatientInfo(response.data);
       Swal.fire({
         title: "Guardado",
         text: "Información personal guardada con éxito.",
@@ -56,7 +66,10 @@ export const PersonalInfo = () => {
                 id="name"
                 type="text"
                 {...register("name")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
             <div className="flex flex-col">
@@ -65,7 +78,10 @@ export const PersonalInfo = () => {
                 id="surname"
                 type="text"
                 {...register("surname")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
           </div>
@@ -76,7 +92,10 @@ export const PersonalInfo = () => {
                 id="dni"
                 type="number"
                 {...register("dni")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
             <div className="flex flex-col">
@@ -85,7 +104,10 @@ export const PersonalInfo = () => {
                 id="age"
                 type="number"
                 {...register("age")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
             <div className="flex flex-col">
@@ -94,7 +116,10 @@ export const PersonalInfo = () => {
                 id="nationality"
                 type="text"
                 {...register("nationality")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
           </div>
@@ -105,7 +130,10 @@ export const PersonalInfo = () => {
                 id="gender"
                 type="text"
                 {...register("gender")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
             <div className="flex flex-col">
@@ -114,7 +142,10 @@ export const PersonalInfo = () => {
                 id="birthDate"
                 type="date"
                 {...register("birthDate")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
             <div className="flex flex-col">
@@ -123,7 +154,10 @@ export const PersonalInfo = () => {
                 id="pEmail"
                 type="text"
                 {...register("pEmail")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
           </div>
@@ -137,7 +171,10 @@ export const PersonalInfo = () => {
                 id="street"
                 type="text"
                 {...register("street")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
             <div className="flex flex-col">
@@ -146,7 +183,10 @@ export const PersonalInfo = () => {
                 id="phone"
                 type="number"
                 {...register("phone")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
           </div>
@@ -157,7 +197,10 @@ export const PersonalInfo = () => {
                 id="floor"
                 type="text"
                 {...register("floor")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
             <div className="flex flex-col">
@@ -166,7 +209,10 @@ export const PersonalInfo = () => {
                 id="apartment"
                 type="text"
                 {...register("apartment")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
             <div className="flex flex-col">
@@ -175,7 +221,10 @@ export const PersonalInfo = () => {
                 id="locality"
                 type="text"
                 {...register("locality")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
           </div>
@@ -186,7 +235,10 @@ export const PersonalInfo = () => {
                 id="establishment"
                 type="text"
                 {...register("establishment")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
             <div className="flex flex-col">
@@ -195,16 +247,23 @@ export const PersonalInfo = () => {
                 id="socialWork"
                 type="text"
                 {...register("socialWork")}
-                className="personalInfo-input-style"
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
               />
             </div>
           </div>
         </div>
-        <div className="flex justify-end">
+        <div className="flex gap-3 justify-end">
           <button
-            type="submit"
             className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]"
+            type="button"
+            onClick={() => setAllowEdition(!allowEdition)}
           >
+            {!allowEdition ? "Activar Edición" : "Desactivar Edición"}
+          </button>
+          <button className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]">
             Guardar
           </button>
         </div>
