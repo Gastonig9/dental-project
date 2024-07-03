@@ -100,6 +100,7 @@ model Patient {
   socialWork String?
   apartment String?
   birthDate String?
+  odontograma String? 
   appointments Appointment[]
   medicalHistories MedicalHistory[]
 }
