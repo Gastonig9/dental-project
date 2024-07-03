@@ -12,6 +12,7 @@ import { ForgotPassword } from "../pages/Login/ForgotPassword";
 import { ResetPassword } from "../pages/Login/ResetPassword";
 import { AuthProvider } from "../pages/contexts/AuthContext";
 import PrivateRoute from "../guards/PrivateRoute";
+import { EditUserInfo } from "../pages/UserManagement/EditUserInfo";
 
 
 
@@ -28,6 +29,8 @@ function App() {
         <Route path="/user/reset-password" element={<ResetPassword />} />
         <Route path="/create-appointment" element={<CreateAppointment />}></Route>
         <Route path="/*" element={<NotFound />} />
+        {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
+        <Route path="/user-management/edit-user" element={ <EditUserInfo /> } />
         {/* PROTECTED ROUTES */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />

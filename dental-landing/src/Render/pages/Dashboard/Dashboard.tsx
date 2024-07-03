@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../components/Platform/Navbar";
 import { useEffect, useState } from "react";
 
+
 export const Dashboard = () => {
   const userData = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -33,7 +34,7 @@ export const Dashboard = () => {
   return (
     <>
     <Navbar/>
-    <main className="min-h-screen min-w-full flex flex-col lg:flex-row justify-center items-center mt-[100px] ms-0 lg:ms-[100px] pt-6 bg-background">
+    <main className="min-h-screen min-w-full flex flex-col lg:flex-row justify-center items-center mt-[90px] ms-0 lg:ms-[100px] pt-6 bg-background">
       <section className="mx-auto lg:mx-0 lg:me-[108px]">
         <div className="mb-8">
           <h1 className="poppins-bold text-[23px] lg:text-[40px] mb-2">
