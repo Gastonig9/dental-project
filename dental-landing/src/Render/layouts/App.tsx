@@ -1,5 +1,4 @@
 import { Dashboard } from "../pages/Dashboard/Dashboard";
-
 import GestionTurnos from "../pages/GestionTurnos/GestionTurnos";
 import { Landing } from "../pages/Landing/Landing";
 import { Login } from "../pages/Login/Login";
@@ -15,7 +14,10 @@ import PrivateRoute from "../guards/PrivateRoute";
 
 
 function App() {
-  return (
+  return (<>
+      <Routes>
+      <Route path="/patient-management/new-patient" element={<NewPatient />}/>
+      </Routes>
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -23,18 +25,18 @@ function App() {
         <Route path="/user/forgot-password" element={<ForgotPassword />} />
         <Route path="/user/reset-password" element={<ResetPassword />} />
         <Route path="/*" element={<NotFound />} />
-        {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
         {/* PROTECTED ROUTES */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/appointments" element={<GestionTurnos />} />
-          <Route path="/patient-management/new-patient" element={<NewPatient />}/>
+          {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
           <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
           <Route path="/patient-management/seeEditPatient/:id" element={ <SeeEditPatient /> } />
         </Route>
         {/* PROTECTED ROUTES */}
       </Routes>
     </AuthProvider>
+  </>
   );
 }
 
