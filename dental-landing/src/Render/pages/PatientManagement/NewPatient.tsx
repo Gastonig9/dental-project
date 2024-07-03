@@ -5,7 +5,7 @@ import { PersonalInfo } from "../../sections/PatientManagement/PersonalInfo";
 import MedicalHistory from "./MedicalHistory";
 import { PatientContextProvider } from "../contexts/patientContext";
 import Navbar from "../../components/Platform/Navbar";
-import Prestaciones from "../../sections/PatientManagement/Prestaciones";
+import Prestaciones from "../../sections/PatientManagement/MedicalServices";
 
 export const NewPatient = () => {
   const [activeTab, setActiveTab] = useState("My Account");
