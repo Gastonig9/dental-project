@@ -1,5 +1,7 @@
 import { Dashboard } from "../pages/Dashboard/Dashboard";
 import GestionTurnos from "../pages/GestionTurnos/GestionTurnos";
+import ListadoPacientes from "../pages/PatientManagement/ListadoPacientes";
+import CreateAppointment from "../pages/CreateAppointment/CreateAppointment";
 import { Landing } from "../pages/Landing/Landing";
 import { Login } from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
@@ -13,6 +15,7 @@ import { AuthProvider } from "../pages/contexts/AuthContext";
 import PrivateRoute from "../guards/PrivateRoute";
 
 
+
 function App() {
   return (<>
       <Routes>
@@ -24,6 +27,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/user/forgot-password" element={<ForgotPassword />} />
         <Route path="/user/reset-password" element={<ResetPassword />} />
+        <Route path="/create-appointment" element={<CreateAppointment />}></Route>
         <Route path="/*" element={<NotFound />} />
         {/* PROTECTED ROUTES */}
         <Route element={<PrivateRoute />}>
