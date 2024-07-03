@@ -14,7 +14,12 @@ export interface Patient {
   locality: string;
   establishment: string;
   socialWork: string;
+
+  services: Prestacion;
+  id?: number
+
   odontograma?: string | null;
+
 }
 
 export interface Prestacion {

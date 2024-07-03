@@ -9,11 +9,14 @@ const MedicalHistory = () => {
   const { patientData: patient } = usePatientContext();
 
   useEffect(() => {
-    console.log(patient);
+    console.log("Got CONTEXT ID: ",patient);
   }, [patient]);
 
   const onSubmit = (data: any) => {
     console.log(data);
+    if(patient  !== null){
+      data.patientId = patient.id
+    }
     axios
       .post("http://localhost:3000/records/create-record", data)
       .then((res) => {

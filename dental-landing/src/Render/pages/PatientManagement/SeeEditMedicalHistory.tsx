@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios"
 import Swal from 'sweetalert2'
 import { useParams } from 'react-router-dom';
+import MedicalHistory from './MedicalHistory';
 
 const SeeEditMedicalHistory = () => {
   enum EnumInfoBoolean {
@@ -59,7 +60,6 @@ const SeeEditMedicalHistory = () => {
       .get(`http://localhost:3000/patient/${id}`)
       .then((res)=>{
         setPatientInfo(res.data.medicalHistories[0])
-        console.log(patientInfo)
       })
       .catch((err)=>{
         console.log(err.response.data.message)
@@ -68,41 +68,51 @@ const SeeEditMedicalHistory = () => {
 
   // showing latest info in the input fields
   useEffect(()=>{
-    reset({
-      someDisease: patientInfo.someDisease,
-      someTreatment: patientInfo.someTreatment,
-      consumeMedicaments: patientInfo.consumeMedicaments,
-      allergyMedicament: patientInfo.allergyMedicament,
-      operations: patientInfo.operations,
-      smokes: patientInfo.smokes,
-      pregnant: patientInfo.pregnant,
-      attendance: patientInfo.attendance,
-      takeSomeMedication: patientInfo.takeSomeMedication,
-      pains: patientInfo.pains,
-      blowToTeeth: patientInfo.blowToTeeth,
-      dentalMobility: patientInfo.dentalMobility,
-      swollenFace: patientInfo.swollenFace,
-      injuries: patientInfo.injuries,
-      observations: patientInfo.observations
-    })
+    if(patientInfo){
+      reset({
+        someDisease: patientInfo.someDisease,
+        someTreatment: patientInfo.someTreatment,
+        consumeMedicaments: patientInfo.consumeMedicaments,
+        allergyMedicament: patientInfo.allergyMedicament,
+        operations: patientInfo.operations,
+        smokes: patientInfo.smokes,
+        pregnant: patientInfo.pregnant,
+        attendance: patientInfo.attendance,
+        takeSomeMedication: patientInfo.takeSomeMedication,
+        pains: patientInfo.pains,
+        blowToTeeth: patientInfo.blowToTeeth,
+        dentalMobility: patientInfo.dentalMobility,
+        swollenFace: patientInfo.swollenFace,
+        injuries: patientInfo.injuries,
+        observations: patientInfo.observations
+      })
+
+    }
   },[patientInfo])
 
+  // update info on submit
   const onSubmit = (data: any) => { 
-    console.log(data)
-    data.patientId = patientInfo.patientId 
+    data.patientId = Number(id)
+    console.log('Data to be sent:', data)
+    
     axios
       .put(`http://localhost:3000/records/${id}`, data)
       .then((res)=>{
         console.log(res)
+        Swal.fire({
+          title: "Agregado",
+          text: "Historia clínica agregada con éxito.",
+          icon: "success"
+        });
       })
       .catch((err)=>{
         console.log(err.response.data.message)
+        Swal.fire({
+          title: "Error",
+          text: "No se pudo actualizar historia clínica.",
+          icon: "error"
+        });
       })
-      Swal.fire({
-        title: "Agregado",
-        text: "Historia clínica agregada con éxito.",
-        icon: "success"
-      });
    };
 
 
