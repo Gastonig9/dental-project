@@ -8,7 +8,8 @@ export interface Patient {
   birthDate: string;
   pEmail: string;
   street: string;
-  phone: number;
+  addressNumber: number;
+  phone: string;
   floor: string;
   apartment: string;
   locality: string;

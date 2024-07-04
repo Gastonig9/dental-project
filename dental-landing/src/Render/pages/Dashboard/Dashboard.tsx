@@ -38,7 +38,7 @@ export const Dashboard = () => {
       <section className="mx-auto lg:mx-0 lg:me-[108px]">
         <div className="mb-8">
           <h1 className="poppins-bold text-[23px] lg:text-[40px] mb-2">
-            Bienvenido {userData.fullname}
+            Bienvenido {userData.firstName}
           </h1>
           <p className="poppins-regular text-[19px]">{currentDate}</p>
         </div>
