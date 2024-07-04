@@ -356,6 +356,11 @@
   border: #000000 !important;
 }
 
+.fc-daygrid-day-frame.fc-scrollgrid-sync-inner:hover {
+  cursor: pointer;
+  background-color: #dad8d8;
+}
+
 /* Personalizar la scrollbar del cuerpo del calendario */
 .fc-scroller::-webkit-scrollbar {
   width: 12px;
@@ -402,5 +407,12 @@
   .custom-event .event-buttons div {
     width: 50%;
     padding: 6px;
+  }
+}
+
+@media (max-width: 555px) {
+  .custom-event span {
+    width: 100%;
+    font-size: 12px;
   }
 }

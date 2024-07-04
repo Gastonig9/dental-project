@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import { Button } from "../../UI/Button/Button";
-import { Patient } from "../../../../types/dtos/patient/create-patient.type";
+import { Patient } from "../../../../types/dtos/Patient/NewPatient.type";
 import { SearchPatientInput, SelectInput, DateTimeInput } from ".";
 import { Dentist } from "../../../../types/dtos/dentist/dentist.type";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 export const AddAppointment = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,17 +26,24 @@ export const AddAppointment = () => {
     date: string;
     reason: string;
   }>({
-    results: '',
+    results: "",
     dentistId: null,
     patientId: null,
     date: "",
-    reason: ""
+    reason: "",
   });
-  
 
   useEffect(() => {
-    fetch("http://localhost:3000/patient/get-patients").then((response) => response.json()).then((data) => setPatients(data.patients));
-  }, [])
+    const fetchPatients = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/patient/get-patients");
+        setPatients(response.data.patients);
+      } catch (error) {
+        console.error("Error fetching patients:", error);
+      }
+    };
+    fetchPatients();
+  }, []);
 
   useEffect(() => {
     if (searchTerm) {
@@ -51,16 +60,22 @@ export const AddAppointment = () => {
   }, [searchTerm, patients]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/dentist")
-      .then((response) => response.json())
-      .then((data) => setDentists(data.dentists));
+    const fetchDentists = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/dentist");
+        setDentists(response.data.dentists);
+      } catch (error) {
+        console.error("Error fetching dentists:", error);
+      }
+    };
+    fetchDentists();
   }, []);
 
   useEffect(() => {
     setDataAppointment((prevData) => ({
       ...prevData,
       dentistId: dentistSelected?.id || null,
-      patientId: patientSelected?.id || null
+      patientId: patientSelected?.id || null,
     }));
   }, [dentistSelected, patientSelected]);
 
@@ -77,19 +92,47 @@ export const AddAppointment = () => {
   const handleDateChange = (date: string) => {
     setDataAppointment((prevData) => ({
       ...prevData,
-      date
+      date,
     }));
   };
 
   const handleReasonChange = (reason: string) => {
     setDataAppointment((prevData) => ({
       ...prevData,
-      reason
+      reason,
     }));
   };
 
-  const handleCreateAppointment = () => {
-    console.log("creada", dataAppointment);
+  const handleCreateAppointment = async () => {
+    try {
+      await axios.post(
+        "http://localhost:3000/api/appointments/create-appointment",
+        dataAppointment
+      );
+      Swal.fire({
+        title: "Éxito",
+        text: "La cita se ha creado correctamente.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    } catch (error: any) {
+      const errorStatus = error.response.data.statusCode
+        ? error.response.data.statusCode
+        : 500;
+      Swal.fire({
+        title: "Error",
+        text: `${
+          errorStatus === 400
+            ? "Ocurrio un error de validacion. Verifique que todos los campos ingresados sean correctos"
+            : "Interval server error. Por favor intente mas tarde"
+        }`,
+        icon: "error",
+        confirmButtonText: "OK",
+        customClass: {
+          confirmButton: "bg-acento",
+        },
+      });
+    }
   };
 
   return (

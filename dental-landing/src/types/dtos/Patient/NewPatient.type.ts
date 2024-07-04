@@ -1,3 +1,5 @@
+import { Appointment } from "../appointment/appointment.type";
+
 export interface Patient {
   name: string;
   surname: string;
@@ -14,7 +16,7 @@ export interface Patient {
   locality: string;
   establishment: string;
   socialWork: string;
-
+  appointments: Appointment[]
   services: Prestacion;
   id?: number
 

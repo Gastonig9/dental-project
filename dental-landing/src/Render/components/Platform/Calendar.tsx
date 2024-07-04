@@ -15,37 +15,29 @@ export const Calendar = () => {
 
   useEffect(() => {
     const getAppointments = async () => {
-      const responseAppointments = await fetch("http://localhost:3000/api/appointments/");
+      const responseAppointments = await fetch(
+        "http://localhost:3000/api/appointments/"
+      );
       const dataAppointments = await responseAppointments.json();
       setAppointments(dataAppointments);
     };
 
     getAppointments();
   }, []);
-  
 
   const handleEdit = (eventInfo: any) => {
-    // Aquí puedes manejar la lógica para editar el evento
     console.log("Edit event:", eventInfo.event);
   };
 
   const handleDelete = (eventInfo: any) => {
-    // Aquí puedes manejar la lógica para eliminar el evento
     console.log("Delete event:", eventInfo.event);
   };
 
   const handleView = (eventInfo: any) => {
-    // Aquí puedes manejar la lógica para ver el evento
     console.log("View event:", eventInfo.event);
   };
 
-  const handleEventClick = (clickInfo: any) => {
-    // Aquí puedes manejar la lógica cuando se hace clic en un evento
-    console.log("Clicked event:", clickInfo.event);
-  };
-
   const renderEventContent = (eventInfo: EventContentArg) => {
-    console.log(eventInfo)
     return (
       <div className="custom-event">
         <span>{eventInfo.timeText}</span>
@@ -53,7 +45,11 @@ export const Calendar = () => {
         {eventInfo.view.type === "timeGridDay" && (
           <>
             <span className="paciente">
-              Paciente: <b>{eventInfo.event._def.extendedProps.patient.name}{" "}{eventInfo.event._def.extendedProps.patient.surname}</b>
+              Paciente:{" "}
+              <b>
+                {eventInfo.event.extendedProps.patient.name}{" "}
+                {eventInfo.event.extendedProps.patient.surname}
+              </b>
             </span>
             <div className="event-buttons">
               <div onClick={() => handleEdit(eventInfo)}>
@@ -72,6 +68,11 @@ export const Calendar = () => {
     );
   };
 
+  const handleDateClick = (arg: any) => {
+    const calendarApi = arg.view.calendar;
+    calendarApi.changeView("timeGridDay", arg.dateStr);
+  };
+
   return (
     <div className="calendar-contain">
       <FullCalendar
@@ -85,7 +86,12 @@ export const Calendar = () => {
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         locale={esLocale}
-        eventClick={handleEventClick}
+        dateClick={handleDateClick}
+        eventTimeFormat={{
+          hour: "2-digit",
+          minute: "2-digit",
+          meridiem: false,
+        }}
       />
     </div>
   );
