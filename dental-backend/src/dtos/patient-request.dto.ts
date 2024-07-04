@@ -36,7 +36,7 @@ export class PatientRequestDto implements Omit<Patient, 'id'> {
   pEmail: string;
 
   @ApiProperty()
-  phone: bigint;
+  phone: string;
 
   @ApiProperty()
   surname: string;

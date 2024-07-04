@@ -50,7 +50,7 @@ export class UserController {
   @UseGuards(RolesGuard)
   @Post('/register-user')
   @ApiBody({ type: UserRegisterDto })
-  async RegisterUser(@Body() data: User): Promise<User> {
+  async RegisterUser(@Body() data: UserRegisterDto): Promise<User> {
     return await this.service.register(data);
   }
 

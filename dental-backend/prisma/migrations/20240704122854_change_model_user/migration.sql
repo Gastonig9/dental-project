@@ -13,7 +13,7 @@
 DROP INDEX "User_username_key";
 
 -- AlterTable
-ALTER TABLE "Patient" ALTER COLUMN "phone" SET DATA TYPE BIGINT;
+ALTER TABLE "Patient" ALTER COLUMN "phone" SET DATA TYPE TEXT;
 
 -- AlterTable
 ALTER TABLE "User" DROP COLUMN "fullname",
