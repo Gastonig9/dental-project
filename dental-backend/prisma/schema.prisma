@@ -101,9 +101,28 @@ model Patient {
   socialWork String?
   apartment String?
   birthDate String?
-  odontograma String? 
+  prestations Prestations[]
   appointments Appointment[]
   medicalHistories MedicalHistory[]
+}
+
+model Prestations {
+  id        Int          @id @default(autoincrement())
+  patientId Int
+  patient   Patient      @relation(fields: [patientId], references: [id])
+  odontogram Odontogram[]
+  date String
+  code String
+  observations String?
+}
+
+model Odontogram {
+  id        Int          @id @default(autoincrement())
+  prestation Prestations @relation(fields: [prestationId], references: [id])
+  prestationId Int
+  toothNum Int
+  part String
+  ref String
 }
 
 model Secretary {
