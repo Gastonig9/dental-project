@@ -12,7 +12,7 @@ export const SeeEditPatient = () => {
   return (
     <>
       <Navbar />
-      <section className="mx-auto max-w-[1594px] mt-[150px] ml-[220px]">
+      <section className="mx-auto max-w-[1594px] mt-[150px] lg:ml-[220px]">
         <div className="flex items-center mb-6">
           <Link to="/patient-management/patients-list" className="me-16">
             <button className="flex items-center bg-transparent poppins-medium">

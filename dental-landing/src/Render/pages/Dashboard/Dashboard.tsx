@@ -35,10 +35,10 @@ export const Dashboard = () => {
     <>
     <Navbar/>
     <main className="min-h-screen min-w-full flex flex-col lg:flex-row justify-center items-center mt-[90px] ms-0 lg:ms-[100px] pt-6 bg-background">
-      <section className="mx-auto lg:mx-0 lg:me-[108px]">
+      <section className="mx-auto lg:mx-0 lg:me-[108px] w-[55%] lg:w-auto">
         <div className="mb-8">
           <h1 className="poppins-bold text-[23px] lg:text-[40px] mb-2">
-            Bienvenido {userData.fullname}
+            Bienvenido {userData.firstName} {userData.lastName}
           </h1>
           <p className="poppins-regular text-[19px]">{currentDate}</p>
         </div>
@@ -71,7 +71,7 @@ export const Dashboard = () => {
          {/* Render the button only if role_name is not 'SECRETARY' */}
          {userData.role_name !== 'SECRETARY' && (
             <div className="poppins-bold hidden lg:flex">
-              <Link to="/">
+              <Link to="/users-management/users-list">
                 <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[25px]">
                   <UsersIcon
                     className="text-[25px] h-7 w-7 flex-none text-black me-2"
@@ -105,7 +105,7 @@ export const Dashboard = () => {
       {/* Render the button only if role_name is not 'SECRETARY' */}
       {userData.role_name !== 'SECRETARY' && (
       <div className="flex lg:hidden poppins-bold mx-auto my-14">
-        <Link to="/">
+        <Link to="/users-management/users-list">
           <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[20px]">
             <UsersIcon
               className="text-[25px] h-6 w-6 flex-none text-black me-2"
@@ -117,7 +117,7 @@ export const Dashboard = () => {
               aria-hidden="true"
             />
           </button>
-        </Link>
+        </Link> 
       </div>
       )}
     </main>
