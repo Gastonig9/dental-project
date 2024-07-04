@@ -27,6 +27,9 @@ export class UpdatePatientDto implements Partial<Patient> {
   street?: string;
 
   @ApiProperty()
+  addressNumber?: number;
+
+  @ApiProperty()
   nationality?: string;
 
   @ApiProperty()

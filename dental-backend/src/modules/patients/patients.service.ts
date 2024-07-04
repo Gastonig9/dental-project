@@ -43,6 +43,7 @@ export class PatientService {
         phone: '424212',
         age: 9,
         apartment: 'nose',
+        addressNumber: 400,
         birthDate: '/20/3/1994',
         establishment: 'e',
         floor: '3',
