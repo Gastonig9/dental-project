@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiQuery } from '@nestjs/swagger';
 import { Patient } from '@prisma/client';
-import { PatientRequestDto } from 'src/dtos';
+import { PatientRequestDto, PatientResponseDto } from 'src/dtos';
 import { PatientService } from './patients.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/decorators/public.decorator';
@@ -24,9 +24,13 @@ export class PatientController {
 
   @Post()
   @ApiBody({ type: PatientRequestDto })
-  async addPatient(@Body() data: PatientRequestDto): Promise<Patient> {
+  async addPatient(
+    @Body() data: PatientRequestDto,
+  ): Promise<PatientResponseDto> {
     try {
-      return this.patientService.addPatient(data);
+      const response = await this.patientService.addPatient(data);
+
+      return response;
     } catch (error) {
       throw error;
     }
@@ -40,7 +44,7 @@ export class PatientController {
     @Query('dni') dni?: string,
     @Query('name') name?: string,
     @Query('gender') gender?: string,
-  ): Promise<{ statusCode: number; patients: Patient[] }> {
+  ): Promise<{ statusCode: number; patients: PatientResponseDto[] }> {
     const patients = await this.patientService.getAllPatients(
       dni,
       name,
@@ -53,8 +57,13 @@ export class PatientController {
   }
 
   @Get(':id')
-  async getPatient(@Param('id') id: string): Promise<Patient> {
-    return await this.patientService.getPatient(parseInt(id));
+  async getPatient(@Param('id') id: string): Promise<PatientResponseDto> {
+    const response = await this.patientService.getPatient(parseInt(id));
+
+    return {
+      ...response,
+      phone: response.phone.toString(),
+    };
   }
 
   @Put(':id')
@@ -62,17 +71,21 @@ export class PatientController {
   async updatePatient(
     @Param('id') id: string,
     @Body() data: Partial<Patient>,
-  ): Promise<Patient> {
-    return await this.patientService.updatePatientById(parseInt(id), data);
+  ): Promise<PatientResponseDto> {
+    const response = await this.patientService.updatePatientById(
+      parseInt(id),
+      data,
+    );
+
+    return response;
   }
 
   // Endpoint temporal para mockear pacientes
   @Post('mock-patients')
-  async mockPatients(): Promise<{ statusCode: number; patients: Patient[] }> {
-    const patients = await this.patientService.mockPatients();
+  async mockPatients(): Promise<{ statusCode: number }> {
+    await this.patientService.mockPatients();
     return {
       statusCode: HttpStatus.OK,
-      patients,
     };
   }
 }

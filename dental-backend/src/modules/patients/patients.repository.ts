@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { Patient } from '@prisma/client';
+import { Appointment, MedicalHistory, Patient } from '@prisma/client';
 import { PatientRequestDto } from 'src/dtos';
 import { Context } from 'src/prisma/prisma.context';
 
@@ -16,7 +16,7 @@ export class PatientRepository {
     dni?: number,
     name?: string,
     gender?: string,
-  ): Promise<Patient[]> {
+  ): Promise<any> {
     const where: any = {};
 
     if (dni) {
