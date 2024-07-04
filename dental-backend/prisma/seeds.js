@@ -5,6 +5,8 @@ const prisma = new PrismaClient();
 async function main() {
   await prisma.$connect();
 
+  const role = prisma.roles.findMany();
+
   await prisma.roles.createMany({
     data: [
       {
