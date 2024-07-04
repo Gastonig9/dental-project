@@ -71,7 +71,7 @@ export const Dashboard = () => {
          {/* Render the button only if role_name is not 'SECRETARY' */}
          {userData.role_name !== 'SECRETARY' && (
             <div className="poppins-bold hidden lg:flex">
-              <Link to="/">
+              <Link to="/users-management/users-list">
                 <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[25px]">
                   <UsersIcon
                     className="text-[25px] h-7 w-7 flex-none text-black me-2"
