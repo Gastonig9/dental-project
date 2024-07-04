@@ -49,7 +49,4 @@ export class PatientRequestDto implements Omit<Patient, 'id'> {
 
   @ApiProperty()
   dni: number;
-
-  @ApiProperty()
-  odontograma: string | null;
 }

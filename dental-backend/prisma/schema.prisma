@@ -32,6 +32,19 @@ enum AppointmentState {
   REALIZED
 }
 
+enum PrestationState {
+  PENDING
+  REALIZED
+}
+
+enum Parts {
+  center  
+  top   
+  bottom 
+  eft
+  right
+}
+
 model User {
   id Int @id   @default(autoincrement())
    firstName  String   
@@ -102,11 +115,58 @@ model Patient {
   socialWork String?
   apartment String?
   birthDate String?
-  odontograma String? 
+  prestations Prestations[]
   appointments Appointment[]
   medicalHistories MedicalHistory[]
 }
 
+model Prestations {
+  id  Int    @id @default(autoincrement())
+  patient   Patient    @relation(fields: [patientId], references: [id])
+  patientId Int
+  odontogram Odontogram[]
+  state PrestationState
+  date String
+  code String
+  observations String?
+}
+
+model Odontogram {
+  id  Int   @id @default(autoincrement())
+  prestation Prestations @relation(fields: [prestationId], references: [id])
+  prestationId Int
+  toothNumber Int
+  parts Parts
+  ref String
+}
+
+// model OdontogramTooth {
+//   id           Int           @id @default(autoincrement())
+//   odontogram      Odontogram      @relation(fields: [odontogramId], references: [id])
+//   odontogramId    Int
+//   tooth Int
+//   parts Parts
+// }
+
+
+// model Prestations {
+//   id        Int          @id @default(autoincrement())
+//   patientId Int
+//   patient   Patient      @relation(fields: [patientId], references: [id])
+//   odontogram Odontogram[]
+//   date String
+//   code String
+//   observations String?
+// }
+// model Odontogram {
+//   id        Int          @id @default(autoincrement())
+//   prestation Prestations @relation(fields: [prestationId], references: [id])
+//   prestationId Int
+//   toothNum Int
+//   part String
+//   ref String
+// }
+ 
 model Secretary {
   id         Int      @id @default(autoincrement())
   userId     Int      @unique

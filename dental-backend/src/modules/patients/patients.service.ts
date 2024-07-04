@@ -1,9 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { Patient } from '@prisma/client';
+import { Patient, Prestations } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import { PatientRepository } from './patients.repository';
-import { PatientRequestDto } from 'src/dtos';
+import {
+  OdontogramDto,
+  PatientRequestDto,
+  PrestationCreateDto,
+} from 'src/dtos';
 
 @Injectable()
 export class PatientService {
@@ -51,7 +55,6 @@ export class PatientService {
         nationality: 'argentina',
         socialWork: 'nose',
         street: 'Colon',
-        odontograma: null,
       };
       mockPatients.push(newMockPatient);
     }
@@ -81,5 +84,16 @@ export class PatientService {
     patient: Partial<Patient>,
   ): Promise<Patient> {
     return this.repository.updatePatientById(id, patient);
+  }
+
+  async getPrestationsByPatientId(id: number): Promise<Prestations[]> {
+    return this.repository.getPrestationsById(id);
+  }
+
+  async createPrestation(
+    prestation: Omit<PrestationCreateDto, 'odontogram'>,
+    odontogram?: OdontogramDto[],
+  ): Promise<any> {
+    return this.repository.addPrestation(prestation, odontogram);
   }
 }
