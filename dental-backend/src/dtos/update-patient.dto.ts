@@ -18,13 +18,16 @@ export class UpdatePatientDto implements Partial<Patient> {
   dni?: number;
 
   @ApiProperty()
-  phone?: number;
+  phone?: string;
 
   @ApiProperty()
   floor?: string;
 
   @ApiProperty()
   street?: string;
+
+  @ApiProperty()
+  addressNumber?: number;
 
   @ApiProperty()
   nationality?: string;

@@ -1,10 +1,13 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { Patient } from '@prisma/client';
 
-export class PatientResponseDto implements Omit<Patient, 'id'> {
+type patient = Omit<Patient, 'phone'> & { phone: string };
+
+export class PatientResponseDto implements patient {
+  id: number;
   age: number;
   floor: string;
   street: string;
+  addressNumber: number;
   nationality: string;
   locality: string;
   establishment: string;
@@ -15,15 +18,8 @@ export class PatientResponseDto implements Omit<Patient, 'id'> {
   surname: string;
   gender: string;
   dni: number;
-  phone: number;
+  phone: string;
   pEmail: string;
   odontograma: string | null;
-  @ApiProperty()
-  appointmentList: {
-    date: Date;
-    dentist: {
-      name: string;
-      surname: string;
-    };
-  }[];
+  // appointments: Appointment[];
 }

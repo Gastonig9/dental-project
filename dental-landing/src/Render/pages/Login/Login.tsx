@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import "./Login.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -10,7 +10,12 @@ export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();
+
+  const { login, isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) navigate('/dashboard');
+  }, [isAuthenticated]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,9 +30,7 @@ export const Login = () => {
       
       // Store the token in localStorage
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-      
-      // Call the login method from AuthContext
+      localStorage.setItem('user', JSON.stringify(response.data.user)); // Assuming you want to store user data as well
       login(response.data.token);
       
       navigate('/dashboard');
