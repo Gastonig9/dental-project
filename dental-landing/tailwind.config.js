@@ -30,6 +30,9 @@ export default {
 
         "2xl": "1536px",
         // => @media (min-width: 1536px) { ... }
+
+        xxl: "1940px",
+        // => @media (min-width: 1940px) { ... }
       },
     },
   },
