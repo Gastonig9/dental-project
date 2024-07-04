@@ -1,6 +1,5 @@
 import { Dashboard } from "../pages/Dashboard/Dashboard";
 import GestionTurnos from "../pages/GestionTurnos/GestionTurnos";
-import ListadoPacientes from "../pages/PatientManagement/ListadoPacientes";
 import CreateAppointment from "../pages/CreateAppointment/CreateAppointment";
 import { Landing } from "../pages/Landing/Landing";
 import { Login } from "../pages/Login/Login";
