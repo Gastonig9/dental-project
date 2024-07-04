@@ -8,15 +8,15 @@ const Carousel = () => {
   };
 
   const images = [
-    "./public/imgs/about-us/carousel/1.jpg",
-    "./public/imgs/about-us/carousel/2.jpg",
-    "./public/imgs/about-us/carousel/3.jpg",
-    "./public/imgs/about-us/carousel/4.jpg",
-    "./public/imgs/about-us/carousel/5.jpg",
+    "/src/assets/img/landing/about-us/carousel/1.jpg",
+    "/src/assets/img/landing/about-us/carousel/2.jpg",
+    "/src/assets/img/landing/about-us/carousel/3.jpg",
+    "/src/assets/img/landing/about-us/carousel/4.jpg",
+    "/src/assets/img/landing/about-us/carousel/5.jpg",
   ];
 
   return (
-    <section className="pt-[47px] lg:pt-[213px]">
+    <section className="pt-[57px] pb-[47px] lg:pt-[213px]">
       <Splide
         style={splideStyles}
         aria-label="Dental Images Carousel"

@@ -31,13 +31,10 @@ function App() {
         <Route path="/*" element={<NotFound />} />
         {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
         <Route path="/user-management/edit-user" element={ <EditUserInfo /> } />
-
         {/* PROTECTED ROUTES */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/appointments" element={<GestionTurnos />} />
-
-          <Route path="/patient-management/new-patient" element={<NewPatient />}/>
           {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
           <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
           <Route path="/patient-management/seeEditPatient/:id" element={ <SeeEditPatient /> } />

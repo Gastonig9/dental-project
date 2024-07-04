@@ -1,8 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { $Enums } from '@prisma/client';
+import { $Enums, User } from '@prisma/client';
 import { IsEmail, MaxLength, MinLength } from 'class-validator';
 
-export class UserRegisterDto {
+export class UserRegisterDto
+  implements Omit<User, 'id' | 'resetPasswordToken'>
+{
+  @ApiProperty()
+  @MinLength(3)
+  @MaxLength(20)
+  firstName: string;
+
+  @ApiProperty()
+  @MinLength(3)
+  @MaxLength(20)
+  lastName: string;
+
+  @ApiProperty()
+  dni: number;
+
   @ApiProperty()
   @IsEmail()
   email: string;
@@ -11,16 +26,6 @@ export class UserRegisterDto {
   @MinLength(6)
   @MaxLength(20)
   password: string;
-
-  @ApiProperty()
-  @MinLength(3)
-  @MaxLength(20)
-  username: string;
-
-  @ApiProperty()
-  @MinLength(3)
-  @MaxLength(20)
-  fullname: string;
 
   @ApiProperty()
   role_name: $Enums.EnumRoles;
