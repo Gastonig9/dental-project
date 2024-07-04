@@ -93,6 +93,7 @@ model Patient {
   dni       Int
   phone     String
   age Int?
+  addressNumber Int?
   floor String?
   street String?
   nationality String?
