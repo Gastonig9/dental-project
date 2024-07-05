@@ -12,9 +12,7 @@ import { ForgotPassword } from "../pages/Login/ForgotPassword";
 import { ResetPassword } from "../pages/Login/ResetPassword";
 import { AuthProvider } from "../pages/contexts/AuthContext";
 import PrivateRoute from "../guards/PrivateRoute";
-
 import UsersList from "../pages/UsersManagement/UsersList";
-
 import { EditUserInfo } from "../pages/UserManagement/EditUserInfo";
 
 
@@ -32,8 +30,6 @@ function App() {
         <Route path="/*" element={<NotFound />} />
 
         {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
-
-        
         {/* PROTECTED ROUTES */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />

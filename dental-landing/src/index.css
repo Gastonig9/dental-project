@@ -282,12 +282,10 @@
   width: 100%;
   background-color: #58d68d;
   color: #000000;
-  padding: 0px 10px;
-  border: none !important;
+  padding: 10px 10px;
   border-radius: 4px;
-  display: inline-block;
   text-align: start;
-  font-size: 24px;
+  font-size: 20px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -295,28 +293,29 @@
 
 .custom-event .event-buttons {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 20px;
   width: 20%;
-  margin-top: 5px;
 }
 
 .custom-event .event-buttons div {
-  width: 22%;
-  padding: 6px;
+  width: 15%;
 }
 
-.custom-event .event-buttons img {
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
+.custom-event .event-buttons div a {
+  display: block;
 }
 
-.custom-event .event-buttons img:hover {
+.custom-event .event-buttons div img {
+  width: 35px;
+
+}
+
+.custom-event .event-buttons div img:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
-
 /* CALENDAR HEADER */
 
 .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
@@ -354,6 +353,11 @@
 .fc-event-main {
   background-color: #58d68d;
   border: #000000 !important;
+}
+
+.fc-daygrid-day-frame.fc-scrollgrid-sync-inner:hover {
+  cursor: pointer;
+  background-color: #dad8d8;
 }
 
 /* Personalizar la scrollbar del cuerpo del calendario */
@@ -402,5 +406,12 @@
   .custom-event .event-buttons div {
     width: 50%;
     padding: 6px;
+  }
+}
+
+@media (max-width: 555px) {
+  .custom-event span {
+    width: 100%;
+    font-size: 12px;
   }
 }
