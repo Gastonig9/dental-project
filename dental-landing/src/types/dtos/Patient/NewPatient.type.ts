@@ -10,7 +10,8 @@ export interface Patient {
   birthDate: string;
   pEmail: string;
   street: string;
-  phone: number;
+  addressNumber: number;
+  phone: string;
   floor: string;
   apartment: string;
   locality: string;
@@ -18,10 +19,8 @@ export interface Patient {
   socialWork: string;
   appointments: Appointment[]
   services: Prestacion;
-  id?: number
-
+  id?: number;
   odontograma?: string | null;
-
 }
 
 export interface Prestacion {
@@ -29,7 +28,6 @@ export interface Prestacion {
   observation?: string;
   code: string;
   specialty: string;
-  teeth: ToothDetail[];
 }
 
 export interface ToothDetail {

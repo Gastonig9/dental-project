@@ -49,7 +49,7 @@ const Navbar = () => {
               <MdClose />
             </button>
             
-            <div className={`flex items-center gap-1 ${location.pathname === '/gestionDePacientes/*' ? 'text-black' : 'text-[#00000050] '} `}>
+            <div className={`flex items-center gap-1 ${location.pathname.startsWith("/patient-management") ? 'text-black' : 'text-[#00000050] '} `}>
               <IoPeople />
               <Link to="/gestionDePacientes/listadoPacientes" >
                 <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Gestión de pacientes</h3>
@@ -146,7 +146,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <header className="h-[127px] bg-[#DAE3DE] fixed top-0 w-full hidden lg:flex z-10">
+      <header className="h-[127px] bg-[#DAE3DE] fixed top-0 w-full hidden lg:flex">
         <div className="flex justify-between items-center w-10/12 mx-auto pl-[120px]  ">
           <h3 className="text-[33px] font-semibold">Logo</h3>
           <div className="flex items-center gap-2 bg-[#B4B4B4] py-3 px-8 rounded-3xl">

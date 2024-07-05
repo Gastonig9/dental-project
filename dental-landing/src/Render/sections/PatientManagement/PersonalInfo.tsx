@@ -25,7 +25,7 @@ export const PersonalInfo = () => {
 
       data.dni = Number(data.dni);
       data.age = Number(data.age);
-      data.phone = Number(data.phone);
+      data.addressNumber = Number(data.addressNumber);
 
       const response = await axios.post("http://localhost:3000/patient", data);
       setPatient(response.data);
@@ -66,6 +66,15 @@ export const PersonalInfo = () => {
                 id="surname"
                 type="text"
                 {...register("surname")}
+                className="personalInfo-input-style"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="phone">Teléfono</label>
+              <input
+                id="phone"
+                type="text"
+                {...register("phone")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -142,11 +151,11 @@ export const PersonalInfo = () => {
               />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="phone">Número</label>
+              <label htmlFor="addressNumber">Número</label>
               <input
-                id="phone"
+                id="addressNumber"
                 type="number"
-                {...register("phone")}
+                {...register("addressNumber")}
                 className="personalInfo-input-style"
               />
             </div>

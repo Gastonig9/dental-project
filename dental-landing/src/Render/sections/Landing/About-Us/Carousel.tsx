@@ -16,7 +16,7 @@ const Carousel = () => {
   ];
 
   return (
-    <section className="py-[57px] lg:pt-[213px]">
+    <section className="pt-[57px] pb-[47px] lg:pt-[213px]">
       <Splide
         style={splideStyles}
         aria-label="Dental Images Carousel"
@@ -39,7 +39,7 @@ const Carousel = () => {
       >
         {images.map((image, index) => (
           <SplideSlide>
-            <div key={index} className="flex justify-center">
+            <div key={index} className="flex justify-center pb-10">
               <picture className="relative h-[269px] w-[180px] lg:w-[360px] lg:h-[515px]">
                 <img
                   src={image}

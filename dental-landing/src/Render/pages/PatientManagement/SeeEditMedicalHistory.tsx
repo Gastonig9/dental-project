@@ -59,7 +59,7 @@ const SeeEditMedicalHistory = () => {
     axios
       .get(`http://localhost:3000/patient/${id}`)
       .then((res)=>{
-        setPatientInfo(res.data.medicalHistories[0])
+        setPatientInfo(res.data.medicalHistories[res.data.medicalHistories.length - 1])
       })
       .catch((err)=>{
         console.log(err.response.data.message)
@@ -93,7 +93,6 @@ const SeeEditMedicalHistory = () => {
   // update info on submit
   const onSubmit = (data: any) => { 
     data.patientId = Number(id)
-    console.log('Data to be sent:', data)
     
     axios
       .put(`http://localhost:3000/records/${id}`, data)
@@ -104,6 +103,7 @@ const SeeEditMedicalHistory = () => {
           text: "Historia clínica agregada con éxito.",
           icon: "success"
         });
+        setAllowEdition(false)
       })
       .catch((err)=>{
         console.log(err.response.data.message)
