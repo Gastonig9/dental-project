@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import axios from "axios"
 import Swal from 'sweetalert2'
 import { useParams } from 'react-router-dom';
-import MedicalHistory from './MedicalHistory';
 
 const SeeEditMedicalHistory = () => {
   enum EnumInfoBoolean {

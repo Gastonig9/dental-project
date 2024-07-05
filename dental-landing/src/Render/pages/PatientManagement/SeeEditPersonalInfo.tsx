@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 export const SeeEditPersonalInfo = () => {
   const { id } = useParams();
-  const [patientInfo, setPatientInfo] = useState({});
+  const [, setPatientInfo] = useState({});
   const [allowEdition, setAllowEdition] = useState(false);
   const { register, handleSubmit, setValue } = useForm();
 

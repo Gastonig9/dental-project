@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { IoPeople } from "react-icons/io5";
 import { FaCalendar } from "react-icons/fa6";
 import { IoStatsChart } from "react-icons/io5";

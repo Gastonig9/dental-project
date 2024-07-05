@@ -1,5 +1,5 @@
 import { Dentist } from "../dtos/dentist/dentist.type";
-import { Patient } from "../dtos/patient/create-patient.type";
+import { Patient } from "../dtos/Patient/create-patient.type";
 
 export interface SearchPatientInputProps {
   searchTerm: string;

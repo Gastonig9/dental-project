@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/Platform/Navbar";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -19,26 +19,26 @@ interface userModel {
 }
 
 const UsersList = () => {
-  const mockList = [
-    {
-      id: 1,
-      name: "John Doe",
-      role: "Admin",
-      pic: "https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001879.png",
-    },
-    {
-      id: 2,
-      name: "John Doe2",
-      role: "Admin",
-      pic: "https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001879.png",
-    },
-    {
-      id: 3,
-      name: "Mary Jane",
-      role: "Secretary",
-      pic: "https://cdn3.iconfinder.com/data/icons/avatar-set-2/512/Avata_06-512.png",
-    },
-  ];
+  // const mockList = [
+  //   {
+  //     id: 1,
+  //     name: "John Doe",
+  //     role: "Admin",
+  //     pic: "https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001879.png",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "John Doe2",
+  //     role: "Admin",
+  //     pic: "https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001879.png",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Mary Jane",
+  //     role: "Secretary",
+  //     pic: "https://cdn3.iconfinder.com/data/icons/avatar-set-2/512/Avata_06-512.png",
+  //   },
+  // ];
   const [inputData, setInputData] = useState("");
   const [data, setData] = useState<userModel[]>([]);
   const [users, setUsers] = useState<userModel[]>([]);

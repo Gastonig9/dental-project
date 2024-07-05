@@ -1,7 +1,6 @@
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { PersonalInfo } from "../../sections/PatientManagement/PersonalInfo";
 import Navbar from "../../components/Platform/Navbar";
 import SeeEditMedicalHistory from "./SeeEditMedicalHistory";
 import { SeeEditPersonalInfo } from "../PatientManagement/SeeEditPersonalInfo";
