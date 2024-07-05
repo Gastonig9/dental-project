@@ -6,12 +6,15 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import esLocale from "@fullcalendar/core/locales/es";
-import editAppointment from "../../../assets/img/calendar/Create.png";
 import cancelAppointment from "../../../assets/img/calendar/Cancel.png";
 import viewAppointment from "../../../assets/img/calendar/Note.png";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { Appointment } from "../../../types/dtos/appointment/appointment.type";
 
 export const Calendar = () => {
-  const [appointments, setAppointments] = useState([]);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
 
   useEffect(() => {
     const getAppointments = async () => {
@@ -25,16 +28,37 @@ export const Calendar = () => {
     getAppointments();
   }, []);
 
-  const handleEdit = (eventInfo: any) => {
-    console.log("Edit event:", eventInfo.event);
-  };
+  const handleDelete = async (eventInfo: EventContentArg) => {
+    const result = await Swal.fire({
+      title: "¿Estás seguro que deseas cancelar el turno?",
+      text: "Esta accion es irreversible",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Cancelar",
+      cancelButtonText: "Volver",
+    });
 
-  const handleDelete = (eventInfo: any) => {
-    console.log("Delete event:", eventInfo.event);
-  };
+    if (result.isConfirmed) {
+      const id = parseInt(eventInfo.event.id);
 
-  const handleView = (eventInfo: any) => {
-    console.log("View event:", eventInfo.event);
+      try {
+        const response = await axios.delete(`http://localhost:3000/api/appointments/${id}`);
+
+        if (response.status === 200) {
+          Swal.fire("Turno cancelado", "El turno ha sido cancelado con exito.", "success");
+
+          setAppointments((prevAppointments) =>
+            prevAppointments.filter((appointment) => appointment.id !== id)
+          );
+        } else {
+          Swal.fire("Error", "No se pudo eliminar el turno.", "error");
+        }
+      } catch (error) {
+        Swal.fire("Error", "Ocurrió un error al eliminar el turno.", "error");
+      }
+    }
   };
 
   const renderEventContent = (eventInfo: EventContentArg) => {
@@ -52,14 +76,13 @@ export const Calendar = () => {
               </b>
             </span>
             <div className="event-buttons">
-              <div onClick={() => handleEdit(eventInfo)}>
-                <img src={editAppointment} alt="Editar" />
+              <div>
+                <Link to={`/patient-management/seeEditPatient/${eventInfo.event.extendedProps.patient.id}`}>
+                  <img src={viewAppointment} alt="Ver" />
+                </Link>
               </div>
               <div onClick={() => handleDelete(eventInfo)}>
                 <img src={cancelAppointment} alt="Eliminar" />
-              </div>
-              <div onClick={() => handleView(eventInfo)}>
-                <img src={viewAppointment} alt="Ver" />
               </div>
             </div>
           </>
