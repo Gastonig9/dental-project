@@ -25,10 +25,6 @@ interface Patient {
   name: string;
 }
 
-interface DecodedToken {
-  id: string;
-}
-
 export const Dashboard = () => {
   const [currentDate, setCurrentDate] = useState<string>("");
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -57,19 +53,24 @@ export const Dashboard = () => {
       return;
     }
 
-    const tokenPayload = JSON.parse(atob(token.split('.')[1]));
-    
-    console.log(tokenPayload);
+    const RoleObject = JSON.parse(localStorage.getItem("RoleObject") || "{}");
+    const dentistId = RoleObject.dentist ? RoleObject.dentist.id : null;
 
-    // Fetch all appointments for the user
+    if (!dentistId) {
+      console.error("No dentist ID found in RoleObject");
+      return;
+    }
+
+    // Fetch all appointments for the dentist using the new endpoint
     axios
-      .get<Appointment[]>(`http://localhost:3000/api/appointments/${tokenPayload.id}`)
+      .get<{ appointments: Appointment[] }>(`http://localhost:3000/dentist/appointments/${dentistId}`)
       .then((res) => {
-        setAppointments(res.data);
-        console.log(res.data)
+        setAppointments(res.data.appointments);
+        console.log(res.data.appointments);
+
         // Fetch patient data for each appointment
-        const patientRequests = res.data.map((appointment) =>
-          axios.get<Patient>(`http://localhost:3000/api/patient/${appointment.patientId}`)
+        const patientRequests = res.data.appointments.map((appointment) =>
+          axios.get<Patient>(`http://localhost:3000/patient/${appointment.patientId}`)
         );
 
         return Promise.all(patientRequests);
