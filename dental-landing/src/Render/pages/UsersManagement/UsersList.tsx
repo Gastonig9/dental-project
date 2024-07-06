@@ -24,7 +24,7 @@ const UsersList = () => {
   const [data, setData] = useState<userModel[]>([]);
   const [users, setUsers] = useState<userModel[]>([]);
   const [isDeletionActive, setIsDeletionActive] = useState(false);
-  const [usersToBeDeleted, setUsersToBeDeleted] = useState<Number[]>([]);
+  // const [usersToBeDeleted, setUsersToBeDeleted] = useState<Number[]>([]);
   const [booleanArray, setBooleanArray] = useState(
     Array(users.length).fill(false)
   );
@@ -74,7 +74,7 @@ const UsersList = () => {
     if (result.isConfirmed) {
       axios
         .delete(`http://localhost:3000/api/user/${id}`)
-        .then((res) => {
+        .then(() => {
           Swal.fire({
             toast: true,
             timerProgressBar: true,
@@ -87,7 +87,7 @@ const UsersList = () => {
           });
           fetchData();
         })
-        .catch((err) => {
+        .catch(() => {
           Swal.fire(
             'Ocurrió un error',
             'Ocurrió un error al eliminar a este usuario.',
@@ -105,8 +105,6 @@ const UsersList = () => {
       return newArray;
     });
   };
-
-  console.log(usersToBeDeleted);
 
   return (
     <>
