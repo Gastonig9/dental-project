@@ -74,7 +74,6 @@ export class UserService {
       id,
       role: userWithoutId.role_name,
     });
-    console.log(userExist);
 
     if (
       userExist.role_name === 'OWNER' ||
