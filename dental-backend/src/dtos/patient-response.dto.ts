@@ -20,6 +20,6 @@ export class PatientResponseDto implements patient {
   dni: number;
   phone: string;
   pEmail: string;
-  // odontograma: string | null;
+  odontograma: string | null;
   // appointments: Appointment[];
 }
