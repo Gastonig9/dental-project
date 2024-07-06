@@ -38,9 +38,14 @@ function App() {
           <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
           <Route path="/patient-management/seeEditPatient/:id" element={ <SeeEditPatient /> } />
           <Route path="/users-management/users-list" element={ <UsersList /> } />
+          {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
+
 
           <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
+          <Route path="/patient-management/seeEditPatient/:id" element={ <SeeEditPatient /> } />
           <Route path="/user-management/edit-user/:id" element={ <EditUserInfo /> } />
+          <Route path="/users-management/users-list" element={ <UsersList /> } />
+          <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
         </Route>
         {/* PROTECTED ROUTES */}
       </Routes>
