@@ -3,11 +3,10 @@ import {
   UsersIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Navbar from "../../components/Platform/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import jwtDecode from "jwt-decode";
 
 interface Appointment {
   id: number;

@@ -16,14 +16,18 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      setIsAuthenticated(true);
+      setIsAuthenticated(false);
     }
+    setIsLoading(false);
   }, []);
 
   const login = (token: string) => {
@@ -39,7 +43,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-      {children}
+      {isLoading ? '' : children}
     </AuthContext.Provider>
   );
 };
