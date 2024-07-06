@@ -30,7 +30,10 @@ export const Login = () => {
       
       // Store the token in localStorage
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user)); // Assuming you want to store user data as well
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      if (response.data.RoleObject) {
+        localStorage.setItem('RoleObject', JSON.stringify(response.data.RoleObject));
+      }
       login(response.data.token);
       
       navigate('/dashboard');
