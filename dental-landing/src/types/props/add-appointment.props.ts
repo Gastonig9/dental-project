@@ -1,5 +1,6 @@
-import { Dentist } from "../dtos/dentist/dentist.type";
-import { Patient } from "../dtos/patient/create-patient.type";
+import { Dentist } from '../dtos/dentist/dentist.type';
+import { Patient } from '../dtos/Patient/NewPatient.type';
+// import { Patient } from '../dtos/Patient/create-patient.type';
 
 export interface SearchPatientInputProps {
   searchTerm: string;
@@ -8,12 +9,11 @@ export interface SearchPatientInputProps {
   handlePatientSelected: (patient: Patient) => void;
 }
 
-
 export interface SelectInputProps {
-  titleSelect: string
+  titleSelect: string;
   id: string;
   options: string[] | Dentist[];
-  selectDentist?: (dentist: Dentist) => void
+  selectDentist?: (dentist: Dentist) => void;
   selectReason?: (reason: string) => void;
-  mtInput?: string
+  mtInput?: string;
 }

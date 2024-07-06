@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Platform/Navbar";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import Swal from "sweetalert2";
+import { useEffect, useState } from 'react';
+import Navbar from '../../components/Platform/Navbar';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 // icons
-import { IoSearchSharp } from "react-icons/io5";
-import { IoIosArrowForward } from "react-icons/io";
-import { BsTrash } from "react-icons/bs";
+import { IoSearchSharp } from 'react-icons/io5';
+import { IoIosArrowForward } from 'react-icons/io';
+import { BsTrash } from 'react-icons/bs';
 
 interface userModel {
   email: string;
@@ -20,12 +20,14 @@ interface userModel {
 }
 
 const UsersList = () => {
-  const [inputData, setInputData] = useState("");
+  const [inputData, setInputData] = useState('');
   const [data, setData] = useState<userModel[]>([]);
   const [users, setUsers] = useState<userModel[]>([]);
   const [isDeletionActive, setIsDeletionActive] = useState(false);
-  const [usersToBeDeleted, setUsersToBeDeleted] = useState<Number[]>([]);
-  const [booleanArray, setBooleanArray] = useState(Array(users.length).fill(false));
+  // const [usersToBeDeleted, setUsersToBeDeleted] = useState<Number[]>([]);
+  const [booleanArray, setBooleanArray] = useState(
+    Array(users.length).fill(false)
+  );
 
   const handleChange = (e: any) => {
     setInputData(e.target.value);
@@ -33,7 +35,7 @@ const UsersList = () => {
 
   function fetchData() {
     axios
-      .get("http://localhost:3000/api/user")
+      .get('http://localhost:3000/api/user')
       .then((res) => {
         setData(res.data);
         setUsers(res.data);
@@ -57,58 +59,52 @@ const UsersList = () => {
     setUsers(arrayOfFoundNames);
   }, [inputData]);
 
-
   // handle deleting for desktop
   const handleDelete = async (id: number, name: string) => {
     const result = await Swal.fire({
       title: `¿Estás seguro que deseas eliminar a ${name} ?`,
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar.",
-      cancelButtonText: "No, volver.",
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar.',
+      cancelButtonText: 'No, volver.',
     });
 
     if (result.isConfirmed) {
       axios
         .delete(`http://localhost:3000/api/user/${id}`)
-        .then((res) => {
+        .then(() => {
           Swal.fire({
             toast: true,
             timerProgressBar: true,
-            position: "top-right",
+            position: 'top-right',
             showConfirmButton: false,
             showCloseButton: true,
-            title: "Usuario eliminado",
-            icon: "success",
+            title: 'Usuario eliminado',
+            icon: 'success',
             timer: 3000,
           });
           fetchData();
         })
-        .catch((err) => {
+        .catch(() => {
           Swal.fire(
-            "Ocurrió un error",
-            "Ocurrió un error al eliminar a este usuario.",
-            "error"
+            'Ocurrió un error',
+            'Ocurrió un error al eliminar a este usuario.',
+            'error'
           );
         });
     }
   };
 
- //handle click when selecting users to delete 
+  //handle click when selecting users to delete
   const handleSelectUsers = (index: number) => {
     setBooleanArray((prevArray) => {
       const newArray = [...prevArray];
       newArray[index] = !newArray[index];
       return newArray;
     });
-
-  
-
-  }
-
-  console.log(usersToBeDeleted)
+  };
 
   return (
     <>
@@ -150,11 +146,11 @@ const UsersList = () => {
                     <div className="flex items-center gap-10 px-10">
                       <img
                         src={
-                          user.role_name === "OWNER"
-                            ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
-                            : user.role_name === "SECRETARY"
-                            ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
-                            : ""
+                          user.role_name === 'OWNER'
+                            ? 'https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png'
+                            : user.role_name === 'SECRETARY'
+                            ? 'https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png'
+                            : ''
                         }
                         alt="User pic"
                         className="w-[88px] rounded-full"
@@ -169,8 +165,7 @@ const UsersList = () => {
                     <div className="flex items-center gap-2 newxl:gap-10 justify-end newxl:px-10">
                       <Link
                         className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 lg:gap-1 newxl:gap-[70px]"
-                        to={`/user-management/edit-user/${user.id}`}
-                      >
+                        to={`/user-management/edit-user/${user.id}`}>
                         <p>Ver información</p>
                         <IoIosArrowForward />
                       </Link>
@@ -187,11 +182,11 @@ const UsersList = () => {
                     <div className="col-span-1 relative">
                       <img
                         src={
-                          user.role_name === "OWNER"
-                            ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
-                            : user.role_name === "SECRETARY"
-                            ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
-                            : ""
+                          user.role_name === 'OWNER'
+                            ? 'https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png'
+                            : user.role_name === 'SECRETARY'
+                            ? 'https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png'
+                            : ''
                         }
                         alt="User pic"
                         className="rounded-full w-[90px] "
@@ -199,7 +194,11 @@ const UsersList = () => {
 
                       {/* circle to select users */}
                       {isDeletionActive && (
-                        <div className={`size-6 border-2 border-black rounded-full absolute top-1/2 translate-y-[-50%] ${booleanArray[index] ? 'bg-acento' : ''}`} onClick={()=>handleSelectUsers(index)}></div>
+                        <div
+                          className={`size-6 border-2 border-black rounded-full absolute top-1/2 translate-y-[-50%] ${
+                            booleanArray[index] ? 'bg-acento' : ''
+                          }`}
+                          onClick={() => handleSelectUsers(index)}></div>
                       )}
                     </div>
                     <div className="col-span-3 flex flex-col items-center justify-center gap-2">
@@ -208,8 +207,7 @@ const UsersList = () => {
                       {!isDeletionActive && (
                         <Link
                           className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 px-5 w-full justify-center max-w-[260px] "
-                          to={`/user-management/edit-user/${user.id}`}
-                        >
+                          to={`/user-management/edit-user/${user.id}`}>
                           <p>Ver información</p>
                           <IoIosArrowForward />
                         </Link>
@@ -222,36 +220,36 @@ const UsersList = () => {
           </div>
 
           {/* delete & add users btns */}
-          {!isDeletionActive && <div className="flex flex-col gap-5 mt-7">
-            <Link
-              className="text-[19px] font-bold bg-acento hover:bg-green-500 self-center rounded-[10px] py-[12px] px-[10px] lg:ml-auto"
-              to="/link-to-add-user/"
-            >
-              Agregar nuevo usuario
-            </Link>
-            <button
-              className="lg:hidden text-[19px] font-bold bg-[#f5f5f5] hover:bg-gray-300 self-center rounded-[10px] py-[12px] px-[10px] "
-              onClick={() => setIsDeletionActive(true)}
-            >
-              Eliminar usuarios
-            </button>
-          </div>}
+          {!isDeletionActive && (
+            <div className="flex flex-col gap-5 mt-7">
+              <Link
+                className="text-[19px] font-bold bg-acento hover:bg-green-500 self-center rounded-[10px] py-[12px] px-[10px] lg:ml-auto"
+                to="/link-to-add-user/">
+                Agregar nuevo usuario
+              </Link>
+              <button
+                className="lg:hidden text-[19px] font-bold bg-[#f5f5f5] hover:bg-gray-300 self-center rounded-[10px] py-[12px] px-[10px] "
+                onClick={() => setIsDeletionActive(true)}>
+                Eliminar usuarios
+              </button>
+            </div>
+          )}
 
           {/* actions to delete */}
-          {isDeletionActive && <div className="flex flex-col gap-5 mt-7">
-            <button
-              className="lg:hidden text-[19px] font-bold bg-acento hover:bg-green-500 self-center rounded-[10px] py-[12px] px-[10px] "
-              onClick={()=>alert('na')}
-            >
-              Eliminar usuarios
-            </button>
-            <button
-              className="lg:hidden text-[19px] font-bold bg-[#f5f5f5] hover:bg-gray-300 self-center rounded-[10px] py-[12px] px-[10px] "
-              onClick={() => setIsDeletionActive(false)}
-            >
-              Cancelar
-            </button>
-          </div>}
+          {isDeletionActive && (
+            <div className="flex flex-col gap-5 mt-7">
+              <button
+                className="lg:hidden text-[19px] font-bold bg-acento hover:bg-green-500 self-center rounded-[10px] py-[12px] px-[10px] "
+                onClick={() => alert('na')}>
+                Eliminar usuarios
+              </button>
+              <button
+                className="lg:hidden text-[19px] font-bold bg-[#f5f5f5] hover:bg-gray-300 self-center rounded-[10px] py-[12px] px-[10px] "
+                onClick={() => setIsDeletionActive(false)}>
+                Cancelar
+              </button>
+            </div>
+          )}
         </section>
       </main>
     </>
