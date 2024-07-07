@@ -1,5 +1,5 @@
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, createContext } from "react";
 import { PersonalInfo } from "../../sections/PatientManagement/PersonalInfo";
 import MedicalHistory from "./MedicalHistory";
@@ -8,13 +8,13 @@ import Navbar from "../../components/Platform/Navbar";
 import Prestaciones from "../../sections/PatientManagement/MedicalServices";
 
 export const NewPatient = () => {
-  const [activeTab, setActiveTab] = useState("My Account");
+  const [activeTab, setActiveTab] = useState("personal-information");
   const UserContext = createContext(null);
 
   return (
     <>
       <Navbar />
-      <section className="mx-auto lg:ms-[200px] max-w-[1594px] mt-[150px]">
+      <section className="lg:ms-[250px] max-w-[1594px] mt-[150px] xxl:mx-auto ">
         <div className="flex items-center mb-6">
           <Link to="/dashboard" className="me-16">
             <button className="flex items-center bg-transparent poppins-medium">
