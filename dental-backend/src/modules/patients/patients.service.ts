@@ -51,7 +51,7 @@ export class PatientService {
         nationality: 'argentina',
         socialWork: 'nose',
         street: 'Colon',
-        odontograma: null,
+        odontograma: '',
       };
       mockPatients.push(newMockPatient);
     }

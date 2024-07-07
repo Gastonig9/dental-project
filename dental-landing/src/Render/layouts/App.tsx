@@ -28,15 +28,11 @@ function App() {
         <Route path="/user/forgot-password" element={<ForgotPassword />} />
         <Route path="/user/reset-password" element={<ResetPassword />} />
         <Route path="/*" element={<NotFound />} />
-
-        {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
         {/* PROTECTED ROUTES */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/appointments" element={<GestionTurnos />} />
           <Route path="/patient-management/new-patient" element={<NewPatient />}/>
-
-          {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
 
           {/* Brians routes */}
           <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
@@ -44,9 +40,14 @@ function App() {
           <Route path="/users-management/users-list" element={ <UsersList /> } />
           <Route path="/create-appointment" element={<CreateAppointment />}></Route>
           <Route path="/user/create-user" element={<CreateUser />}></Route>
+          {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
+
 
           <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
+          <Route path="/patient-management/seeEditPatient/:id" element={ <SeeEditPatient /> } />
           <Route path="/user-management/edit-user/:id" element={ <EditUserInfo /> } />
+          <Route path="/users-management/users-list" element={ <UsersList /> } />
+          <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
         </Route>
         {/* PROTECTED ROUTES */}
       </Routes>
