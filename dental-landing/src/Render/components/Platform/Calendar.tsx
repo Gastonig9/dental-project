@@ -19,7 +19,7 @@ export const Calendar = () => {
   useEffect(() => {
     const getAppointments = async () => {
       const responseAppointments = await fetch(
-        'http://localhost:3000/api/appointments/'
+        `${import.meta.env.VITE_API_URL}/api/appointments/`
       );
       const dataAppointments = await responseAppointments.json();
       setAppointments(dataAppointments);
@@ -45,7 +45,7 @@ export const Calendar = () => {
 
       try {
         const response = await axios.delete(
-          `http://localhost:3000/api/appointments/${id}`
+          `${import.meta.env.VITE_API_URL}/api/appointments/${id}`
         );
 
         if (response.status === 200) {

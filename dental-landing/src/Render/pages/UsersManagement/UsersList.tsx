@@ -35,7 +35,7 @@ const UsersList = () => {
 
   function fetchData() {
     axios
-      .get('http://localhost:3000/api/user')
+      .get(`${import.meta.env.VITE_API_URL}/api/user`)
       .then((res) => {
         setData(res.data);
         setUsers(res.data);
@@ -73,7 +73,7 @@ const UsersList = () => {
 
     if (result.isConfirmed) {
       axios
-        .delete(`http://localhost:3000/api/user/${id}`)
+        .delete(`import.meta.env.VITE_API_URL/api/user/${id}`)
         .then(() => {
           Swal.fire({
             toast: true,
