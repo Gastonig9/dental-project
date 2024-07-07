@@ -8,10 +8,12 @@ import Swal from "sweetalert2";
 import { IoSearchSharp } from "react-icons/io5";
 import { IoIosArrowForward } from "react-icons/io";
 import { BsTrash } from "react-icons/bs";
+import Spinner from "../../components/Platform/Spinner";
 
 interface userModel {
   email: string;
-  fullname: string;
+  firstName: string;
+  lastName: string;
   id: number;
   password: string;
   resetPasswordToken: boolean;
@@ -24,22 +26,25 @@ const UsersList = () => {
   const [data, setData] = useState<userModel[]>([]);
   const [users, setUsers] = useState<userModel[]>([]);
   const [isDeletionActive, setIsDeletionActive] = useState(false);
-  const [usersToBeDeleted, setUsersToBeDeleted] = useState<Number[]>([]);
   const [booleanArray, setBooleanArray] = useState(Array(users.length).fill(false));
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e: any) => {
     setInputData(e.target.value);
   };
 
   function fetchData() {
+    setLoading(true)
     axios
       .get("http://localhost:3000/api/user")
       .then((res) => {
         setData(res.data);
         setUsers(res.data);
+        setLoading(false)
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false)
       });
   }
 
@@ -52,16 +57,16 @@ const UsersList = () => {
   useEffect(() => {
     const arrayOfFoundNames = data.filter(
       (user) =>
-        user.fullname.toLowerCase().indexOf(inputData.toLowerCase().trim()) > -1
+        user.firstName.toLowerCase().indexOf(inputData.toLowerCase().trim()) > -1 || user.lastName.toLowerCase().indexOf(inputData.toLowerCase().trim()) > -1 
     );
     setUsers(arrayOfFoundNames);
   }, [inputData]);
 
 
   // handle deleting for desktop
-  const handleDelete = async (id: number, name: string) => {
+  const handleDelete = async (id: number, firstName: string, lastName: string) => {
     const result = await Swal.fire({
-      title: `¿Estás seguro que deseas eliminar a ${name} ?`,
+      title: `¿Estás seguro que deseas eliminar a ${firstName} ${lastName}  ?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -96,7 +101,7 @@ const UsersList = () => {
     }
   };
 
- //handle click when selecting users to delete 
+ //handle click when selecting users - toggle circle color
   const handleSelectUsers = (index: number) => {
     setBooleanArray((prevArray) => {
       const newArray = [...prevArray];
@@ -104,12 +109,66 @@ const UsersList = () => {
       return newArray;
     });
 
-  
-
   }
 
-  console.log(usersToBeDeleted)
+  // saving in an array all the id's to be deleted
+  const handleGroupDeletion = async() =>{
+    
+    const arrayOfIds = booleanArray.map((state, index) => {
+      if(state){
+        return users[index].id
+      }
+    })
 
+    const finalArray = arrayOfIds.filter(value => value !== undefined)
+
+    if(finalArray.length){
+      const result = await Swal.fire({
+        title: `${finalArray.length} ${finalArray.length > 1 ? 'usuarios serán eliminados.' : 'usuario será eliminado.'}`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sí, eliminar.",
+        cancelButtonText: "Volver",
+      });
+      
+      if(result.isConfirmed){
+        arrayOfIds.forEach(id => {
+          if(id){
+            axios
+              .delete(`http://localhost:3000/api/user/${id}`)
+              .then((res)=>{
+                console.log(res)
+                Swal.fire({
+                  toast: true,
+                  timerProgressBar: true,
+                  position: "top-right",
+                  showConfirmButton: false,
+                  showCloseButton: true,
+                  title: "Usuario eliminado",
+                  icon: "success",
+                  timer: 3000,
+                });
+                fetchData();
+                setBooleanArray(Array(users.length).fill(false))
+              })
+              .catch((err)=>{
+                console.log(err)
+                Swal.fire(
+                  "Ocurrió un error",
+                  "Ocurrió un error al eliminar a este usuario.",
+                  "error"
+                );
+              })
+          }
+        })
+        
+      }
+    } else {
+
+    }
+  }
   return (
     <>
       <Navbar />
@@ -136,6 +195,7 @@ const UsersList = () => {
             </div>
 
             {/* users rows */}
+            {loading ? <Spinner /> :      
             <div className="flex flex-col lg:grid gap-6 lg:gap-5 mt-5">
               {isDeletionActive && (
                 <h3 className="text-[19px] text-center font-bold lg:hidden">
@@ -159,7 +219,7 @@ const UsersList = () => {
                         alt="User pic"
                         className="w-[88px] rounded-full"
                       />
-                      <h3> {user.fullname} </h3>
+                      <h3> {user.firstName} {user.lastName}</h3>
                     </div>
 
                     {/* role */}
@@ -176,7 +236,7 @@ const UsersList = () => {
                       </Link>
 
                       <BsTrash
-                        onClick={() => handleDelete(user.id, user.fullname)}
+                        onClick={() => handleDelete(user.id, user.firstName, user.lastName)}
                         className="cursor-pointer"
                       />
                     </div>
@@ -203,7 +263,7 @@ const UsersList = () => {
                       )}
                     </div>
                     <div className="col-span-3 flex flex-col items-center justify-center gap-2">
-                      <h3> {user.fullname} </h3>
+                      <h3> {user.firstName} {user.lastName} </h3>
                       <h3> {user.role_name} </h3>
                       {!isDeletionActive && (
                         <Link
@@ -219,6 +279,7 @@ const UsersList = () => {
                 </div>
               ))}
             </div>
+            }
           </div>
 
           {/* delete & add users btns */}
@@ -241,7 +302,7 @@ const UsersList = () => {
           {isDeletionActive && <div className="flex flex-col gap-5 mt-7">
             <button
               className="lg:hidden text-[19px] font-bold bg-acento hover:bg-green-500 self-center rounded-[10px] py-[12px] px-[10px] "
-              onClick={()=>alert('na')}
+              onClick={handleGroupDeletion}
             >
               Eliminar usuarios
             </button>

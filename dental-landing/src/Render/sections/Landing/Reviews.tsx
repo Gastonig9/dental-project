@@ -1,6 +1,5 @@
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css/sea-green";
-import { IoIosStar } from "react-icons/io";
 
 const Reviews = () => {
   const mockReviews = [
@@ -195,7 +194,7 @@ const Reviews = () => {
       </div>
 
       {/* laptops */}
-      <div className="hidden xl:block xl:w-full xl:mx-auto bg-[#f5f5f5] px-[80px] max-w-[1800px]">
+      <div className="hidden xl:block xl:w-full xl:mx-auto bg-[#f5f5f5] px-[80px] max-w-[1700px]">
         <Splide
           aria-label="My Favorite Images"
           options={{
