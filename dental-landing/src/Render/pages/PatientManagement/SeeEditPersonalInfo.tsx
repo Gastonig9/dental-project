@@ -31,9 +31,9 @@ export const SeeEditPersonalInfo = () => {
     try {
       data.dni = Number(data.dni);
       data.age = Number(data.age);
-      data.phone = Number(data.phone);
+      data.addressNumber = Number(data.addressNumber);
 
-      const response = await axios.post(
+      const response = await axios.put(
         `http://localhost:3000/patient/${id}`,
         data
       );
@@ -78,6 +78,18 @@ export const SeeEditPersonalInfo = () => {
                 id="surname"
                 type="text"
                 {...register("surname")}
+                className={`personalInfo-input-style ${
+                  !allowEdition ? "bg-white" : ""
+                }`}
+                readOnly={!allowEdition}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="phone">Teléfono</label>
+              <input
+                id="phone"
+                type="text"
+                {...register("phone")}
                 className={`personalInfo-input-style ${
                   !allowEdition ? "bg-white" : ""
                 }`}
@@ -178,11 +190,11 @@ export const SeeEditPersonalInfo = () => {
               />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="phone">Número</label>
+              <label htmlFor="addressNumber">Número</label>
               <input
-                id="phone"
+                id="addressNumber"
                 type="number"
-                {...register("phone")}
+                {...register("addressNumber")}
                 className={`personalInfo-input-style ${
                   !allowEdition ? "bg-white" : ""
                 }`}
@@ -255,7 +267,7 @@ export const SeeEditPersonalInfo = () => {
             </div>
           </div>
         </div>
-        <div className="flex gap-3 justify-end">
+        <div className="flex mt-6 gap-3 justify-end">
           <button
             className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]"
             type="button"

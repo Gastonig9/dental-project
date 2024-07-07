@@ -68,7 +68,7 @@ const Accordion: React.FC = () => {
   };
 
   return (
-    <div className="mx-0 lg:mx-36 my-8">
+    <div className="mx-0 my-8">
       <div>
         {FAQInfo.map((item, index) => (
           <AccordionItem

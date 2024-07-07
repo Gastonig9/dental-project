@@ -100,13 +100,11 @@ const PatientsList = () => {
                     N° DNI: {String(paciente.dni)}{" "}
                   </h4>
                   <div className="flex items-center justify-end gap-2 col-span-2">
-                    <Link to={`/patient-management/seeEditPatient/${paciente.id}`}>
+                    <Link to={`/patient-management/seeEditPatient/${paciente.id}`} className="bg-[#f5f5f5] p-2 rounded-lg ">
                       <IoIosArrowForward />
                     </Link>
 
-                    <Link to={`/patient-management/seeEditPatient/${paciente.id}`}>
-                      <ImPencil />
-                    </Link>
+                    
 
                   </div>
                 </div>
@@ -122,7 +120,7 @@ const PatientsList = () => {
 
       {/* desktop layout */}
       <main className="mt-[150px] ml-[220px] pr-10 hidden lg:block p-10">
-        <section className="border-2 border-black bg-[#f5f5f5] rounded-[35px] max-w-[1594px] h-[826px]  shadow-2xl p-10 relative">
+        <section className="border-2 border-black bg-[#f5f5f5] rounded-[35px] max-w-[1594px] h-[826px]  shadow-2xl p-10 relative xxl:mx-auto">
           {/* header */}
           <div className="grid newxl:grid-cols-12 gap-2 newxl:gap-0">
             {/* titles */}
@@ -176,9 +174,6 @@ const PatientsList = () => {
                       <IoIosArrowForward />
                     </Link>
 
-                    <Link to={`/patient-management/seeEditPatient/${paciente.id}`}>
-                      <ImPencil />
-                    </Link>
                   </div>
                 </div>
               ))}

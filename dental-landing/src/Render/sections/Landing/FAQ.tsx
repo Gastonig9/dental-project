@@ -2,7 +2,8 @@ import { FAQItem } from "../../components/Landing/FAQ/FAQItem";
 
 export const FAQ = () => {
   return (
-    <section className="text-typography flex flex-col justify-center items-start poppins-regular bg-background lg:px-[184px] px-2 lg:py-40 py-8">
+    <main className=" bg-background">
+    <section className="text-typography flex flex-col justify-center items-start poppins-regular lg:px-[184px] px-2 lg:py-40 py-8 mx-auto max-w-[1900px]">
       <div className="sectionTitle w-24 lg:w-44 lg:h-12">
         <p className="text-[21px] lg:text-[28px]">FAQ</p>
       </div>
@@ -10,5 +11,6 @@ export const FAQ = () => {
         <FAQItem></FAQItem>
       </div>
     </section>
+    </main>
   );
 };
