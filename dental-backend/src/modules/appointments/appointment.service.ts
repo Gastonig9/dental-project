@@ -31,16 +31,7 @@ export class AppointmentService {
 
   async getAllAppointments(): Promise<Appointment[]> {
     const appointments = await this.repository.GetAllAppointments();
-  
-    return appointments.map((appointment) => {
-      const adjustedAppointmentDate = new Date(appointment.date);
-      adjustedAppointmentDate.setHours(adjustedAppointmentDate.getHours() + 3);
-  
-      return {
-        ...appointment,
-        date: adjustedAppointmentDate,
-      };
-    });
+    return appointments;
   }
   
 

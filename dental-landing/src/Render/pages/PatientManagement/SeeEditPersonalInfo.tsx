@@ -33,9 +33,11 @@ export const SeeEditPersonalInfo = () => {
       data.age = Number(data.age);
       data.addressNumber = Number(data.addressNumber);
 
+      console.log("DATA" , data)
+      const {appointments, medicalHistories,...rest}= data
       const response = await axios.put(
         `http://localhost:3000/patient/${id}`,
-        data
+        rest
       );
       setPatientInfo(response.data);
       Swal.fire({

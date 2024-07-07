@@ -12,9 +12,7 @@ import { ForgotPassword } from "../pages/Login/ForgotPassword";
 import { ResetPassword } from "../pages/Login/ResetPassword";
 import { AuthProvider } from "../pages/contexts/AuthContext";
 import PrivateRoute from "../guards/PrivateRoute";
-
 import UsersList from "../pages/UsersManagement/UsersList";
-
 import { EditUserInfo } from "../pages/UserManagement/EditUserInfo";
 
 
@@ -33,20 +31,24 @@ function App() {
         <Route path="/user/reset-password" element={<ResetPassword />} />
         <Route path="/create-appointment" element={<CreateAppointment />}></Route>
         <Route path="/*" element={<NotFound />} />
-        
         {/* PROTECTED ROUTES */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/appointments" element={<GestionTurnos />} />
-          {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
+          <Route path="/patient-management/new-patient" element={<NewPatient />}/>
 
           {/* Brians routes */}
           <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
           <Route path="/patient-management/seeEditPatient/:id" element={ <SeeEditPatient /> } />
           <Route path="/users-management/users-list" element={ <UsersList /> } />
+          {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
+
 
           <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
+          <Route path="/patient-management/seeEditPatient/:id" element={ <SeeEditPatient /> } />
           <Route path="/user-management/edit-user/:id" element={ <EditUserInfo /> } />
+          <Route path="/users-management/users-list" element={ <UsersList /> } />
+          <Route path="/patient-management/patients-list" element={ <PatientsList /> } />
         </Route>
         {/* PROTECTED ROUTES */}
       </Routes>

@@ -17,6 +17,7 @@ import {
   UserUpdateDto,
 } from 'src/dtos/user';
 import { EmailService } from 'src/utils/email.service';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class UserService {
@@ -30,16 +31,26 @@ export class UserService {
 
   async register(user: UserRegisterDto): Promise<User> {
     user.password = await this.authService.hashPassword(user.password);
+    try {
+      const userResponse = await this.userRepository.AddUser(user);
 
-    const userResponse = await this.userRepository.AddUser(user);
+      const response = await this.AddUserType[user.role_name](userResponse);
 
-    const response = await this.AddUserType[user.role_name](userResponse);
+      return response;
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        throw new Error(
+          `posible valor repetido en base de datos, Email y Dni deben ser unicos, errorTarget:${error.meta?.target}`,
+        );
+      }
 
-    return response;
+      throw new Error(error);
+    }
   }
 
   async login(user: UserLoginDto): Promise<UserAuthResponseDto> {
     const userExist = await this.userRepository.GetUserByEmail(user.email);
+    const RoleObject = { dentist: {} };
 
     if (!userExist)
       throw new UnauthorizedException('Email y/o Contraseña incorrectos');
@@ -64,9 +75,21 @@ export class UserService {
       role: userWithoutId.role_name,
     });
 
+    if (
+      userExist.role_name === 'OWNER' ||
+      userExist.role_name === 'ASSOCIATED'
+    ) {
+      const dentist = await this.dentistRepository.getDentistByUserId(
+        userExist.id,
+      );
+
+      RoleObject.dentist = { ...dentist };
+    }
+
     return {
       token,
       user: userWithoutId,
+      RoleObject,
     };
   }
 
