@@ -10,12 +10,12 @@ import { BsTrash } from "react-icons/bs";
 
 interface userModel {
   email: string;
-  fullname: string;
+  firstName: string;
+  lastName: string;
   id: number;
   password: string;
   resetPasswordToken: boolean;
   role_name: string;
-  username: string;
 }
 
 const UsersList = () => {
@@ -43,7 +43,6 @@ const UsersList = () => {
   const [data, setData] = useState<userModel[]>([]);
   const [users, setUsers] = useState<userModel[]>([]);
 
-
   const handleChange = (e: any) => {
     setInputData(e.target.value);
   };
@@ -61,10 +60,13 @@ const UsersList = () => {
       });
   }, []);
 
-  useEffect(()=>{
-    const arrayOfFoundNames = data.filter(user => user.fullname.toLowerCase().indexOf(inputData.toLowerCase().trim()) > -1)
-    setUsers(arrayOfFoundNames)
-  }, [inputData])
+  useEffect(() => {
+    const arrayOfFoundNames = data.filter(
+      (user) =>
+        user.firstName.toLowerCase().indexOf(inputData.toLowerCase().trim()) > -1
+    );
+    setUsers(arrayOfFoundNames);
+  }, [inputData]);
 
   return (
     <>
@@ -94,17 +96,23 @@ const UsersList = () => {
             {users.map((user) => (
               <div key={user.id}>
                 {/* desktop cards */}
-                <div
-                  className="hidden lg:grid lg:grid-cols-3 text-center text-[19px] bg-[#d9d9d9] p-5 rounded-[20px] items-center font-bold"
-                >
+                <div className="hidden lg:grid lg:grid-cols-3 text-center text-[19px] bg-[#d9d9d9] p-5 rounded-[20px] items-center font-bold">
                   {/* pic and name */}
                   <div className="flex items-center gap-10 px-10">
                     <img
-                      src={user.role_name === 'OWNER' ? 'https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png' : user.role_name === 'SECRETARY' ? 'https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png' : ''}
+                      src={
+                        user.role_name === "ASSOCIATED"
+                          ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
+                          : user.role_name === "SECRETARY"
+                          ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
+                          : user.role_name === "OWNER"
+                          ? "https://cdn0.iconfinder.com/data/icons/find-a-job-and-interview-flat/512/employee_person_man_business_office_businessman_people_male_worker-512.png"
+                          : ""
+                      }
                       alt="User pic"
                       className="w-[88px] rounded-full"
                     />
-                    <h3> {user.fullname} </h3>
+                    <h3> {user.firstName} {user.lastName} </h3>
                   </div>
 
                   {/* role */}
@@ -125,16 +133,22 @@ const UsersList = () => {
                 </div>
 
                 {/* mobile cards */}
-                <div className="lg:hidden grid grid-cols-4 text-[16px] bg-[#d9d9d9] p-2 rounded-[20px] items-center font-bold max-w-[500px] mx-auto" >
+                <div className="lg:hidden grid grid-cols-4 text-[16px] bg-[#d9d9d9] p-2 rounded-[20px] items-center font-bold max-w-[500px] mx-auto">
                   <div className="col-span-1">
                     <img
-                      src={user.role_name === 'OWNER' ? 'https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png' : user.role_name === 'SECRETARY' ? 'https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png' : ''}
+                      src={
+                        user.role_name === "OWNER"
+                          ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
+                          : user.role_name === "SECRETARY"
+                          ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
+                          : ""
+                      }
                       alt="User pic"
                       className="rounded-full w-[90px] "
                     />
                   </div>
                   <div className="col-span-3 flex flex-col items-center justify-center gap-2">
-                    <h3> {user.fullname} </h3>
+                    <h3> {user.firstName} </h3>
                     <h3> {user.role_name} </h3>
                     <Link
                       className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 px-5 w-full justify-center max-w-[260px] "
@@ -145,15 +159,16 @@ const UsersList = () => {
                     </Link>
                   </div>
                 </div>
-              </div >
+              </div>
             ))}
           </div>
 
           {/* delete & add users btns */}
           <div className="flex flex-col gap-5 mt-7">
             <button className="text-[19px] font-bold bg-acento hover:bg-green-500 self-center rounded-[10px] py-[12px] px-[10px] lg:absolute right-10 bottom-10">
-              Agregar nuevo usuario
+              <Link to={`/user/create-user`}>Agregar nuevo usuario</Link>
             </button>
+
             <button className="lg:hidden text-[19px] font-bold bg-[#f5f5f5] hover:bg-gray-300 self-center rounded-[10px] py-[12px] px-[10px] ">
               Eliminar usuarios
             </button>

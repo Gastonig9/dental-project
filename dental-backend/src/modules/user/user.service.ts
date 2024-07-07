@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Injectable,
   NotFoundException,
@@ -29,13 +30,18 @@ export class UserService {
   ) {}
 
   async register(user: UserRegisterDto): Promise<User> {
-    user.password = await this.authService.hashPassword(user.password);
+    try {
+      user.password = await this.authService.hashPassword(user.password);
 
     const userResponse = await this.userRepository.AddUser(user);
 
     const response = await this.AddUserType[user.role_name](userResponse);
 
     return response;
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
 
   async login(user: UserLoginDto): Promise<UserAuthResponseDto> {
