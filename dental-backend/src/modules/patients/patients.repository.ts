@@ -50,6 +50,7 @@ export class PatientRepository {
       include: {
         appointments: true,
         medicalHistories: true,
+        prestations: true,
       },
     });
   }
@@ -87,7 +88,7 @@ export class PatientRepository {
 
     const newOdontograms = odontogram.map((u) => ({
       ...u,
-      prestationId: prestationCreated.patientId,
+      prestationId: prestationCreated.id, // Cambiado de patientId a id
     }));
 
     await this.context.odontogram.createMany({ data: newOdontograms });

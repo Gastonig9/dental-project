@@ -98,45 +98,46 @@ model MedicalHistory {
 }
 
 model Patient {
-  id        Int          @id @default(autoincrement())
-  name      String
-  surname   String
-  gender    String
-  pEmail    String
-  dni       Int
-  phone     String
-  age Int?
-  addressNumber Int?
-  floor String?
-  street String?
-  nationality String?
-  locality String?
-  establishment String?
-  socialWork String?
-  apartment String?
-  birthDate String?
-  prestations Prestations[]
-  appointments Appointment[]
-  medicalHistories MedicalHistory[]
+  id                Int                @id @default(autoincrement())
+  name              String
+  surname           String
+  gender            String
+  pEmail            String
+  dni               Int
+  phone             String
+  age               Int?
+  addressNumber     Int?
+  floor             String?
+  street            String?
+  nationality       String?
+  locality          String?
+  establishment     String?
+  socialWork        String?
+  apartment         String?
+  birthDate         String?
+  prestations       Prestations[]
+  appointments      Appointment[]
+  medicalHistories  MedicalHistory[]
 }
+
 model Prestations {
-  id  Int    @id @default(autoincrement())
-  patient   Patient    @relation(fields: [patientId], references: [id])
-  patientId Int
-  odontogram Odontogram[]
-  state PrestationState
-  date String
-  code String
-  observations String?
+  id            Int             @id @default(autoincrement())
+  patient       Patient         @relation(fields: [patientId], references: [id])
+  patientId     Int
+  odontogram    Odontogram[]
+  state         PrestationState
+  date          String
+  code          String
+  observations  String?
 }
 
 model Odontogram {
-  id  Int   @id @default(autoincrement())
-  prestation Prestations @relation(fields: [prestationId], references: [id])
-  prestationId Int
-  toothNumber Int
-  parts Parts
-  ref String
+  id            Int             @id @default(autoincrement())
+  prestation    Prestations     @relation(fields: [prestationId], references: [id])
+  prestationId  Int
+  toothNumber   Int
+  parts         Parts
+  ref           String
 }
 
 // model OdontogramTooth {
