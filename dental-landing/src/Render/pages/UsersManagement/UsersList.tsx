@@ -11,12 +11,12 @@ import { BsTrash } from "react-icons/bs";
 
 interface userModel {
   email: string;
-  fullname: string;
+  firstName: string;
+  lastName: string;
   id: number;
   password: string;
   resetPasswordToken: boolean;
   role_name: string;
-  username: string;
 }
 
 const UsersList = () => {
@@ -52,7 +52,7 @@ const UsersList = () => {
   useEffect(() => {
     const arrayOfFoundNames = data.filter(
       (user) =>
-        user.fullname.toLowerCase().indexOf(inputData.toLowerCase().trim()) > -1
+        user.firstName.toLowerCase().indexOf(inputData.toLowerCase().trim()) > -1
     );
     setUsers(arrayOfFoundNames);
   }, [inputData]);
@@ -135,33 +135,29 @@ const UsersList = () => {
               </div>
             </div>
 
-            {/* users rows */}
-            <div className="flex flex-col lg:grid gap-6 lg:gap-5 mt-5">
-              {isDeletionActive && (
-                <h3 className="text-[19px] text-center font-bold lg:hidden">
-                  Selecciona usuarios
-                </h3>
-              )}
-              {users.map((user, index) => (
-                <div key={user.id}>
-                  {/* desktop cards */}
-                  <div className="hidden lg:grid lg:grid-cols-3 text-center text-[19px] bg-[#d9d9d9] p-5 rounded-[20px] items-center font-bold">
-                    {/* pic and name */}
-                    <div className="flex items-center gap-10 px-10">
-                      <img
-                        src={
-                          user.role_name === "OWNER"
-                            ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
-                            : user.role_name === "SECRETARY"
-                            ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
-                            : ""
-                        }
-                        alt="User pic"
-                        className="w-[88px] rounded-full"
-                      />
-                      <h3> {user.fullname} </h3>
-                    </div>
-
+          {/* users rows */}
+          <div className="flex flex-col lg:grid gap-6 lg:gap-5 mt-5">
+            {users.map((user) => (
+              <div key={user.id}>
+                {/* desktop cards */}
+                <div className="hidden lg:grid lg:grid-cols-3 text-center text-[19px] bg-[#d9d9d9] p-5 rounded-[20px] items-center font-bold">
+                  {/* pic and name */}
+                  <div className="flex items-center gap-10 px-10">
+                    <img
+                      src={
+                        user.role_name === "ASSOCIATED"
+                          ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
+                          : user.role_name === "SECRETARY"
+                          ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
+                          : user.role_name === "OWNER"
+                          ? "https://cdn0.iconfinder.com/data/icons/find-a-job-and-interview-flat/512/employee_person_man_business_office_businessman_people_male_worker-512.png"
+                          : ""
+                      }
+                      alt="User pic"
+                      className="w-[88px] rounded-full"
+                    />
+                    <h3> {user.firstName} {user.lastName} </h3>
+                  </div>
                     {/* role */}
                     <h3> {user.role_name} </h3>
 
@@ -181,7 +177,6 @@ const UsersList = () => {
                       />
                     </div>
                   </div>
-
                   {/* mobile cards */}
                   <div className="lg:hidden grid grid-cols-4 text-[16px] bg-[#d9d9d9] p-2 rounded-[20px] items-center font-bold max-w-[500px] mx-auto">
                     <div className="col-span-1 relative">
@@ -203,7 +198,7 @@ const UsersList = () => {
                       )}
                     </div>
                     <div className="col-span-3 flex flex-col items-center justify-center gap-2">
-                      <h3> {user.fullname} </h3>
+                      <h3> {user.firstName} </h3>
                       <h3> {user.role_name} </h3>
                       {!isDeletionActive && (
                         <Link
