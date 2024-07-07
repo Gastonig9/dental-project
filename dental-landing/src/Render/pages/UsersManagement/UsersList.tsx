@@ -18,7 +18,6 @@ interface userModel {
   password: string;
   resetPasswordToken: boolean;
   role_name: string;
-  username: string;
 }
 
 const UsersList = () => {
@@ -210,11 +209,13 @@ const UsersList = () => {
                     <div className="flex items-center gap-10 px-10">
                       <img
                         src={
-                          user.role_name === "OWNER"
-                            ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
-                            : user.role_name === "SECRETARY"
-                            ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
-                            : ""
+                          user.role_name === "ASSOCIATED"
+                          ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
+                          : user.role_name === "SECRETARY"
+                          ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
+                          : user.role_name === "OWNER"
+                          ? "https://cdn0.iconfinder.com/data/icons/find-a-job-and-interview-flat/512/employee_person_man_business_office_businessman_people_male_worker-512.png"
+                          : ""
                         }
                         alt="User pic"
                         className="w-[88px] rounded-full"
@@ -241,17 +242,18 @@ const UsersList = () => {
                       />
                     </div>
                   </div>
-
                   {/* mobile cards */}
                   <div className="lg:hidden grid grid-cols-4 text-[16px] bg-[#d9d9d9] p-2 rounded-[20px] items-center font-bold max-w-[500px] mx-auto">
                     <div className="col-span-1 relative">
                       <img
                         src={
-                          user.role_name === "OWNER"
-                            ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
-                            : user.role_name === "SECRETARY"
-                            ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
-                            : ""
+                          user.role_name === "ASSOCIATED"
+                          ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
+                          : user.role_name === "SECRETARY"
+                          ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
+                          : user.role_name === "OWNER"
+                          ? "https://cdn0.iconfinder.com/data/icons/find-a-job-and-interview-flat/512/employee_person_man_business_office_businessman_people_male_worker-512.png"
+                          : ""
                         }
                         alt="User pic"
                         className="rounded-full w-[90px] "
@@ -263,7 +265,9 @@ const UsersList = () => {
                       )}
                     </div>
                     <div className="col-span-3 flex flex-col items-center justify-center gap-2">
+
                       <h3> {user.firstName} {user.lastName} </h3>
+
                       <h3> {user.role_name} </h3>
                       {!isDeletionActive && (
                         <Link

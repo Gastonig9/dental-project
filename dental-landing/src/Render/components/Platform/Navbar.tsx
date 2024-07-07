@@ -15,6 +15,7 @@ const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [desktopMenu, setDesktopMenu] = useState(false);
   const location = useLocation();
+  const userData = JSON.parse(localStorage.getItem('user') || '{}');
 
   // toggle mobile menu
   const activeMobileMenu = () => {
@@ -113,7 +114,7 @@ const Navbar = () => {
 
             <div className="flex items-center gap-1 mt-[100px]">
               <FaRegUserCircle />
-              <h3 className="text-[16px] font-semibold"> USER </h3>
+              <h3 className="text-[16px] font-semibold"> {userData.firstName} {userData.lastName} </h3>
             </div>
           </div>
         </div>
@@ -213,7 +214,7 @@ const Navbar = () => {
           <img src={logo} alt="Grinpol - Clínica Dental" className="w-44"/>
           <div className="flex items-center gap-2 bg-[#B4B4B4] py-3 px-8 rounded-3xl">
             <FaRegUserCircle />
-            <h3 className="text-[19px] ">[Usuario]</h3>
+            <h3 className="text-[19px] ">{userData.firstName} {userData.lastName}</h3>
           </div>
         </div>
       </header>
