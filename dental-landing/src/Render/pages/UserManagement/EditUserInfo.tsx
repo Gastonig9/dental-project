@@ -1,10 +1,10 @@
-import { Link, useParams } from "react-router-dom";
-import Navbar from "../../components/Platform/Navbar";
-import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import Swal from "sweetalert2";
+import { Link, useParams } from 'react-router-dom';
+import Navbar from '../../components/Platform/Navbar';
+import { ChevronLeftIcon } from '@heroicons/react/20/solid';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export const EditUserInfo = () => {
   const { id } = useParams();
@@ -13,7 +13,7 @@ export const EditUserInfo = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/user/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/user/${id}`)
       .then((res) => {
         const user = res.data;
         for (const key in user) {
@@ -30,21 +30,21 @@ export const EditUserInfo = () => {
   const onSubmit = async (data: any) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/user/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/user/${id}`,
         data
       );
       Swal.fire({
-        title: "Guardado",
-        text: "Información del usuario guardada con éxito.",
-        icon: "success",
+        title: 'Guardado',
+        text: 'Información del usuario guardada con éxito.',
+        icon: 'success',
       });
-      console.log("User information saved:", response.data);
+      console.log('User information saved:', response.data);
     } catch (error) {
-      console.error("Error saving: ", error);
+      console.error('Error saving: ', error);
       Swal.fire({
-        title: "Error",
-        text: "Ocurrió un error al guardar la información.",
-        icon: "error",
+        title: 'Error',
+        text: 'Ocurrió un error al guardar la información.',
+        icon: 'error',
       });
     }
   };
@@ -78,7 +78,7 @@ export const EditUserInfo = () => {
                   id="firstName"
                   {...register("firstName", { required: "El nombre es obligatorio" })}
                   className={`usermanagement-input-style ${
-                    !allowEdition ? "bg-white" : ""
+                    !allowEdition ? 'bg-white' : ''
                   }`}
                   readOnly={!allowEdition}
                 />
@@ -91,7 +91,7 @@ export const EditUserInfo = () => {
                   id="lastName"
                   {...register("lastName", { required: "El apellido es obligatorio" })}
                   className={`usermanagement-input-style ${
-                    !allowEdition ? "bg-white" : ""
+                    !allowEdition ? 'bg-white' : ''
                   }`}
                   readOnly={!allowEdition}
                 />
@@ -110,7 +110,7 @@ export const EditUserInfo = () => {
                     }
                   })}
                   className={`usermanagement-input-style ${
-                    !allowEdition ? "bg-white" : ""
+                    !allowEdition ? 'bg-white' : ''
                   }`}
                   readOnly={!allowEdition}
                 />
@@ -122,7 +122,7 @@ export const EditUserInfo = () => {
                   id="role_name"
                   {...register("role_name", { required: "El rol es obligatorio" })}
                   className={`usermanagement-input-select-style ${
-                    !allowEdition ? "bg-white" : ""
+                    !allowEdition ? 'bg-white' : ''
                   }`}
                   disabled={!allowEdition}
                 >
@@ -135,9 +135,8 @@ export const EditUserInfo = () => {
                 <button
                   className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]"
                   type="button"
-                  onClick={() => setAllowEdition(!allowEdition)}
-                >
-                  {!allowEdition ? "Activar Edición" : "Desactivar Edición"}
+                  onClick={() => setAllowEdition(!allowEdition)}>
+                  {!allowEdition ? 'Activar Edición' : 'Desactivar Edición'}
                 </button>
                 {allowEdition && (
                   <button

@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import Swal from "sweetalert2";
-import { usePatientContext } from "../../pages/contexts/patientContext";
-import { Patient } from "../../../types/dtos/Patient/NewPatient.type";
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { usePatientContext } from '../../pages/contexts/patientContext';
+import { Patient } from '../../../types/dtos/Patient/NewPatient.type';
 
 export const PersonalInfo = () => {
   const { register, handleSubmit, setValue } = useForm<Patient>();
@@ -22,25 +22,27 @@ export const PersonalInfo = () => {
 
   const onSubmit = async (data: Patient) => {
     try {
-
       data.dni = Number(data.dni);
       data.age = Number(data.age);
       data.addressNumber = Number(data.addressNumber);
 
-      const response = await axios.post("http://localhost:3000/patient", data);
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/patient`,
+        data
+      );
       setPatient(response.data);
       Swal.fire({
-        title: "Guardado",
-        text: "Información personal guardada con éxito.",
-        icon: "success",
+        title: 'Guardado',
+        text: 'Información personal guardada con éxito.',
+        icon: 'success',
       });
-      console.log("Patient information saved:", response.data);
+      console.log('Patient information saved:', response.data);
     } catch (error) {
-      console.error("Error saving: ", error);
+      console.error('Error saving: ', error);
       Swal.fire({
-        title: "Error",
-        text: "Ocurrió un error al guardar la información.",
-        icon: "error",
+        title: 'Error',
+        text: 'Ocurrió un error al guardar la información.',
+        icon: 'error',
       });
     }
   };
@@ -56,7 +58,7 @@ export const PersonalInfo = () => {
               <input
                 id="name"
                 type="text"
-                {...register("name")}
+                {...register('name')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -65,7 +67,7 @@ export const PersonalInfo = () => {
               <input
                 id="surname"
                 type="text"
-                {...register("surname")}
+                {...register('surname')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -74,7 +76,7 @@ export const PersonalInfo = () => {
               <input
                 id="phone"
                 type="text"
-                {...register("phone")}
+                {...register('phone')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -85,7 +87,7 @@ export const PersonalInfo = () => {
               <input
                 id="dni"
                 type="number"
-                {...register("dni")}
+                {...register('dni')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -94,7 +96,7 @@ export const PersonalInfo = () => {
               <input
                 id="age"
                 type="number"
-                {...register("age")}
+                {...register('age')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -103,7 +105,7 @@ export const PersonalInfo = () => {
               <input
                 id="nationality"
                 type="text"
-                {...register("nationality")}
+                {...register('nationality')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -114,7 +116,7 @@ export const PersonalInfo = () => {
               <input
                 id="gender"
                 type="text"
-                {...register("gender")}
+                {...register('gender')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -123,7 +125,7 @@ export const PersonalInfo = () => {
               <input
                 id="birthDate"
                 type="date"
-                {...register("birthDate")}
+                {...register('birthDate')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -132,7 +134,7 @@ export const PersonalInfo = () => {
               <input
                 id="pEmail"
                 type="text"
-                {...register("pEmail")}
+                {...register('pEmail')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -146,7 +148,7 @@ export const PersonalInfo = () => {
               <input
                 id="street"
                 type="text"
-                {...register("street")}
+                {...register('street')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -155,7 +157,7 @@ export const PersonalInfo = () => {
               <input
                 id="addressNumber"
                 type="number"
-                {...register("addressNumber")}
+                {...register('addressNumber')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -166,7 +168,7 @@ export const PersonalInfo = () => {
               <input
                 id="floor"
                 type="text"
-                {...register("floor")}
+                {...register('floor')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -175,7 +177,7 @@ export const PersonalInfo = () => {
               <input
                 id="apartment"
                 type="text"
-                {...register("apartment")}
+                {...register('apartment')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -184,7 +186,7 @@ export const PersonalInfo = () => {
               <input
                 id="locality"
                 type="text"
-                {...register("locality")}
+                {...register('locality')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -195,7 +197,7 @@ export const PersonalInfo = () => {
               <input
                 id="establishment"
                 type="text"
-                {...register("establishment")}
+                {...register('establishment')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -204,7 +206,7 @@ export const PersonalInfo = () => {
               <input
                 id="socialWork"
                 type="text"
-                {...register("socialWork")}
+                {...register('socialWork')}
                 className="personalInfo-input-style"
               />
             </div>
@@ -213,8 +215,7 @@ export const PersonalInfo = () => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]"
-          >
+            className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]">
             Guardar
           </button>
         </div>
