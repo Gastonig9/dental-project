@@ -1,12 +1,12 @@
 import {
   ChevronRightIcon,
   UsersIcon,
-  MagnifyingGlassIcon
-} from "@heroicons/react/20/solid";
-import { Link, useParams } from "react-router-dom";
-import Navbar from "../../components/Platform/Navbar";
-import { useEffect, useState } from "react";
-import axios from "axios";
+  MagnifyingGlassIcon,
+} from '@heroicons/react/20/solid';
+import { Link } from 'react-router-dom';
+import Navbar from '../../components/Platform/Navbar';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface Appointment {
   id: number;
@@ -66,16 +66,18 @@ export const Dashboard = () => {
         .then((res) => {
           if (!Array.isArray(res.data.appointments)) {
             throw new Error(
-              "Unexpected API response: appointments data is not an array"
+              'Unexpected API response: appointments data is not an array'
             );
           }
           const appointmentsData = res.data.appointments.map((appointment) => ({
             ...appointment,
-            dentist: appointment.dentist ? { fullname: appointment.dentist.fullname } : { fullname: "Unknown" },
+            dentist: appointment.dentist
+              ? { fullname: appointment.dentist.fullname }
+              : { fullname: 'Unknown' },
             patient: {
               id: appointment.patientId,
-              name: "Unknown",
-              surname: "Patient",
+              name: 'Unknown',
+              surname: 'Patient',
             },
           }));
           setAppointments(appointmentsData);
@@ -102,7 +104,7 @@ export const Dashboard = () => {
           setPatients(patientsData);
         })
         .catch((err) => {
-          console.error("Error fetching appointments:", err);
+          console.error('Error fetching appointments:', err);
         });
     }
 
@@ -194,18 +196,18 @@ export const Dashboard = () => {
                       minute: '2-digit',
                     })}
                   </p>
-                  {userData.role_name === "SECRETARY" && (
+                  {userData.role_name === 'SECRETARY' && (
                     <>
                       <p className="me-4">
-                        Paciente:{" "}
-                        {`${appointment.patient.name} ${appointment.patient.surname}`}{" "}
+                        Paciente:{' '}
+                        {`${appointment.patient.name} ${appointment.patient.surname}`}{' '}
                         -
                       </p>
                       <p>Profesional: {appointment.dentist.fullname}</p>
                     </>
                   )}
-                  {userData.role_name !== "SECRETARY" && (
-                    <p>{patients[appointment.patient.id] || "Loading..."}</p>
+                  {userData.role_name !== 'SECRETARY' && (
+                    <p>{patients[appointment.patient.id] || 'Loading...'}</p>
                   )}
                 </div>
               ))}
