@@ -135,7 +135,7 @@ const UsersList = () => {
         arrayOfIds.forEach(id => {
           if(id){
             axios
-              .delete(`http://localhost:3000/api/user/${id}`)
+              .delete(`${import.meta.env.VITE_API_URL}/api/user/${id}`)
               .then((res)=>{
                 console.log(res)
                 Swal.fire({
