@@ -97,6 +97,7 @@ const PatientsList = () => {
             <Spinner />
           ) : (
             <div className="flex flex-col gap-3 mt-3">
+              {patients.length > 0}
               {patients.map((paciente, index) => (
                 <div
                   key={index}
