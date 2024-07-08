@@ -13,7 +13,7 @@ export const NewPatient = () => {
   return (
     <>
       <Navbar />
-      <section className="mx-auto lg:ms-[200px] max-w-[1594px] mt-[150px]">
+      <section className="lg:ms-[250px] max-w-[1594px] mt-[150px] xxl:mx-auto ">
         <div className="flex items-center mb-6">
           <Link to="/dashboard" className="me-16">
             <button className="flex items-center bg-transparent poppins-medium">

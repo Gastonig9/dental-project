@@ -3,7 +3,7 @@ import Carousel from "./Carousel";
 export const AboutUs = () => {
   return (
     <>
-      <section className="relative bg-background lg:pt-[183px]">
+      <section className="relative bg-background lg:pt-[183px]" id="nosotros">
         {/* Section Titile */}
         <div className="sectionTitle absolute w-[139px] h-[39px] top-[53px] left-[15px] lg:top-[183px] lg:left-[187px] lg:w-[188px] lg:h-[48px] ">
           <p className="text-[19px] lg:text-[28px] leading-[120%]">Nosotros</p>

@@ -1,12 +1,12 @@
 import {
   ChevronRightIcon,
   UsersIcon,
-  MagnifyingGlassIcon,
-} from '@heroicons/react/20/solid';
-import { Link } from 'react-router-dom';
-import Navbar from '../../components/Platform/Navbar';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+  MagnifyingGlassIcon
+} from "@heroicons/react/20/solid";
+import { Link, useParams } from "react-router-dom";
+import Navbar from "../../components/Platform/Navbar";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface Appointment {
   id: number;
@@ -17,11 +17,14 @@ interface Appointment {
   results: string;
   reason: string;
   odontograma: string;
-}
-
-interface Patient {
-  id: number;
-  name: string;
+  patient: {
+    id: number;
+    name: string;
+    surname: string;
+  };
+  dentist: {
+    fullname: string;
+  };
 }
 
 export const Dashboard = () => {
@@ -55,36 +58,62 @@ export const Dashboard = () => {
     const RoleObject = JSON.parse(localStorage.getItem('RoleObject') || '{}');
     const dentistId = RoleObject.dentist ? RoleObject.dentist.id : null;
 
-    if (!dentistId) {
-      console.error('No dentist ID found in RoleObject');
-      return;
+    if (dentistId) {
+      axios
+        .get<{ appointments: Appointment[] }>(
+          `http://localhost:3000/dentist/appointments/${dentistId}`
+        )
+        .then((res) => {
+          if (!Array.isArray(res.data.appointments)) {
+            throw new Error(
+              "Unexpected API response: appointments data is not an array"
+            );
+          }
+          const appointmentsData = res.data.appointments.map((appointment) => ({
+            ...appointment,
+            dentist: appointment.dentist ? { fullname: appointment.dentist.fullname } : { fullname: "Unknown" },
+            patient: {
+              id: appointment.patientId,
+              name: "Unknown",
+              surname: "Patient",
+            },
+          }));
+          setAppointments(appointmentsData);
+
+          // Continue with patient data fetching
+          const patientIds = res.data.appointments.map(
+            (appointment) => appointment.patientId
+          );
+
+          const patientRequests = patientIds.map((patientId) =>
+            axios.get<{ id: number; name: string; surname: string }>(
+              `http://localhost:3000/patient/${patientId}`
+            )
+          );
+
+          return Promise.all(patientRequests);
+        })
+        .then((responses) => {
+          const patientsData = responses.reduce((acc, res) => {
+            acc[res.data.id] = `${res.data.name} ${res.data.surname}`;
+            return acc;
+          }, {} as { [key: number]: string });
+
+          setPatients(patientsData);
+        })
+        .catch((err) => {
+          console.error("Error fetching appointments:", err);
+        });
     }
 
-    // Fetch all appointments for the dentist using the new endpoint
     axios
-      .get<{ appointments: Appointment[] }>(
-        `${import.meta.env.VITE_API_URL}/dentist/appointments/${dentistId}`
-      )
+      .get<Appointment[]>(`${import.meta.env.VITE_API_URL}/api/appointments`)
       .then((res) => {
-        setAppointments(res.data.appointments);
-        console.log(res.data.appointments);
-
-        // Fetch patient data for each appointment
-        const patientRequests = res.data.appointments.map((appointment) =>
-          axios.get<Patient>(
-            `${import.meta.env.VITE_API_URL}/patient/${appointment.patientId}`
-          )
-        );
-
-        return Promise.all(patientRequests);
-      })
-      .then((responses) => {
-        const patientsData = responses.reduce((acc, res) => {
-          acc[res.data.id] = res.data.name;
-          return acc;
-        }, {} as { [key: number]: string });
-
-        setPatients(patientsData);
+        // Merge appointments fetched from both endpoints if needed
+        setAppointments((prevAppointments) => [
+          ...prevAppointments,
+          ...res.data,
+        ]);
       })
       .catch((err) => {
         console.error(err);
@@ -165,7 +194,19 @@ export const Dashboard = () => {
                       minute: '2-digit',
                     })}
                   </p>
-                  <p>{patients[appointment.patientId] || 'Loading...'}</p>
+                  {userData.role_name === "SECRETARY" && (
+                    <>
+                      <p className="me-4">
+                        Paciente:{" "}
+                        {`${appointment.patient.name} ${appointment.patient.surname}`}{" "}
+                        -
+                      </p>
+                      <p>Profesional: {appointment.dentist.fullname}</p>
+                    </>
+                  )}
+                  {userData.role_name !== "SECRETARY" && (
+                    <p>{patients[appointment.patient.id] || "Loading..."}</p>
+                  )}
                 </div>
               ))}
             </div>

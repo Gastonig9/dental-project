@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import { useEffect, useState } from 'react'
+import { useForm } from "react-hook-form";
+import axios from "axios"
+import Swal from 'sweetalert2'
 import { useParams } from 'react-router-dom';
 
 const SeeEditMedicalHistory = () => {
@@ -116,7 +116,7 @@ const SeeEditMedicalHistory = () => {
 
   return (
     <>
-      <main className="grid gap-y-10 lg:grid-cols-2 lg:-gap-x-10 xl:gap-x-[136px] poppins">
+      <main className='grid gap-y-10 lg:grid-cols-2 lg:gap-x-10 xl:gap-x-[136px] poppins'>
         {/* FIRST FORM */}
         <div>
           <h3 className="font-bold ">Antecedentes médicos</h3>

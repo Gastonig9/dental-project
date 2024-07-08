@@ -10,10 +10,10 @@ export const SelectInput: React.FC<SelectInputProps> = ({
   mtInput
 }) => {
   return (
-    <div className={`w-[30%] rounded-[15px] bg-lightgray border border-[#424242] mt-${mtInput}`}>
+    <div className={`w-full lg:w-[30%] rounded-[15px] bg-lightgray border border-[#424242] mt-${mtInput}`}>
       <select
         id={id}
-        className="w-full rounded-[15px] bg-lightgray p-4 focus:outline-none focus:ring-2 focus:ring-[#76ffa8] focus:border-[#76ffa8] text-[25px]"
+        className="w-full rounded-[15px] bg-lightgray p-4 focus:outline-none focus:ring-2 focus:ring-[#76ffa8] focus:border-[#76ffa8] text-[20px] md:text-[25px]"
         onChange={(e) => {
           const selectedIndex = e.target.selectedIndex;
           if (selectDentist && selectedIndex > 0) {

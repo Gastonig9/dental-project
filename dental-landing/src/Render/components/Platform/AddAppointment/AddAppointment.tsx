@@ -10,15 +10,12 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 export const AddAppointment = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  // Pacientes
+  const [searchTerm, setSearchTerm] = useState("");
   const [patientSelected, setPatientSelected] = useState<Patient | null>(null);
   const [patients, setPatients] = useState<Patient[]>([]);
   const [filteredPatients, setFilteredPatients] = useState<Patient[]>([]);
-  // Dentistas
   const [dentistSelected, setDentistSelected] = useState<Dentist | null>(null);
   const [dentists, setDentists] = useState<Dentist[]>([]);
-  // Datos del turno
   const [dataAppointment, setDataAppointment] = useState<{
     results: string;
     dentistId: number | null;
@@ -32,6 +29,7 @@ export const AddAppointment = () => {
     date: '',
     reason: '',
   });
+  
 
   useEffect(() => {
     const fetchPatients = async () => {
@@ -142,7 +140,7 @@ export const AddAppointment = () => {
   return (
     <>
       <div className="flex items-center mb-6">
-        <Link to="/appointments" className="me-16">
+        <Link to="/appointments" className="mr-4 lg:mr-16">
           <button className="flex items-center bg-transparent poppins-medium">
             <ChevronLeftIcon
               className="h-5 w-5 flex-none text-black"
@@ -153,11 +151,11 @@ export const AddAppointment = () => {
         </Link>
       </div>
       <div className="w-full flex justify-center">
-        <div className="w-[90%] flex flex-col items-center rounded-[35px] bg-lightgray border border-[#424242] p-6">
-          <h1 className="poppins-semibold text-[33px] mb-6">
+        <div className="w-[90%] flex flex-col items-center rounded-[35px] bg-lightgray border border-[#424242] p-4 md:p-6">
+          <h1 className="poppins-semibold text-[24px] md:text-[33px] mb-6">
             Agregar nuevo turno
           </h1>
-          <div className="w-full flex justify-evenly items-center">
+          <div className="w-full flex flex-col lg:flex-row justify-evenly items-center gap-4">
             <SearchPatientInput
               searchTerm={searchTerm}
               setSearchTerm={(term) => {
@@ -174,18 +172,18 @@ export const AddAppointment = () => {
               titleSelect="Seleccionar profesional"
             />
           </div>
-          <DateTimeInput onDateChange={handleDateChange} />
-          <SelectInput
-            id="consulta"
-            options={['Arreglo', 'Conducto', 'Consulta de rutina']}
-            titleSelect="Tipo de consulta"
-            selectReason={handleReasonChange}
-            mtInput="5"
-          />
+          <div className="w-full flex flex-col justify-evenly items-center gap-4 mt-4">
+            <DateTimeInput onDateChange={handleDateChange} />
+            <SelectInput
+              id="consulta"
+              options={["Arreglo", "Conducto", "Consulta de rutina"]}
+              titleSelect="Tipo de consulta"
+              selectReason={handleReasonChange}
+            />
+          </div>
           <Button
-            widthButton="[30%]"
+            widthButton="w-full"
             justifyButton="center"
-            widthContain="full"
             titleButton="Agendar"
             isLink={false}
             marginTop="5"
