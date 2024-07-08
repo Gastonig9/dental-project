@@ -58,66 +58,65 @@ export const Dashboard = () => {
     const RoleObject = JSON.parse(localStorage.getItem("RoleObject") || "{}");
     const dentistId = RoleObject.dentist ? RoleObject.dentist.id : null;
 
-    if (dentistId) {
-      axios
-        .get<{ appointments: Appointment[] }>(
-          `http://localhost:3000/dentist/appointments/${dentistId}`
-        )
-        .then((res) => {
-          if (!Array.isArray(res.data.appointments)) {
-            throw new Error(
-              "Unexpected API response: appointments data is not an array"
-            );
-          }
-          const appointmentsData = res.data.appointments.map((appointment) => ({
-            ...appointment,
-            dentist: appointment.dentist ? { fullname: appointment.dentist.fullname } : { fullname: "Unknown" },
-            patient: {
-              id: appointment.patientId,
-              name: "Unknown",
-              surname: "Patient",
-            },
-          }));
-          setAppointments(appointmentsData);
+    const fetchAppointments = async () => {
+      try {
+        let allAppointments: Appointment[] = [];
 
-          // Continue with patient data fetching
-          const patientIds = res.data.appointments.map(
-            (appointment) => appointment.patientId
+        if (dentistId) {
+          const dentistResponse = await axios.get<{
+            appointments: Appointment[];
+          }>(`http://localhost:3000/dentist/appointments/${dentistId}`);
+          const dentistAppointments = dentistResponse.data.appointments.map(
+            (appointment) => ({
+              ...appointment,
+              dentist: appointment.dentist
+                ? { fullname: appointment.dentist.fullname }
+                : { fullname: "Unknown" },
+              patient: {
+                id: appointment.patientId,
+                name: "Unknown",
+                surname: "Patient",
+              },
+            })
           );
+          allAppointments = [...allAppointments, ...dentistAppointments];
+        }
 
-          const patientRequests = patientIds.map((patientId) =>
-            axios.get<{ id: number; name: string; surname: string }>(
-              `http://localhost:3000/patient/${patientId}`
-            )
-          );
+        const allResponse = await axios.get<Appointment[]>(
+          "http://localhost:3000/api/appointments"
+        );
+        allAppointments = [...allAppointments, ...allResponse.data];
 
-          return Promise.all(patientRequests);
-        })
-        .then((responses) => {
-          const patientsData = responses.reduce((acc, res) => {
-            acc[res.data.id] = `${res.data.name} ${res.data.surname}`;
-            return acc;
-          }, {} as { [key: number]: string });
+        // Remove duplicates based on appointment id
+        const uniqueAppointments = Array.from(
+          new Map(allAppointments.map((item) => [item.id, item])).values()
+        );
 
-          setPatients(patientsData);
-        })
-        .catch((err) => {
-          console.error("Error fetching appointments:", err);
-        });
-    }
+        setAppointments(uniqueAppointments);
 
-    axios
-      .get<Appointment[]>("http://localhost:3000/api/appointments")
-      .then((res) => {
-        // Merge appointments fetched from both endpoints if needed
-        setAppointments((prevAppointments) => [
-          ...prevAppointments,
-          ...res.data,
-        ]);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+        // Fetch patient data
+        const patientIds = uniqueAppointments.map(
+          (appointment) => appointment.patientId
+        );
+        const patientRequests = patientIds.map((patientId) =>
+          axios.get<{ id: number; name: string; surname: string }>(
+            `http://localhost:3000/patient/${patientId}`
+          )
+        );
+
+        const patientResponses = await Promise.all(patientRequests);
+        const patientsData = patientResponses.reduce((acc, res) => {
+          acc[res.data.id] = `${res.data.name} ${res.data.surname}`;
+          return acc;
+        }, {} as { [key: number]: string });
+
+        setPatients(patientsData);
+      } catch (err) {
+        console.error("Error fetching appointments:", err);
+      }
+    };
+
+    fetchAppointments();
   }, []);
 
   const userData = JSON.parse(localStorage.getItem("user") || "{}");
@@ -184,9 +183,9 @@ export const Dashboard = () => {
               Próximos turnos
             </h1>
             <div>
-              {appointments.map((appointment) => (
+              {appointments.map((appointment, index) => (
                 <div
-                  key={appointment.id}
+                  key={`${appointment.id}-${index}`}
                   className="flex items-center px-7 py-5 bg-acento w-full h-[70px] rounded-[10px] mb-2 poppins-medium text-typography text-[16px] lg:text-[20px]"
                 >
                   <p className="me-16">
