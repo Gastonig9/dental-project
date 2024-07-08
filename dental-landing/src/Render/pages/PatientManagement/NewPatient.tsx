@@ -1,6 +1,6 @@
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-import { useState, createContext } from "react";
+import { useState } from "react";
 import { PersonalInfo } from "../../sections/PatientManagement/PersonalInfo";
 import MedicalHistory from "./MedicalHistory";
 import { PatientContextProvider } from "../contexts/patientContext";
@@ -8,8 +8,7 @@ import Navbar from "../../components/Platform/Navbar";
 import Prestaciones from "../../sections/PatientManagement/MedicalServices";
 
 export const NewPatient = () => {
-  const [activeTab, setActiveTab] = useState("personal-information");
-  const UserContext = createContext(null);
+  const [activeTab, setActiveTab] = useState("My Account");
 
   return (
     <>

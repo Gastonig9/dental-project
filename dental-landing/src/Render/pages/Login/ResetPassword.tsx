@@ -1,36 +1,36 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Link, useSearchParams } from "react-router-dom";
-import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import "./Login.css";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link, useSearchParams } from 'react-router-dom';
+import { ChevronLeftIcon } from '@heroicons/react/20/solid';
+import './Login.css';
 
 export const ResetPassword = () => {
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
   const [searchParams] = useSearchParams();
-  const resetPasswordToken = searchParams.get("token");
+  const resetPasswordToken = searchParams.get('token');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      setMessage("Las contraseñas no coinciden.");
+      setMessage('Las contraseñas no coinciden.');
       return;
     }
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/user/reset-password`,
+        `${import.meta.env.VITE_API_URL}/api/user/reset-password`,
         {
           resetPasswordToken,
           password: newPassword,
         }
       );
       if (response.status === 200) {
-        setMessage("Contraseña actualizada correctamente.");
+        setMessage('Contraseña actualizada correctamente.');
       }
     } catch (error) {
       setMessage(
-        "No se pudo actualizar la contraseña. Por favor, inténtelo de nuevo."
+        'No se pudo actualizar la contraseña. Por favor, inténtelo de nuevo.'
       );
     }
   };
@@ -51,8 +51,7 @@ export const ResetPassword = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="my-5 mx-auto w-[90%] lg:w-[50%]"
-        >
+          className="my-5 mx-auto w-[90%] lg:w-[50%]">
           <h2 className="text-center lg:text-left poppins-medium text-xl mb-8">
             Inicio de sesión
           </h2>
@@ -90,8 +89,7 @@ export const ResetPassword = () => {
             </div>
             <button
               type="submit"
-              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14"
-            >
+              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14">
               <span>Continuar</span>
             </button>
           </div>

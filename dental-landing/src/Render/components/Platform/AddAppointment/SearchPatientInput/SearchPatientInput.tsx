@@ -1,5 +1,5 @@
-import React from "react";
-import { SearchPatientInputProps } from "../../../../../types/props/add-appointment.props";
+import React from 'react';
+import { SearchPatientInputProps } from '../../../../../types/props/add-appointment.props';
 
 export const SearchPatientInput: React.FC<SearchPatientInputProps> = ({
   searchTerm,
@@ -24,10 +24,9 @@ export const SearchPatientInput: React.FC<SearchPatientInputProps> = ({
         <div className="absolute top-full left-0 right-0 max-h-[200px] overflow-y-auto bg-white border border-[#424242] rounded-[15px] z-10">
           {filteredPatients.map((patient) => (
             <div
-              key={patient.id}
+              key={patient.dni}
               className="p-2 hover:bg-gray-200 cursor-pointer"
-              onClick={() => handlePatientSelected(patient)}
-            >
+              onClick={() => handlePatientSelected(patient)}>
               {patient.name} {patient.surname}
             </div>
           ))}
