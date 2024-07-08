@@ -17,7 +17,7 @@ const specialties = [
 export const Specialties = () => {
   return (
     <>
-      <section
+      <section id="especialidades"
         style={{
           background: "linear-gradient(135deg, #81FBB8 0%, #28C76F 100%)",
         }}
