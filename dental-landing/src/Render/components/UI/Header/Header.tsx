@@ -3,6 +3,7 @@ import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
+import logo from "../../../../assets/img/platform/navbar/logo.png"
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -25,12 +26,8 @@ export const Header = () => {
         </div>
         <div className="flex lg:flex-1">
           <a href="#" className="p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt=""
-            />
+            <span className="sr-only">Grinpol - Clínica Dental</span>
+            <img src={logo} alt="Grinpol - Clínica Dental" className="w-28"/>
           </a>
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-40 mx-10">
