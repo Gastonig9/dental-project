@@ -290,7 +290,7 @@ const UsersList = () => {
           {!isDeletionActive && <div className="flex flex-col gap-5 mt-7">
             <Link
               className="text-[19px] font-bold bg-acento hover:bg-green-500 self-center rounded-[10px] py-[12px] px-[10px] lg:ml-auto"
-              to="/link-to-add-user/"
+              to="/user/create-user"
             >
               Agregar nuevo usuario
             </Link>
