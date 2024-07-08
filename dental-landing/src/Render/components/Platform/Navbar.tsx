@@ -8,12 +8,13 @@ import { MdClose } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
 import { RiMenuUnfold2Line } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
+import grinpolLogo from "../../../assets/img/grinpol-logo-1.png";
 
 const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [desktopMenu, setDesktopMenu] = useState(false);
   const location = useLocation();
-  const userData = JSON.parse(localStorage.getItem('user') || '{}');
+  const userData = JSON.parse(localStorage.getItem("user") || "{}");
 
   // toggle mobile menu
   const activeMobileMenu = () => {
@@ -32,9 +33,9 @@ const Navbar = () => {
   return (
     <>
       {/* mobile navbar */}
-      <nav className="bg-[#DAE3DE] h-[81px] p-5 fixed top-0 w-full flex items-center justify-between lg:hidden">
+      <nav className="bg-[#DAE3DE] h-[81px] p-5 fixed top-0 w-full flex items-center justify-between lg:hidden z-50">
         <IoMenu className="text-4xl " onClick={activeMobileMenu} />
-        <h3 className="text-center text-[28px] ">Logo</h3>
+        <img className="w-[70px]" src={grinpolLogo} alt="grinpol logo" />
         <h3></h3>
 
         <div
@@ -49,31 +50,58 @@ const Navbar = () => {
             >
               <MdClose />
             </button>
-            
-            <div className={`flex items-center gap-1 ${location.pathname.startsWith("/patient-management") ? 'text-black' : 'text-[#00000050] '} `}>
+
+            <div
+              className={`flex items-center gap-1 ${
+                location.pathname.startsWith("/patient-management")
+                  ? "text-black"
+                  : "text-[#00000050] "
+              } `}
+            >
               <IoPeople />
-              <Link to="/gestionDePacientes/listadoPacientes" >
-                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Gestión de pacientes</h3>
+              <Link to="/gestionDePacientes/listadoPacientes">
+                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                  Gestión de pacientes
+                </h3>
               </Link>
             </div>
 
-            <div className={`flex items-center gap-1 ${location.pathname === '/example2' ? 'text-black' : 'text-[#00000050] '} `}>
+            <div
+              className={`flex items-center gap-1 ${
+                location.pathname === "/example2"
+                  ? "text-black"
+                  : "text-[#00000050] "
+              } `}
+            >
               <FaCalendar />
-              <Link to="/example2" >
-                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Gestión de turnos</h3>
+              <Link to="/example2">
+                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                  Gestión de turnos
+                </h3>
               </Link>
             </div>
 
-            <div className={`flex items-center gap-1 ${location.pathname === '/example3' ? 'text-black' : 'text-[#00000050] '} `}>
+            <div
+              className={`flex items-center gap-1 ${
+                location.pathname === "/example3"
+                  ? "text-black"
+                  : "text-[#00000050] "
+              } `}
+            >
               <IoStatsChart />
-              <Link to="/example3" >
-                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Reportes</h3>
+              <Link to="/example3">
+                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                  Reportes
+                </h3>
               </Link>
             </div>
 
             <div className="flex items-center gap-1 mt-[100px]">
               <FaRegUserCircle />
-              <h3 className="text-[16px] font-semibold"> {userData.firstName} {userData.lastName} </h3>
+              <h3 className="text-[16px] font-semibold">
+                {" "}
+                {userData.firstName} {userData.lastName}{" "}
+              </h3>
             </div>
           </div>
         </div>
@@ -81,7 +109,7 @@ const Navbar = () => {
 
       {/* desktop navbar */}
       <nav
-        className={`bg-acento fixed top-0 left-0 h-screen rounded-tr-[80px] duration-300 shadow-xl z-[11] hidden lg:block ${
+        className={`bg-acento fixed top-0 left-0 h-screen rounded-tr-[80px] duration-300 shadow-xl z-50 hidden lg:block ${
           desktopMenu ? "w-[390px]" : "w-[173px]"
         }`}
       >
@@ -94,7 +122,6 @@ const Navbar = () => {
           </button>
 
           <div className="flex flex-col gap-[100px] text-[34px] ">
-
             {/* people icon */}
             <div
               className={`flex items-center gap-1 ${
@@ -105,9 +132,10 @@ const Navbar = () => {
             >
               <IoPeople className="text-5xl" />
               {desktopMenu && (
-
-                <Link to="/patient-management/patients-list" >  
-                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Gestionar Pacientes</h3>
+                <Link to="/patient-management/patients-list">
+                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                    Gestionar Pacientes
+                  </h3>
                 </Link>
               )}
             </div>
@@ -122,8 +150,10 @@ const Navbar = () => {
             >
               <FaCalendar className="text-5xl" />
               {desktopMenu && (
-                <Link to="/appointments" >  
-                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Gestionar Turnos</h3>
+                <Link to="/appointments">
+                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                    Gestionar Turnos
+                  </h3>
                 </Link>
               )}
             </div>
@@ -138,8 +168,10 @@ const Navbar = () => {
             >
               <IoStatsChart className="text-5xl" />
               {desktopMenu && (
-                <Link to="/example3" >  
-                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">Reportes</h3>
+                <Link to="/example3">
+                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                    Reportes
+                  </h3>
                 </Link>
               )}
             </div>
@@ -147,12 +179,14 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <header className="h-[127px] bg-[#DAE3DE] fixed top-0 w-full hidden lg:flex">
+      <header className="h-[127px] bg-[#DAE3DE] fixed top-0 w-full hidden lg:flex z-40">
         <div className="flex justify-between items-center w-10/12 mx-auto pl-[120px]  ">
-          <h3 className="text-[33px] font-semibold">Logo</h3>
+          <img className="w-[80px]" src={grinpolLogo} alt="grinpol logo" />
           <div className="flex items-center gap-2 bg-[#B4B4B4] py-3 px-8 rounded-3xl">
             <FaRegUserCircle />
-            <h3 className="text-[19px] ">{userData.firstName} {userData.lastName}</h3>
+            <h3 className="text-[19px] ">
+              {userData.firstName} {userData.lastName}
+            </h3>
           </div>
         </div>
       </header>
