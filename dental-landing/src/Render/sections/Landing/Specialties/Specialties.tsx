@@ -1,28 +1,36 @@
 const specialties = [
   {
     name: "Odontología general",
-    image: "./public/imgs/specialties/Odontología.png",
+    image: "/src/assets/img/landing/specialties/Odontología.png",
   },
-  { name: "Cirugía", image: "./public/imgs/specialties/Cirugía.png" },
+  { name: "Cirugía", image: "/src/assets/img/landing/specialties/Cirugía.png" },
   {
     name: "Odontopediatría",
-    image: "./public/imgs/specialties/Odontopediatra.png",
+    image: "/src/assets/img/landing/specialties/Odontopediatra.png",
   },
-  { name: "Endodoncia", image: "./public/imgs/specialties/Endodoncia.png" },
+  {
+    name: "Endodoncia",
+    image: "/src/assets/img/landing/specialties/Endodoncia.png",
+  },
 ];
 
 export const Specialties = () => {
   return (
     <>
-      <section className="relative lg:bg-lightgray md:py-[150px] lg:border-[0.25px] lg:border-black">
-        {/* Title */}
-        <div className="sectionTitle absolute top-[23px] left-[20px] lg:top-[50px] lg:left-[185px]">
-          <p className="poppins-semibold lg:poppins-regular text-[19px] lg:text-[28px] leading-[120%]">
+      <section id="especialidades"
+        style={{
+          background: "linear-gradient(135deg, #81FBB8 0%, #28C76F 100%)",
+        }}
+        className="relative md:pt-[150px] md:pb-[120px] lg:border-[0.25px]"
+      >
+        {/* Title*/}
+        <div className="sectionTitle2 absolute top-[55px] left-[15px] lg:top-[50px] lg:left-[187px]">
+          <p className="text-[19px] lg:text-[28px] leading-[120%]">
             Especialidades
           </p>
         </div>
         {/* Specialties */}
-        <div className=" grid grid-cols-2 pt-[102px] px-[17px] pb-3 gap-4 md:p-0 lg:grid-cols-4 justify-items-center lg:mx-32">
+        <div className=" grid grid-cols-2 pt-[143px] px-[17px] pb-[50px] gap-4 md:p-0 lg:grid-cols-4 justify-items-center lg:mx-[140px]">
           {specialties.map((specialty, index) => (
             <div
               key={index}

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   ConflictException,
   Injectable,
@@ -29,39 +30,54 @@ export class AppointmentService {
   }
 
   async getAllAppointments(): Promise<Appointment[]> {
-    return this.repository.GetAllAppointments();
+    const appointments = await this.repository.GetAllAppointments();
+    return appointments;
   }
+  
 
   async addAppointment(data: AppointmentRequestDto): Promise<Appointment> {
-    try {
-      const { reason, dentistId, patientId, date } = data;
-      const state = $Enums.AppointmentState.PENDING;
+    const { reason, dentistId, patientId, date, odontograma = '' } = data;
+    const state = $Enums.AppointmentState.PENDING;
+    const dentist = await this.dentistService.findDentist(
+      dentistId,
+    );
+    const patient = await this.patientService.getPatient(
+      patientId,
+    );
 
-      // Verificar si ya existe una cita para la misma fecha y dentista
-      const verifyDate = await this.checkAvailability(
-        dentistId,
-        new Date(date),
+    if (!patient || !dentist) {
+      throw new NotFoundException(
+        'No se pudo encontrar al paciente o al dentista',
       );
-      if (!verifyDate) {
-        throw new ConflictException(
-          'Ya hay un turno asignado para esta fecha y horario',
-        );
-      }
-
-      // Crear nueva cita
-      const newAppointment = {
-        state: state,
-        results: '',
-        reason,
-        date,
-        dentistId,
-        patientId: patientId,
-      };
-
-      return await this.repository.AddAppointment(newAppointment);
-    } catch (error) {
-      throw new InternalServerErrorException('Error al crear la cita');
     }
+
+    // Verificar si ya existe una cita para la misma fecha y dentista
+    const verifyDate = await this.checkAvailability(dentistId, new Date(date));
+    if (!verifyDate) {
+      throw new ConflictException(
+        'Ya hay un turno asignado para esta fecha y horario',
+      );
+    }
+
+    // Crear nueva cita
+    const newAppointment = {
+      state: state,
+      results: '',
+      reason,
+      date,
+      dentistId,
+      patientId: patientId,
+      odontograma,
+    };
+
+     // Enviar correo de confirmación
+     await this.mailService.sendConfirmEmail(
+      patient,
+      newAppointment,
+      dentist,
+    );
+
+    return await this.repository.AddAppointment(newAppointment);
   }
 
   async ConfirmAppointment(appointmentId: number): Promise<Appointment> {

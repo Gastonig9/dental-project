@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { Context } from '../../prisma/prisma.context';
-import { Dentist } from '@prisma/client';
+import { Appointment, Dentist } from '@prisma/client';
 import { DentistDto } from 'src/dtos';
 
 @Injectable()
@@ -27,6 +27,14 @@ export class DentistRepository {
     });
   }
 
+  async getDentistByUserId(id: number): Promise<Dentist> {
+    return this.context.dentist.findFirst({
+      where: {
+        userId: id,
+      },
+    });
+  }
+
   async getDentistById(id: number): Promise<any> {
     return this.context.dentist.findFirst({
       where: {
@@ -48,5 +56,20 @@ export class DentistRepository {
         user: true,
       },
     });
+  }
+
+  async getAppointmentsByDentistId({
+    id,
+  }: {
+    id: number;
+  }): Promise<Appointment[]> {
+    const response = this.context.appointment.findMany({
+      where: {
+        dentistId: id,
+      },
+    });
+    console.log(response);
+
+    return response;
   }
 }

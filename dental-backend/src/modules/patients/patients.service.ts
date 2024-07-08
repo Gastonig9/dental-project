@@ -13,9 +13,8 @@ export class PatientService {
     try {
       return this.repository.addPatient(patient);
     } catch (error) {
-      throw error
+      throw error;
     }
-    
   }
 
   async getPatient(id: number): Promise<Patient> {
@@ -41,8 +40,18 @@ export class PatientService {
         gender: 'Male',
         pEmail: faker.internet.exampleEmail(),
         dni: faker.number.int({ min: 1000000, max: 40000000 }), // Assuming DNI is a 8-digit number
-        phone: 42421212,
-        adress: faker.location.streetAddress(),
+        phone: '424212',
+        age: 9,
+        apartment: 'nose',
+        addressNumber: 400,
+        birthDate: '/20/3/1994',
+        establishment: 'e',
+        floor: '3',
+        locality: 'argentina',
+        nationality: 'argentina',
+        socialWork: 'nose',
+        street: 'Colon',
+        odontograma: '',
       };
       mockPatients.push(newMockPatient);
     }
@@ -65,5 +74,12 @@ export class PatientService {
 
   async getPatientByDni(dni: number): Promise<Patient> {
     return this.repository.getPatientByDni(dni);
+  }
+
+  async updatePatientById(
+    id: number,
+    patient: Partial<Patient>,
+  ): Promise<Patient> {
+    return this.repository.updatePatientById(id, patient);
   }
 }

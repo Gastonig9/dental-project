@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        acento: "#58D68D",
+        acento: "#76FFA8",
         background: "#F9F9FF",
         typography: "#18212B",
         lightgray: "#F5F5F5",
@@ -30,6 +30,9 @@ export default {
 
         "2xl": "1536px",
         // => @media (min-width: 1536px) { ... }
+
+        xxl: "1940px",
+        // => @media (min-width: 1940px) { ... }
       },
     },
   },

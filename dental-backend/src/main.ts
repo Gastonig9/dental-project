@@ -18,7 +18,7 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, document);
   app.useGlobalFilters(new AllExceptionsFilter());
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', process.env.FRONT_DEPLOY ?? ''],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
