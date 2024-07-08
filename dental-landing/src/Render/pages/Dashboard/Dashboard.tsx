@@ -2,11 +2,11 @@ import {
   ChevronRightIcon,
   UsersIcon,
   MagnifyingGlassIcon,
-} from '@heroicons/react/20/solid';
-import { Link } from 'react-router-dom';
-import Navbar from '../../components/Platform/Navbar';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+} from "@heroicons/react/20/solid";
+import { Link } from "react-router-dom";
+import Navbar from "../../components/Platform/Navbar";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface Appointment {
   id: number;
@@ -28,7 +28,7 @@ interface Appointment {
 }
 
 export const Dashboard = () => {
-  const [currentDate, setCurrentDate] = useState<string>('');
+  const [currentDate, setCurrentDate] = useState<string>("");
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [patients, setPatients] = useState<{ [key: number]: string }>({});
 
@@ -36,26 +36,26 @@ export const Dashboard = () => {
     const getCurrentDate = () => {
       const date = new Date();
       const options: Intl.DateTimeFormatOptions = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        timeZone: 'America/Argentina/Buenos_Aires',
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        timeZone: "America/Argentina/Buenos_Aires",
       };
-      return date.toLocaleDateString('es-AR', options);
+      return date.toLocaleDateString("es-AR", options);
     };
 
     setCurrentDate(getCurrentDate());
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
-      console.error('No token found');
+      console.error("No token found");
       return;
     }
 
-    const RoleObject = JSON.parse(localStorage.getItem('RoleObject') || '{}');
+    const RoleObject = JSON.parse(localStorage.getItem("RoleObject") || "{}");
     const dentistId = RoleObject.dentist ? RoleObject.dentist.id : null;
 
     const fetchAppointments = async () => {
@@ -65,7 +65,7 @@ export const Dashboard = () => {
         if (dentistId) {
           const dentistResponse = await axios.get<{
             appointments: Appointment[];
-          }>(`http://localhost:3000/dentist/appointments/${dentistId}`);
+          }>(`${import.meta.env.VITE_API_URL}/dentist/appointments/${dentistId}`);
           const dentistAppointments = dentistResponse.data.appointments.map(
             (appointment) => ({
               ...appointment,
@@ -83,7 +83,7 @@ export const Dashboard = () => {
         }
 
         const allResponse = await axios.get<Appointment[]>(
-          "http://localhost:3000/api/appointments"
+          `${import.meta.env.VITE_API_URL}/api/appointments`
         );
         allAppointments = [...allAppointments, ...allResponse.data];
 
@@ -100,7 +100,7 @@ export const Dashboard = () => {
         );
         const patientRequests = patientIds.map((patientId) =>
           axios.get<{ id: number; name: string; surname: string }>(
-            `http://localhost:3000/patient/${patientId}`
+            `${import.meta.env.VITE_API_URL}/patient/${patientId}`
           )
         );
 
@@ -119,7 +119,7 @@ export const Dashboard = () => {
     fetchAppointments();
   }, []);
 
-  const userData = JSON.parse(localStorage.getItem('user') || '{}');
+  const userData = JSON.parse(localStorage.getItem("user") || "{}");
 
   return (
     <>
@@ -159,7 +159,7 @@ export const Dashboard = () => {
             </div>
           </div>
           {/* Render the button only if role_name is not 'SECRETARY' */}
-          {userData.role_name !== 'SECRETARY' && (
+          {userData.role_name !== "SECRETARY" && (
             <div className="poppins-bold hidden lg:flex">
               <Link to="/users-management/users-list">
                 <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[25px]">
@@ -190,22 +190,22 @@ export const Dashboard = () => {
                 >
                   <p className="me-16">
                     {new Date(appointment.date).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
+                      hour: "2-digit",
+                      minute: "2-digit",
                     })}
                   </p>
-                  {userData.role_name === 'SECRETARY' && (
+                  {userData.role_name === "SECRETARY" && (
                     <>
                       <p className="me-4">
-                        Paciente:{' '}
-                        {`${appointment.patient.name} ${appointment.patient.surname}`}{' '}
+                        Paciente:{" "}
+                        {`${appointment.patient.name} ${appointment.patient.surname}`}{" "}
                         -
                       </p>
                       <p>Profesional: {appointment.dentist.fullname}</p>
                     </>
                   )}
-                  {userData.role_name !== 'SECRETARY' && (
-                    <p>{patients[appointment.patient.id] || 'Loading...'}</p>
+                  {userData.role_name !== "SECRETARY" && (
+                    <p>{patients[appointment.patient.id] || "Loading..."}</p>
                   )}
                 </div>
               ))}
@@ -215,7 +215,7 @@ export const Dashboard = () => {
 
         {/* GESTINAR USUARIOS BUTTON MOBILE */}
         {/* Render the button only if role_name is not 'SECRETARY' */}
-        {userData.role_name !== 'SECRETARY' && (
+        {userData.role_name !== "SECRETARY" && (
           <div className="flex lg:hidden poppins-bold mx-auto my-14">
             <Link to="/users-management/users-list">
               <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[20px]">
