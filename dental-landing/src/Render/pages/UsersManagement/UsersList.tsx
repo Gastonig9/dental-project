@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Platform/Navbar";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import Swal from "sweetalert2";
+import { useEffect, useState } from 'react';
+import Navbar from '../../components/Platform/Navbar';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 // icons
 import { IoSearchSharp } from "react-icons/io5";
@@ -21,7 +21,7 @@ interface userModel {
 }
 
 const UsersList = () => {
-  const [inputData, setInputData] = useState("");
+  const [inputData, setInputData] = useState('');
   const [data, setData] = useState<userModel[]>([]);
   const [users, setUsers] = useState<userModel[]>([]);
   const [isDeletionActive, setIsDeletionActive] = useState(false);
@@ -35,7 +35,7 @@ const UsersList = () => {
   function fetchData() {
     setLoading(true)
     axios
-      .get("http://localhost:3000/api/user")
+      .get(`${import.meta.env.VITE_API_URL}/api/user`)
       .then((res) => {
         setData(res.data);
         setUsers(res.data);
@@ -61,40 +61,39 @@ const UsersList = () => {
     setUsers(arrayOfFoundNames);
   }, [inputData]);
 
-
   // handle deleting for desktop
   const handleDelete = async (id: number, firstName: string, lastName: string) => {
     const result = await Swal.fire({
       title: `¿Estás seguro que deseas eliminar a ${firstName} ${lastName}  ?`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar.",
-      cancelButtonText: "No, volver.",
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar.',
+      cancelButtonText: 'No, volver.',
     });
 
     if (result.isConfirmed) {
       axios
-        .delete(`http://localhost:3000/api/user/${id}`)
-        .then((res) => {
+        .delete(`import.meta.env.VITE_API_URL/api/user/${id}`)
+        .then(() => {
           Swal.fire({
             toast: true,
             timerProgressBar: true,
-            position: "top-right",
+            position: 'top-right',
             showConfirmButton: false,
             showCloseButton: true,
-            title: "Usuario eliminado",
-            icon: "success",
+            title: 'Usuario eliminado',
+            icon: 'success',
             timer: 3000,
           });
           fetchData();
         })
-        .catch((err) => {
+        .catch(() => {
           Swal.fire(
-            "Ocurrió un error",
-            "Ocurrió un error al eliminar a este usuario.",
-            "error"
+            'Ocurrió un error',
+            'Ocurrió un error al eliminar a este usuario.',
+            'error'
           );
         });
     }
@@ -230,8 +229,7 @@ const UsersList = () => {
                     <div className="flex items-center gap-2 newxl:gap-10 justify-end newxl:px-10">
                       <Link
                         className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 lg:gap-1 newxl:gap-[70px]"
-                        to={`/user-management/edit-user/${user.id}`}
-                      >
+                        to={`/user-management/edit-user/${user.id}`}>
                         <p>Ver información</p>
                         <IoIosArrowForward />
                       </Link>
@@ -261,7 +259,11 @@ const UsersList = () => {
 
                       {/* circle to select users */}
                       {isDeletionActive && (
-                        <div className={`size-6 border-2 border-black rounded-full absolute top-1/2 translate-y-[-50%] ${booleanArray[index] ? 'bg-acento' : ''}`} onClick={()=>handleSelectUsers(index)}></div>
+                        <div
+                          className={`size-6 border-2 border-black rounded-full absolute top-1/2 translate-y-[-50%] ${
+                            booleanArray[index] ? 'bg-acento' : ''
+                          }`}
+                          onClick={() => handleSelectUsers(index)}></div>
                       )}
                     </div>
                     <div className="col-span-3 flex flex-col items-center justify-center gap-2">
@@ -272,8 +274,7 @@ const UsersList = () => {
                       {!isDeletionActive && (
                         <Link
                           className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 px-5 w-full justify-center max-w-[260px] "
-                          to={`/user-management/edit-user/${user.id}`}
-                        >
+                          to={`/user-management/edit-user/${user.id}`}>
                           <p>Ver información</p>
                           <IoIosArrowForward />
                         </Link>

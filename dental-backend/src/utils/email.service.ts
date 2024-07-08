@@ -64,7 +64,7 @@ export class EmailService {
       subject: 'Recordatorio de turno',
       html: `<h2>!Restauracion de Contraseña!</h2>
         
-         <p><a href='http://localhost:5173/user/reset-password?token=${resetPasswordToken}' target='_blank'>Restaurar Contraseña</a></p>
+         <p><a href='${process.env.FRONT_DEPLOY}/user/reset-password?token=${resetPasswordToken}' target='_blank'>Restaurar Contraseña</a></p>
            
            <small><b>No responder a este correo</b></small>`,
     });
