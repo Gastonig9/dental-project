@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { IoPeople } from "react-icons/io5";
 import { FaCalendar } from "react-icons/fa6";
 import { IoStatsChart } from "react-icons/io5";
@@ -7,8 +7,9 @@ import { IoMenu } from "react-icons/io5";
 import { MdClose } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
 import { RiMenuUnfold2Line } from "react-icons/ri";
+import { MdDashboardCustomize } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
-import grinpolLogo from "../../../assets/img/grinpol-logo-1.png";
+import logo from "../../../assets/img/platform/navbar/logo.png"
 
 const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -33,9 +34,9 @@ const Navbar = () => {
   return (
     <>
       {/* mobile navbar */}
-      <nav className="bg-[#DAE3DE] h-[81px] p-5 fixed top-0 w-full flex items-center justify-between lg:hidden z-50">
+      <nav className="bg-[#DAE3DE] h-[81px] p-5 fixed top-0 w-full flex items-center justify-between lg:hidden z-10">
         <IoMenu className="text-4xl " onClick={activeMobileMenu} />
-        <img className="w-[70px]" src={grinpolLogo} alt="grinpol logo" />
+        <img src={logo} alt="Grinpol - Clínica Dental" className="w-28"/>
         <h3></h3>
 
         <div
@@ -53,13 +54,28 @@ const Navbar = () => {
 
             <div
               className={`flex items-center gap-1 ${
+                location.pathname === "/dashboard"
+                  ? "text-black"
+                  : "text-[#00000050] "
+              } `}
+            >
+              <MdDashboardCustomize />
+              <Link to="/dashboard">
+                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                  Dashboard
+                </h3>
+              </Link>
+            </div>
+
+            <div
+              className={`flex items-center gap-1 ${
                 location.pathname.startsWith("/patient-management")
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
             >
               <IoPeople />
-              <Link to="/gestionDePacientes/listadoPacientes">
+              <Link to="/patient-management/patients-list">
                 <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
                   Gestión de pacientes
                 </h3>
@@ -68,13 +84,13 @@ const Navbar = () => {
 
             <div
               className={`flex items-center gap-1 ${
-                location.pathname === "/example2"
+                location.pathname === "/appointments"
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
             >
               <FaCalendar />
-              <Link to="/example2">
+              <Link to="/appointments">
                 <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
                   Gestión de turnos
                 </h3>
@@ -122,6 +138,23 @@ const Navbar = () => {
           </button>
 
           <div className="flex flex-col gap-[100px] text-[34px] ">
+            <div
+              className={`flex items-center gap-1 ${
+                location.pathname === "/dashboard"
+                  ? "text-black"
+                  : "text-[#00000050] "
+              } `}
+            >
+              <MdDashboardCustomize className="text-5xl"/>
+              {desktopMenu && (
+                <Link to="/dashboard">
+                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                    Dashboard
+                  </h3>
+                </Link>
+              )}
+            </div>
+
             {/* people icon */}
             <div
               className={`flex items-center gap-1 ${
@@ -143,7 +176,7 @@ const Navbar = () => {
             {/* calendar icon */}
             <div
               className={`flex items-center gap-1 ${
-                location.pathname === "/example2"
+                location.pathname === "/appointments"
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
@@ -179,9 +212,9 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <header className="h-[127px] bg-[#DAE3DE] fixed top-0 w-full hidden lg:flex z-40">
+      <header className="h-[127px] bg-[#DAE3DE] fixed top-0 w-full hidden lg:flex z-10">
         <div className="flex justify-between items-center w-10/12 mx-auto pl-[120px]  ">
-          <img className="w-[80px]" src={grinpolLogo} alt="grinpol logo" />
+          <img src={logo} alt="Grinpol - Clínica Dental" className="w-44"/>
           <div className="flex items-center gap-2 bg-[#B4B4B4] py-3 px-8 rounded-3xl">
             <FaRegUserCircle />
             <h3 className="text-[19px] ">

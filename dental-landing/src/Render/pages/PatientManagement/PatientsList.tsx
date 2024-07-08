@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/Platform/Navbar";
 import { IoSearchSharp } from "react-icons/io5";
 import { IoIosArrowForward } from "react-icons/io";
-import { ImPencil } from "react-icons/im";
 import axios from "axios";
 import Spinner from "../../components/Platform/Spinner";
 import { Link } from "react-router-dom";
@@ -119,8 +118,8 @@ const PatientsList = () => {
       </main>
 
       {/* desktop layout */}
-      <main className="mt-[150px] ml-[220px] pr-10 hidden lg:block p-10">
-        <section className="border-2 border-black bg-[#f5f5f5] rounded-[35px] max-w-[1594px] h-[826px]  shadow-2xl p-10 relative xxl:mx-auto">
+      <main className="mt-[150px] ml-[220px] pr-10 hidden lg:block p-10 ">
+        <section className="border-2 border-black bg-[#f5f5f5] rounded-[35px] max-w-[1594px] h-[826px]  shadow-2xl p-10 relative xxl:mx-auto z-2">
           {/* header */}
           <div className="grid newxl:grid-cols-12 gap-2 newxl:gap-0">
             {/* titles */}

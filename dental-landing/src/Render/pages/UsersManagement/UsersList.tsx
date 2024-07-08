@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { IoSearchSharp } from "react-icons/io5";
 import { IoIosArrowForward } from "react-icons/io";
 import { BsTrash } from "react-icons/bs";
+import Spinner from "../../components/Platform/Spinner";
 
 interface userModel {
   email: string;
@@ -24,22 +25,25 @@ const UsersList = () => {
   const [data, setData] = useState<userModel[]>([]);
   const [users, setUsers] = useState<userModel[]>([]);
   const [isDeletionActive, setIsDeletionActive] = useState(false);
-  const [usersToBeDeleted, setUsersToBeDeleted] = useState<Number[]>([]);
   const [booleanArray, setBooleanArray] = useState(Array(users.length).fill(false));
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e: any) => {
     setInputData(e.target.value);
   };
 
   function fetchData() {
+    setLoading(true)
     axios
       .get("http://localhost:3000/api/user")
       .then((res) => {
         setData(res.data);
         setUsers(res.data);
+        setLoading(false)
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false)
       });
   }
 
@@ -52,16 +56,16 @@ const UsersList = () => {
   useEffect(() => {
     const arrayOfFoundNames = data.filter(
       (user) =>
-        user.firstName.toLowerCase().indexOf(inputData.toLowerCase().trim()) > -1
+        user.firstName.toLowerCase().indexOf(inputData.toLowerCase().trim()) > -1 || user.lastName.toLowerCase().indexOf(inputData.toLowerCase().trim()) > -1 
     );
     setUsers(arrayOfFoundNames);
   }, [inputData]);
 
 
   // handle deleting for desktop
-  const handleDelete = async (id: number, name: string) => {
+  const handleDelete = async (id: number, firstName: string, lastName: string) => {
     const result = await Swal.fire({
-      title: `¿Estás seguro que deseas eliminar a ${name} ?`,
+      title: `¿Estás seguro que deseas eliminar a ${firstName} ${lastName}  ?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -96,7 +100,7 @@ const UsersList = () => {
     }
   };
 
- //handle click when selecting users to delete 
+ //handle click when selecting users - toggle circle color
   const handleSelectUsers = (index: number) => {
     setBooleanArray((prevArray) => {
       const newArray = [...prevArray];
@@ -104,12 +108,66 @@ const UsersList = () => {
       return newArray;
     });
 
-  
-
   }
 
-  console.log(usersToBeDeleted)
+  // saving in an array all the id's to be deleted
+  const handleGroupDeletion = async() =>{
+    
+    const arrayOfIds = booleanArray.map((state, index) => {
+      if(state){
+        return users[index].id
+      }
+    })
 
+    const finalArray = arrayOfIds.filter(value => value !== undefined)
+
+    if(finalArray.length){
+      const result = await Swal.fire({
+        title: `${finalArray.length} ${finalArray.length > 1 ? 'usuarios serán eliminados.' : 'usuario será eliminado.'}`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sí, eliminar.",
+        cancelButtonText: "Volver",
+      });
+      
+      if(result.isConfirmed){
+        arrayOfIds.forEach(id => {
+          if(id){
+            axios
+              .delete(`http://localhost:3000/api/user/${id}`)
+              .then((res)=>{
+                console.log(res)
+                Swal.fire({
+                  toast: true,
+                  timerProgressBar: true,
+                  position: "top-right",
+                  showConfirmButton: false,
+                  showCloseButton: true,
+                  title: "Usuario eliminado",
+                  icon: "success",
+                  timer: 3000,
+                });
+                fetchData();
+                setBooleanArray(Array(users.length).fill(false))
+              })
+              .catch((err)=>{
+                console.log(err)
+                Swal.fire(
+                  "Ocurrió un error",
+                  "Ocurrió un error al eliminar a este usuario.",
+                  "error"
+                );
+              })
+          }
+        })
+        
+      }
+    } else {
+
+    }
+  }
   return (
     <>
       <Navbar />
@@ -135,29 +193,36 @@ const UsersList = () => {
               </div>
             </div>
 
-          {/* users rows */}
-          <div className="flex flex-col lg:grid gap-6 lg:gap-5 mt-5">
-            {users.map((user) => (
-              <div key={user.id}>
-                {/* desktop cards */}
-                <div className="hidden lg:grid lg:grid-cols-3 text-center text-[19px] bg-[#d9d9d9] p-5 rounded-[20px] items-center font-bold">
-                  {/* pic and name */}
-                  <div className="flex items-center gap-10 px-10">
-                    <img
-                      src={
-                        user.role_name === "ASSOCIATED"
+            {/* users rows */}
+            {loading ? <Spinner /> :      
+            <div className="flex flex-col lg:grid gap-6 lg:gap-5 mt-5">
+              {isDeletionActive && (
+                <h3 className="text-[19px] text-center font-bold lg:hidden">
+                  Selecciona usuarios
+                </h3>
+              )}
+              {users.map((user, index) => (
+                <div key={user.id}>
+                  {/* desktop cards */}
+                  <div className="hidden lg:grid lg:grid-cols-3 text-center text-[19px] bg-[#d9d9d9] p-5 rounded-[20px] items-center font-bold">
+                    {/* pic and name */}
+                    <div className="flex items-center gap-10 px-10">
+                      <img
+                        src={
+                          user.role_name === "ASSOCIATED"
                           ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
                           : user.role_name === "SECRETARY"
                           ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
                           : user.role_name === "OWNER"
                           ? "https://cdn0.iconfinder.com/data/icons/find-a-job-and-interview-flat/512/employee_person_man_business_office_businessman_people_male_worker-512.png"
                           : ""
-                      }
-                      alt="User pic"
-                      className="w-[88px] rounded-full"
-                    />
-                    <h3> {user.firstName} {user.lastName} </h3>
-                  </div>
+                        }
+                        alt="User pic"
+                        className="w-[88px] rounded-full"
+                      />
+                      <h3> {user.firstName} {user.lastName}</h3>
+                    </div>
+
                     {/* role */}
                     <h3> {user.role_name} </h3>
 
@@ -172,7 +237,7 @@ const UsersList = () => {
                       </Link>
 
                       <BsTrash
-                        onClick={() => handleDelete(user.id, user.fullname)}
+                        onClick={() => handleDelete(user.id, user.firstName, user.lastName)}
                         className="cursor-pointer"
                       />
                     </div>
@@ -182,11 +247,13 @@ const UsersList = () => {
                     <div className="col-span-1 relative">
                       <img
                         src={
-                          user.role_name === "OWNER"
-                            ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
-                            : user.role_name === "SECRETARY"
-                            ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
-                            : ""
+                          user.role_name === "ASSOCIATED"
+                          ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
+                          : user.role_name === "SECRETARY"
+                          ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
+                          : user.role_name === "OWNER"
+                          ? "https://cdn0.iconfinder.com/data/icons/find-a-job-and-interview-flat/512/employee_person_man_business_office_businessman_people_male_worker-512.png"
+                          : ""
                         }
                         alt="User pic"
                         className="rounded-full w-[90px] "
@@ -198,7 +265,9 @@ const UsersList = () => {
                       )}
                     </div>
                     <div className="col-span-3 flex flex-col items-center justify-center gap-2">
-                      <h3> {user.firstName} </h3>
+
+                      <h3> {user.firstName} {user.lastName} </h3>
+
                       <h3> {user.role_name} </h3>
                       {!isDeletionActive && (
                         <Link
@@ -214,6 +283,7 @@ const UsersList = () => {
                 </div>
               ))}
             </div>
+            }
           </div>
 
           {/* delete & add users btns */}
@@ -236,7 +306,7 @@ const UsersList = () => {
           {isDeletionActive && <div className="flex flex-col gap-5 mt-7">
             <button
               className="lg:hidden text-[19px] font-bold bg-acento hover:bg-green-500 self-center rounded-[10px] py-[12px] px-[10px] "
-              onClick={()=>alert('na')}
+              onClick={handleGroupDeletion}
             >
               Eliminar usuarios
             </button>
