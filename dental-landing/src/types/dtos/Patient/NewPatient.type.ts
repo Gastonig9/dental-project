@@ -1,3 +1,5 @@
+import { Appointment } from "../appointment/appointment.type";
+
 export interface Patient {
   name: string;
   surname: string;
@@ -16,12 +18,15 @@ export interface Patient {
   establishment: string;
   socialWork: string;
   id?: number;
+  appointments: Appointment[];
   prestations: Prestations[];
 }
 
 export interface Prestations {
   date: string;
   code: string;
+  observations?: string;
+  state: string;
   odontogram: OdontogramType[];
 }
 

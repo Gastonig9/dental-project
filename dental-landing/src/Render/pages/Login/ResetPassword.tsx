@@ -3,18 +3,28 @@ import axios from "axios";
 import { Link, useSearchParams } from "react-router-dom";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import "./Login.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 export const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
   const [searchParams] = useSearchParams();
   const resetPasswordToken = searchParams.get("token");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      setMessage("Las contraseñas no coinciden.");
+      Swal.fire({
+        title: "Error",
+        text: "Las contraseñas no coinciden",
+        icon: "error",
+      });
       return;
     }
     try {
@@ -26,12 +36,18 @@ export const ResetPassword = () => {
         }
       );
       if (response.status === 200) {
-        setMessage("Contraseña actualizada correctamente.");
+        Swal.fire({
+          title: "Actualizado",
+          text: "La contraseña fue Actualizada correctamente",
+          icon: "success",
+        });
       }
     } catch (error) {
-      setMessage(
-        "No se pudo actualizar la contraseña. Por favor, inténtelo de nuevo."
-      );
+      Swal.fire({
+        title: "Error",
+        text: "No se pudo actualizar la contraseña. Por favor, inténtelo de nuevo.",
+        icon: "error",
+      });
     }
   };
 
@@ -54,45 +70,66 @@ export const ResetPassword = () => {
           className="my-5 mx-auto w-[90%] lg:w-[50%]"
         >
           <h2 className="text-center lg:text-left poppins-medium text-xl mb-8">
-            Inicio de sesión
+            Olvidé mi contraseña
           </h2>
-          <div className="flex flex-col poppins-regular">
+          <div className="flex flex-col poppins-regular lg:w-[75%]">
             <label htmlFor="newPassword">
               <p className="font-medium text-slate-700">Nueva contraseña</p>
-              <input
-                id="newPassword"
-                name="newPassword"
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
-                placeholder="******"
-              />
+              <div className="relative">
+                <input
+                  id="newPassword"
+                  name="newPassword"
+                  type={showPassword ? "text" : "password"}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full py-3 border lg:w-[345px] bg-gray-100/75 border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
+                  placeholder="******"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute pb-3 pr-3 lg:pr-0 inset-y-0 right-0 flex items-center focus:outline-none"
+                >
+                  {showPassword ? (
+                    <FaEyeSlash size={20} />
+                  ) : (
+                    <FaEye size={20} />
+                  )}
+                </button>
+              </div>
             </label>
             <label htmlFor="confirmPassword">
               <p className="font-medium text-slate-700">
                 Repetir nueva contraseña
               </p>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-8"
-                placeholder="******"
-              />
+              <div className="relative ">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showPassword ? "text" : "password"}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full py-3 border lg:w-[345px] bg-gray-100/75 border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
+                  placeholder="******"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute pb-3 pr-3 lg:pr-0 inset-y-0 right-0 flex items-center focus:outline-none"
+                >
+                  {showPassword ? (
+                    <FaEyeSlash size={20} />
+                  ) : (
+                    <FaEye size={20} />
+                  )}
+                </button>
+              </div>
             </label>
-            <div className="text-center lg:text-left">
-              {message && (
-                <p className="text-center text-green-500">{message}</p>
-              )}
-            </div>
             <button
               type="submit"
-              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14"
+              className="poppins-semibold lg:text-lg w-[40%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14"
             >
-              <span>Continuar</span>
+              <p>Restablecer</p>
             </button>
           </div>
         </form>
