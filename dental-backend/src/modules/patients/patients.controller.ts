@@ -31,7 +31,7 @@ export class PatientController {
   @ApiBody({ type: PatientRequestDto })
   async addPatient(
     @Body() data: PatientRequestDto,
-  ): Promise<PatientResponseDto> {
+  ): Promise<Omit<PatientResponseDto, 'prestations' | 'appointments'>> {
     try {
       const response = await this.patientService.addPatient(data);
 
@@ -49,7 +49,7 @@ export class PatientController {
     @Query('dni') dni?: string,
     @Query('name') name?: string,
     @Query('gender') gender?: string,
-  ): Promise<{ statusCode: number; patients: PatientResponseDto[] }> {
+  ): Promise<{ statusCode: number; patients: Patient[] }> {
     const patients = await this.patientService.getAllPatients(
       dni,
       name,
@@ -65,10 +65,7 @@ export class PatientController {
   async getPatient(@Param('id') id: string): Promise<PatientResponseDto> {
     const response = await this.patientService.getPatient(parseInt(id));
 
-    return {
-      ...response,
-      phone: response.phone.toString(),
-    };
+    return response;
   }
 
   @Put(':id')
@@ -76,7 +73,7 @@ export class PatientController {
   async updatePatient(
     @Param('id') id: string,
     @Body() data: Partial<Patient>,
-  ): Promise<PatientResponseDto> {
+  ): Promise<Patient> {
     const response = await this.patientService.updatePatientById(
       parseInt(id),
       data,

@@ -10,6 +10,7 @@ import {
 import {
   OdontogramDto,
   PatientRequestDto,
+  PatientResponseDto,
   PrestationCreateDto,
 } from 'src/dtos';
 import { Context } from 'src/prisma/prisma.context';
@@ -55,7 +56,7 @@ export class PatientRepository {
     });
   }
 
-  async getPatientById(id: number): Promise<any> {
+  async getPatientById(id: number): Promise<PatientResponseDto> {
     return this.context.patient.findFirst({
       where: {
         id,
@@ -63,6 +64,7 @@ export class PatientRepository {
       include: {
         appointments: true,
         medicalHistories: true,
+        prestations: true,
       },
     });
   }
@@ -80,8 +82,6 @@ export class PatientRepository {
     prestation: Omit<Prestations, 'id'>,
     odontogram: OdontogramDto[],
   ) {
-    console.log(prestation);
-
     const prestationCreated = await this.context.prestations.create({
       data: prestation,
     });

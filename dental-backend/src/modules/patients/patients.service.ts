@@ -6,6 +6,7 @@ import { PatientRepository } from './patients.repository';
 import {
   OdontogramDto,
   PatientRequestDto,
+  PatientResponseDto,
   PrestationCreateDto,
 } from 'src/dtos';
 
@@ -21,7 +22,7 @@ export class PatientService {
     }
   }
 
-  async getPatient(id: number): Promise<Patient> {
+  async getPatient(id: number): Promise<PatientResponseDto> {
     return this.repository.getPatientById(id);
   }
 
@@ -55,7 +56,6 @@ export class PatientService {
         nationality: 'argentina',
         socialWork: 'nose',
         street: 'Colon',
-        odontograma: '',
       };
       mockPatients.push(newMockPatient);
     }
