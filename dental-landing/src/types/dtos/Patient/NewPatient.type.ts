@@ -17,14 +17,16 @@ export interface Patient {
   locality: string;
   establishment: string;
   socialWork: string;
-  appointments: Appointment[]
   id?: number;
+  appointments: Appointment[];
   prestations: Prestations[];
 }
 
 export interface Prestations {
   date: string;
   code: string;
+  observations?: string;
+  state: string;
   odontogram: OdontogramType[];
 }
 

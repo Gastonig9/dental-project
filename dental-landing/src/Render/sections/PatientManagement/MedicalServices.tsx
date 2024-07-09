@@ -7,7 +7,8 @@ import {
 import { usePatientContext } from "../../pages/contexts/patientContext";
 import Odontogram from "../../components/PatientManagement/Odontogram";
 import "../../components/PatientManagement/Odontogram.css";
-import { FaCircle, FaRegCircle, FaRegSquare, FaX } from "react-icons/fa6";
+import { FaCircle } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const MedicalServices: React.FC = () => {
   const { patientData, setPatientData } = usePatientContext();
@@ -17,6 +18,7 @@ const MedicalServices: React.FC = () => {
     date: "",
     code: "",
     observations: "",
+    state: "",
   });
 
   const [odontogramData, setOdontogramData] = useState<OdontogramType[]>([]);
@@ -59,6 +61,7 @@ const MedicalServices: React.FC = () => {
     const newPrestation: Prestations = {
       date: prestationData.date,
       code: prestationData.code,
+      state: prestationData.state,
       odontogram: odontogramData,
     };
 
@@ -99,13 +102,24 @@ const MedicalServices: React.FC = () => {
       // Limpiar formularios
       // setPrestationData({ date: "", code: "", observations: "" });
       // setOdontogramData([]);
+
+      Swal.fire({
+        title: "Agregado",
+        text: "Se han agregado prestaciones de manera correcta.",
+        icon: "success",
+      });
     } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: "No se han podido agregar correctamente, por favor intente de nuevo.",
+        icon: "error",
+      });
       console.error("Error al agregar prestación:", error);
     }
   };
 
   return (
-    <main className="flex mt-[50px] poppins-regular text-[16px] gap-10">
+    <main className="flex mt-[20px] poppins-regular text-[16px] gap-10">
       <section className="relative">
         <Odontogram odontogramData={odontogramData} />
         <div className="flex-fow py-[15px] pl-[15px] text-[12px] border-black border-[1px] h-[216px] w-[211px] rounded-[30px] absolute left-[37.9%] mt-[40px]">
@@ -189,7 +203,7 @@ const MedicalServices: React.FC = () => {
                 type="button"
                 onClick={addOdontogramField}
               >
-                Agregar +
+                Diente +
               </button>
             </div>
             <div className="mt-4 p-2 bg-[#f5f5f5] border border-[#424242] rounded-[8px] w-[290px] mb-2 max-h-[300px] overflow-y-auto">
@@ -275,7 +289,7 @@ const MedicalServices: React.FC = () => {
               className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]"
               type="submit"
             >
-              Enviar
+              Guardar
             </button>
           </div>
         </form>
