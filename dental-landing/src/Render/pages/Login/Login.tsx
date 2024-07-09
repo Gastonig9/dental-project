@@ -1,10 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import "./Login.css";
-import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
-import { useAuth } from "../contexts/AuthContext";
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { ChevronLeftIcon } from '@heroicons/react/20/solid';
+import './Login.css';
+import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+import { useAuth } from '../contexts/AuthContext';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,21 +21,27 @@ export const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/api/user/login-user', {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/user/login-user`,
+        {
+          email,
+          password,
+        }
+      );
 
       console.log('Login successful:', response.data);
-      
+
       // Store the token in localStorage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       if (response.data.RoleObject) {
-        localStorage.setItem('RoleObject', JSON.stringify(response.data.RoleObject));
+        localStorage.setItem(
+          'RoleObject',
+          JSON.stringify(response.data.RoleObject)
+        );
       }
       login(response.data.token);
-      
+
       navigate('/dashboard');
     } catch (error) {
       console.error('Error logging in:', error);
@@ -62,8 +68,7 @@ export const Login = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="my-5 mx-auto w-[90%] lg:w-[50%]"
-        >
+          className="my-5 mx-auto w-[90%] lg:w-[50%]">
           <h2 className="text-center lg:text-left poppins-medium text-xl mb-8">
             Inicio de sesión
           </h2>
@@ -95,15 +100,13 @@ export const Login = () => {
             <div className="text-center lg:text-left">
               <Link
                 to="/user/forgot-password"
-                className="font-medium text-[#4053FF]"
-              >
+                className="font-medium text-[#4053FF]">
                 Olvidé mi contraseña
               </Link>
             </div>
             <button
               type="submit"
-              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14"
-            >
+              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14">
               <span>Continuar</span>
             </button>
           </div>

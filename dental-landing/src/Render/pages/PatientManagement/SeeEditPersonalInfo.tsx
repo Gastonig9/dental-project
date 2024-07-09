@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { useParams } from 'react-router-dom';
 
 export const SeeEditPersonalInfo = () => {
   const { id } = useParams();
-  const [patientInfo, setPatientInfo] = useState({});
+  const [, setPatientInfo] = useState({});
   const [allowEdition, setAllowEdition] = useState(false);
   const { register, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/patient/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/patient/${id}`)
       .then((res) => {
         setPatientInfo(res.data);
         const patient = res.data;
@@ -33,25 +33,25 @@ export const SeeEditPersonalInfo = () => {
       data.age = Number(data.age);
       data.addressNumber = Number(data.addressNumber);
 
-      console.log("DATA" , data)
-      const {appointments, medicalHistories,...rest}= data
+      console.log('DATA', data);
+      const { appointments, medicalHistories, ...rest } = data;
       const response = await axios.put(
-        `http://localhost:3000/patient/${id}`,
+        `${import.meta.env.VITE_API_URL}/patient/${id}`,
         rest
       );
       setPatientInfo(response.data);
       Swal.fire({
-        title: "Guardado",
-        text: "Información personal guardada con éxito.",
-        icon: "success",
+        title: 'Guardado',
+        text: 'Información personal guardada con éxito.',
+        icon: 'success',
       });
-      console.log("Patient information saved:", response.data);
+      console.log('Patient information saved:', response.data);
     } catch (error) {
-      console.error("Error saving: ", error);
+      console.error('Error saving: ', error);
       Swal.fire({
-        title: "Error",
-        text: "Ocurrió un error al guardar la información.",
-        icon: "error",
+        title: 'Error',
+        text: 'Ocurrió un error al guardar la información.',
+        icon: 'error',
       });
     }
   };
@@ -67,9 +67,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="name"
                 type="text"
-                {...register("name")}
+                {...register('name')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -79,9 +79,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="surname"
                 type="text"
-                {...register("surname")}
+                {...register('surname')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -91,9 +91,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="phone"
                 type="text"
-                {...register("phone")}
+                {...register('phone')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -105,9 +105,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="dni"
                 type="number"
-                {...register("dni")}
+                {...register('dni')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -117,9 +117,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="age"
                 type="number"
-                {...register("age")}
+                {...register('age')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -129,9 +129,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="nationality"
                 type="text"
-                {...register("nationality")}
+                {...register('nationality')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -143,9 +143,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="gender"
                 type="text"
-                {...register("gender")}
+                {...register('gender')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -155,9 +155,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="birthDate"
                 type="date"
-                {...register("birthDate")}
+                {...register('birthDate')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -167,9 +167,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="pEmail"
                 type="text"
-                {...register("pEmail")}
+                {...register('pEmail')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -184,9 +184,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="street"
                 type="text"
-                {...register("street")}
+                {...register('street')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -196,9 +196,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="addressNumber"
                 type="number"
-                {...register("addressNumber")}
+                {...register('addressNumber')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -210,9 +210,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="floor"
                 type="text"
-                {...register("floor")}
+                {...register('floor')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -222,9 +222,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="apartment"
                 type="text"
-                {...register("apartment")}
+                {...register('apartment')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -234,9 +234,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="locality"
                 type="text"
-                {...register("locality")}
+                {...register('locality')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -248,9 +248,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="establishment"
                 type="text"
-                {...register("establishment")}
+                {...register('establishment')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -260,9 +260,9 @@ export const SeeEditPersonalInfo = () => {
               <input
                 id="socialWork"
                 type="text"
-                {...register("socialWork")}
+                {...register('socialWork')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? "bg-white" : ""
+                  !allowEdition ? 'bg-white' : ''
                 }`}
                 readOnly={!allowEdition}
               />
@@ -273,9 +273,8 @@ export const SeeEditPersonalInfo = () => {
           <button
             className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]"
             type="button"
-            onClick={() => setAllowEdition(!allowEdition)}
-          >
-            {!allowEdition ? "Activar Edición" : "Desactivar Edición"}
+            onClick={() => setAllowEdition(!allowEdition)}>
+            {!allowEdition ? 'Activar Edición' : 'Desactivar Edición'}
           </button>
           <button className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]">
             Guardar

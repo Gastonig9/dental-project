@@ -7,19 +7,19 @@ interface FAQItem {
 
 const FAQInfo: FAQItem[] = [
   {
-    question: "¿Cuáles son los servicios dentales que ofrecen?",
+    question: "¿Qué tratamientos dentales puedes encontrar en nuestro consultorio?",
     answer:
-      "Ofrecemos una amplia gama de servicios dentales que incluyen limpiezas dentales, empastes, tratamientos de conducto, extracciones, coronas dentales, blanqueamiento dental, ortodoncia, implantes dentales, entre otros.",
+      "Los tratamientos que ofrecemos desde limpieza dentales hasta ortodoncia, implantes dentales, y tratamientos estéticos como el blanqueamiento dental. Nos esforzamos por cubrir todas tus necesidades odontológicas con la más alta calidad.",
   },
   {
-    question: "¿Cuáles son los horarios de atención del consultorio?",
+    question: "¿Cuándo puedes visitarnos?",
     answer:
-      "Nuestro consultorio está abierto de lunes a viernes de [horario de apertura] a [horario de cierre]. Para conocer los horarios específicos de cada dentista y su disponibilidad, te recomendamos contactarnos directamente.",
+      "Puedes visitarnos de lunes a viernes de 9:00 a.m. hasta  las 6:00 p.m., o los sábados desde las 9:00 a.m. hasta las 2:00 p.m. Estamos aquí para atenderte en el horario que más te convenga.",
   },
   {
-    question: "¿Cómo puedo agendar una cita?",
+    question: "¿Cúal es el proceso para reservar tu próxima cita?",
     answer:
-      "Puedes agendar una cita llamando a nuestro consultorio al [número de whatsApp] o utilizando nuestro sistema de citas en línea en [URL del sitio web].",
+      "Reservar tu cita es muy sencillo. Llámanos al [número de teléfono] o visita nuestra página web [dirección web], donde podrás utilizar nuestro fácil formulario de contacto. ¡Te esperamos!",
   },
   {
     question: "¿Cuánto tiempo debo esperar para obtener una cita?",
