@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
-import Navbar from '../../components/Platform/Navbar';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+
+import { useEffect, useState } from "react";
+import Navbar from "../../components/Platform/Navbar";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+
 
 // icons
 import { IoSearchSharp } from "react-icons/io5";
