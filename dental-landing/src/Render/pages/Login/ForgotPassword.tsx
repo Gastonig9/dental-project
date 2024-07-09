@@ -13,7 +13,7 @@ export const ForgotPassword = () => {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        "http://localhost:3000/api/user/request-reset-password",
+        `${import.meta.env.VITE_API_URL}/api/user/request-reset-password`,
         {
           email,
         }
@@ -81,8 +81,7 @@ export const ForgotPassword = () => {
             </div>
             <button
               type="submit"
-              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14"
-            >
+              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14">
               <span>Continuar</span>
             </button>
           </div>

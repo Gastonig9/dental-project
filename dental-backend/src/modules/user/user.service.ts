@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Injectable,
   NotFoundException,
@@ -33,7 +34,6 @@ export class UserService {
     user.password = await this.authService.hashPassword(user.password);
     try {
       const userResponse = await this.userRepository.AddUser(user);
-
       const response = await this.AddUserType[user.role_name](userResponse);
 
       return response;
@@ -43,7 +43,6 @@ export class UserService {
           `posible valor repetido en base de datos, Email y Dni deben ser unicos, errorTarget:${error.meta?.target}`,
         );
       }
-
       throw new Error(error);
     }
   }

@@ -1,24 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from "react";
-import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
-import { Button } from "../../UI/Button/Button";
-import { Patient } from "../../../../types/dtos/Patient/NewPatient.type";
-import { SearchPatientInput, SelectInput, DateTimeInput } from ".";
-import { Dentist } from "../../../../types/dtos/dentist/dentist.type";
-import Swal from "sweetalert2";
-import axios from "axios";
+import { useState, useEffect } from 'react';
+import { ChevronLeftIcon } from '@heroicons/react/20/solid';
+import { Link } from 'react-router-dom';
+import { Button } from '../../UI/Button/Button';
+import { Patient } from '../../../../types/dtos/Patient/NewPatient.type';
+import { SearchPatientInput, SelectInput, DateTimeInput } from '.';
+import { Dentist } from '../../../../types/dtos/dentist/dentist.type';
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 export const AddAppointment = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  // Pacientes
   const [patientSelected, setPatientSelected] = useState<Patient | null>(null);
   const [patients, setPatients] = useState<Patient[]>([]);
   const [filteredPatients, setFilteredPatients] = useState<Patient[]>([]);
-  // Dentistas
   const [dentistSelected, setDentistSelected] = useState<Dentist | null>(null);
   const [dentists, setDentists] = useState<Dentist[]>([]);
-  // Datos del turno
   const [dataAppointment, setDataAppointment] = useState<{
     results: string;
     dentistId: number | null;
@@ -26,20 +23,23 @@ export const AddAppointment = () => {
     date: string;
     reason: string;
   }>({
-    results: "",
+    results: '',
     dentistId: null,
     patientId: null,
-    date: "",
-    reason: "",
+    date: '',
+    reason: '',
   });
+  
 
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/patient/get-patients");
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/patient/get-patients`
+        );
         setPatients(response.data.patients);
       } catch (error) {
-        console.error("Error fetching patients:", error);
+        console.error('Error fetching patients:', error);
       }
     };
     fetchPatients();
@@ -62,10 +62,12 @@ export const AddAppointment = () => {
   useEffect(() => {
     const fetchDentists = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/dentist");
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/dentist`
+        );
         setDentists(response.data.dentists);
       } catch (error) {
-        console.error("Error fetching dentists:", error);
+        console.error('Error fetching dentists:', error);
       }
     };
     fetchDentists();
@@ -106,30 +108,30 @@ export const AddAppointment = () => {
   const handleCreateAppointment = async () => {
     try {
       await axios.post(
-        "http://localhost:3000/api/appointments/create-appointment",
+        `${import.meta.env.VITE_API_URL}/api/appointments/create-appointment`,
         dataAppointment
       );
       Swal.fire({
-        title: "Éxito",
-        text: "La cita se ha creado correctamente.",
-        icon: "success",
-        confirmButtonText: "OK",
+        title: 'Éxito',
+        text: 'La cita se ha creado correctamente.',
+        icon: 'success',
+        confirmButtonText: 'OK',
       });
     } catch (error: any) {
       const errorStatus = error.response.data.statusCode
         ? error.response.data.statusCode
         : 500;
       Swal.fire({
-        title: "Error",
+        title: 'Error',
         text: `${
           errorStatus === 400
-            ? "Ocurrio un error de validacion. Verifique que todos los campos ingresados sean correctos"
-            : "Interval server error. Por favor intente mas tarde"
+            ? 'Ocurrio un error de validacion. Verifique que todos los campos ingresados sean correctos'
+            : 'Interval server error. Por favor intente mas tarde'
         }`,
-        icon: "error",
-        confirmButtonText: "OK",
+        icon: 'error',
+        confirmButtonText: 'OK',
         customClass: {
-          confirmButton: "bg-acento",
+          confirmButton: 'bg-acento',
         },
       });
     }
@@ -138,7 +140,7 @@ export const AddAppointment = () => {
   return (
     <>
       <div className="flex items-center mb-6">
-        <Link to="/appointments" className="me-16">
+        <Link to="/appointments" className="mr-4 lg:mr-16">
           <button className="flex items-center bg-transparent poppins-medium">
             <ChevronLeftIcon
               className="h-5 w-5 flex-none text-black"
@@ -149,11 +151,11 @@ export const AddAppointment = () => {
         </Link>
       </div>
       <div className="w-full flex justify-center">
-        <div className="w-[90%] flex flex-col items-center rounded-[35px] bg-lightgray border border-[#424242] p-6">
-          <h1 className="poppins-semibold text-[33px] mb-6">
+        <div className="w-[90%] flex flex-col items-center rounded-[35px] bg-lightgray border border-[#424242] p-4 md:p-6">
+          <h1 className="poppins-semibold text-[24px] md:text-[33px] mb-6">
             Agregar nuevo turno
           </h1>
-          <div className="w-full flex justify-evenly items-center">
+          <div className="w-full flex flex-col lg:flex-row justify-evenly items-center gap-4">
             <SearchPatientInput
               searchTerm={searchTerm}
               setSearchTerm={(term) => {
@@ -170,18 +172,18 @@ export const AddAppointment = () => {
               titleSelect="Seleccionar profesional"
             />
           </div>
-          <DateTimeInput onDateChange={handleDateChange} />
-          <SelectInput
-            id="consulta"
-            options={["Arreglo", "Conducto", "Consulta de rutina"]}
-            titleSelect="Tipo de consulta"
-            selectReason={handleReasonChange}
-            mtInput="5"
-          />
+          <div className="w-full flex flex-col justify-evenly items-center gap-4 mt-4">
+            <DateTimeInput onDateChange={handleDateChange} />
+            <SelectInput
+              id="consulta"
+              options={["Arreglo", "Conducto", "Consulta de rutina"]}
+              titleSelect="Tipo de consulta"
+              selectReason={handleReasonChange}
+            />
+          </div>
           <Button
-            widthButton="[30%]"
+            widthButton="w-full"
             justifyButton="center"
-            widthContain="full"
             titleButton="Agendar"
             isLink={false}
             marginTop="5"

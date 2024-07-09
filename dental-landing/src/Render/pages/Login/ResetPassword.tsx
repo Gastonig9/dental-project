@@ -29,7 +29,7 @@ export const ResetPassword = () => {
     }
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/user/reset-password`,
+        `${import.meta.env.VITE_API_URL}/api/user/reset-password`,
         {
           resetPasswordToken,
           password: newPassword,
@@ -67,8 +67,7 @@ export const ResetPassword = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="my-5 mx-auto w-[90%] lg:w-[50%]"
-        >
+          className="my-5 mx-auto w-[90%] lg:w-[50%]">
           <h2 className="text-center lg:text-left poppins-medium text-xl mb-8">
             Olvidé mi contraseña
           </h2>

@@ -38,6 +38,18 @@ export class AppointmentService {
   async addAppointment(data: AppointmentRequestDto): Promise<Appointment> {
     const { reason, dentistId, patientId, date, odontograma = '' } = data;
     const state = $Enums.AppointmentState.PENDING;
+    const dentist = await this.dentistService.findDentist(
+      dentistId,
+    );
+    const patient = await this.patientService.getPatient(
+      patientId,
+    );
+
+    if (!patient || !dentist) {
+      throw new NotFoundException(
+        'No se pudo encontrar al paciente o al dentista',
+      );
+    }
 
     // Verificar si ya existe una cita para la misma fecha y dentista
     const verifyDate = await this.checkAvailability(dentistId, new Date(date));
@@ -57,6 +69,13 @@ export class AppointmentService {
       patientId: patientId,
       odontograma,
     };
+
+     // Enviar correo de confirmación
+     await this.mailService.sendConfirmEmail(
+      patient,
+      newAppointment,
+      dentist,
+    );
 
     return await this.repository.AddAppointment(newAppointment);
   }

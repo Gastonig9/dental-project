@@ -2,6 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Appointment, Dentist, Patient } from '@prisma/client';
+import { AppointmentRequestDto } from 'src/dtos';
 
 @Injectable()
 export class EmailService {
@@ -9,13 +10,12 @@ export class EmailService {
 
   async sendConfirmEmail(
     patient: Patient,
-    appointmentInfo: Appointment,
+    appointmentInfo: AppointmentRequestDto,
     dentist: Dentist,
   ) {
-    const sumHoursToDate = new Date(appointmentInfo.date);
-    sumHoursToDate.setHours(sumHoursToDate.getHours() + 3);
+    const appointmentDate = new Date(appointmentInfo.date)
     this.mailerService.sendMail({
-      from: 'DataJob',
+      from: 'Consultorio Grinpol',
       to: patient.pEmail,
       subject: 'Se ha confirmado tu turno',
       html: `<h1>¡Hola, ${patient.name}!</h1>
@@ -27,7 +27,7 @@ export class EmailService {
                <ul>
                  <li>Dentista: Dr. ${dentist.fullname}</li/>
                  <li>Razon: ${appointmentInfo.reason}</li/>
-                 <li>Fecha del turno: ${sumHoursToDate.toDateString()}</li/>
+                 <li>Fecha del turno: ${appointmentDate.toLocaleString()}</li/>
                </ul/>
                <small><b>No responder a este correo</b></small>
                <h3>¡Muchas gracias por elegirnos !</h3>`,
@@ -35,17 +35,15 @@ export class EmailService {
   }
 
   async sendReminderEmail(patient: Patient, appointment: Appointment) {
-    const sumHoursToDate = new Date(appointment.date);
-    sumHoursToDate.setHours(sumHoursToDate.getHours() + 3);
     this.mailerService.sendMail({
-      from: 'DataJob',
+      from: 'Consultorio Grinpol',
       to: patient.pEmail,
       subject: 'Recordatorio de turno',
       html: `<h1>¡Hola, ${patient.name}!</h1>
            <p>Este es un recordatorio para tu turno programado.</p>
            <p><b>Información del turno:</b></p>
            <ul>
-             <li>Fecha: ${sumHoursToDate.toLocaleString()}</li>
+             <li>Fecha: ${appointment.date.toLocaleString()}</li>
              <li>Razón: ${appointment.reason}</li>
            </ul>
            <small><b>No responder a este correo</b></small>
@@ -66,7 +64,7 @@ export class EmailService {
       subject: 'Recordatorio de turno',
       html: `<h2>!Restauracion de Contraseña!</h2>
         
-         <p><a href='http://localhost:5173/user/reset-password?token=${resetPasswordToken}' target='_blank'>Restaurar Contraseña</a></p>
+         <p><a href='${process.env.FRONT_DEPLOY}/user/reset-password?token=${resetPasswordToken}' target='_blank'>Restaurar Contraseña</a></p>
            
            <small><b>No responder a este correo</b></small>`,
     });

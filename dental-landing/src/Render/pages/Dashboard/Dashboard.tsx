@@ -2,12 +2,11 @@ import {
   ChevronRightIcon,
   UsersIcon,
   MagnifyingGlassIcon,
-} from "@heroicons/react/20/solid";
-import { Link, useParams } from "react-router-dom";
-import Navbar from "../../components/Platform/Navbar";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import jwtDecode from "jwt-decode";
+} from '@heroicons/react/20/solid';
+import { Link } from 'react-router-dom';
+import Navbar from '../../components/Platform/Navbar';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface Appointment {
   id: number;
@@ -18,15 +17,18 @@ interface Appointment {
   results: string;
   reason: string;
   odontograma: string;
-}
-
-interface Patient {
-  id: number;
-  name: string;
+  patient: {
+    id: number;
+    name: string;
+    surname: string;
+  };
+  dentist: {
+    fullname: string;
+  };
 }
 
 export const Dashboard = () => {
-  const [currentDate, setCurrentDate] = useState<string>("");
+  const [currentDate, setCurrentDate] = useState<string>('');
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [patients, setPatients] = useState<{ [key: number]: string }>({});
 
@@ -34,61 +36,92 @@ export const Dashboard = () => {
     const getCurrentDate = () => {
       const date = new Date();
       const options: Intl.DateTimeFormatOptions = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        timeZone: "America/Argentina/Buenos_Aires",
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'America/Argentina/Buenos_Aires',
       };
-      return date.toLocaleDateString("es-AR", options);
+      return date.toLocaleDateString('es-AR', options);
     };
 
     setCurrentDate(getCurrentDate());
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (!token) {
-      console.error("No token found");
+      console.error('No token found');
       return;
     }
 
-    const RoleObject = JSON.parse(localStorage.getItem("RoleObject") || "{}");
+    const RoleObject = JSON.parse(localStorage.getItem('RoleObject') || '{}');
     const dentistId = RoleObject.dentist ? RoleObject.dentist.id : null;
 
-    if (!dentistId) {
-      console.error("No dentist ID found in RoleObject");
-      return;
-    }
+    const fetchAppointments = async () => {
+      try {
+        let allAppointments: Appointment[] = [];
 
-    // Fetch all appointments for the dentist using the new endpoint
-    axios
-      .get<{ appointments: Appointment[] }>(`http://localhost:3000/dentist/appointments/${dentistId}`)
-      .then((res) => {
-        setAppointments(res.data.appointments);
-        console.log(res.data.appointments);
+        if (dentistId) {
+          const dentistResponse = await axios.get<{
+            appointments: Appointment[];
+          }>(
+            `${import.meta.env.VITE_API_URL}/dentist/appointments/${dentistId}`
+          );
+          const dentistAppointments = dentistResponse.data.appointments.map(
+            (appointment) => ({
+              ...appointment,
+              dentist: appointment.dentist
+                ? { fullname: appointment.dentist.fullname }
+                : { fullname: 'Unknown' },
+              patient: {
+                id: appointment.patientId,
+                name: 'Unknown',
+                surname: 'Patient',
+              },
+            })
+          );
+          allAppointments = [...allAppointments, ...dentistAppointments];
+        }
 
-        // Fetch patient data for each appointment
-        const patientRequests = res.data.appointments.map((appointment) =>
-          axios.get<Patient>(`http://localhost:3000/patient/${appointment.patientId}`)
+        const allResponse = await axios.get<Appointment[]>(
+          `${import.meta.env.VITE_API_URL}/api/appointments`
+        );
+        allAppointments = [...allAppointments, ...allResponse.data];
+
+        // Remove duplicates based on appointment id
+        const uniqueAppointments = Array.from(
+          new Map(allAppointments.map((item) => [item.id, item])).values()
         );
 
-        return Promise.all(patientRequests);
-      })
-      .then((responses) => {
-        const patientsData = responses.reduce((acc, res) => {
-          acc[res.data.id] = res.data.name;
+        setAppointments(uniqueAppointments);
+
+        // Fetch patient data
+        const patientIds = uniqueAppointments.map(
+          (appointment) => appointment.patientId
+        );
+        const patientRequests = patientIds.map((patientId) =>
+          axios.get<{ id: number; name: string; surname: string }>(
+            `${import.meta.env.VITE_API_URL}/patient/${patientId}`
+          )
+        );
+
+        const patientResponses = await Promise.all(patientRequests);
+        const patientsData = patientResponses.reduce((acc, res) => {
+          acc[res.data.id] = `${res.data.name} ${res.data.surname}`;
           return acc;
         }, {} as { [key: number]: string });
 
         setPatients(patientsData);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      } catch (err) {
+        console.error('Error fetching appointments:', err);
+      }
+    };
+
+    fetchAppointments();
   }, []);
 
-  const userData = JSON.parse(localStorage.getItem("user") || "{}");
+  const userData = JSON.parse(localStorage.getItem('user') || '{}');
 
   return (
     <>
@@ -128,7 +161,7 @@ export const Dashboard = () => {
             </div>
           </div>
           {/* Render the button only if role_name is not 'SECRETARY' */}
-          {userData.role_name !== "SECRETARY" && (
+          {userData.role_name !== 'SECRETARY' && (
             <div className="poppins-bold hidden lg:flex">
               <Link to="/users-management/users-list">
                 <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[25px]">
@@ -147,23 +180,34 @@ export const Dashboard = () => {
           )}
         </section>
         <section className="flex justify-center items-center mx-auto lg:mx-0 pt-14">
-          <div className="w-[349px] lg:w-[840px] h-[646px] lg:h-[665px] bg-lightgray border border-[#424242] rounded-[20px] lg:rounded-[30px] px-3 lg:px-14 py-4 lg:py-12">
+          <div className="w-[349px] lg:w-[840px] h-[646px] lg:h-[665px] bg-lightgray border border-[#424242] rounded-[20px] lg:rounded-[30px] px-3 lg:px-14 py-4 lg:py-12 overflow-y-auto">
             <h1 className="poppins-bold ms-5 mb-4 lg:mb-4 text-[26px] lg:text-[40px]">
               Próximos turnos
             </h1>
             <div>
-            {appointments.map((appointment) => (
+              {appointments.map((appointment, index) => (
                 <div
-                  key={appointment.id}
-                  className="flex items-center px-7 py-5 bg-acento w-full h-[70px] rounded-[10px] mb-2 poppins-medium text-typography text-[16px] lg:text-[20px]"
-                >
+                  key={`${appointment.id}-${index}`}
+                  className="flex items-center px-7 py-5 bg-acento w-full h-[70px] rounded-[10px] mb-2 poppins-medium text-typography text-[16px] lg:text-[20px]">
                   <p className="me-16">
                     {new Date(appointment.date).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
+                      hour: '2-digit',
+                      minute: '2-digit',
                     })}
                   </p>
-                  <p>{patients[appointment.patientId] || "Loading..."}</p>
+                  {userData.role_name === 'SECRETARY' && (
+                    <>
+                      <p className="me-4">
+                        Paciente:{' '}
+                        {`${appointment.patient.name} ${appointment.patient.surname}`}{' '}
+                        -
+                      </p>
+                      <p>Profesional: {appointment.dentist.fullname}</p>
+                    </>
+                  )}
+                  {userData.role_name !== 'SECRETARY' && (
+                    <p>{patients[appointment.patient.id] || 'Loading...'}</p>
+                  )}
                 </div>
               ))}
             </div>
@@ -172,7 +216,7 @@ export const Dashboard = () => {
 
         {/* GESTINAR USUARIOS BUTTON MOBILE */}
         {/* Render the button only if role_name is not 'SECRETARY' */}
-        {userData.role_name !== "SECRETARY" && (
+        {userData.role_name !== 'SECRETARY' && (
           <div className="flex lg:hidden poppins-bold mx-auto my-14">
             <Link to="/users-management/users-list">
               <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[20px]">

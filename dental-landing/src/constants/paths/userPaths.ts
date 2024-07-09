@@ -10,7 +10,7 @@ export const USER_PATHS = {
 
 //Ejemplo de uso
 //   useEffect(() => {
-//     fetch(`http://localhost:3000/${USER_PATHS.GET_BY_ID}/3`)
+//     fetch(`import.meta.env.VITE_API_URL/${USER_PATHS.GET_BY_ID}/3`)
 //       .then((data) => {
 //         console.log(data);
 //         return data.json();
