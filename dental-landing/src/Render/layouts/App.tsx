@@ -15,6 +15,7 @@ import PrivateRoute from "../guards/PrivateRoute";
 import UsersList from "../pages/UsersManagement/UsersList";
 import { EditUserInfo } from "../pages/UserManagement/EditUserInfo";
 import CreateUser from "../pages/UserManagement/CreateUser";
+import Reports from "../pages/Reports/Reports";
 
 
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="/users-management/users-list" element={ <UsersList /> } />
           <Route path="/create-appointment" element={<CreateAppointment />}></Route>
           <Route path="/user/create-user" element={<CreateUser />}></Route>
+          <Route path="/reports" element={<Reports/>}></Route>
           {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
 
 

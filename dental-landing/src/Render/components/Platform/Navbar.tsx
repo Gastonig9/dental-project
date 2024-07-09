@@ -122,13 +122,13 @@ const Navbar = () => {
 
             <div
               className={`flex items-center gap-1 ${
-                location.pathname === "/example3"
+                location.pathname === "/reports"
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
             >
               <IoStatsChart />
-              <Link to="/example3">
+              <Link to="/reports">
                 <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
                   Reportes
                 </h3>
@@ -217,14 +217,14 @@ const Navbar = () => {
             {/* stats icon */}
             <div
               className={`flex items-center gap-1 ${
-                location.pathname === "/example3"
+                location.pathname === "/reports"
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
             >
               <IoStatsChart className="text-5xl" />
               {desktopMenu && (
-                <Link to="/example3">
+                <Link to="/reports">
                   <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
                     Reportes
                   </h3>
