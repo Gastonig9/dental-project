@@ -1,16 +1,24 @@
+import odontologiaImage from "/src/assets/img/landing/specialties/Odontología.png";
+import cirugiaImage from "/src/assets/img/landing/specialties/Cirugía.png";
+import odontopediatriaImage from "/src/assets/img/landing/specialties/Odontopediatra.png";
+import endodonciaImage from "/src/assets/img/landing/specialties/Endodoncia.png";
+
 const specialties = [
   {
     name: "Odontología general",
-    image: "/src/assets/img/landing/specialties/Odontología.png",
+    image: odontologiaImage,
   },
-  { name: "Cirugía", image: "/src/assets/img/landing/specialties/Cirugía.png" },
+  {
+    name: "Cirugía",
+    image: cirugiaImage,
+  },
   {
     name: "Odontopediatría",
-    image: "/src/assets/img/landing/specialties/Odontopediatra.png",
+    image: odontopediatriaImage,
   },
   {
     name: "Endodoncia",
-    image: "/src/assets/img/landing/specialties/Endodoncia.png",
+    image: endodonciaImage,
   },
 ];
 

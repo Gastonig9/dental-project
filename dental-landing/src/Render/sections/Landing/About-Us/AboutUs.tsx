@@ -1,3 +1,4 @@
+import docPhoto from "/src/assets/img/landing/about-us/dental-squoosh.jpg";
 import Carousel from "./Carousel";
 
 export const AboutUs = () => {
@@ -32,7 +33,7 @@ export const AboutUs = () => {
           <picture className="bg-[#d9d9d9] h-[366px] lg:w-[765px] lg:h-[656px] lg:rounded-[50px] ml-[54px] hidden lg:block">
             <img
               className="lg:rounded-[50px] object-cover h-full w-full opacity-60 md:opacity-100"
-              src="/src/assets/img/landing/about-us/dental-squoosh.jpg"
+              src={docPhoto}
               alt="FOTO DOC"
             />
           </picture>

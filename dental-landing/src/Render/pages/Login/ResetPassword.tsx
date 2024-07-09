@@ -43,6 +43,7 @@ export const ResetPassword = () => {
         });
       }
     } catch (error) {
+      console.error("Error al actualizar contraseña:", error);
       Swal.fire({
         title: "Error",
         text: "No se pudo actualizar la contraseña. Por favor, inténtelo de nuevo.",
@@ -67,7 +68,8 @@ export const ResetPassword = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="my-5 mx-auto w-[90%] lg:w-[50%]">
+          className="my-5 mx-auto w-[90%] lg:w-[50%]"
+        >
           <h2 className="text-center lg:text-left poppins-medium text-xl mb-8">
             Olvidé mi contraseña
           </h2>

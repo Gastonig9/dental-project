@@ -26,6 +26,7 @@ export const ForgotPassword = () => {
         });
       }
     } catch (error) {
+      console.error("Error al enviar correo:", error);
       Swal.fire({
         title: "Error",
         text: "No se pudo enviar el correo, por favor intente de nuevo.",
@@ -81,7 +82,8 @@ export const ForgotPassword = () => {
             </div>
             <button
               type="submit"
-              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14">
+              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14"
+            >
               <span>Continuar</span>
             </button>
           </div>
