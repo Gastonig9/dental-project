@@ -225,7 +225,7 @@
   background: #d9d9d9;
 }
 
-.usermanagement-input-select-style{
+.usermanagement-input-select-style {
   width: 400px;
   height: 49px;
   padding: 8px;
@@ -236,11 +236,12 @@
 
 /* review carousel styles */
 .splide__arrows svg {
+  display: none;
   fill: #76ffa8 !important;
 }
 
 .splide__pagination__page.is-active {
-  background: var(--Acento, #76ffa8) !important;
+  background: #424242 !important;
   border-radius: 12px !important;
   height: 24px !important;
   width: 24px !important;
@@ -309,7 +310,6 @@
 
 .custom-event .event-buttons div img {
   width: 35px;
-
 }
 
 .custom-event .event-buttons div img:hover {

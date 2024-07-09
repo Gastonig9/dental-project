@@ -16,7 +16,7 @@ export const AboutUs = () => {
             </div>
             <div className="mt-[38px]  mb-[55px] lg:mb-[0px]">
               {/* Us Text */}
-              <p className="text-justify poppins-medium text-[13px] w-[354px] lg:poppins-regular lg:text-[28px] lg:w-[729px] leading-[120%]">
+              <p className="poppins-medium text-[13px] w-[354px] lg:poppins-regular lg:text-[28px] lg:w-[729px] leading-[120%]">
                 Los doctores Natalia Ceballos y Pablo Cruz se han destacado en
                 la transformación de sonrisas con profesionalismo y dedicación.
                 Desde nuestros inicios, nos hemos comprometido a proporcionar
