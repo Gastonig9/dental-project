@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { Patient, Prestations } from '@prisma/client';
+import { Odontogram, Patient, Prestations } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import { PatientRepository } from './patients.repository';
 import {
@@ -9,6 +9,7 @@ import {
   PatientResponseDto,
   PrestationCreateDto,
 } from 'src/dtos';
+import { PrestationUpdateDto } from 'src/dtos/prestation-update.dto';
 
 @Injectable()
 export class PatientService {
@@ -96,5 +97,16 @@ export class PatientService {
     odontogram?: OdontogramDto[],
   ): Promise<any> {
     return this.repository.addPrestation(prestation, odontogram);
+  }
+
+  async updatePrestation(
+    prestation: PrestationUpdateDto,
+    odontogram?: PrestationUpdateDto['odontogram'],
+  ): Promise<any> {
+    return this.repository.updatePrestation(prestation, odontogram);
+  }
+
+  async deletePrestation(id: number) {
+    return this.repository.deletePrestation(id);
   }
 }

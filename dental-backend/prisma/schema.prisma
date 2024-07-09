@@ -133,10 +133,10 @@ model Prestations {
 
 model Odontogram {
   id            Int             @id @default(autoincrement())
-  prestation    Prestations     @relation(fields: [prestationId], references: [id])
+  prestation    Prestations     @relation(fields: [prestationId], references: [id],onDelete: Cascade)
   prestationId  Int
   toothNumber   Int
-  parts         Parts
+  parts         Parts[]
   ref           String
 }
 

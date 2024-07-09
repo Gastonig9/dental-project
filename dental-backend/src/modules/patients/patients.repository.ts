@@ -1,18 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import {
-  Appointment,
-  MedicalHistory,
-  Odontogram,
-  Patient,
-  Prestations,
-} from '@prisma/client';
-import {
-  OdontogramDto,
-  PatientRequestDto,
-  PatientResponseDto,
-  PrestationCreateDto,
-} from 'src/dtos';
+import { Odontogram, Patient, Prestations } from '@prisma/client';
+import { OdontogramDto, PatientRequestDto, PatientResponseDto } from 'src/dtos';
+import { PrestationUpdateDto } from 'src/dtos/prestation-update.dto';
 import { Context } from 'src/prisma/prisma.context';
 
 @Injectable()
@@ -69,6 +59,22 @@ export class PatientRepository {
     });
   }
 
+  async getPatientByDni(dni: number): Promise<Patient | null> {
+    return this.context.patient.findFirst({ where: { dni } });
+  }
+
+  async updatePatientById(
+    id: number,
+    data: Partial<Patient>,
+  ): Promise<Patient | null> {
+    return this.context.patient.update({
+      where: {
+        id,
+      },
+      data: { ...data },
+    });
+  }
+
   async getPrestationsById(id: number) {
     return this.context.prestations.findMany({
       where: { patientId: id },
@@ -96,19 +102,54 @@ export class PatientRepository {
     return this.getPrestationsById(prestationCreated.id);
   }
 
-  async getPatientByDni(dni: number): Promise<Patient | null> {
-    return this.context.patient.findFirst({ where: { dni } });
+  async updatePrestation(
+    prestation: Omit<PrestationUpdateDto, 'odontogram'>,
+    odontograms?: Partial<Odontogram>[],
+  ): Promise<Prestations> {
+    console.log(prestation);
+
+    const prestationUpdated = await this.context.prestations.update({
+      where: {
+        id: prestation.id,
+      },
+      data: { ...prestation },
+    });
+
+    this.updateOdontogram(odontograms, prestation.id);
+
+    return prestationUpdated;
   }
 
-  async updatePatientById(
-    id: number,
-    data: Partial<Patient>,
-  ): Promise<Patient | null> {
-    return this.context.patient.update({
-      where: {
-        id,
-      },
-      data: { ...data },
-    });
+  async deletePrestation(id: number): Promise<void> {
+    await this.context.prestations.delete({ where: { id } });
+  }
+
+  private async updateOdontogram(
+    odontogram: Partial<Odontogram>[],
+    prestationId: number,
+  ) {
+    if (!odontogram) return;
+    for (const odonto of odontogram) {
+      const { id, ...rest } = odonto;
+
+      if (typeof id === 'undefined') {
+        await this.context.odontogram.create({
+          data: {
+            parts: rest.parts ?? ['center'],
+            ref: rest.ref ?? '',
+            toothNumber: rest.toothNumber,
+            prestationId: prestationId,
+          },
+        });
+        return;
+      }
+
+      await this.context.odontogram.update({
+        where: {
+          id,
+        },
+        data: { ...rest },
+      });
+    }
   }
 }
