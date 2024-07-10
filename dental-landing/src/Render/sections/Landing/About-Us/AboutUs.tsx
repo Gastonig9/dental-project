@@ -30,7 +30,7 @@ export const AboutUs = () => {
             </div>
           </div>
           {/* Doc Photo */}
-          <picture className="bg-[#d9d9d9] h-[366px] lg:w-[765px] lg:h-[656px] lg:rounded-[50px] ml-[54px] hidden lg:block">
+          <picture className="bg-[#d9d9d9] h-[366px] lg:w-[765px] lg:h-[656px] lg:rounded-[50px] ml-[54px] hidden newxl:block">
             <img
               className="lg:rounded-[50px] object-cover h-full w-full opacity-60 md:opacity-100"
               src={docPhoto}
