@@ -234,6 +234,12 @@
   background: #fff;
 }
 
+@media (max-width: 768px) {
+  .personalInfo-input-style, .usermanagement-input-style, .usermanagement-input-select-style {
+    width: 100%;
+  }
+}
+
 /* review carousel styles */
 .splide__arrows svg {
   display: none;

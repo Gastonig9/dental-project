@@ -169,7 +169,7 @@ export const Dashboard = () => {
                     className="text-[25px] h-7 w-7 flex-none text-black me-2"
                     aria-hidden="true"
                   />
-                  <span className="me-8">Gestionar usuarios</span>
+                  <span className="me-8">Gestionar empleados</span>
                   <ChevronRightIcon
                     className="text-[25px] h-7 w-7 flex-none text-black"
                     aria-hidden="true"
@@ -224,7 +224,7 @@ export const Dashboard = () => {
                   className="text-[25px] h-6 w-6 flex-none text-black me-2"
                   aria-hidden="true"
                 />
-                <span className="me-16">Gestionar usuarios</span>
+                <span className="me-9">Gestionar empleados</span>
                 <ChevronRightIcon
                   className="text-[25px] h-8 w-8 flex-none text-black"
                   aria-hidden="true"

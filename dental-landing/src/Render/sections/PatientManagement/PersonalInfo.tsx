@@ -52,7 +52,7 @@ export const PersonalInfo = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <p className="poppins-semibold text-[19px] mb-4">Datos personales</p>
         <div className="mb-6 poppins-light text-[16px] space-y-4">
-          <div className="flex space-x-9">
+          <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
             <div className="flex flex-col">
               <label htmlFor="name">Nombre</label>
               <input
@@ -81,7 +81,7 @@ export const PersonalInfo = () => {
               />
             </div>
           </div>
-          <div className="flex space-x-9">
+          <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
             <div className="flex flex-col">
               <label htmlFor="dni">DNI</label>
               <input
@@ -110,7 +110,7 @@ export const PersonalInfo = () => {
               />
             </div>
           </div>
-          <div className="flex space-x-9">
+          <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
             <div className="flex flex-col">
               <label htmlFor="gender">Género</label>
               <input
@@ -142,7 +142,7 @@ export const PersonalInfo = () => {
         </div>
         <p className="poppins-semibold text-[19px] mb-4">Domicilio</p>
         <div className="poppins-light text-[16px] space-y-4">
-          <div className="flex space-x-9">
+          <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
             <div className="flex flex-col">
               <label htmlFor="street">Calle</label>
               <input
@@ -162,7 +162,7 @@ export const PersonalInfo = () => {
               />
             </div>
           </div>
-          <div className="flex space-x-9">
+          <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
             <div className="flex flex-col">
               <label htmlFor="floor">Piso</label>
               <input
@@ -191,7 +191,7 @@ export const PersonalInfo = () => {
               />
             </div>
           </div>
-          <div className="flex space-x-9">
+          <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
             <div className="flex flex-col">
               <label htmlFor="establishment">Establecimiento</label>
               <input
@@ -212,7 +212,7 @@ export const PersonalInfo = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-end">
+        <div className="flex justify-center lg:justify-end">
           <button
             type="submit"
             className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]">
