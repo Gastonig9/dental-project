@@ -1,15 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { Odontogram, Patient, Prestations } from '@prisma/client';
+import { Patient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import { PatientRepository } from './patients.repository';
-import {
-  OdontogramDto,
-  PatientRequestDto,
-  PatientResponseDto,
-  PrestationCreateDto,
-} from 'src/dtos';
-import { PrestationUpdateDto } from 'src/dtos/prestation-update.dto';
+import { PatientRequestDto, PatientResponseDto } from 'src/dtos';
 
 @Injectable()
 export class PatientService {
@@ -86,27 +80,5 @@ export class PatientService {
     patient: Partial<Patient>,
   ): Promise<Patient> {
     return this.repository.updatePatientById(id, patient);
-  }
-
-  async getPrestationsByPatientId(id: number): Promise<Prestations[]> {
-    return this.repository.getPrestationsById(id);
-  }
-
-  async createPrestation(
-    prestation: Omit<PrestationCreateDto, 'odontogram'>,
-    odontogram?: OdontogramDto[],
-  ): Promise<any> {
-    return this.repository.addPrestation(prestation, odontogram);
-  }
-
-  async updatePrestation(
-    prestation: PrestationUpdateDto,
-    odontogram?: PrestationUpdateDto['odontogram'],
-  ): Promise<any> {
-    return this.repository.updatePrestation(prestation, odontogram);
-  }
-
-  async deletePrestation(id: number) {
-    return this.repository.deletePrestation(id);
   }
 }

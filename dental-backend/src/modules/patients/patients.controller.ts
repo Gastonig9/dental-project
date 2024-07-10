@@ -7,21 +7,14 @@ import {
   Query,
   HttpStatus,
   Put,
-  ParseIntPipe,
-  Delete,
 } from '@nestjs/common';
 import { ApiBody, ApiQuery } from '@nestjs/swagger';
-import { Odontogram, Patient, Prestations } from '@prisma/client';
-import {
-  PatientRequestDto,
-  PatientResponseDto,
-  PrestationCreateDto,
-} from 'src/dtos';
+import { Patient } from '@prisma/client';
+import { PatientRequestDto, PatientResponseDto } from 'src/dtos';
 import { PatientService } from './patients.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/decorators/public.decorator';
 import { UpdatePatientDto } from 'src/dtos';
-import { PrestationUpdateDto } from 'src/dtos/prestation-update.dto';
 
 @Public()
 @ApiTags('Pacientes')
@@ -47,44 +40,6 @@ export class PatientController {
       statusCode: 200,
       patients,
     };
-  }
-
-  @Put('/update-benefits')
-  @ApiBody({ type: PrestationUpdateDto })
-  async updateBenefits(@Body() data: PrestationUpdateDto) {
-    const { odontogram, ...rest } = data;
-    const response = await this.patientService.updatePrestation(
-      rest,
-      odontogram,
-    );
-
-    return response;
-  }
-
-  @Get('/get-benefits/:id')
-  async getBenefits(@Param('id') id: string): Promise<any> {
-    const response = await this.patientService.getPrestationsByPatientId(
-      parseInt(id),
-    );
-
-    return response;
-  }
-
-  @Post('/add-benefits')
-  @ApiBody({ type: PrestationCreateDto })
-  async addBenefits(@Body() data: PrestationCreateDto) {
-    const { odontogram, ...rest } = data;
-    const response = await this.patientService.createPrestation(
-      rest,
-      odontogram,
-    );
-
-    return response;
-  }
-
-  @Delete('/delete-benefit')
-  async deleteBenefits(@Query('benefitId') benefitId: string) {
-    await this.patientService.deletePrestation(parseInt(benefitId));
   }
 
   @Post()
