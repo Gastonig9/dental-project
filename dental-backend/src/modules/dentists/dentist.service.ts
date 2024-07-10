@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DentistRepository } from './dentist.repository';
-import { Dentist } from '@prisma/client';
+import { Appointment, Dentist } from '@prisma/client';
 import { DentistDto } from 'src/dtos';
 
 @Injectable()
@@ -24,5 +24,13 @@ export class DentistService {
 
   async getAllDentist(): Promise<Dentist[]> {
     return this.repository.getAllDentist();
+  }
+
+  async getAppointmentsByDentistId({
+    id,
+  }: {
+    id: number;
+  }): Promise<Appointment[]> {
+    return this.repository.getAppointmentsByDentistId({ id });
   }
 }

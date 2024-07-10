@@ -9,14 +9,67 @@
   }
 }
 
+/* Section's titles Start*/
+/* Desktops */
 .sectionTitle {
-  padding: 7px 1rem 7px 1rem;
-  border-radius: 15px 15px 0px 15px;
-  background: var(--Acento, #58d68d);
+  background: var(--Acento, #76ffa8);
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Poppins", sans-serif;
+  z-index: 1;
 }
+/* Mobiles */
+.sectionTitle2 {
+  background: var(--Acento, #f5f5f5);
+  border-color: #424242;
+  border-width: 0.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  z-index: 1;
+}
+
+@media (min-width: 360px) {
+  .sectionTitle,
+  .sectionTitle2 {
+    padding: 10px 15px 10px 15px;
+    border-radius: 8px 8px 0px 8px;
+    font-weight: 600;
+  }
+}
+@media (min-width: 1024px) {
+  .sectionTitle,
+  .sectionTitle2 {
+    padding: 7px 20px 7px 20px;
+    border-radius: 15px 15px 0px 15px;
+    font-weight: 400;
+  }
+}
+/* Section's titles End*/
+
+/* About Us Section Start*/
+/* Mobiles*/
+@media (max-width: 768px) {
+  .about-us-img::before {
+    content: "";
+    background: url(/src/assets/img/landing/about-us/mobile-dental.jpg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* width: 390px;
+    height: 394px; */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 29%;
+    z-index: -1;
+  }
+}
+/* About Us Section End*/
 
 .poppins {
   font-family: "Poppins", sans-serif;
@@ -162,13 +215,32 @@
   background: #f5f5f5;
 }
 
+/* review and photos carousel styles */
+.usermanagement-input-style {
+  width: 400px;
+  height: 44px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 0;
+  background: #d9d9d9;
+}
+
+.usermanagement-input-select-style{
+  width: 400px;
+  height: 49px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #424242;
+  background: #fff;
+}
+
 /* review carousel styles */
 .splide__arrows svg {
-  fill: #58d68d !important;
+  fill: #76ffa8 !important;
 }
 
 .splide__pagination__page.is-active {
-  background: var(--Acento, #58d68d) !important;
+  background: var(--Acento, #76ffa8) !important;
   border-radius: 12px !important;
   height: 24px !important;
   width: 24px !important;
@@ -210,42 +282,40 @@
   width: 100%;
   background-color: #58d68d;
   color: #000000;
-  padding: 0px 10px;
-  border: none !important;
+  padding: 10px 10px;
   border-radius: 4px;
-  display: inline-block;
   text-align: start;
-  font-size: 24px;
+  font-size: 20px;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
 .custom-event .event-buttons {
-  display: flex ;
+  display: flex;
+  justify-content: center;
   align-items: center;
   gap: 20px;
   width: 20%;
-  margin-top: 5px;
 }
 
 .custom-event .event-buttons div {
-  width: 22%;
-  padding: 6px;
+  width: 15%;
 }
 
-
-.custom-event .event-buttons img {
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
+.custom-event .event-buttons div a {
+  display: block;
 }
 
-.custom-event .event-buttons img:hover {
+.custom-event .event-buttons div img {
+  width: 35px;
+
+}
+
+.custom-event .event-buttons div img:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
-
 /* CALENDAR HEADER */
 
 .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
@@ -262,12 +332,11 @@
 /* CALENDAR BODY */
 
 .fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
-  width: 60%;
+  width: 80%;
   height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 200px;
   border-radius: 15px !important;
 }
 
@@ -284,6 +353,31 @@
 .fc-event-main {
   background-color: #58d68d;
   border: #000000 !important;
+}
+
+.fc-daygrid-day-frame.fc-scrollgrid-sync-inner:hover {
+  cursor: pointer;
+  background-color: #dad8d8;
+}
+
+/* Personalizar la scrollbar del cuerpo del calendario */
+.fc-scroller::-webkit-scrollbar {
+  width: 12px;
+}
+
+.fc-scroller::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.fc-scroller::-webkit-scrollbar-thumb {
+  background-color: #908e8e;
+  border-radius: 10px;
+  border: 3px solid #f5f5f5;
+}
+
+.fc-scroller::-webkit-scrollbar-thumb:hover {
+  background-color: #58d68d;
 }
 
 /* Calendar Mobile */
@@ -303,7 +397,6 @@
   .fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
     width: 100%;
     margin-left: 0px;
-
   }
 
   .custom-event .event-buttons {
@@ -316,3 +409,9 @@
   }
 }
 
+@media (max-width: 555px) {
+  .custom-event span {
+    width: 100%;
+    font-size: 12px;
+  }
+}

@@ -34,9 +34,10 @@ enum AppointmentState {
 
 model User {
   id Int @id   @default(autoincrement())
+   firstName  String   
+   lastName  String
+   dni Int @unique
    email     String   @unique
-   username  String   @unique
-   fullname  String
    password  String
    resetPasswordToken String?
    role  Roles @relation(fields: [role_name], references: [name])
@@ -90,8 +91,9 @@ model Patient {
   gender    String
   pEmail    String
   dni       Int
-  phone     Int
+  phone     String
   age Int?
+  addressNumber Int?
   floor String?
   street String?
   nationality String?
@@ -100,6 +102,7 @@ model Patient {
   socialWork String?
   apartment String?
   birthDate String?
+  odontograma String? 
   appointments Appointment[]
   medicalHistories MedicalHistory[]
 }

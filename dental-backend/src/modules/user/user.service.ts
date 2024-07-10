@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Injectable,
   NotFoundException,
@@ -11,8 +12,13 @@ import { SecretaryService } from '../secretary/secretary.service';
 import { ROLES } from '../../enums/roles.enum';
 import { AuthService } from '../auth/auth.service';
 import { UserAuthResponseDto, UserLoginDto, UserRegisterDto } from 'src/dtos';
-import { RequestResetPasswordDto, ResetPasswordDto } from 'src/dtos/user';
+import {
+  RequestResetPasswordDto,
+  ResetPasswordDto,
+  UserUpdateDto,
+} from 'src/dtos/user';
 import { EmailService } from 'src/utils/email.service';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class UserService {
@@ -26,16 +32,24 @@ export class UserService {
 
   async register(user: UserRegisterDto): Promise<User> {
     user.password = await this.authService.hashPassword(user.password);
+    try {
+      const userResponse = await this.userRepository.AddUser(user);
+      const response = await this.AddUserType[user.role_name](userResponse);
 
-    const userResponse = await this.userRepository.AddUser(user);
-
-    const response = await this.AddUserType[user.role_name](userResponse);
-
-    return response;
+      return response;
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        throw new Error(
+          `posible valor repetido en base de datos, Email y Dni deben ser unicos, errorTarget:${error.meta?.target}`,
+        );
+      }
+      throw new Error(error);
+    }
   }
 
   async login(user: UserLoginDto): Promise<UserAuthResponseDto> {
     const userExist = await this.userRepository.GetUserByEmail(user.email);
+    const RoleObject = { dentist: {} };
 
     if (!userExist)
       throw new UnauthorizedException('Email y/o Contraseña incorrectos');
@@ -60,9 +74,21 @@ export class UserService {
       role: userWithoutId.role_name,
     });
 
+    if (
+      userExist.role_name === 'OWNER' ||
+      userExist.role_name === 'ASSOCIATED'
+    ) {
+      const dentist = await this.dentistRepository.getDentistByUserId(
+        userExist.id,
+      );
+
+      RoleObject.dentist = { ...dentist };
+    }
+
     return {
       token,
       user: userWithoutId,
+      RoleObject,
     };
   }
 
@@ -72,6 +98,10 @@ export class UserService {
     if (!user) throw new NotFoundException('Usuario no encontrado');
 
     return user;
+  }
+
+  async updateUser(id: number, data: UserUpdateDto): Promise<User> {
+    return this.userRepository.UpdateUser(data, id);
   }
 
   async getAllUsers(): Promise<User[]> {
@@ -124,7 +154,7 @@ export class UserService {
       const res = await this.dentistRepository.addDentist({
         notes: '',
         userId: data.id,
-        fullname: data.fullname,
+        fullname: `${data.lastName}, ${data.firstName}`,
       });
       return res;
     },
@@ -138,7 +168,7 @@ export class UserService {
       const res = await this.dentistRepository.addDentist({
         notes: '',
         userId: data.id,
-        fullname: data.fullname,
+        fullname: `${data.lastName}, ${data.firstName}`,
       });
       return res;
     },
