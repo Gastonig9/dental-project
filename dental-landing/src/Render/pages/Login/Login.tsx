@@ -1,10 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 import './Login.css';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { useAuth } from '../contexts/AuthContext';
+import { userServices } from '../../../services';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,13 +21,7 @@ export const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/user/login-user`,
-        {
-          email,
-          password,
-        }
-      );
+      const response = await userServices.login({ email, password });
 
       console.log('Login successful:', response.data);
 

@@ -1,8 +1,10 @@
-import { PathsType } from '../constants/paths/userPaths';
-import { BaseServices } from './base-services';
+import { APPOINTMENTS_PATHS } from '../constants';
 
-export class AppointmentsServices extends BaseServices {
-  constructor({ paths }: { paths: PathsType }) {
-    super({ paths });
+export class AppointmentsServices {
+  private baseURL: string;
+  private paths = APPOINTMENTS_PATHS;
+
+  constructor({ baseURL }: { baseURL: string }) {
+    this.baseURL = baseURL;
   }
 }

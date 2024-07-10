@@ -1,12 +1,11 @@
-import { APPOINTMENTS_PATHS } from '../constants/paths/appointments-paths';
-import { USER_PATHS } from '../constants/paths/userPaths';
+import { BASE_URL } from '../constants';
 import { AppointmentsServices } from './appointmens-services';
 import { UserServices } from './user-services';
 
-const userServices = new UserServices({ paths: USER_PATHS });
+const userServices = new UserServices();
 
 const appointmentsServices = new AppointmentsServices({
-  paths: APPOINTMENTS_PATHS,
+  baseURL: BASE_URL,
 });
 
 export { userServices, appointmentsServices };
