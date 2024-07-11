@@ -34,6 +34,27 @@ export class EmailService {
     });
   }
 
+  async sendCancelEmail(patient: Patient,appointmentInfo: AppointmentRequestDto) {
+    const appointmentDate = new Date(appointmentInfo.date)
+    this.mailerService.sendMail({
+      from: 'Consultorio Grinpol',
+      to: patient.pEmail,
+      subject: 'Se ha cancelado tu turno',
+      html: `<h1>¡Hola, ${patient.name}!</h1>
+               <br></br/>
+               <p>Te informamos que tu turno ha sido cancelado</p>
+               <br></br/>
+               <p><b>Informacion del turno cancelado:<b></p>
+               <br></br/>
+               <ul>
+                 <li>Razon: ${appointmentInfo.reason}</li/>
+                 <li>Fecha del turno: ${appointmentDate.toLocaleString()}</li/>
+               </ul/>
+               <small><b>No responder a este correo</b></small>
+               <h3>¡Muchas gracias por elegirnos !</h3>`,
+    });
+  }
+
   async sendReminderEmail(patient: Patient, appointment: Appointment) {
     this.mailerService.sendMail({
       from: 'Consultorio Grinpol',

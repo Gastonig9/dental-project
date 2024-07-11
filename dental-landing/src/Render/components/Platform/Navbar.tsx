@@ -102,17 +102,19 @@ const Navbar = () => {
 
             <Link
               className={`flex items-center gap-1 ${
-                location.pathname === "/example3"
+                location.pathname === "/reports"
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
               to="/example3"
             >
               <IoStatsChart />
-              <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
-                Reportes
-              </h3>
-            </Link>
+              <Link to="/reports">
+                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                  Reportes
+                </h3>
+              </Link>
+            </div>
 
             <div className="flex items-start gap-1 mt-[100px]">
               <button
@@ -235,7 +237,7 @@ const Navbar = () => {
             {/* stats icon */}
             <Link
               className={`flex items-center gap-1 ${
-                location.pathname === "/example3"
+                location.pathname === "/reports"
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
@@ -243,9 +245,11 @@ const Navbar = () => {
             >
               <IoStatsChart className="text-5xl" />
               {desktopMenu && (
-                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
-                  Reportes
-                </h3>
+                <Link to="/reports">
+                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                    Reportes
+                  </h3>
+                </Link>
               )}
             </Link>
           </div>
