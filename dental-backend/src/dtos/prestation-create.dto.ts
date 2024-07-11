@@ -1,9 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { $Enums, Odontogram, Prestations } from '@prisma/client';
 
-export class OdontogramDto implements Omit<Odontogram, 'prestationId'> {
-  @ApiProperty()
-  id: number;
+export class OdontogramDto implements Omit<Odontogram, 'prestationId' | 'id'> {
   @ApiProperty()
   toothNumber: number;
   @ApiProperty()

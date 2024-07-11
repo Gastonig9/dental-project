@@ -11,9 +11,10 @@ import {
 import { PrestationsService } from './prestations.service';
 import { ApiBody } from '@nestjs/swagger';
 import {
-  OdontogramDto,
   PrestationCreateDto,
   PrestationUpdateDto,
+  OdontogramUpdateDto,
+  PrestationResponseDto,
 } from 'src/dtos';
 import { Public } from 'src/decorators/public.decorator';
 
@@ -23,7 +24,9 @@ export class PrestationsController {
   constructor(private readonly prestationsService: PrestationsService) {}
 
   @Get('/prestations/getAll-by-patientId')
-  async getPrestation(@Query('patientId') patientId: string): Promise<any> {
+  async getPrestation(
+    @Query('patientId') patientId: string,
+  ): Promise<PrestationResponseDto> {
     const response = await this.prestationsService.getPrestationsByPatientId(
       parseInt(patientId),
     );
@@ -33,7 +36,9 @@ export class PrestationsController {
 
   @Post('/prestations/create')
   @ApiBody({ type: PrestationCreateDto })
-  async addPrestation(@Body() data: PrestationCreateDto) {
+  async addPrestation(
+    @Body() data: PrestationCreateDto,
+  ): Promise<PrestationResponseDto> {
     const { odontogram, ...rest } = data;
     const response = await this.prestationsService.createPrestation(
       rest,
@@ -45,7 +50,9 @@ export class PrestationsController {
 
   @Put('/prestation/update')
   @ApiBody({ type: PrestationUpdateDto })
-  async updatePrestation(@Body() data: PrestationUpdateDto) {
+  async updatePrestation(
+    @Body() data: PrestationUpdateDto,
+  ): Promise<PrestationResponseDto> {
     const { odontogram, ...rest } = data;
     const response = await this.prestationsService.updatePrestation(
       rest,
@@ -56,8 +63,8 @@ export class PrestationsController {
   }
 
   @Put('/odontogram/update')
-  @ApiBody({ type: [OdontogramDto] })
-  async updateOdontogram(@Body() data: OdontogramDto[]) {
+  @ApiBody({ type: [OdontogramUpdateDto] })
+  async updateOdontogram(@Body() data: OdontogramUpdateDto[]) {
     const response = await this.prestationsService.updateOdontogramArray(data);
 
     return response;

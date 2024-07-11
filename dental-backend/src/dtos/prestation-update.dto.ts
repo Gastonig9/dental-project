@@ -1,6 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { $Enums, Prestations } from '@prisma/client';
-import { OdontogramDto } from './prestation-create.dto';
+
+export class OdontogramUpdateDto {
+  @ApiProperty()
+  id: number;
+  @ApiProperty()
+  toothNumber?: number;
+  @ApiProperty()
+  parts?: $Enums.Parts[];
+  @ApiProperty()
+  ref?: string;
+}
 
 export class PrestationUpdateDto implements Partial<Prestations> {
   @ApiProperty()
@@ -15,6 +25,6 @@ export class PrestationUpdateDto implements Partial<Prestations> {
   code?: string;
   @ApiProperty()
   observations?: string;
-  @ApiProperty({ type: [OdontogramDto] })
-  odontogram?: Partial<OdontogramDto>[];
+  @ApiProperty({ type: [OdontogramUpdateDto] })
+  odontogram?: OdontogramUpdateDto[];
 }

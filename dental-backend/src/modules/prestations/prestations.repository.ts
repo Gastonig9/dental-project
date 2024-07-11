@@ -1,14 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { Context } from 'src/prisma/prisma.context';
 import { Odontogram, Prestations } from '@prisma/client';
-import { PrestationUpdateDto } from 'src/dtos/prestation-update.dto';
-import { OdontogramDto } from 'src/dtos';
+import {
+  OdontogramDto,
+  PrestationUpdateDto,
+  OdontogramUpdateDto,
+  PrestationResponseDto,
+} from 'src/dtos';
 
 @Injectable()
 export class PrestationRepository {
   constructor(private readonly context: Context) {}
 
-  async getPrestationsById(id: number) {
+  async getPrestationsById(id: number): Promise<PrestationResponseDto> {
     return this.context.prestations.findMany({
       where: { patientId: id },
       include: {
@@ -20,7 +24,7 @@ export class PrestationRepository {
   async addPrestation(
     prestation: Omit<Prestations, 'id'>,
     odontogram: OdontogramDto[],
-  ) {
+  ): Promise<PrestationResponseDto> {
     const prestationCreated = await this.context.prestations.create({
       data: prestation,
     });
@@ -33,15 +37,13 @@ export class PrestationRepository {
 
     await this.context.odontogram.createMany({ data: newOdontograms });
 
-    return this.getPrestationsById(prestationCreated.id);
+    return await this.getPrestationsById(prestationCreated.id);
   }
 
   async updatePrestation(
     prestation: Omit<PrestationUpdateDto, 'odontogram'>,
     odontograms?: Partial<Odontogram>[],
-  ): Promise<Prestations> {
-    console.log(prestation);
-
+  ): Promise<PrestationResponseDto> {
     const prestationUpdated = await this.context.prestations.update({
       where: {
         id: prestation.id,
@@ -49,9 +51,9 @@ export class PrestationRepository {
       data: { ...prestation },
     });
 
-    this.updateOdontogramInPrestation(odontograms, prestation.id);
+    await this.updateOdontogramInPrestation(odontograms, prestation.id);
 
-    return prestationUpdated;
+    return await this.getPrestationsById(prestationUpdated.id);
   }
 
   async deletePrestation(id: number): Promise<void> {
@@ -62,7 +64,7 @@ export class PrestationRepository {
     await this.context.odontogram.delete({ where: { id } });
   }
 
-  async updateOdontogramArray(odontogramArray: OdontogramDto[]) {
+  async updateOdontogramArray(odontogramArray: OdontogramUpdateDto[]) {
     for (const odontogram of odontogramArray) {
       const { id, ...data } = odontogram;
 
