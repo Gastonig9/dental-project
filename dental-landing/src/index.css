@@ -225,7 +225,7 @@
   background: #d9d9d9;
 }
 
-.usermanagement-input-select-style{
+.usermanagement-input-select-style {
   width: 400px;
   height: 49px;
   padding: 8px;
@@ -309,7 +309,6 @@
 
 .custom-event .event-buttons div img {
   width: 35px;
-
 }
 
 .custom-event .event-buttons div img:hover {
@@ -326,7 +325,7 @@
 
 .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr .fc-toolbar-chunk button {
   color: #000000;
-  background-color: #58d68d;
+  background-color: #f5f5f5;
 }
 
 /* CALENDAR BODY */
@@ -414,4 +413,25 @@
     width: 100%;
     font-size: 12px;
   }
+}
+
+/* SWEET ALERT BUTTONS */
+
+/* styles.css */
+
+.swal2-confirm.custom-confirm-button-white {
+  border-radius: 10px;
+  color: black;
+}
+
+.swal2-confirm.custom-confirm-button-black {
+  border-radius: 10px;
+  color: white;
+}
+
+.swal2-cancel.custom-cancel-button {
+  color: black; /* Cambia el color del texto del botón de cancelación */
+  background-color: #f5f5f5; /* Color de fondo del botón de cancelación */
+  border-radius: 10px;
+  border: 2px solid #424242;
 }
