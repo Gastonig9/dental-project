@@ -1,19 +1,18 @@
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css/sea-green";
+import image1 from "/src/assets/img/landing/about-us/carousel/1.jpg";
+import image2 from "/src/assets/img/landing/about-us/carousel/2.jpg";
+import image3 from "/src/assets/img/landing/about-us/carousel/3.jpg";
+import image4 from "/src/assets/img/landing/about-us/carousel/4.jpg";
+import image5 from "/src/assets/img/landing/about-us/carousel/5.jpg";
+
+const images = [image1, image2, image3, image4, image5];
 
 const Carousel = () => {
   const splideStyles = {
     padding: 0,
     paddingBottom: "1.5rem",
   };
-
-  const images = [
-    "/src/assets/img/landing/about-us/carousel/1.jpg",
-    "/src/assets/img/landing/about-us/carousel/2.jpg",
-    "/src/assets/img/landing/about-us/carousel/3.jpg",
-    "/src/assets/img/landing/about-us/carousel/4.jpg",
-    "/src/assets/img/landing/about-us/carousel/5.jpg",
-  ];
 
   return (
     <section className="pt-[57px] pb-[47px] lg:pt-[213px]">
