@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const { hash } = require('bcrypt');
 
 const prisma = new PrismaClient();
 
@@ -26,14 +27,22 @@ async function main() {
     });
   }
 
-  await prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       firstName: 'Admin',
       lastName: 'Admin',
       dni: 111111,
       email: 'admin@gmail.com',
-      password: '1234',
+      password: await hash('1234', 10),
       role_name: 'OWNER',
+    },
+  });
+
+  await prisma.dentist.create({
+    data: {
+      notes: '',
+      userId: user.id,
+      fullname: `${user.lastName}, ${user.firstName}`,
     },
   });
 }

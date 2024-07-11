@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { useAuth } from '../contexts/AuthContext';
 import { userServices } from '../../../services';
+import { AxiosError } from 'axios';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -38,11 +39,21 @@ export const Login = () => {
 
       navigate('/dashboard');
     } catch (error) {
+      let title = 'Error de autenticación';
+      let message = 'verifica tus credenciales';
+
+      if (error instanceof AxiosError) {
+        if (error?.response?.status === 412) {
+          title = 'Cuenta bloqueada';
+          message = `solicita el cambio de contraseña en "Olvide mi Contraseña"`;
+        }
+      }
+
       console.error('Error logging in:', error);
       Swal.fire({
         icon: 'error',
-        title: 'Error de autenticación',
-        text: 'verifica tus credenciales',
+        title: title,
+        text: message,
       });
     }
   };
