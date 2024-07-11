@@ -7,7 +7,7 @@ import { IoMenu } from "react-icons/io5";
 import { MdClose } from "react-icons/md";
 import { FaChevronCircleDown, FaRegUserCircle } from "react-icons/fa";
 import { RiMenuUnfold2Line } from "react-icons/ri";
-import { MdDashboardCustomize } from "react-icons/md";
+import { IoHome } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/img/platform/navbar/logo.png";
 import { useAuth } from "../../pages/contexts/AuthContext";
@@ -57,65 +57,62 @@ const Navbar = () => {
               <MdClose />
             </button>
 
-            <div
+            <Link
               className={`flex items-center gap-1 ${
                 location.pathname === "/dashboard"
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
+              to="/dashboard"
             >
-              <MdDashboardCustomize />
-              <Link to="/dashboard">
+              <IoHome />
                 <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
-                  Dashboard
+                  Inicio
                 </h3>
-              </Link>
-            </div>
+            </Link>
 
-            <div
+            <Link
               className={`flex items-center gap-1 ${
                 location.pathname.startsWith("/patient-management")
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
+              to="/patient-management/patients-list"
             >
               <IoPeople />
-              <Link to="/patient-management/patients-list">
-                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+              <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
                   Gestión de pacientes
                 </h3>
-              </Link>
-            </div>
+            </Link>
 
-            <div
+            <Link
               className={`flex items-center gap-1 ${
-                location.pathname === "/appointments"
+                location.pathname === "/appointments" || location.pathname === "/create-appointment"
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
+              to="/appointments"
             >
               <FaCalendar />
-              <Link to="/appointments">
-                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
-                  Gestión de turnos
-                </h3>
-              </Link>
-            </div>
+              <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                Gestión de turnos
+              </h3>
+  
+            </Link>
 
-            <div
+            <Link
               className={`flex items-center gap-1 ${
                 location.pathname === "/example3"
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
+              to="/example3"
             >
               <IoStatsChart />
-              <Link to="/example3">
-                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
-                  Reportes
-                </h3>
-              </Link>
-            </div>
+              <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                Reportes
+              </h3>
+            </Link>
 
             <div className="flex items-start gap-1 mt-[100px]">
               <button
@@ -185,76 +182,72 @@ const Navbar = () => {
           </button>
 
           <div className="flex flex-col gap-[100px] text-[34px] ">
-            <div
+            <Link
               className={`flex items-center gap-1 ${
                 location.pathname === "/dashboard"
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
+              to="/dashboard"
             >
-              <MdDashboardCustomize className="text-5xl" />
+              <IoHome className="text-5xl" />
               {desktopMenu && (
-                <Link to="/dashboard">
-                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
-                    Dashboard
-                  </h3>
-                </Link>
+                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                  Inicio
+                </h3>
               )}
-            </div>
+            </Link>
 
             {/* people icon */}
-            <div
+            <Link
               className={`flex items-center gap-1 ${
                 location.pathname.startsWith("/patient-management")
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
+              to="/patient-management/patients-list"
             >
               <IoPeople className="text-5xl" />
               {desktopMenu && (
-                <Link to="/patient-management/patients-list">
-                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
-                    Gestionar Pacientes
-                  </h3>
-                </Link>
+                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                  Gestionar Pacientes
+                </h3>
               )}
-            </div>
+            </Link>
 
             {/* calendar icon */}
-            <div
+            <Link
               className={`flex items-center gap-1 ${
-                location.pathname === "/appointments"
+                location.pathname === "/appointments" || location.pathname === "/create-appointment"
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
+              to="/appointments"
             >
               <FaCalendar className="text-5xl" />
               {desktopMenu && (
-                <Link to="/appointments">
-                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
-                    Gestionar Turnos
-                  </h3>
-                </Link>
+                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                  Gestionar Turnos
+                </h3>
               )}
-            </div>
+            </Link>
 
             {/* stats icon */}
-            <div
+            <Link
               className={`flex items-center gap-1 ${
                 location.pathname === "/example3"
                   ? "text-black"
                   : "text-[#00000050] "
               } `}
+              to="/example3"
             >
               <IoStatsChart className="text-5xl" />
               {desktopMenu && (
-                <Link to="/example3">
-                  <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
-                    Reportes
-                  </h3>
-                </Link>
+                <h3 className="text-[16px] font-semibold hover:translate-x-2 duration-300">
+                  Reportes
+                </h3>
               )}
-            </div>
+            </Link>
           </div>
         </div>
       </nav>

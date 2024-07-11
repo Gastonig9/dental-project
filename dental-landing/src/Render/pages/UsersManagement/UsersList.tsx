@@ -300,13 +300,13 @@ const UsersList = () => {
               className="text-[19px] font-bold bg-acento hover:bg-green-500 self-center rounded-[10px] py-[12px] px-[10px] lg:ml-auto"
               to="/user/create-user"
             >
-              Agregar nuevo usuario
+              Agregar nuevo empleado
             </Link>
             <button
               className="lg:hidden text-[19px] font-bold bg-[#f5f5f5] hover:bg-gray-300 self-center rounded-[10px] py-[12px] px-[10px] "
               onClick={() => setIsDeletionActive(true)}
             >
-              Eliminar usuarios
+              Eliminar empleados
             </button>
           </div>}
 

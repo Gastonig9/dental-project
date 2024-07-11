@@ -8,7 +8,7 @@ import Navbar from "../../components/Platform/Navbar";
 import Prestaciones from "../../sections/PatientManagement/MedicalServices";
 
 export const NewPatient = () => {
-  const [activeTab, setActiveTab] = useState("My Account");
+  const [activeTab, setActiveTab] = useState("personal-information");
 
   return (
     <>
