@@ -11,6 +11,7 @@ import { AppointmentRequestDto } from 'src/dtos';
 import { PatientService } from '../patients/patients.service';
 import { DentistService } from '../dentists/dentist.service';
 import { EmailService } from 'src/utils/email.service';
+import { UpdateAppointmentStateDto } from 'src/dtos/update-appointment-state.dto';
 
 @Injectable()
 export class AppointmentService {
@@ -80,59 +81,19 @@ export class AppointmentService {
     return await this.repository.AddAppointment(newAppointment);
   }
 
-  async ConfirmAppointment(appointmentId: number): Promise<Appointment> {
-    try {
-      const appointment = await this.getAppointment(appointmentId);
-      if (!appointment) {
-        throw new NotFoundException('Appointment not found');
-      }
-
-      const confirmState = $Enums.AppointmentState.REALIZED;
-      const dentist = await this.dentistService.findDentist(
-        appointment.dentistId,
-      );
-      const patient = await this.patientService.getPatient(
-        appointment.patientId,
-      );
-
-      if (!patient || !dentist) {
-        throw new NotFoundException(
-          'No se pudo encontrar al paciente o al dentista',
-        );
-      }
-
-      // Actualizar el estado del turno
-      const updatedAppointment = await this.repository.updateAppointmentState(
-        appointmentId,
-        confirmState,
-      );
-
-      // Asignar el turno confirmado al dentista
-      const addAppointmentToDentist =
-        await this.dentistService.assignAppointmentToDentist(
-          updatedAppointment.id,
-          updatedAppointment.dentistId,
-        );
-      if (!addAppointmentToDentist)
-        throw new ConflictException(
-          'Ocurrio un error al intentar asignar el turno al dentista',
-        );
-
-      // Enviar correo de confirmación
-      await this.mailService.sendConfirmEmail(
-        patient,
-        updatedAppointment,
-        dentist,
-      );
-
-      return updatedAppointment;
-    } catch (error) {
-      throw new InternalServerErrorException('Error al confirmar la cita');
+  async changeAppointmentState(newState: UpdateAppointmentStateDto) {
+    const { state, appointmentId } = newState
+    const updateState = await this.repository.updateAppointmentState(appointmentId, state)
+    
+    if(state === 'CANCEL') {
+      const patient = await this.patientService.getPatient(updateState.patientId)
+      await this.mailService.sendCancelEmail(patient, updateState)
     }
+    return updateState
   }
 
   async checkAvailability(dentistId: number, date: Date): Promise<boolean> {
-    const findAppointments = await this.repository.CheckDentistAvailability(
+    const findAppointments = await this.repository.checkDentistAvailability(
       dentistId,
       date,
     );
@@ -149,47 +110,56 @@ export class AppointmentService {
   }
 }
 
-// async addAppointment(data: AppointmentRequestDto): Promise<Appointment> {
-//   try {
-//     const { reason, dentistId, date, patientName, patientSurname, patientEmail, patientGender, patientPhone, patientDni, patientAdress } = data;
-//     const state = $Enums.AppointmentState.PENDING;
 
-//     // Verificar si el paciente ya existe por DNI
-//     let patient = await this.patientService.getPatientByDni(patientDni);
 
-//     if (!patient) {
-//       // Si el paciente no existe, se agrega a la tabla de Pacientes
-//       const newPatient = {
-//         name: patientName,
-//         surname: patientSurname,
-//         gender: patientGender,
-//         dni: patientDni,
-//         adress: patientAdress,
-//         phone: patientPhone,
-//         pEmail: patientEmail
-//       };
 
-//       patient = await this.patientService.addPatient(newPatient);
-//     }
+// async ConfirmAppointment(appointmentId: number): Promise<Appointment> {
+  //   try {
+  //     const appointment = await this.getAppointment(appointmentId);
+  //     if (!appointment) {
+  //       throw new NotFoundException('Appointment not found');
+  //     }
 
-//     // Verificar si ya existe una cita para la misma fecha y dentista
-//     // const verifyDate = await this.repository.CheckDentistAvailability(dentistId, new Date(date));
-//     // if (verifyDate) {
-//     //   throw new ConflictException('Ya hay un turno asignado a esta fecha y dentista');
-//     // }
+  //     const confirmState = $Enums.AppointmentState.REALIZED;
+  //     const dentist = await this.dentistService.findDentist(
+  //       appointment.dentistId,
+  //     );
+  //     const patient = await this.patientService.getPatient(
+  //       appointment.patientId,
+  //     );
 
-//     // Crear nueva cita
-//     const newAppointment = {
-//       state: state,
-//       results: '',
-//       reason,
-//       date,
-//       dentistId,
-//       patientId: patient.id,
-//     };
+  //     if (!patient || !dentist) {
+  //       throw new NotFoundException(
+  //         'No se pudo encontrar al paciente o al dentista',
+  //       );
+  //     }
 
-//     return await this.repository.AddAppointment(newAppointment);
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+  //     // Actualizar el estado del turno
+  //     const updatedAppointment = await this.repository.updateAppointmentState(
+  //       appointmentId,
+  //       confirmState,
+  //     );
+
+  //     // Asignar el turno confirmado al dentista
+  //     const addAppointmentToDentist =
+  //       await this.dentistService.assignAppointmentToDentist(
+  //         updatedAppointment.id,
+  //         updatedAppointment.dentistId,
+  //       );
+  //     if (!addAppointmentToDentist)
+  //       throw new ConflictException(
+  //         'Ocurrio un error al intentar asignar el turno al dentista',
+  //       );
+
+  //     // Enviar correo de confirmación
+  //     await this.mailService.sendConfirmEmail(
+  //       patient,
+  //       updatedAppointment,
+  //       dentist,
+  //     );
+
+  //     return updatedAppointment;
+  //   } catch (error) {
+  //     throw new InternalServerErrorException('Error al confirmar la cita');
+  //   }
+  // }

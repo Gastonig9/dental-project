@@ -27,11 +27,18 @@ export class AppointmentRepository {
     return this.context.appointment.findFirst({ where: { id } });
   }
 
-  async CheckDentistAvailability(dentistId: number, date: Date) {
+  async checkDentistAvailability(dentistId: number, date: Date) {
+    const startDate = new Date(date);
+    const endDate = new Date(date);
+    endDate.setMinutes(endDate.getMinutes() + 1);
+
     const appointments = await this.context.appointment.findMany({
       where: {
         dentistId,
-        date,
+        date: {
+          gte: startDate,
+          lt: endDate,
+        },
       },
     });
     return appointments;

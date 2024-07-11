@@ -4,28 +4,23 @@ import Navbar from "../../components/Platform/Navbar";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Swal from "sweetalert2";
-import axios from "axios";
+import { userServices } from "../../../services";
+import { CreateUserType } from "../../../types";
 
-// Definir la interfaz para los datos del formulario
-interface DataForm {
-  firstName: string;
-  lastName: string;
-  dni: number;
-  email: string;
-  role_name: string;
-  password: string;
-}
 
 const CreateUser = () => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<DataForm>();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<CreateUserType>();
 
-  const onSubmit: SubmitHandler<DataForm> = async (data) => {
+  const onSubmit: SubmitHandler<CreateUserType> = async (data) => {
     try {
-      const convertedData = {
+      const convertedData:CreateUserType = {
         ...data,
         dni: parseInt(data.dni.toString(), 10),
       };
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/user/register-user`, convertedData);
+      console.log('creade user');
+      
+      await userServices.register(convertedData)
+
       Swal.fire({
         title: "Éxito",
         text: "Usuario creado correctamente.",

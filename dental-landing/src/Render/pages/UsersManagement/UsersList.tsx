@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import Navbar from '../../components/Platform/Navbar';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import { useEffect, useState } from "react";
+import Navbar from "../../components/Platform/Navbar";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 // icons
 import { IoSearchSharp } from "react-icons/io5";
@@ -27,6 +27,7 @@ const UsersList = () => {
   const [isDeletionActive, setIsDeletionActive] = useState(false);
   const [booleanArray, setBooleanArray] = useState(Array(users.length).fill(false));
   const [loading, setLoading] = useState(false)
+  const [activeUser, setActiveUser] = useState('')
 
   const handleChange = (e: any) => {
     setInputData(e.target.value);
@@ -50,6 +51,12 @@ const UsersList = () => {
   // fill list from backend
   useEffect(() => {
     fetchData();
+    const user = localStorage.getItem('user');
+    if(user){
+      const userObject = JSON.parse(user)
+      console.log(userObject)
+      setActiveUser(userObject.email)
+    }
   }, []);
 
   // filtering by name
@@ -75,7 +82,7 @@ const UsersList = () => {
 
     if (result.isConfirmed) {
       axios
-        .delete(`import.meta.env.VITE_API_URL/api/user/${id}`)
+        .delete(`${import.meta.env.VITE_API_URL}/api/user/${id}`)
         .then(() => {
           Swal.fire({
             toast: true,
@@ -219,7 +226,7 @@ const UsersList = () => {
                         alt="User pic"
                         className="w-[88px] rounded-full"
                       />
-                      <h3> {user.firstName} {user.lastName}</h3>
+                      <h3> {user.firstName} {user.lastName} {activeUser === user.email &&<span>(Tú)</span>}</h3>
                     </div>
 
                     {/* role */}
@@ -234,10 +241,10 @@ const UsersList = () => {
                         <IoIosArrowForward />
                       </Link>
 
-                      <BsTrash
+                      {activeUser !== user.email && <BsTrash
                         onClick={() => handleDelete(user.id, user.firstName, user.lastName)}
                         className="cursor-pointer"
-                      />
+                      />}
                     </div>
                   </div>
                   {/* mobile cards */}
@@ -258,7 +265,7 @@ const UsersList = () => {
                       />
 
                       {/* circle to select users */}
-                      {isDeletionActive && (
+                      {isDeletionActive && activeUser !== user.email &&(
                         <div
                           className={`size-6 border-2 border-black rounded-full absolute top-1/2 translate-y-[-50%] ${
                             booleanArray[index] ? 'bg-acento' : ''
@@ -268,7 +275,7 @@ const UsersList = () => {
                     </div>
                     <div className="col-span-3 flex flex-col items-center justify-center gap-2">
 
-                      <h3> {user.firstName} {user.lastName} </h3>
+                      <h3> {user.firstName} {user.lastName} {activeUser === user.email &&<span>(Tú)</span>}</h3>
 
                       <h3> {user.role_name} </h3>
                       {!isDeletionActive && (
@@ -293,13 +300,13 @@ const UsersList = () => {
               className="text-[19px] font-bold bg-acento hover:bg-green-500 self-center rounded-[10px] py-[12px] px-[10px] lg:ml-auto"
               to="/user/create-user"
             >
-              Agregar nuevo usuario
+              Agregar nuevo empleado
             </Link>
             <button
               className="lg:hidden text-[19px] font-bold bg-[#f5f5f5] hover:bg-gray-300 self-center rounded-[10px] py-[12px] px-[10px] "
               onClick={() => setIsDeletionActive(true)}
             >
-              Eliminar usuarios
+              Eliminar empleados
             </button>
           </div>}
 
