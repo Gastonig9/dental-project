@@ -54,14 +54,18 @@ export const Calendar = ({ userData }: any) => {
   const handleChangeState = async (eventInfo: EventContentArg, newState: 'CANCEL' | "REALIZED", message: string, flag: boolean = true) => {
     const result = await Swal.fire({
       title: message,
-      text: "Esta acción es irreversible",
-      icon: "warning",
+      text: `${flag ? 'Se enviará un aviso al paciente en caso de eliminar el turno' : 'Se eliminará de esta vista en caso de presionar “Finalizado”'}`,
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: `${flag ? 'Si, cancelar' : 'Si, finalizar'}`,
-      cancelButtonText: "No, volver",
+      confirmButtonColor: `${flag ? '#A10000' : '#76FFA8'}`,
+      cancelButtonColor: "#F5F5F5",
+      confirmButtonText: `${flag ? 'Eliminar' : 'Finalizado'}`,
+      cancelButtonText: "Cancelar",
+      customClass: {
+        confirmButton: `${flag ? 'custom-confirm-button-black' : 'custom-confirm-button-white'}`,
+        cancelButton: 'custom-cancel-button',
+      },
     });
+    
 
     if (result.isConfirmed) {
       const id = parseInt(eventInfo.event.id);
@@ -100,11 +104,11 @@ export const Calendar = ({ userData }: any) => {
               </span>
               <div className="event-buttons">
                 {/* MARCAR COMO FINALIZADO */}
-                <div onClick={() => handleChangeState(eventInfo, 'REALIZED', '¿Dar por finalizado este turno?', false)}>
+                <div onClick={() => handleChangeState(eventInfo, 'REALIZED', '¿El turno ha sido finalizado?', false)}>
                   <img src={verifyAppointment} alt="Finalizar" />
                 </div>
                 {/* Marcar turno como CANCELADO */}
-                <div onClick={() => handleChangeState(eventInfo, 'CANCEL', '¿Estas seguro que deseas cancelar este turno?', true)}>
+                <div onClick={() => handleChangeState(eventInfo, 'CANCEL', '¿Deseas eliminar el turno?', true)}>
                   <img src={cancelAppointment} alt="Eliminar" />
                 </div>
                 {/* VER DETALLE DEL PACIENTE */}
