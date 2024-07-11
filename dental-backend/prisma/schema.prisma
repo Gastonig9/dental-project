@@ -40,6 +40,8 @@ model User {
    email     String   @unique
    password  String
    resetPasswordToken String?
+   failedAttempts Int     @default(0)
+   isLocked   Boolean     @default(false)
    role  Roles @relation(fields: [role_name], references: [name])
    role_name EnumRoles
    dentist   Dentist?
@@ -55,7 +57,6 @@ model Roles {
 
 model Dentist {
   id Int @id   @default(autoincrement())
-  // specialty  String
   fullname String
   notes      String?
   appointments Appointment[]
@@ -90,7 +91,7 @@ model Patient {
   surname   String
   gender    String
   pEmail    String
-  dni       Int
+  dni       Int @unique
   phone     String
   age Int?
   addressNumber Int?
