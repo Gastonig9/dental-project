@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoPeople, IoStatsChart, IoHome, IoMenu } from "react-icons/io5";
+import { IoPeople, IoStatsChart, IoHome, IoMenu, IoLogOutOutline } from "react-icons/io5";
 import { FaCalendar, FaChevronDown, FaRegUserCircle } from "react-icons/fa";
 import { RiMenuUnfoldLine, RiMenuUnfold2Line } from "react-icons/ri";
 import { MdClose } from "react-icons/md";
@@ -110,27 +110,28 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className="flex items-start gap-1 mt-[100px]">
+          <div className="flex items-start gap-1 ms-[60px] mt-[10px]">
             <button
               type="button"
-              className="flex items-center gap-2 bg-acento py-3 px-8 rounded-3xl text-[16px]"
+              className="flex items-center gap-2 bg-acento py-3 px-8 rounded-3xl text-[20px]"
               id="user-button"
               aria-expanded="true"
               aria-haspopup="true"
               onClick={toggleDropdown}
             >
               <FaRegUserCircle />
-              <h3 className="text-[16px] font-semibold">
+              <h3 className="text-[20px] font-semibold">
                 {userData.firstName} {userData.lastName}
               </h3>
             </button>
           </div>
-          <div>
+          <div className="ms-[80px]">
             <button
-              className="flex poppins-semibold text-lg w-[200px] z-10 p-3 text-black bg-white rounded-full hover:shadow items-center justify-center"
+              className="flex poppins-semibold text-[20px] text-lg w-[200px] z-10 p-3 text-black bg-acento items-center justify-center"
               onClick={logout}
             >
               Cerrar sesión
+              <span className="ms-3 text-[20px] text-black"><IoLogOutOutline /></span>
             </button>
           </div>
         </div>
