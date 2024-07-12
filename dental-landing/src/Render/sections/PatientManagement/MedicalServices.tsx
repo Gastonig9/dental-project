@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import axios from "axios";
 import {
   Prestations,
   OdontogramType,
 } from "../../../types/dtos/Patient/NewPatient.type";
 import { usePatientContext } from "../../pages/contexts/patientContext";
+import { addPrestation } from "../../../Features/services/PatientManagement/PrestationsServices/PrestationsServices";
 import Odontogram from "../../components/PatientManagement/Odontogram";
 import "../../components/PatientManagement/Odontogram.css";
 import { FaCircle } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
-const MedicalServices: React.FC = () => {
+const MedicalServices = () => {
   const { patientData, setPatientData } = usePatientContext();
   const patientId = patientData?.id;
 
@@ -51,7 +51,10 @@ const MedicalServices: React.FC = () => {
 
   // Agrega un nuevo campo para el odontograma
   const addOdontogramField = () => {
-    setOdontogramData([...odontogramData, { toothNum: 0, part: "", ref: "" }]);
+    setOdontogramData([
+      ...odontogramData,
+      { toothNumber: 0, parts: [""], ref: "" },
+    ]);
   };
 
   // Maneja el envío del formulario
@@ -65,26 +68,10 @@ const MedicalServices: React.FC = () => {
       odontogram: odontogramData,
     };
 
-    const requestData = {
-      state: "PENDING", // or 'REALIZED'
-      patientId,
-      date: prestationData.date,
-      code: prestationData.code,
-      observations: prestationData.observations,
-      odontogram: odontogramData.map((tooth) => ({
-        toothNumber: tooth.toothNum,
-        parts: tooth.part,
-        ref: tooth.ref,
-      })),
-    };
-
     try {
-      // Envía los datos al backend
-      await axios.post(
-        `http://localhost:3000/patient/add-benefits`,
-        requestData
-      );
-      console.log("Prestation info saved:", requestData);
+      // Usar axios con PrestationsServices
+      await addPrestation(newPrestation, patientId!);
+      console.log("Prestation info saved:", newPrestation);
 
       // Verifica si prestations está definido, si no, inicializa como un array vacío
       const updatedPrestations = patientData?.prestations
@@ -133,17 +120,14 @@ const MedicalServices: React.FC = () => {
             Prestaciones Requeridas
           </div>
           <div className="flex gap-2 mb-3">
-            {/* <FaX /> */}
             <FaCircle fill="#000000" />
             Diente ausente o a extraer
           </div>
           <div className="flex gap-2 mb-3">
-            {/* <FaRegSquare /> */}
             <FaCircle fill="#008000" />
             Prótesis fija/removible
           </div>
           <div className="flex gap-2">
-            {/* <FaRegCircle /> */}
             <FaCircle fill="#ffd700" />
             Corona
           </div>
@@ -220,7 +204,7 @@ const MedicalServices: React.FC = () => {
                       type="number"
                       id={`toothNum-${index}`}
                       name="toothNum"
-                      value={tooth.toothNum}
+                      value={tooth.toothNumber}
                       onChange={(e) => handleOdontogramChange(index, e)}
                       required
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
@@ -236,7 +220,7 @@ const MedicalServices: React.FC = () => {
                     <select
                       id={`part-${index}`}
                       name="part"
-                      value={tooth.part}
+                      value={tooth.parts}
                       onChange={(e) => handleOdontogramChange(index, e)}
                       required
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"

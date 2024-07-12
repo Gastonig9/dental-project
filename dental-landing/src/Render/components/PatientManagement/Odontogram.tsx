@@ -37,7 +37,7 @@ const Odontogram: React.FC<OdontogramProps> = ({ odontogramData }) => {
     const toothDetails = positions.map((position) => ({
       position,
       detail: odontogramData.find(
-        (detail) => detail.toothNum === number && detail.part === position
+        (detail) => detail.toothNumber === number && detail.parts.includes(position)
       ),
     }));
 
@@ -131,9 +131,7 @@ const Odontogram: React.FC<OdontogramProps> = ({ odontogramData }) => {
             </div>
           </div>
         </div>
-
         <div className="divider"></div>
-
         <div className="quadrant-row">
           <div className="quadrant">
             <div className="tooth-row">
@@ -151,7 +149,6 @@ const Odontogram: React.FC<OdontogramProps> = ({ odontogramData }) => {
           </div>
         </div>
       </div>
-
       <div className="pediatric-odontogram">
         <div className="odontogram-container">
           <div className="quadrant-row">
