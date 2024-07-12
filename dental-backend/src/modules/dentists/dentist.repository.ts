@@ -67,6 +67,9 @@ export class DentistRepository {
       where: {
         dentistId: id,
       },
+      include: {
+        patient: true
+      }
     });
     console.log(response);
 

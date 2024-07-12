@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -16,6 +17,7 @@ import { AppointmentRequestDto } from '../../dtos';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/decorators/public.decorator';
 import { Response } from 'express';
+import { UpdateAppointmentStateDto } from 'src/dtos/update-appointment-state.dto';
 
 @Public()
 @ApiTags('Citas')
@@ -50,19 +52,18 @@ export class AppointmentController {
     }
   }
 
-  @Put('/confirm-appointment/:appointmentId')
-  async confirmAppointment(
-    @Param('appointmentId') appointmentId: string,
+  @Put('/update-appointment-state/')
+  @ApiBody({ type: UpdateAppointmentStateDto })
+  async updateAppointmentState(
+    @Body() data: UpdateAppointmentStateDto,
     @Res() res: Response,
   ) {
     try {
-      const appointmentConfirmed = await this.service.ConfirmAppointment(
-        parseInt(appointmentId),
-      );
+      const appointmentUpdated = await this.service.changeAppointmentState(data)
       return res.status(HttpStatus.OK).json({
         statusCode: 200,
-        message: 'El turno ha sido confirmado',
-        appointmentConfirmed,
+        message: `El estado del turno ha cambiado a ${data.state}`,
+        appointmentUpdated,
       });
     } catch (error) {
       return res.json({

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { token } from '../../../localStorage/token';
 
 export const EditUserInfo = () => {
   const { id } = useParams();
@@ -13,7 +14,12 @@ export const EditUserInfo = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/api/user/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/user/${id}`,  
+        {
+          headers: {
+          Authorization: `Bearer ${token()}`,
+        }
+      })
       .then((res) => {
         const user = res.data;
         for (const key in user) {
@@ -31,7 +37,11 @@ export const EditUserInfo = () => {
     try {
       const response = await axios.put(
         `${import.meta.env.VITE_API_URL}/api/user/${id}`,
-        data
+        data,{
+          headers:{
+            Authorization:`Bearer ${token()}`
+          }
+        }
       );
       Swal.fire({
         title: 'Guardado',
