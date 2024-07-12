@@ -3,7 +3,8 @@ import { $Enums, User } from '@prisma/client';
 import { IsEmail, MaxLength, MinLength } from 'class-validator';
 
 export class UserRegisterDto
-  implements Omit<User, 'id' | 'resetPasswordToken'>
+  implements
+    Omit<User, 'id' | 'resetPasswordToken' | 'failedAttempts' | 'isLocked'>
 {
   @ApiProperty()
   @MinLength(3)

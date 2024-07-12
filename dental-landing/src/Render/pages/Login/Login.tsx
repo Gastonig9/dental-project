@@ -1,8 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 import './Login.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { useAuth } from '../contexts/AuthContext';
 import { useForm } from 'react-hook-form';
@@ -11,6 +10,8 @@ interface LoginFormInputs {
   email: string;
   password: string;
 }
+import { userServices } from '../../../services';
+import { AxiosError } from 'axios';
 
 export const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
@@ -24,13 +25,7 @@ export const Login = () => {
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/user/login-user`,
-        {
-          email: data.email,
-          password: data.password,
-        }
-      );
+      const response = await userServices.login({ email: data.email, password:data.password });
 
       console.log('Login successful:', response.data);
 
@@ -47,11 +42,21 @@ export const Login = () => {
 
       navigate('/dashboard');
     } catch (error) {
+      let title = 'Error de autenticación';
+      let message = 'verifica tus credenciales';
+
+      if (error instanceof AxiosError) {
+        if (error?.response?.status === 412) {
+          title = 'Cuenta bloqueada';
+          message = `solicita el cambio de contraseña en "Olvide mi Contraseña"`;
+        }
+      }
+
       console.error('Error logging in:', error);
       Swal.fire({
         icon: 'error',
-        title: 'Error de autenticación',
-        text: 'verifica tus credenciales',
+        title: title,
+        text: message,
       });
     }
   };

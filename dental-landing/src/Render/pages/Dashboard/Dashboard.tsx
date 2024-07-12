@@ -42,7 +42,7 @@ interface PatientsModel {
 }
 
 export const Dashboard = () => {
-  const [currentDate, setCurrentDate] = useState<string>("");
+  const [currentDate, setCurrentDate] = useState<string>('');
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [patients, setPatients] = useState<{ [key: number]: string }>({});
 // SEARCH PATIENT ---------------------------------------------------------------------
@@ -100,26 +100,26 @@ export const Dashboard = () => {
     const getCurrentDate = () => {
       const date = new Date();
       const options: Intl.DateTimeFormatOptions = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        timeZone: "America/Argentina/Buenos_Aires",
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'America/Argentina/Buenos_Aires',
       };
-      return date.toLocaleDateString("es-AR", options);
+      return date.toLocaleDateString('es-AR', options);
     };
 
     setCurrentDate(getCurrentDate());
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (!token) {
-      console.error("No token found");
+      console.error('No token found');
       return;
     }
 
-    const RoleObject = JSON.parse(localStorage.getItem("RoleObject") || "{}");
+    const RoleObject = JSON.parse(localStorage.getItem('RoleObject') || '{}');
     const dentistId = RoleObject.dentist ? RoleObject.dentist.id : null;
 
     const fetchAppointments = async () => {
@@ -137,11 +137,11 @@ export const Dashboard = () => {
               ...appointment,
               dentist: appointment.dentist
                 ? { fullname: appointment.dentist.fullname }
-                : { fullname: "Unknown" },
+                : { fullname: 'Unknown' },
               patient: {
                 id: appointment.patientId,
-                name: "Unknown",
-                surname: "Patient",
+                name: 'Unknown',
+                surname: 'Patient',
               },
             })
           );
@@ -178,14 +178,14 @@ export const Dashboard = () => {
 
         setPatients(patientsData);
       } catch (err) {
-        console.error("Error fetching appointments:", err);
+        console.error('Error fetching appointments:', err);
       }
     };
 
     fetchAppointments();
   }, []);
 
-  const userData = JSON.parse(localStorage.getItem("user") || "{}");
+  const userData = JSON.parse(localStorage.getItem('user') || '{}');
 
   return (
     <>
@@ -280,7 +280,7 @@ export const Dashboard = () => {
             </div>
           </div>
           {/* Render the button only if role_name is not 'SECRETARY' */}
-          {userData.role_name !== "SECRETARY" && (
+          {userData.role_name !== 'SECRETARY' && (
             <div className="poppins-bold hidden lg:flex">
               <Link to="/users-management/users-list">
                 <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[25px]">
@@ -299,7 +299,7 @@ export const Dashboard = () => {
           )}
         </section>
         <section className="flex justify-center items-center mx-auto lg:mx-0 pt-14">
-          <div className="w-[349px] lg:w-[840px] h-[646px] lg:h-[665px] bg-lightgray border border-[#424242] rounded-[20px] lg:rounded-[30px] px-3 lg:px-14 py-4 lg:py-12">
+          <div className="w-[349px] lg:w-[840px] h-[646px] lg:h-[665px] bg-lightgray border border-[#424242] rounded-[20px] lg:rounded-[30px] px-3 lg:px-14 py-4 lg:py-12 overflow-y-auto">
             <h1 className="poppins-bold ms-5 mb-4 lg:mb-4 text-[26px] lg:text-[40px]">
               Próximos turnos
             </h1>
@@ -307,15 +307,14 @@ export const Dashboard = () => {
               {appointments.slice(0, 6).map((appointment, index) => (
                 <div
                   key={`${appointment.id}-${index}`}
-                  className="flex items-center px-7 py-5 bg-acento w-full h-[70px] rounded-[10px] mb-2 poppins-medium text-typography text-[16px] lg:text-[20px]"
-                >
+                  className="flex items-center px-7 py-5 bg-acento w-full h-[70px] rounded-[10px] mb-2 poppins-medium text-typography text-[16px] lg:text-[20px]">
                   <p className="me-16">
                     {new Date(appointment.date).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
+                      hour: '2-digit',
+                      minute: '2-digit',
                     })}
                   </p>
-                  {userData.role_name === "SECRETARY" && (
+                  {userData.role_name === 'SECRETARY' && (
                     <>
                       <p className="me-4">
                         Paciente:
@@ -327,8 +326,7 @@ export const Dashboard = () => {
                   )}
                   {userData.role_name !== "SECRETARY" && (
                     <>
-                    <p className="me-4">`Paciente: ${patients[appointment.patient.id]}</p>
-                    <p>Profesional: {appointment.dentist.fullname}</p>
+                    <p className="me-4">{patients[appointment.patient.id]}</p>
                     </>
                   )}
                 </div>
@@ -339,7 +337,7 @@ export const Dashboard = () => {
 
         {/* GESTINAR USUARIOS BUTTON MOBILE */}
         {/* Render the button only if role_name is not 'SECRETARY' */}
-        {userData.role_name !== "SECRETARY" && (
+        {userData.role_name !== 'SECRETARY' && (
           <div className="flex lg:hidden poppins-bold mx-auto my-14">
             <Link to="/users-management/users-list">
               <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[20px]">
