@@ -126,7 +126,7 @@ const Reviews = () => {
   ];
 
   return (
-    <section className="bg-[#f5f5f5] text-[#3C3C43] pt-8 pb-3">
+    <section className="bg-greenGradient text-[#3C3C43] pt-8 pb-3" id="reviews">
       {/* phones */}
       <div className="sm:hidden mx-auto max-w-[1648px]">
         <Splide
@@ -194,7 +194,7 @@ const Reviews = () => {
       </div>
 
       {/* laptops */}
-      <div className="hidden xl:block xl:w-full xl:mx-auto bg-[#f5f5f5] px-[80px] max-w-[1700px]">
+      <div className="hidden xl:block xl:w-full xl:mx-auto bg-greenGradient px-[80px] max-w-[1700px]">
         <Splide
           aria-label="My Favorite Images"
           options={{
