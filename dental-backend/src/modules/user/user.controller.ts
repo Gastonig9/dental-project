@@ -24,6 +24,7 @@ import {
   RequestResetPasswordDto,
   ResetPasswordDto,
   UserRegisterDto,
+  UserResponseDto,
 } from 'src/dtos';
 import { Response } from 'express';
 import { Roles } from 'src/decorators/roles.decorator';
@@ -37,7 +38,7 @@ export class UserController {
   @UseGuards(RolesGuard)
   @Roles('OWNER')
   @Get()
-  async getAllUsers(): Promise<User[]> {
+  async getAllUsers(): Promise<UserResponseDto[]> {
     return await this.service.getAllUsers();
   }
 

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import Navbar from "../../components/Platform/Navbar";
-import { Link } from "react-router-dom";
-import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import { PatientsStatistics } from "../../components/Platform/Statistics/PatientsStatistics/PatientsStatistics";
-import { AppointmentsStatistics } from "../../components/Platform/Statistics/AppointmentsStatistics/AppointmentsStatistics";
+import { useState } from 'react';
+import Navbar from '../../components/Platform/Navbar';
+import { Link } from 'react-router-dom';
+import { ChevronLeftIcon } from '@heroicons/react/20/solid';
+import { PatientsStatistics } from '../../components/Platform/Statistics/PatientsStatistics/PatientsStatistics';
+import { AppointmentsStatistics } from '../../components/Platform/Statistics/AppointmentsStatistics/AppointmentsStatistics';
 
 const Reports = () => {
-  const [activeTab, setActiveTab] = useState("patients-reports");
+  const [activeTab, setActiveTab] = useState('patients-reports');
   return (
     <>
       <Navbar />
@@ -28,29 +28,29 @@ const Reports = () => {
             <div className="flex lg:space-x-16 mb-4 poppins-regular text-[19px] justify-center lg:justify-start">
               <button
                 className={`text-3xl font-medium border border-black rounded-tl-xl px-5 py-1 lg:p-0 lg:border-none ${
-                  activeTab === "patients-reports"
-                    ? "text-black"
-                    : "text-[#9D9D9D]"
+                  activeTab === 'patients-reports'
+                    ? 'text-black'
+                    : 'text-[#9D9D9D]'
                 }`}
-                onClick={() => setActiveTab("patients-reports")}
-              >
+                onClick={() => setActiveTab('patients-reports')}>
                 Pacientes
               </button>
               <button
                 className={`text-3xl font-medium border border-black rounded-tr-xl px-5 py-1 lg:p-0 lg:border-none ${
-                  activeTab === "appointments-reports"
-                    ? "text-black"
-                    : "text-[#9D9D9D]"
+                  activeTab === 'appointments-reports'
+                    ? 'text-black'
+                    : 'text-[#9D9D9D]'
                 }`}
-                onClick={() => setActiveTab("appointments-reports")}
-              >
+                onClick={() => setActiveTab('appointments-reports')}>
                 Turnos
               </button>
             </div>
 
             <div className="p-4 rounded-lg">
-              {activeTab === "patients-reports" && <PatientsStatistics />}
-              {activeTab === "appointments-reports" && <AppointmentsStatistics/>}
+              {activeTab === 'patients-reports' && <PatientsStatistics />}
+              {activeTab === 'appointments-reports' && (
+                <AppointmentsStatistics />
+              )}
             </div>
           </div>
         </main>
