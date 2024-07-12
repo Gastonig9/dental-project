@@ -2,15 +2,26 @@
 CREATE TYPE "EnumRoles" AS ENUM ('OWNER', 'ASSOCIATED', 'SECRETARY', 'CLIENT');
 
 -- CreateEnum
+CREATE TYPE "EnumInfoBoolean" AS ENUM ('SI', 'NO', 'SIN_INFORMACION');
+
+-- CreateEnum
 CREATE TYPE "AppointmentState" AS ENUM ('PENDING', 'CANCEL', 'REALIZED');
+
+-- CreateEnum
+CREATE TYPE "PrestationState" AS ENUM ('PENDING', 'REALIZED');
+
+-- CreateEnum
+CREATE TYPE "Parts" AS ENUM ('center', 'top', 'bottom', 'left', 'right');
 
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+    "dni" INTEGER NOT NULL,
     "email" TEXT NOT NULL,
-    "username" TEXT NOT NULL,
-    "fullname" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "resetPasswordToken" TEXT,
     "role_name" "EnumRoles" NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -35,6 +46,29 @@ CREATE TABLE "Dentist" (
 );
 
 -- CreateTable
+CREATE TABLE "MedicalHistory" (
+    "id" SERIAL NOT NULL,
+    "patientId" INTEGER NOT NULL,
+    "someDisease" TEXT NOT NULL,
+    "someTreatment" TEXT NOT NULL,
+    "consumeMedicaments" TEXT NOT NULL,
+    "allergyMedicament" TEXT NOT NULL,
+    "operations" TEXT NOT NULL,
+    "smokes" "EnumInfoBoolean" NOT NULL,
+    "pregnant" "EnumInfoBoolean" NOT NULL,
+    "attendance" TEXT,
+    "takeSomeMedication" TEXT,
+    "pains" "EnumInfoBoolean" NOT NULL,
+    "blowToTeeth" TEXT,
+    "dentalMobility" "EnumInfoBoolean" NOT NULL,
+    "swollenFace" "EnumInfoBoolean" NOT NULL,
+    "injuries" "EnumInfoBoolean" NOT NULL,
+    "observations" TEXT,
+
+    CONSTRAINT "MedicalHistory_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Patient" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
@@ -42,10 +76,42 @@ CREATE TABLE "Patient" (
     "gender" TEXT NOT NULL,
     "pEmail" TEXT NOT NULL,
     "dni" INTEGER NOT NULL,
-    "phone" INTEGER NOT NULL,
-    "adress" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
+    "age" INTEGER,
+    "addressNumber" INTEGER,
+    "floor" TEXT,
+    "street" TEXT,
+    "nationality" TEXT,
+    "locality" TEXT,
+    "establishment" TEXT,
+    "socialWork" TEXT,
+    "apartment" TEXT,
+    "birthDate" TEXT,
 
     CONSTRAINT "Patient_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Prestations" (
+    "id" SERIAL NOT NULL,
+    "patientId" INTEGER NOT NULL,
+    "state" "PrestationState" NOT NULL,
+    "date" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
+    "observations" TEXT,
+
+    CONSTRAINT "Prestations_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Odontogram" (
+    "id" SERIAL NOT NULL,
+    "prestationId" INTEGER NOT NULL,
+    "toothNumber" INTEGER NOT NULL,
+    "parts" "Parts" NOT NULL,
+    "ref" TEXT NOT NULL,
+
+    CONSTRAINT "Odontogram_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -73,15 +139,16 @@ CREATE TABLE "Appointment" (
     "state" "AppointmentState" NOT NULL,
     "results" TEXT NOT NULL,
     "reason" TEXT NOT NULL,
+    "odontograma" TEXT,
 
     CONSTRAINT "Appointment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+CREATE UNIQUE INDEX "User_dni_key" ON "User"("dni");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Roles_name_key" ON "Roles"("name");
@@ -100,6 +167,15 @@ ALTER TABLE "User" ADD CONSTRAINT "User_role_name_fkey" FOREIGN KEY ("role_name"
 
 -- AddForeignKey
 ALTER TABLE "Dentist" ADD CONSTRAINT "Dentist_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MedicalHistory" ADD CONSTRAINT "MedicalHistory_patientId_fkey" FOREIGN KEY ("patientId") REFERENCES "Patient"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Prestations" ADD CONSTRAINT "Prestations_patientId_fkey" FOREIGN KEY ("patientId") REFERENCES "Patient"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Odontogram" ADD CONSTRAINT "Odontogram_prestationId_fkey" FOREIGN KEY ("prestationId") REFERENCES "Prestations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Secretary" ADD CONSTRAINT "Secretary_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -30,7 +30,7 @@ const Carousel = () => {
             390: {
               perPage: 2,
             },
-            768: {
+            1280: {
               perPage: 3,
             },
           },
@@ -39,7 +39,7 @@ const Carousel = () => {
         {images.map((image, index) => (
           <SplideSlide>
             <div key={index} className="flex justify-center pb-10">
-              <picture className="relative h-[269px] w-[180px] lg:w-[360px] lg:h-[515px]">
+              <picture className="relative h-[269px] w-[180px] md:h-[390px] md:w-[270px] newxl:h-[515px] newxl:w-[360px] ">
                 <img
                   src={image}
                   alt={`Slide ${index}`}

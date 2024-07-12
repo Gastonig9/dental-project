@@ -7,6 +7,8 @@ import { PatientContextProvider } from "../contexts/patientContext";
 import Navbar from "../../components/Platform/Navbar";
 import Prestaciones from "../../sections/PatientManagement/MedicalServices";
 
+
+
 export const NewPatient = () => {
   const [activeTab, setActiveTab] = useState("personal-information");
 
@@ -60,7 +62,7 @@ export const NewPatient = () => {
             </div>
 
             <PatientContextProvider>
-              <div className="p-4 rounded-lg">
+              <div className="p-0 rounded-lg">
                 {activeTab === "personal-information" && (
                   <section>
                     <PersonalInfo />

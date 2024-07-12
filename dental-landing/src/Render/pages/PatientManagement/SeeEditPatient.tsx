@@ -7,7 +7,7 @@ import { SeeEditPersonalInfo } from "../PatientManagement/SeeEditPersonalInfo";
 
 export const SeeEditPatient = () => {
   const [activeTab, setActiveTab] = useState("personal-information");
-  
+
   return (
     <>
       <Navbar />

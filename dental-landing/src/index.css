@@ -242,11 +242,12 @@
 
 /* review carousel styles */
 .splide__arrows svg {
+  display: none;
   fill: #76ffa8 !important;
 }
 
 .splide__pagination__page.is-active {
-  background: var(--Acento, #76ffa8) !important;
+  background: #424242 !important;
   border-radius: 12px !important;
   height: 24px !important;
   width: 24px !important;
