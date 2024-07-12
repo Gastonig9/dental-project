@@ -118,13 +118,16 @@ export const PersonalInfo = () => {
           <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
           <div className="flex flex-col">
               <label htmlFor="gender">Género<span className="text-red-500">*</span></label>
-              <input
-                id="gender"
-                type="text"
-                {...register('gender', { required: 'El género es obligatorio' })}
-                className="personalInfo-input-style"
-              />
-              {errors.gender && <p className="text-red-500">{errors.gender.message}</p>}
+              <select
+                  id="gender"
+                  {...register("gender", { required: "El género es obligatorio" })}
+                  className= "gender-input-select-style"
+                >
+                  <option value="Femenino">Femenino</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Otro">Otro</option>
+                </select>
+                {errors.gender && <p className="text-red-500">{errors.gender.message}</p>}
             </div>
             <div className="flex flex-col">
               <label htmlFor="birthDate">Fecha De Nacimiento<span className="text-red-500">*</span></label>
@@ -221,7 +224,7 @@ export const PersonalInfo = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center lg:justify-end">
+        <div className="mt-4 lg:mt-0 flex justify-center lg:justify-end">
           <button
             type="submit"
             className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]">

@@ -42,10 +42,10 @@ interface PatientsModel {
 }
 
 export const Dashboard = () => {
-  const [currentDate, setCurrentDate] = useState<string>('');
+  const [currentDate, setCurrentDate] = useState<string>("");
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [patients, setPatients] = useState<{ [key: number]: string }>({});
-// SEARCH PATIENT ---------------------------------------------------------------------
+  // SEARCH PATIENT ---------------------------------------------------------------------
   const [data, setData] = useState<PatientsModel[]>([]);
   const [patientsGET, setPatientsGET] = useState<PatientsModel[]>([]);
   const [inputData, setInputData] = useState("");
@@ -100,26 +100,26 @@ export const Dashboard = () => {
     const getCurrentDate = () => {
       const date = new Date();
       const options: Intl.DateTimeFormatOptions = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        timeZone: 'America/Argentina/Buenos_Aires',
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        timeZone: "America/Argentina/Buenos_Aires",
       };
-      return date.toLocaleDateString('es-AR', options);
+      return date.toLocaleDateString("es-AR", options);
     };
 
     setCurrentDate(getCurrentDate());
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
-      console.error('No token found');
+      console.error("No token found");
       return;
     }
 
-    const RoleObject = JSON.parse(localStorage.getItem('RoleObject') || '{}');
+    const RoleObject = JSON.parse(localStorage.getItem("RoleObject") || "{}");
     const dentistId = RoleObject.dentist ? RoleObject.dentist.id : null;
 
     const fetchAppointments = async () => {
@@ -137,11 +137,11 @@ export const Dashboard = () => {
               ...appointment,
               dentist: appointment.dentist
                 ? { fullname: appointment.dentist.fullname }
-                : { fullname: 'Unknown' },
+                : { fullname: "Unknown" },
               patient: {
                 id: appointment.patientId,
-                name: 'Unknown',
-                surname: 'Patient',
+                name: "Unknown",
+                surname: "Patient",
               },
             })
           );
@@ -178,14 +178,14 @@ export const Dashboard = () => {
 
         setPatients(patientsData);
       } catch (err) {
-        console.error('Error fetching appointments:', err);
+        console.error("Error fetching appointments:", err);
       }
     };
 
     fetchAppointments();
   }, []);
 
-  const userData = JSON.parse(localStorage.getItem('user') || '{}');
+  const userData = JSON.parse(localStorage.getItem("user") || "{}");
 
   return (
     <>
@@ -215,7 +215,7 @@ export const Dashboard = () => {
 
           <div className="flex flex-col gap-3 mt-3 lg:hidden">
             {patientsGET.length > 0}
-            {patientsGET.slice(0, 5).map((paciente, index) => (
+            {patientsGET.slice(0, 3).map((paciente, index) => (
               <div
                 key={index}
                 className="grid grid-cols-8 items-center justify-between bg-[#D9D9D9] py-4 px-3 rounded-[10px] sm:px-8"
@@ -257,7 +257,8 @@ export const Dashboard = () => {
               {patientsGET.slice(0, 6).map((paciente) => (
                 <div
                   key={String(paciente.id)}
-                  className="flex justify-between items-center w-full bg-[#D9D9D9] rounded-[20px] py-3 px-6">
+                  className="flex justify-between items-center w-full bg-[#D9D9D9] rounded-[20px] py-3 px-6"
+                >
                   <div className="items-center text-[16px] font-bold flex ">
                     <h3 className="me-8">
                       {paciente.name} {paciente.surname}
@@ -270,7 +271,8 @@ export const Dashboard = () => {
                   <div className="flexitems-center gap-7">
                     <Link
                       className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 xl:gap-[10]"
-                      to={`/patient-management/seeEditPatient/${paciente.id}`}>
+                      to={`/patient-management/seeEditPatient/${paciente.id}`}
+                    >
                       <p className="hidden">Ver ficha médica</p>
                       <IoIosArrowForward />
                     </Link>
@@ -280,7 +282,7 @@ export const Dashboard = () => {
             </div>
           </div>
           {/* Render the button only if role_name is not 'SECRETARY' */}
-          {userData.role_name !== 'SECRETARY' && (
+          {userData.role_name !== "SECRETARY" && (
             <div className="poppins-bold hidden lg:flex">
               <Link to="/users-management/users-list">
                 <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[25px]">
@@ -307,26 +309,34 @@ export const Dashboard = () => {
               {appointments.slice(0, 6).map((appointment, index) => (
                 <div
                   key={`${appointment.id}-${index}`}
-                  className="flex items-center px-7 py-5 bg-acento w-full h-[70px] rounded-[10px] mb-2 poppins-medium text-typography text-[16px] lg:text-[20px]">
-                  <p className="me-16">
-                    {new Date(appointment.date).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </p>
-                  {userData.role_name === 'SECRETARY' && (
+                  className="flex items-center px-7 py-5 bg-acento w-full h-[70px] rounded-[10px] mb-2 poppins-medium text-typography text-[16px] lg:text-[20px]"
+                >
+                  <div className="flex items-center me-12">
+                    <p>
+                      {new Date(appointment.date).toLocaleDateString([], {
+                        month: "2-digit",
+                        day: "2-digit",
+                      })}
+                    </p>
+                    <p className="mx-3">-</p>
+                    <p>
+                      {new Date(appointment.date).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                  </div>
+                  {userData.role_name === "SECRETARY" && (
                     <>
-                      <p className="me-4">
-                        Paciente:
+                      <p className="">
                         {`${appointment.patient.name} ${appointment.patient.surname}`}
-                        -
                       </p>
-                      <p>Profesional: {appointment.dentist.fullname}</p>
+                      <p className="ms-auto">{appointment.dentist.fullname}</p>
                     </>
                   )}
                   {userData.role_name !== "SECRETARY" && (
                     <>
-                    <p className="me-4">{patients[appointment.patient.id]}</p>
+                      <p className="me-4">{patients[appointment.patient.id]}</p>
                     </>
                   )}
                 </div>
@@ -337,7 +347,7 @@ export const Dashboard = () => {
 
         {/* GESTINAR USUARIOS BUTTON MOBILE */}
         {/* Render the button only if role_name is not 'SECRETARY' */}
-        {userData.role_name !== 'SECRETARY' && (
+        {userData.role_name !== "SECRETARY" && (
           <div className="flex lg:hidden poppins-bold mx-auto my-14">
             <Link to="/users-management/users-list">
               <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[20px]">
