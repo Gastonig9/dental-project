@@ -44,7 +44,7 @@ export const Specialties = () => {
               {specialties.map((specialty, index) => (
                 <div
                   key={index}
-                  className="bg-[#FFF] rounded-[1.25rem] w-[172px] h-[178px] xl:w-[295px] xl:h-[304px] p-2 xl:p-6 shadow-2xl content-center"
+                  className="bg-[#FFF] rounded-[1.25rem] w-[172px] h-[178px] newxl:w-[295px] newxl:h-[304px] p-2 newxl:p-6 shadow-2xl content-center"
                 >
                   {/* Images */}
                   <picture className="flex justify-center px-6">
