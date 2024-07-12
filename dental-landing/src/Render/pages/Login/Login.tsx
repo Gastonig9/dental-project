@@ -1,15 +1,20 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 import './Login.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { useAuth } from '../contexts/AuthContext';
+import { useForm } from 'react-hook-form';
+
+interface LoginFormInputs {
+  email: string;
+  password: string;
+}
 import { userServices } from '../../../services';
 import { AxiosError } from 'axios';
 
 export const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
   const navigate = useNavigate();
 
   const { login, isAuthenticated } = useAuth();
@@ -18,11 +23,9 @@ export const Login = () => {
     if (isAuthenticated) navigate('/dashboard');
   }, [isAuthenticated]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const onSubmit = async (data: LoginFormInputs) => {
     try {
-      const response = await userServices.login({ email, password });
+      const response = await userServices.login({ email: data.email, password:data.password });
 
       console.log('Login successful:', response.data);
 
@@ -72,37 +75,35 @@ export const Login = () => {
           </Link>
         </div>
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className="my-5 mx-auto w-[90%] lg:w-[50%]">
           <h2 className="text-center lg:text-left poppins-medium text-xl mb-8">
             Inicio de sesión
           </h2>
           <div className="flex flex-col poppins-regular">
             <label htmlFor="email">
-              <p className="font-medium text-slate-700">Usuario</p>
+              <p className="font-medium text-slate-700">Correo</p>
               <input
                 id="email"
-                name="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
+                {...register('email', { required: 'El email es obligatorio' })}
+                className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow"
                 placeholder="Ejemplo@gmail.com "
               />
+              {errors.email && <p className="text-red-500">{String(errors.email.message)}</p>}
             </label>
             <label htmlFor="password">
-              <p className="font-medium text-slate-700">Contraseña</p>
+              <p className="font-medium text-slate-700 mt-3">Contraseña</p>
               <input
                 id="password"
-                name="password"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-8"
+                {...register('password', { required: 'La contraseña es obligatoria' })}
+                className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow"
                 placeholder="*******"
               />
+              {errors.password && <p className="text-red-500">{String(errors.password.message)}</p>}
             </label>
-            <div className="text-center lg:text-left">
+            <div className="text-center lg:text-left mt-5">
               <Link
                 to="/user/forgot-password"
                 className="font-medium text-[#4053FF]">
@@ -111,7 +112,7 @@ export const Login = () => {
             </div>
             <button
               type="submit"
-              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14">
+              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-8">
               <span>Continuar</span>
             </button>
           </div>

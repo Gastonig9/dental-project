@@ -38,7 +38,7 @@ const UsersList = () => {
     setLoading(true)
     axios
       .get(`${import.meta.env.VITE_API_URL}/api/user`,{headers:{
-        "Authorization":`Bearer ${token}`
+        "Authorization":`Bearer ${token()}`
       }})
       .then((res) => {
         setData(res.data);
@@ -145,7 +145,11 @@ const UsersList = () => {
         arrayOfIds.forEach(id => {
           if(id){
             axios
-              .delete(`${import.meta.env.VITE_API_URL}/api/user/${id}`)
+              .delete(`${import.meta.env.VITE_API_URL}/api/user/${id}`, {
+                headers: {
+                  Authorization: `Bearer ${token()}`
+                },
+              } )
               .then((res)=>{
                 console.log(res)
                 Swal.fire({

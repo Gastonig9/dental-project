@@ -17,7 +17,7 @@ export const EditUserInfo = () => {
       .get(`${import.meta.env.VITE_API_URL}/api/user/${id}`,  
         {
           headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token()}`,
         }
       })
       .then((res) => {
@@ -39,7 +39,7 @@ export const EditUserInfo = () => {
         `${import.meta.env.VITE_API_URL}/api/user/${id}`,
         data,{
           headers:{
-            Authorization:`Bearer ${token}`
+            Authorization:`Bearer ${token()}`
           }
         }
       );
