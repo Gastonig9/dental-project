@@ -13,7 +13,7 @@ export class EmailService {
     appointmentInfo: AppointmentRequestDto,
     dentist: Dentist,
   ) {
-    const appointmentDate = new Date(appointmentInfo.date)
+    const appointmentDate = new Date(appointmentInfo.date);
     this.mailerService.sendMail({
       from: 'Consultorio Grinpol',
       to: patient.pEmail,
@@ -34,8 +34,11 @@ export class EmailService {
     });
   }
 
-  async sendCancelEmail(patient: Patient,appointmentInfo: AppointmentRequestDto) {
-    const appointmentDate = new Date(appointmentInfo.date)
+  async sendCancelEmail(
+    patient: Patient,
+    appointmentInfo: AppointmentRequestDto,
+  ) {
+    const appointmentDate = new Date(appointmentInfo.date);
     this.mailerService.sendMail({
       from: 'Consultorio Grinpol',
       to: patient.pEmail,
@@ -82,7 +85,7 @@ export class EmailService {
     this.mailerService.sendMail({
       from: 'foofakesender@outlook.com',
       to: email,
-      subject: 'Recordatorio de turno',
+      subject: 'Restauracion de Contraseña',
       html: `<h2>!Restauracion de Contraseña!</h2>
         
          <p><a href='${process.env.FRONT_DEPLOY}/user/reset-password?token=${resetPasswordToken}' target='_blank'>Restaurar Contraseña</a></p>

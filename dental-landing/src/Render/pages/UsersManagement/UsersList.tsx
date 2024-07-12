@@ -85,7 +85,11 @@ const UsersList = () => {
 
     if (result.isConfirmed) {
       axios
-        .delete(`${import.meta.env.VITE_API_URL}/api/user/${id}`)
+        .delete(`${import.meta.env.VITE_API_URL}/api/user/${id}`,{
+          headers:{
+            Authorization:`Bearer ${token()}`
+          }
+        })
         .then(() => {
           Swal.fire({
             toast: true,
