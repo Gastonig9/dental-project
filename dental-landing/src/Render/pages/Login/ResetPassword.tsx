@@ -46,6 +46,7 @@ export const ResetPassword = () => {
           icon: "success",
         });
       }
+      
     } catch (error) {
       console.error("Error al actualizar contraseña:", error);
       Swal.fire({
@@ -88,7 +89,7 @@ export const ResetPassword = () => {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   className="w-full py-3 border lg:w-[345px] bg-gray-100/75 border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
-                  placeholder="**"
+                  placeholder="******"
                 />
                 <button
                   type="button"
@@ -111,7 +112,7 @@ export const ResetPassword = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="w-full py-3 border lg:w-[345px] bg-gray-100/75 border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
-                  placeholder="**"
+                  placeholder="******"
                 />
                 <button
                   type="button"

@@ -17,29 +17,21 @@ export interface Patient {
   locality: string;
   establishment: string;
   socialWork: string;
-  appointments: Appointment[]
-  services: Prestacion;
   id?: number;
-  odontograma?: string | null;
+  appointments: Appointment[];
+  prestations: Prestations[];
 }
 
-export interface Prestacion {
+export interface Prestations {
   date: string;
-  observation?: string;
   code: string;
-  specialty: string;
+  observations?: string;
+  state: string;
+  odontogram: OdontogramType[];
 }
 
-export interface ToothDetail {
-  toothNumber: number;
-  reference: string;
-  position: string;
-}
-
-export interface ToothState {
-  center: string;
-  top: string;
-  bottom: string;
-  left: string;
-  right: string;
+export interface OdontogramType {
+  toothNum: number;
+  part: string;
+  ref: string;
 }
