@@ -226,6 +226,7 @@ export const Dashboard = () => {
                 <h4 className="text-[11px] text-center col-span-2">
                   N° DNI: {String(paciente.dni)}{" "}
                 </h4>
+                {userData.role_name !== "SECRETARY" && (
                 <div className="flex items-center justify-end gap-2 col-span-2">
                   <Link
                     to={`/patient-management/seeEditPatient/${paciente.id}`}
@@ -234,6 +235,7 @@ export const Dashboard = () => {
                     <IoIosArrowForward />
                   </Link>
                 </div>
+                )}
               </div>
             ))}
           </div>
@@ -267,7 +269,7 @@ export const Dashboard = () => {
                       {String(paciente.dni)}
                     </h3>
                   </div>
-
+                  {userData.role_name !== "SECRETARY" && (
                   <div className="flexitems-center gap-7">
                     <Link
                       className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 xl:gap-[10]"
@@ -277,6 +279,7 @@ export const Dashboard = () => {
                       <IoIosArrowForward />
                     </Link>
                   </div>
+                  )}
                 </div>
               ))}
             </div>
