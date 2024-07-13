@@ -6,7 +6,7 @@ import { usePatientContext } from '../../pages/contexts/patientContext';
 import { Patient } from '../../../types/dtos/Patient/NewPatient.type';
 
 export const PersonalInfo = () => {
-  const { register, handleSubmit, setValue } = useForm<Patient>();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<Patient>();
   const { patientData: patient, setPatientData: setPatient } =
     usePatientContext();
 
@@ -53,52 +53,57 @@ export const PersonalInfo = () => {
         <p className="poppins-semibold text-[19px] mb-4">Datos personales</p>
         <div className="mb-6 poppins-light text-[16px] space-y-4">
           <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
-            <div className="flex flex-col">
-              <label htmlFor="name">Nombre</label>
+          <div className="flex flex-col">
+              <label htmlFor="name">Nombre<span className="text-red-500">*</span></label>
               <input
                 id="name"
                 type="text"
-                {...register('name')}
+                {...register('name', { required: 'El nombre es obligatorio' })}
                 className="personalInfo-input-style"
               />
+              {errors.name && <p className="text-red-500">{errors.name.message}</p>}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="surname">Apellido</label>
+              <label htmlFor="surname">Apellido<span className="text-red-500">*</span></label>
               <input
                 id="surname"
                 type="text"
-                {...register('surname')}
+                {...register('surname', { required: 'El apellido es obligatorio' })}
                 className="personalInfo-input-style"
               />
+              {errors.surname && <p className="text-red-500">{errors.surname.message}</p>}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="phone">Teléfono</label>
+              <label htmlFor="phone">Teléfono<span className="text-red-500">*</span></label>
               <input
                 id="phone"
                 type="text"
-                {...register('phone')}
+                {...register('phone', { required: 'El teléfono es obligatorio' })}
                 className="personalInfo-input-style"
               />
+              {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
             </div>
           </div>
           <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
-            <div className="flex flex-col">
-              <label htmlFor="dni">DNI</label>
+          <div className="flex flex-col">
+              <label htmlFor="dni">DNI<span className="text-red-500">*</span></label>
               <input
                 id="dni"
                 type="number"
-                {...register('dni')}
+                {...register('dni', { required: 'El DNI es obligatorio' })}
                 className="personalInfo-input-style"
               />
+              {errors.dni && <p className="text-red-500">{errors.dni.message}</p>}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="age">Edad</label>
+              <label htmlFor="age">Edad<span className="text-red-500">*</span></label>
               <input
                 id="age"
                 type="number"
-                {...register('age')}
+                {...register('age', { required: 'La edad es obligatoria' })}
                 className="personalInfo-input-style"
               />
+              {errors.age && <p className="text-red-500">{errors.age.message}</p>}
             </div>
             <div className="flex flex-col">
               <label htmlFor="nationality">Nacionalidad</label>
@@ -111,35 +116,42 @@ export const PersonalInfo = () => {
             </div>
           </div>
           <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
-            <div className="flex flex-col">
-              <label htmlFor="gender">Género</label>
-              <input
-                id="gender"
-                type="text"
-                {...register('gender')}
-                className="personalInfo-input-style"
-              />
+          <div className="flex flex-col">
+              <label htmlFor="gender">Género<span className="text-red-500">*</span></label>
+              <select
+                  id="gender"
+                  {...register("gender", { required: "El género es obligatorio" })}
+                  className= "gender-input-select-style"
+                >
+                  <option value="Femenino">Femenino</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Otro">Otro</option>
+                </select>
+                {errors.gender && <p className="text-red-500">{errors.gender.message}</p>}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="birthDate">Fecha De Nacimiento</label>
+              <label htmlFor="birthDate">Fecha De Nacimiento<span className="text-red-500">*</span></label>
               <input
                 id="birthDate"
                 type="date"
-                {...register('birthDate')}
+                {...register('birthDate', { required: 'La fecha de nacimiento es obligatoria' })}
                 className="personalInfo-input-style"
               />
+              {errors.birthDate && <p className="text-red-500">{errors.birthDate.message}</p>}
             </div>
             <div className="flex flex-col">
-              <label htmlFor="pEmail">Email</label>
+              <label htmlFor="pEmail">Email<span className="text-red-500">*</span></label>
               <input
                 id="pEmail"
                 type="text"
-                {...register('pEmail')}
+                {...register('pEmail', { required: 'El email es obligatorio' })}
                 className="personalInfo-input-style"
               />
+              {errors.pEmail && <p className="text-red-500">{errors.pEmail.message}</p>}
             </div>
           </div>
         </div>
+
         <p className="poppins-semibold text-[19px] mb-4">Domicilio</p>
         <div className="poppins-light text-[16px] space-y-4">
           <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
@@ -212,7 +224,7 @@ export const PersonalInfo = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center lg:justify-end">
+        <div className="mt-4 lg:mt-0 flex justify-center lg:justify-end">
           <button
             type="submit"
             className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]">

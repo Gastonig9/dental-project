@@ -21,8 +21,8 @@ enum EnumRoles {
 }
 
 enum EnumInfoBoolean {
-  SI 
-  NO 
+  SI
+  NO
   SIN_INFORMACION
 }
 
@@ -30,6 +30,19 @@ enum AppointmentState {
   PENDING
   CANCEL
   REALIZED
+}
+
+enum PrestationState {
+  PENDING
+  REALIZED
+}
+
+enum Parts {
+  center
+  top
+  bottom
+  left
+  right
 }
 
 model User {
@@ -40,6 +53,8 @@ model User {
    email     String   @unique
    password  String
    resetPasswordToken String?
+   failedAttempts Int     @default(0)
+   isLocked   Boolean     @default(false)
    role  Roles @relation(fields: [role_name], references: [name])
    role_name EnumRoles
    dentist   Dentist?
@@ -48,40 +63,39 @@ model User {
 }
 
 model Roles {
-  id Int @id   @default(autoincrement())
-  name EnumRoles @unique
+  id      Int       @id @default(autoincrement())
+  name    EnumRoles @unique
   user_id User[]
 }
 
 model Dentist {
-  id Int @id   @default(autoincrement())
-  // specialty  String
-  fullname String
-  notes      String?
+  id           Int           @id @default(autoincrement())
+  fullname     String
+  notes        String?
   appointments Appointment[]
-  user User  @relation(fields: [userId], references: [id],onDelete: Cascade)
-  userId Int @unique 
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       Int           @unique
 }
 
 model MedicalHistory {
-  id Int @id   @default(autoincrement())
-  patient   Patient      @relation(fields: [patientId], references: [id])
-  patientId Int
-  someDisease String 
-  someTreatment String
+  id                 Int             @id @default(autoincrement())
+  patient            Patient         @relation(fields: [patientId], references: [id])
+  patientId          Int
+  someDisease        String
+  someTreatment      String
   consumeMedicaments String
-  allergyMedicament String
-  operations String
-  smokes EnumInfoBoolean
-  pregnant EnumInfoBoolean
-  attendance String?
+  allergyMedicament  String
+  operations         String
+  smokes             EnumInfoBoolean
+  pregnant           EnumInfoBoolean
+  attendance         String?
   takeSomeMedication String?
-  pains EnumInfoBoolean
-  blowToTeeth String? //golpe en dientes
-  dentalMobility EnumInfoBoolean 
-  swollenFace EnumInfoBoolean //cara inchada
-  injuries EnumInfoBoolean //lesion tejidos blandos
-  observations String? 
+  pains              EnumInfoBoolean
+  blowToTeeth        String? //golpe en dientes
+  dentalMobility     EnumInfoBoolean
+  swollenFace        EnumInfoBoolean //cara inchada
+  injuries           EnumInfoBoolean //lesion tejidos blandos
+  observations       String?
 }
 
 model Patient {
@@ -90,7 +104,7 @@ model Patient {
   surname   String
   gender    String
   pEmail    String
-  dni       Int
+  dni       Int @unique
   phone     String
   age Int?
   addressNumber Int?
@@ -108,28 +122,26 @@ model Patient {
 }
 
 model Secretary {
-  id         Int      @id @default(autoincrement())
-  userId     Int      @unique
-  user       User    @relation(fields: [userId], references: [id],onDelete: Cascade)
-
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Owner {
-  id         Int      @id @default(autoincrement())
-  userId     Int      @unique
-  user       User     @relation(fields: [userId], references: [id])
-
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id])
 }
 
 model Appointment {
-  id        Int          @id @default(autoincrement())
-  date      DateTime
-  dentist   Dentist      @relation(fields: [dentistId], references: [id])
-  dentistId Int
-  patient   Patient      @relation(fields: [patientId], references: [id])
-  patientId Int
-  state     AppointmentState
-  results   String
-  reason    String
-  odontograma String? 
+  id          Int              @id @default(autoincrement())
+  date        DateTime
+  dentist     Dentist          @relation(fields: [dentistId], references: [id])
+  dentistId   Int
+  patient     Patient          @relation(fields: [patientId], references: [id])
+  patientId   Int
+  state       AppointmentState
+  results     String
+  reason      String
+  odontograma String?
 }

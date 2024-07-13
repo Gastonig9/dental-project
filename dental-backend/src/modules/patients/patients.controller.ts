@@ -7,10 +7,15 @@ import {
   Query,
   HttpStatus,
   Put,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiBody, ApiQuery } from '@nestjs/swagger';
-import { Patient } from '@prisma/client';
-import { PatientRequestDto, PatientResponseDto } from 'src/dtos';
+import { Odontogram, Patient, Prestations } from '@prisma/client';
+import {
+  PatientRequestDto,
+  PatientResponseDto,
+  PrestationCreateDto,
+} from 'src/dtos';
 import { PatientService } from './patients.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/decorators/public.decorator';
@@ -75,6 +80,27 @@ export class PatientController {
     const response = await this.patientService.updatePatientById(
       parseInt(id),
       data,
+    );
+
+    return response;
+  }
+
+  @Get('/get-benefits/:id')
+  async getBenefits(@Param('id') id: string): Promise<any> {
+    const response = await this.patientService.getPrestationsByPatientId(
+      parseInt(id),
+    );
+
+    return response;
+  }
+
+  @Post('/add-benefits')
+  @ApiBody({ type: PrestationCreateDto })
+  async addBenefits(@Body() data: PrestationCreateDto) {
+    const { odontogram, ...rest } = data;
+    const response = await this.patientService.createPrestation(
+      rest,
+      odontogram,
     );
 
     return response;

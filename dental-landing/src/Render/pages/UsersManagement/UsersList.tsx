@@ -9,6 +9,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import { IoIosArrowForward } from "react-icons/io";
 import { BsTrash } from "react-icons/bs";
 import Spinner from "../../components/Platform/Spinner";
+import { token } from "../../../localStorage/token";
 
 interface userModel {
   email: string;
@@ -36,7 +37,9 @@ const UsersList = () => {
   function fetchData() {
     setLoading(true)
     axios
-      .get(`${import.meta.env.VITE_API_URL}/api/user`)
+      .get(`${import.meta.env.VITE_API_URL}/api/user`,{headers:{
+        "Authorization":`Bearer ${token()}`
+      }})
       .then((res) => {
         setData(res.data);
         setUsers(res.data);
@@ -142,7 +145,11 @@ const UsersList = () => {
         arrayOfIds.forEach(id => {
           if(id){
             axios
-              .delete(`${import.meta.env.VITE_API_URL}/api/user/${id}`)
+              .delete(`${import.meta.env.VITE_API_URL}/api/user/${id}`, {
+                headers: {
+                  Authorization: `Bearer ${token()}`
+                },
+              } )
               .then((res)=>{
                 console.log(res)
                 Swal.fire({

@@ -1,9 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { Patient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import { PatientRepository } from './patients.repository';
-import { PatientRequestDto } from 'src/dtos';
+import {
+  OdontogramDto,
+  PatientRequestDto,
+  PrestationCreateDto,
+} from 'src/dtos';
 
 @Injectable()
 export class PatientService {
@@ -11,6 +15,12 @@ export class PatientService {
 
   async addPatient(patient: PatientRequestDto): Promise<Patient> {
     try {
+      const response = await this.repository.getPatientByDni(patient.dni);
+
+      if (response) {
+        throw new ConflictException('El dni ya se encuentra registrado');
+      }
+
       return this.repository.addPatient(patient);
     } catch (error) {
       throw error;
@@ -81,5 +91,16 @@ export class PatientService {
     patient: Partial<Patient>,
   ): Promise<Patient> {
     return this.repository.updatePatientById(id, patient);
+  }
+
+  async getPrestationsByPatientId(id: number): Promise<Prestations[]> {
+    return this.repository.getPrestationsById(id);
+  }
+
+  async createPrestation(
+    prestation: Omit<PrestationCreateDto, 'odontogram'>,
+    odontogram?: OdontogramDto[],
+  ): Promise<any> {
+    return this.repository.addPrestation(prestation, odontogram);
   }
 }
