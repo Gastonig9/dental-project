@@ -34,6 +34,9 @@ export default {
         xxl: "1940px",
         // => @media (min-width: 1940px) { ... }
       },
+      backgroundImage: {
+        "greenGradient": "linear-gradient(135deg, #81FBB8 0%, #28C76F 100%)"
+      }
     },
   },
   plugins: [],
