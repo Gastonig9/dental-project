@@ -1,13 +1,14 @@
 {
-    "tailwindCSS.includeLanguages": {
-        "plaintext": "html",
-        "javascript": "javascript",
-        "javascriptreact": "javascriptreact",
-        "typescript": "typescript",
-        "typescriptreact": "typescriptreact"
-    },
-    "editor.quickSuggestions": {
-        "strings": true
-    },
-    "tailwindCSS.emmetCompletions": true
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html",
+    "javascript": "javascript",
+    "javascriptreact": "javascriptreact",
+    "typescript": "typescript",
+    "typescriptreact": "typescriptreact"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.emmetCompletions": true,
+  "cSpell.words": ["odontogram", "prestation", "prestations"]
 }

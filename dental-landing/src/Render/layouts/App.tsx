@@ -15,7 +15,7 @@ import PrivateRoute from '../guards/PrivateRoute';
 import UsersList from '../pages/UsersManagement/UsersList';
 import { EditUserInfo } from '../pages/UserManagement/EditUserInfo';
 import CreateUser from '../pages/UserManagement/CreateUser';
-import Reports from "../pages/Reports/Reports";
+import Reports from '../pages/Reports/Reports';
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/appointments" element={<AppointmentManagement />} />
-            <Route path="/reports" element={<Reports/>}/>
+            <Route path="/reports" element={<Reports />} />
             <Route
               path="/patient-management/new-patient"
               element={<NewPatient />}

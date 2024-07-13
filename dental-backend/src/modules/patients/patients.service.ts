@@ -1,13 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { ConflictException, Injectable } from '@nestjs/common';
-import { Patient } from '@prisma/client';
+import { Patient, Prestations } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import { PatientRepository } from './patients.repository';
-import {
-  OdontogramDto,
-  PatientRequestDto,
-  PrestationCreateDto,
-} from 'src/dtos';
+import { PatientRequestDto, PatientResponseDto } from 'src/dtos';
 
 @Injectable()
 export class PatientService {
@@ -27,7 +23,7 @@ export class PatientService {
     }
   }
 
-  async getPatient(id: number): Promise<Patient> {
+  async getPatient(id: number): Promise<PatientResponseDto> {
     return this.repository.getPatientById(id);
   }
 
@@ -61,7 +57,6 @@ export class PatientService {
         nationality: 'argentina',
         socialWork: 'nose',
         street: 'Colon',
-        odontograma: '',
       };
       mockPatients.push(newMockPatient);
     }
@@ -88,19 +83,9 @@ export class PatientService {
 
   async updatePatientById(
     id: number,
-    patient: Partial<Patient>,
+    patient: Partial<Patient & { prestations: Prestations[] }>,
   ): Promise<Patient> {
-    return this.repository.updatePatientById(id, patient);
-  }
-
-  async getPrestationsByPatientId(id: number): Promise<Prestations[]> {
-    return this.repository.getPrestationsById(id);
-  }
-
-  async createPrestation(
-    prestation: Omit<PrestationCreateDto, 'odontogram'>,
-    odontogram?: OdontogramDto[],
-  ): Promise<any> {
-    return this.repository.addPrestation(prestation, odontogram);
+    const { prestations, ...rest } = patient;
+    return this.repository.updatePatientById(id, rest);
   }
 }

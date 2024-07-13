@@ -108,7 +108,7 @@ CREATE TABLE "Odontogram" (
     "id" SERIAL NOT NULL,
     "prestationId" INTEGER NOT NULL,
     "toothNumber" INTEGER NOT NULL,
-    "parts" "Parts" NOT NULL,
+    "parts" "Parts"[],
     "ref" TEXT NOT NULL,
 
     CONSTRAINT "Odontogram_pkey" PRIMARY KEY ("id")
@@ -175,7 +175,7 @@ ALTER TABLE "MedicalHistory" ADD CONSTRAINT "MedicalHistory_patientId_fkey" FORE
 ALTER TABLE "Prestations" ADD CONSTRAINT "Prestations_patientId_fkey" FOREIGN KEY ("patientId") REFERENCES "Patient"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Odontogram" ADD CONSTRAINT "Odontogram_prestationId_fkey" FOREIGN KEY ("prestationId") REFERENCES "Prestations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Odontogram" ADD CONSTRAINT "Odontogram_prestationId_fkey" FOREIGN KEY ("prestationId") REFERENCES "Prestations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Secretary" ADD CONSTRAINT "Secretary_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
