@@ -1,8 +1,8 @@
 import Navbar from "../../components/Platform/Navbar";
-import { Calendar } from "../../components/Platform/Calendar";
+import { Calendar } from "../../components/Platform/Calendar/Calendar";
 import { Button } from "../../components/UI/Button/Button";
 
-const GestionTurnos = () => {
+const AppointmentManagement = () => {
   const userData = JSON.parse(localStorage.getItem("user") || "{}");
   return (
     <div>
@@ -24,4 +24,4 @@ const GestionTurnos = () => {
   );
 };
 
-export default GestionTurnos;
+export default AppointmentManagement;

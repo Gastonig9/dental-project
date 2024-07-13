@@ -12,6 +12,7 @@ import { PatientService } from '../patients/patients.service';
 import { DentistService } from '../dentists/dentist.service';
 import { EmailService } from 'src/utils/email.service';
 import { UpdateAppointmentStateDto } from 'src/dtos/update-appointment-state.dto';
+import { UpdateAppointmentDto } from 'src/dtos/update-appointment.to';
 
 @Injectable()
 export class AppointmentService {
@@ -91,6 +92,21 @@ export class AppointmentService {
     }
     return updateState
   }
+
+  async updateAppointment(id: number, newAppointment: UpdateAppointmentDto): Promise<Appointment> {
+    try {
+      const existingAppointment = await this.getAppointment(id);
+    if (!existingAppointment) {
+      throw new NotFoundException('Cita no encontrada');
+    }
+  
+    return this.repository.updateAppointment(id, newAppointment);
+    } catch (error) {
+      throw error;
+    }
+    
+  }
+  
 
   async checkAvailability(dentistId: number, date: Date): Promise<boolean> {
     const findAppointments = await this.repository.checkDentistAvailability(

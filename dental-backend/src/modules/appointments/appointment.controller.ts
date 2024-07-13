@@ -18,12 +18,13 @@ import { ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/decorators/public.decorator';
 import { Response } from 'express';
 import { UpdateAppointmentStateDto } from 'src/dtos/update-appointment-state.dto';
+import { UpdateAppointmentDto } from 'src/dtos/update-appointment.to';
 
 @Public()
 @ApiTags('Citas')
 @Controller('api/appointments')
 export class AppointmentController {
-  constructor(private readonly service: AppointmentService) {}
+  constructor(private readonly service: AppointmentService) { }
 
   @Get()
   async getAllAppointments(): Promise<Appointment[]> {
@@ -49,6 +50,25 @@ export class AppointmentController {
       });
     } catch (error) {
       throw error;
+    }
+  }
+
+  @Put('/update-appointment/:appointmentId')
+  @ApiBody({ type: UpdateAppointmentDto })
+  async updateAppointment(@Param('appointmentId') appointmentId: string, @Body() newData: UpdateAppointmentDto, @Res() res: Response) {
+    try {
+      const appointmentUpdated = await this.service.updateAppointment(parseInt(appointmentId), newData)
+      return res.status(HttpStatus.OK).json({
+        statusCode: 200,
+        message: `Turno actualizado correctamente`,
+        appointmentUpdated,
+      });
+    } catch (error) {
+      return res.json({
+        error: error.message,
+        message: 'An error ocurred',
+        statusCode: error.status,
+      });
     }
   }
 
