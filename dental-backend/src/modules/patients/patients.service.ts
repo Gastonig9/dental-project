@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { ConflictException, Injectable } from '@nestjs/common';
-import { Patient } from '@prisma/client';
+import { Patient, Prestations } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import { PatientRepository } from './patients.repository';
 import { PatientRequestDto, PatientResponseDto } from 'src/dtos';
@@ -83,8 +83,9 @@ export class PatientService {
 
   async updatePatientById(
     id: number,
-    patient: Partial<Patient>,
+    patient: Partial<Patient & { prestations: Prestations[] }>,
   ): Promise<Patient> {
-    return this.repository.updatePatientById(id, patient);
+    const { prestations, ...rest } = patient;
+    return this.repository.updatePatientById(id, rest);
   }
 }
