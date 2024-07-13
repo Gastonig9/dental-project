@@ -1,14 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { Context } from 'src/prisma/prisma.context';
-import { UserRegisterDto, UserUpdateDto } from 'src/dtos';
+import { UserRegisterDto, UserResponseDto } from 'src/dtos';
 
 @Injectable()
 export class UserRepository {
   constructor(private readonly context: Context) {}
 
-  async GetAllUsers(): Promise<User[]> {
-    return this.context.user.findMany();
+  async GetAllUsers(): Promise<UserResponseDto[]> {
+    return this.context.user.findMany({
+      select: {
+        dni: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        role_name: true,
+        id: true,
+      },
+    });
   }
 
   async AddUser(data: UserRegisterDto): Promise<User> {

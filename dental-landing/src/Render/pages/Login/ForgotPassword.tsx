@@ -1,12 +1,13 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeftIcon } from '@heroicons/react/20/solid';
-import axios from 'axios';
-import './Login.css';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ChevronLeftIcon } from "@heroicons/react/20/solid";
+import axios from "axios";
+import "./Login.css";
+import { FiAlertCircle } from "react-icons/fi";
+import Swal from "sweetalert2";
 
 export const ForgotPassword = () => {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,12 +19,19 @@ export const ForgotPassword = () => {
         }
       );
       if (response.status === 200) {
-        setMessage(
-          'Se ha enviado un correo con las instrucciones para restablecer la contraseña.'
-        );
+        Swal.fire({
+          title: "Enviado",
+          text: "Se ha enviado un correo con las instrucciones para restablecer la contraseña.",
+          icon: "success",
+        });
       }
     } catch (error) {
-      setMessage('No se pudo enviar el correo. Por favor, inténtelo de nuevo.');
+      console.error("Error al enviar correo:", error);
+      Swal.fire({
+        title: "Error",
+        text: "No se pudo enviar el correo, por favor intente de nuevo.",
+        icon: "error",
+      });
     }
   };
 
@@ -43,9 +51,10 @@ export const ForgotPassword = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="my-5 mx-auto w-[90%] lg:w-[50%]">
+          className="my-10 mx-auto w-[90%] lg:ml-[25%] lg:w-[65%]"
+        >
           <h2 className="text-center lg:text-left poppins-medium text-xl mb-8">
-            Olvidé mi constraseña
+            Verificación de correo
           </h2>
           <div className="flex flex-col poppins-regular">
             <label htmlFor="email">
@@ -56,15 +65,25 @@ export const ForgotPassword = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
+                className="w-full py-3 border lg:w-[335px] bg-gray-100/75 border-slate-200 rounded-lg px-3 focus:outline-none focus:border-[#424242] hover:shadow mb-3"
                 placeholder="Ejemplo@gmail.com "
                 required
               />
             </label>
-            {message && <p className="text-center text-green-500">{message}</p>}
+            <div className="flex poppins-regular leading-[100%] text-[14px]">
+              <span>
+                <FiAlertCircle className="h-[20px] w-[20px]" />
+              </span>
+              <p className="ml-1">
+                De no estar registrado el mail utilizado en nuestra base de
+                datos, el formulario para reestablecer su contraseña, no será
+                enviado.
+              </p>
+            </div>
             <button
               type="submit"
-              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14">
+              className="poppins-semibold text-lg w-[40%] lg:w-[30%] p-2 text-black bg-acento rounded-xl hover:shadow items-center justify-center mx-auto lg:mx-0 mt-14"
+            >
               <span>Continuar</span>
             </button>
           </div>
