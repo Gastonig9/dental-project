@@ -234,17 +234,10 @@
   background: #fff;
 }
 
-.gender-input-select-style{
-  width: 250px;
-  height: 44px;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #424242;
-  background: #f5f5f5;
-}
-
 @media (max-width: 768px) {
-  .personalInfo-input-style, .gender-input-select-style, .usermanagement-input-style, .usermanagement-input-select-style {
+  .personalInfo-input-style,
+  .usermanagement-input-style,
+  .usermanagement-input-select-style {
     width: 100%;
   }
 }

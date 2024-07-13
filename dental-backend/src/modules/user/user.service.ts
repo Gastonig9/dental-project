@@ -16,6 +16,7 @@ import { UserAuthResponseDto, UserLoginDto, UserRegisterDto } from 'src/dtos';
 import {
   RequestResetPasswordDto,
   ResetPasswordDto,
+  UserResponseDto,
   UserUpdateDto,
 } from 'src/dtos/user';
 import { EmailService } from 'src/utils/email.service';
@@ -119,7 +120,7 @@ export class UserService {
     return this.userRepository.UpdateUser(data, id);
   }
 
-  async getAllUsers(): Promise<User[]> {
+  async getAllUsers(): Promise<UserResponseDto[]> {
     return this.userRepository.GetAllUsers();
   }
 
