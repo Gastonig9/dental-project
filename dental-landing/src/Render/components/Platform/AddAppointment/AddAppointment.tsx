@@ -117,7 +117,6 @@ export const AddAppointment = () => {
   };
 
   const handleCreateAppointment = async () => {
-    console.log(dataAppointment);
     try {
       await axios.post(
         `${import.meta.env.VITE_API_URL}/api/appointments/create-appointment`,

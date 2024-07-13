@@ -14,7 +14,6 @@ export const AppointmentsStatistics = () => {
       .get(`${import.meta.env.VITE_API_URL}/api/appointments`)
       .then((res) => {
         setData(res.data);
-        console.log(res.data);
         setLoading(false);
       })
       .catch((err) => {

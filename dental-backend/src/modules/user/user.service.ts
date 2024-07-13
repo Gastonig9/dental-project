@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
+  PreconditionFailedException,
 } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { User } from '@prisma/client';
@@ -15,6 +16,7 @@ import { UserAuthResponseDto, UserLoginDto, UserRegisterDto } from 'src/dtos';
 import {
   RequestResetPasswordDto,
   ResetPasswordDto,
+  UserResponseDto,
   UserUpdateDto,
 } from 'src/dtos/user';
 import { EmailService } from 'src/utils/email.service';
@@ -22,6 +24,8 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class UserService {
+  private readonly MAX_FAILED_ATTEMPTS = 5;
+
   constructor(
     private readonly userRepository: UserRepository,
     private readonly dentistRepository: DentistRepository,
@@ -58,16 +62,28 @@ export class UserService {
       id,
       password: hashPassword,
       resetPasswordToken: _reset,
+      failedAttempts: _failedAttempts,
+      isLocked,
       ...userWithoutId
     } = userExist;
+
+    if (isLocked) {
+      throw new PreconditionFailedException(
+        'Cuenta bloqueada, solicitar cambio de contraseña',
+      );
+    }
 
     const isEqual = await this.authService.comparePassword({
       hashPassword,
       plainPassword: user.password,
     });
 
-    if (!isEqual)
-      throw new UnauthorizedException('Email y/o Contraseña incorrectos');
+    if (!isEqual) {
+      await this.handleFailedLoginAttempt(userExist);
+      throw new UnauthorizedException(
+        'Email y/o Contraseña incorrectos, recuerde que solo cuenta con 5 intentos',
+      );
+    }
 
     const token = await this.authService.generateToken({
       id,
@@ -104,7 +120,7 @@ export class UserService {
     return this.userRepository.UpdateUser(data, id);
   }
 
-  async getAllUsers(): Promise<User[]> {
+  async getAllUsers(): Promise<UserResponseDto[]> {
     return this.userRepository.GetAllUsers();
   }
 
@@ -142,7 +158,26 @@ export class UserService {
     const hashPassword = await this.authService.hashPassword(password);
 
     await this.userRepository.UpdateUser(
-      { password: hashPassword, resetPasswordToken: null },
+      {
+        password: hashPassword,
+        resetPasswordToken: null,
+        failedAttempts: 0,
+        isLocked: false,
+      },
+      user.id,
+    );
+  }
+
+  private async handleFailedLoginAttempt(user: User) {
+    user.failedAttempts += 1;
+    if (user.failedAttempts >= this.MAX_FAILED_ATTEMPTS) {
+      user.isLocked = true;
+    }
+    await this.userRepository.UpdateUser(
+      {
+        failedAttempts: user.failedAttempts,
+        isLocked: user.isLocked,
+      },
       user.id,
     );
   }

@@ -24,30 +24,33 @@ import {
   RequestResetPasswordDto,
   ResetPasswordDto,
   UserRegisterDto,
+  UserResponseDto,
 } from 'src/dtos';
-
 import { Response } from 'express';
-// import { Roles } from 'src/decorators/roles.decorator';
+import { Roles } from 'src/decorators/roles.decorator';
 
-@Public()
 @ApiBearerAuth()
 @ApiTags('Users')
 @Controller('api/user')
 export class UserController {
   constructor(private readonly service: UserService) {}
 
+  @UseGuards(RolesGuard)
+  @Roles('OWNER')
   @Get()
-  async getAllUsers(): Promise<User[]> {
+  async getAllUsers(): Promise<UserResponseDto[]> {
     return await this.service.getAllUsers();
   }
 
   @UseGuards(RolesGuard)
+  @Roles('OWNER')
   @Get(':id')
   async getUser(@Param('id') id: string): Promise<User> {
     return await this.service.getUser(parseInt(id));
   }
 
   @UseGuards(RolesGuard)
+  @Roles('OWNER')
   @Post('/register-user')
   @ApiBody({ type: UserRegisterDto })
   async RegisterUser(@Body() data: UserRegisterDto): Promise<User> {
@@ -55,6 +58,7 @@ export class UserController {
   }
 
   @UseGuards(RolesGuard)
+  @Roles('OWNER')
   @Put('/:id')
   @ApiBody({ type: UserUpdateDto })
   async UpdateUser(
@@ -64,18 +68,22 @@ export class UserController {
     return await this.service.updateUser(id, data);
   }
 
+  @Public()
   @Post('/login-user')
   @ApiBody({ type: UserLoginDto })
   async loginUser(@Body() data: User): Promise<UserAuthResponseDto> {
     return await this.service.login(data);
   }
 
+  @UseGuards(RolesGuard)
+  @Roles('OWNER')
   @Delete(':id')
   @UseGuards(RolesGuard)
   async deleteUser(@Param('id') id: string): Promise<User> {
     return await this.service.deleteUser(parseInt(id));
   }
 
+  @Public()
   @Patch('/request-reset-password')
   async requestResetPassword(
     @Body() requestResetPasswordDto: RequestResetPasswordDto,
@@ -88,6 +96,7 @@ export class UserController {
     });
   }
 
+  @Public()
   @Patch('/reset-password')
   async resetPassword(
     @Body() resetPasswordDto: ResetPasswordDto,

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { Patient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import { PatientRepository } from './patients.repository';
@@ -11,6 +11,12 @@ export class PatientService {
 
   async addPatient(patient: PatientRequestDto): Promise<Patient> {
     try {
+      const response = await this.repository.getPatientByDni(patient.dni);
+
+      if (response) {
+        throw new ConflictException('El dni ya se encuentra registrado');
+      }
+
       return this.repository.addPatient(patient);
     } catch (error) {
       throw error;

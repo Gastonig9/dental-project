@@ -1,5 +1,5 @@
 import { Dashboard } from '../pages/Dashboard/Dashboard';
-import GestionTurnos from '../pages/GestionTurnos/GestionTurnos';
+import AppointmentManagement from '../pages/AppointmentManagement/AppointmentManagement';
 import CreateAppointment from '../pages/CreateAppointment/CreateAppointment';
 import { Landing } from '../pages/Landing/Landing';
 import { Login } from '../pages/Login/Login';
@@ -30,8 +30,8 @@ function App() {
           {/* PROTECTED ROUTES */}
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/appointments" element={<GestionTurnos />} />
-            <Route path="/reports" element={<Reports />}></Route>
+            <Route path="/appointments" element={<AppointmentManagement />} />
+            <Route path="/reports" element={<Reports />} />
             <Route
               path="/patient-management/new-patient"
               element={<NewPatient />}
