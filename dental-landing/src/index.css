@@ -235,7 +235,9 @@
 }
 
 @media (max-width: 768px) {
-  .personalInfo-input-style, .usermanagement-input-style, .usermanagement-input-select-style {
+  .personalInfo-input-style,
+  .usermanagement-input-style,
+  .usermanagement-input-select-style {
     width: 100%;
   }
 }
@@ -283,6 +285,10 @@
   }
 }
 
+.holaSweet {
+  border: 7px solid red;
+}
+
 /* Archivo CSS: calendarStyles.css */
 .custom-event {
   width: 100%;
@@ -293,8 +299,12 @@
   text-align: start;
   font-size: 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
 }
 
 .custom-event .event-buttons {
@@ -321,12 +331,36 @@
   cursor: pointer;
   transform: scale(1.1);
 }
+
+.custom-event .finalized-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 20%;
+}
+
+.custom-event .finalized-button div {
+  width: 15%;
+}
+
+.custom-event .finalized-button div img {
+  width: 35px;
+}
+
+.custom-event .finalized-button div img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
 /* CALENDAR HEADER */
 
 .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
   width: 100%;
   color: #000000;
   font-size: 24px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr .fc-toolbar-chunk button {
@@ -390,9 +424,20 @@
 @media (max-width: 953px) {
   .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
     width: 100%;
-    display: flex;
-    flex-direction: column;
     font-size: 19px;
+  }
+
+  #root
+    > div
+    > main.p-3.mt-\[80px\].lg\:hidden.w-
+    > div
+    > div
+    > div.fc-header-toolbar.fc-toolbar.fc-toolbar-ltr
+    > div:nth-child(2)
+    > div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
 
   .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr .fc-toolbar-chunk button {
@@ -412,9 +457,18 @@
     width: 50%;
     padding: 6px;
   }
+
+  .hide-on-small-screen {
+    display: none !important;
+  }
 }
 
 @media (max-width: 555px) {
+  .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+    width: 100%;
+    font-size: 12px;
+  }
+
   .custom-event span {
     width: 100%;
     font-size: 12px;
