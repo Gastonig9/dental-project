@@ -64,11 +64,7 @@ export class AppointmentController {
         appointmentUpdated,
       });
     } catch (error) {
-      return res.json({
-        error: error.message,
-        message: 'An error ocurred',
-        statusCode: error.status,
-      });
+      throw error
     }
   }
 

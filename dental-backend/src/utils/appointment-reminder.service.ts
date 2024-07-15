@@ -31,11 +31,11 @@ export class AppointmentReminderService {
       if (appointments.length > 0) {
         for (const appointment of appointments) {
           const adjustedAppointmentDate = appointment.date
-          if (adjustedAppointmentDate < now) {
-            await this.appointmentService.deleteAppointment(appointment.id);
-            this.logger.debug(`Cita eliminada: ${adjustedAppointmentDate.toLocaleString()}`);
-            continue;
-          }
+          // if (adjustedAppointmentDate < now) {
+          //   await this.appointmentService.deleteAppointment(appointment.id);
+          //   this.logger.debug(`Cita eliminada: ${adjustedAppointmentDate.toLocaleString()}`);
+          //   continue;
+          // }
 
           const nowHours = now.getHours();
           const nowMinutes = now.getMinutes();

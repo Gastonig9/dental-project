@@ -160,7 +160,7 @@ const PatientsList = () => {
           {loading ? (
             <Spinner />
           ) : (
-            <div className="flex flex-col gap-y-[33px] mt-5 overflow-y-scroll h-[546px] ">
+            <div className="flex flex-col gap-y-[33px] mt-5 overflow-y-scroll h-[546px] scrollbar-patient-list">
               {patients.map((paciente) => (
                 <div
                   key={String(paciente.id)}
