@@ -255,7 +255,7 @@ export const Dashboard = () => {
               />
             </div>
 
-            <div className="flex flex-col gap-y-[10px] mt-5 overflow-y-scroll h-[346px] ">
+            <div className="flex flex-col gap-y-[10px] mt-5 overflow-y-scroll h-[346px] scrollbar-patients-dashboard">
               {patientsGET.slice(0, 6).map((paciente) => (
                 <div
                   key={String(paciente.id)}

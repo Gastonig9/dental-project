@@ -10,7 +10,7 @@ import { Button } from "../../../UI/Button/Button";
 
 interface UpdateAppointmentFormProps {
   selectedEvent: any;
-  closeUpdateWindow: any
+  closeUpdateWindow: any;
 }
 
 export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
@@ -24,11 +24,11 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
   const [dataAppointment, setDataAppointment] = useState<{
     dentistId: number | null;
     patientId: number | null;
-    date: string;
+    date: string | null;
   }>({
     dentistId: null,
     patientId: null,
-    date: "",
+    date: null,
   });
 
   useEffect(() => {
@@ -78,12 +78,14 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
   };
 
   const handleUpdateAppointment = async () => {
+    console.log(dataAppointment)
     const appointmentId = selectedEvent._def.publicId;
     try {
-      await axios.put(
+      const response = await axios.put(
         `${import.meta.env.VITE_API_URL}/api/appointments/update-appointment/${appointmentId}`,
         dataAppointment
       );
+      console.log(response)
       Swal.fire({
         title: "Éxito",
         text: "La cita se ha actualizado correctamente.",
@@ -95,6 +97,7 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
         }
       });
     } catch (error: any) {
+      console.log(error)
       const errorMessage = error.response.data.message;
       const errorStatus = error.response.data.statusCode
         ? error.response.data.statusCode
@@ -103,7 +106,7 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
         title: "Error",
         text: `${
           errorStatus === 400
-            ? "Ocurrio un error de validacion. Verifique que todos los campos ingresados sean correctos"
+            ? 'No se han proporcionado todos los datos requeridos para actualizar el turno'
             : errorStatus === 409
             ? errorMessage
             : "Interval server error. Por favor intente mas tarde"
@@ -116,42 +119,53 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
       });
     }
   };
-  
+
   return (
-    <div className="fixed top-[25%] left-[27%] w-[900px] h-[auto] bg-[#F5F5F5] rounded-[15px] border border-black z-40 p-9">
-      <div className="w-full flex justify-between">
-        <h1 className="poppins-semibold text-[24px] md:text-[33px]">
-          Editar turno
-        </h1>
-        <img
-          className="w-11 h-11 hover:cursor-pointer"
-          src={cancel}
-          alt="Cerrar"
-          onClick={closeUpdateWindow}
-        />
+    <div className="fixed inset-0 flex items-center justify-center z-40 p-4 animate__animated animate__bounceIn">
+      <div className="bg-[#F5F5F5] rounded-[15px] border border-black w-full max-w-5xl p-6 sm:p-9 space-y-6">
+        <div className="w-full flex justify-between items-center">
+          <h1 className="poppins-semibold text-[24px] md:text-[33px]">Editar turno</h1>
+          <img
+            className="w-11 h-11 hover:cursor-pointer"
+            src={cancel}
+            alt="Cerrar"
+            onClick={closeUpdateWindow}
+          />
+        </div>
+        <div className="w-full">
+          <h1 className="text-[25px]">
+            Nombre del paciente:{" "}
+            <span className="poppins-bold">
+              {selectedEvent?.extendedProps.patient?.name}{" "}
+              {selectedEvent?.extendedProps.patient?.surname}
+            </span>
+          </h1>
+        </div>
+        <div>
+          <DateTimeInput onDateChange={handleDateChange} />
+        </div>
+        <div className="flex flex-col sm:flex-row justify-around mt-5 space-y-5 sm:space-y-0">
+          <TimeInput onTimeChange={handleTimeChange} />
+          <SelectInput
+            options={dentists}
+            titleSelect="Profesional"
+            selectDentist={handleDentistSelected}
+            id="profesional"
+          />
+        </div>
+        <div className="flex justify-center">
+          <Button
+            onAction={() => handleUpdateAppointment()}
+            justifyButton="center"
+            titleButton="Guardar"
+            widthButton="[30%]"
+            isLink={false}
+            marginTop="5"
+            widthContain="[100%]"
+            marginBottom="0"
+          />
+        </div>
       </div>
-      <div className="w-full">
-        <h1 className="text-[25px]">
-          Nombre del paciente:{" "}
-          <span className="poppins-bold">
-            {selectedEvent?.extendedProps.patient?.name}{" "}
-            {selectedEvent?.extendedProps.patient?.surname}
-          </span>
-        </h1>
-      </div>
-      <div>
-        <DateTimeInput onDateChange={handleDateChange} />
-      </div>
-      <div className="flex justify-around mt-5">
-        <TimeInput onTimeChange={handleTimeChange} />
-        <SelectInput
-          options={dentists}
-          titleSelect="Profesional"
-          selectDentist={handleDentistSelected}
-          id="profesional"
-        />
-      </div>
-      <Button onAction={() => handleUpdateAppointment()} justifyButton="center" titleButton="Guardar" widthButton="[30%]" isLink={false} marginTop="5" widthContain="[100%]" marginBottom="0"/>
     </div>
   );
 };

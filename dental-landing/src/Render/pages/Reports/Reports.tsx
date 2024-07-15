@@ -23,7 +23,7 @@ const Reports = () => {
           </Link>
         </div>
 
-        <main className="w-[90%] max-w-[1594px] lg:h-[740px] lg:rounded-[35px] lg:bg-white lg:py-[30px] lg:px-[78px] mx-auto overflow-y-scroll">
+        <main className="w-[90%] max-w-[1594px] lg:h-[740px] lg:rounded-[35px] lg:bg-white lg:py-[30px] lg:px-[78px] mx-auto overflow-y-scroll scrollbar-reports">
           <div>
             <div className="flex lg:space-x-16 mb-4 poppins-regular text-[19px] justify-center lg:justify-start">
               <button
