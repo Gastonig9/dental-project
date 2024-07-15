@@ -86,6 +86,12 @@ export class PatientService {
     patient: Partial<Patient & { prestations: Prestations[] }>,
   ): Promise<Patient> {
     const { prestations, ...rest } = patient;
+    const response = await this.repository.getPatientByDni(patient.dni);
+
+    if (response && response.id !== id) {
+      throw new ConflictException('El dni ya se encuentra registrado');
+    }
+
     return this.repository.updatePatientById(id, rest);
   }
 }
