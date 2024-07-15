@@ -19,18 +19,23 @@ export const EventContent: React.FC<EventContentProps> = ({
         <span>{eventInfo.event.title}</span>
         {eventInfo.view.type === "timeGridDay" && (
           <>
-            <span className="paciente">
-              Paciente:{" "}
-              <b>
-                {eventInfo.event.extendedProps.patient?.name}{" "}
-                {eventInfo.event.extendedProps.patient?.surname}
-              </b>
-            </span>
+            <div className="event-info">
+              <span className="paciente">
+                Paciente:{" "}
+                <b>
+                  {eventInfo.event.extendedProps.patient?.name}{" "}
+                  {eventInfo.event.extendedProps.patient?.surname}
+                </b>
+              </span>
+              <span className="paciente">
+                Asignado:{" "}
+                <b>Dr. {eventInfo.event.extendedProps.dentist?.fullname}</b>
+              </span>
+            </div>
+
             <div className="event-buttons">
               {/* Actualizar turno */}
-              <div
-                onClick={() => handleOpenUpdateWindow(eventInfo.event)}
-              >
+              <div onClick={() => handleOpenUpdateWindow(eventInfo.event)}>
                 <img
                   src={updateAppointment}
                   alt="Actualizar"
