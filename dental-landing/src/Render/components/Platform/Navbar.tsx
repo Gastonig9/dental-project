@@ -6,7 +6,7 @@ import {
   IoMenu,
   IoLogOutOutline,
 } from "react-icons/io5";
-import { FaCalendar, FaChevronDown, FaRegUserCircle } from "react-icons/fa";
+import { FaCalendar, FaChevronDown } from "react-icons/fa";
 import { RiMenuUnfoldLine, RiMenuUnfold2Line } from "react-icons/ri";
 import { MdClose } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
