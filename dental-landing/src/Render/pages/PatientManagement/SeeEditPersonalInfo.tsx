@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
 
@@ -48,9 +48,18 @@ export const SeeEditPersonalInfo = () => {
       console.log('Patient information saved:', response.data);
     } catch (error) {
       console.error('Error saving: ', error);
+      let text = 'Ocurrió un error al guardar la información.';
+      let title = 'Error';
+
+      if (error instanceof AxiosError) {
+        if (error?.response?.status === 409) {
+          title = 'Campo Repetido';
+          text = error.response.data.message;
+        }
+      }
       Swal.fire({
-        title: 'Error',
-        text: 'Ocurrió un error al guardar la información.',
+        title,
+        text,
         icon: 'error',
       });
     }
