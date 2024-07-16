@@ -166,6 +166,7 @@ export const EditUserInfo = () => {
                   disabled={!allowEdition}>
                   <option value="OWNER">OWNER</option>
                   <option value="SECRETARY">SECRETARY</option>
+                  <option value="ASSOCIATED">ASSOCIATED</option>
                 </select>
                 {errors.role_name && (
                   <p className="text-red-500">
