@@ -5,11 +5,11 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import esLocale from "@fullcalendar/core/locales/es";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { Appointment } from "../../../../types/dtos/appointment/appointment.type";
 import { EventContent } from "./EventContent/EventContent";
 import { UpdateAppointmentForm } from "./UpdateAppointmentForm/UpdateAppointmentForm";
+import { appointmentsServices } from "../../../../services";
 
 export const Calendar = ({ userData }: any) => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -39,15 +39,11 @@ export const Calendar = ({ userData }: any) => {
 
     const getAppointments = async () => {
       try {
-        let response;
+        let response: any;
         if (userData.role_name === "ASSOCIATED") {
-          response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/dentist/appointments/${dentistId}`
-          );
+          response = await appointmentsServices.getByDentistAppointmentId(dentistId)
         } else {
-          response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/appointments/`
-          );
+          response = await appointmentsServices.getAppointments()
         }
         const filteredAppointments = response.data.filter(
           (appointment: any) => appointment.state === "PENDING"
@@ -86,10 +82,7 @@ export const Calendar = ({ userData }: any) => {
       const data = { appointmentId: id, state: newState };
 
       try {
-        const response = await axios.put(
-          `${import.meta.env.VITE_API_URL}/api/appointments/update-appointment-state/`,
-          data
-        );
+        const response = await appointmentsServices.changeAppointmentState(data)
 
         if (response.status === 200) {
           Swal.fire(

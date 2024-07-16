@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import cancel from "../../../../../assets/img/calendar/Cancel.png";
 import { DateTimeInput, SelectInput } from "../../AddAppointment";
 import { TimeInput } from "../../AddAppointment/TimeInput/TimeInput";
-import axios from "axios";
 import { Dentist } from "../../../../../types/dtos/dentist/dentist.type";
 import Swal from "sweetalert2";
 import { Button } from "../../../UI/Button/Button";
+import { appointmentsServices, dentistService } from "../../../../../services";
 
 interface UpdateAppointmentFormProps {
   selectedEvent: any;
@@ -34,9 +34,7 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
   useEffect(() => {
     const fetchDentists = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/dentist`
-        );
+        const response = await dentistService.getDentists()
         setDentists(response.data.dentists);
       } catch (error) {
         console.error("Error fetching dentists:", error);
@@ -81,11 +79,7 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
     console.log(dataAppointment)
     const appointmentId = selectedEvent._def.publicId;
     try {
-      const response = await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/appointments/update-appointment/${appointmentId}`,
-        dataAppointment
-      );
-      console.log(response)
+      await appointmentsServices.updateAppointment(appointmentId, dataAppointment)
       Swal.fire({
         title: "Éxito",
         text: "La cita se ha actualizado correctamente.",
