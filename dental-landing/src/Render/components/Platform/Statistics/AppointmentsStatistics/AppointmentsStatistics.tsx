@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Spinner from "../../Spinner";
 import { AppointmentsByMonthChart } from "./AppointmentsByMonthChart/AppointmentsByMonthChart";
 import { AppointmentsByConfirm } from "./AppointmentsByConfirm/AppointmentsByConfirm";
+import { appointmentsServices } from "../../../../../services";
 
 export const AppointmentsStatistics = () => {
   const [data, setData] = useState([]);
@@ -10,8 +10,8 @@ export const AppointmentsStatistics = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/api/appointments`)
+    appointmentsServices
+      .getAppointments()
       .then((res) => {
         setData(res.data);
         setLoading(false);
@@ -40,7 +40,7 @@ export const AppointmentsStatistics = () => {
           Pendientes, finalizados, cancelados
         </h1>
         <p>Reporte de turnos por estado</p>
-        <AppointmentsByConfirm dataAppointmentsForChart={data}/>
+        <AppointmentsByConfirm dataAppointmentsForChart={data} />
       </div>
     </div>
   );

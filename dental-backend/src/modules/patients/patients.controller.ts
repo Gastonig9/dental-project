@@ -13,10 +13,8 @@ import { Patient } from '@prisma/client';
 import { PatientRequestDto, PatientResponseDto } from 'src/dtos';
 import { PatientService } from './patients.service';
 import { ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/decorators/public.decorator';
 import { UpdatePatientDto } from 'src/dtos';
 
-@Public()
 @ApiTags('Pacientes')
 @Controller('/patient')
 export class PatientController {
