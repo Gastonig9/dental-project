@@ -225,7 +225,7 @@
   background: #d9d9d9;
 }
 
-.usermanagement-input-select-style{
+.usermanagement-input-select-style {
   width: 400px;
   height: 49px;
   padding: 8px;
@@ -234,13 +234,22 @@
   background: #fff;
 }
 
+@media (max-width: 768px) {
+  .personalInfo-input-style,
+  .usermanagement-input-style,
+  .usermanagement-input-select-style {
+    width: 100%;
+  }
+}
+
 /* review carousel styles */
 .splide__arrows svg {
+  display: none;
   fill: #76ffa8 !important;
 }
 
 .splide__pagination__page.is-active {
-  background: var(--Acento, #76ffa8) !important;
+  background: #424242 !important;
   border-radius: 12px !important;
   height: 24px !important;
   width: 24px !important;
@@ -285,10 +294,18 @@
   padding: 10px 10px;
   border-radius: 4px;
   text-align: start;
-  font-size: 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.custom-event .event-info {
+    display: flex;
+    gap: 20px;
 }
 
 .custom-event .event-buttons {
@@ -309,12 +326,49 @@
 
 .custom-event .event-buttons div img {
   width: 35px;
-
 }
 
 .custom-event .event-buttons div img:hover {
   cursor: pointer;
   transform: scale(1.1);
+}
+
+.custom-event .finalized-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 20%;
+}
+
+.custom-event .finalized-button div {
+  width: 15%;
+}
+
+.custom-event .finalized-button div img {
+  width: 35px;
+}
+
+.custom-event .finalized-button div img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+@media (max-width: 953px) {
+  .custom-event {
+    border: 5px solid orange;
+    padding: 0px;
+    font-size: 9px;
+  }
+
+  .custom-event .event-buttons {
+    width: 50%;
+  }
+
+  .custom-event .event-buttons div {
+    width: 50%;
+    padding: 6px;
+  }
 }
 /* CALENDAR HEADER */
 
@@ -322,11 +376,14 @@
   width: 100%;
   color: #000000;
   font-size: 24px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr .fc-toolbar-chunk button {
   color: #000000;
-  background-color: #58d68d;
+  background-color: #f5f5f5;
 }
 
 /* CALENDAR BODY */
@@ -346,21 +403,12 @@
   padding: 120px 120px !important;
 }
 
-.fc-v-event {
-  border: 2px solid black;
-}
-
-.fc-event-main {
-  background-color: #58d68d;
-  border: #000000 !important;
-}
-
 .fc-daygrid-day-frame.fc-scrollgrid-sync-inner:hover {
   cursor: pointer;
   background-color: #dad8d8;
 }
 
-/* Personalizar la scrollbar del cuerpo del calendario */
+/* Personalizar la scrollbars */
 .fc-scroller::-webkit-scrollbar {
   width: 12px;
 }
@@ -380,14 +428,86 @@
   background-color: #58d68d;
 }
 
+
+.scrollbar-reports::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar-reports::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.scrollbar-reports::-webkit-scrollbar-thumb {
+  background-color: #908e8e;
+  border-radius: 10px;
+  border: 3px solid #f5f5f5;
+}
+
+.scrollbar-reports::-webkit-scrollbar-thumb:hover {
+  background-color: #58d68d;
+}
+
+
+.scrollbar-patients-dashboard::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar-patients-dashboard::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.scrollbar-patients-dashboard::-webkit-scrollbar-thumb {
+  background-color: #908e8e;
+  border-radius: 10px;
+  border: 3px solid #f5f5f5;
+}
+
+.scrollbar-patients-dashboard::-webkit-scrollbar-thumb:hover {
+  background-color: #58d68d;
+}
+
+
+.scrollbar-patient-list::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar-patient-list::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.scrollbar-patient-list::-webkit-scrollbar-thumb {
+  background-color: #908e8e;
+  border-radius: 10px;
+  border: 3px solid #f5f5f5;
+}
+
+.scrollbar-patient-list::-webkit-scrollbar-thumb:hover {
+  background-color: #58d68d;
+}
+
+
 /* Calendar Mobile */
 
 @media (max-width: 953px) {
   .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
     width: 100%;
-    display: flex;
-    flex-direction: column;
     font-size: 19px;
+  }
+
+  #root
+    > div
+    > main.p-3.mt-\[80px\].lg\:hidden.w-
+    > div
+    > div
+    > div.fc-header-toolbar.fc-toolbar.fc-toolbar-ltr
+    > div:nth-child(2)
+    > div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
 
   .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr .fc-toolbar-chunk button {
@@ -399,19 +519,40 @@
     margin-left: 0px;
   }
 
-  .custom-event .event-buttons {
-    width: 50%;
-  }
-
-  .custom-event .event-buttons div {
-    width: 50%;
-    padding: 6px;
+  .hide-on-small-screen {
+    display: none !important;
   }
 }
 
 @media (max-width: 555px) {
+  .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+    width: 100%;
+    font-size: 12px;
+  }
+
   .custom-event span {
     width: 100%;
     font-size: 12px;
   }
+}
+
+/* SWEET ALERT BUTTONS */
+
+/* styles.css */
+
+.swal2-confirm.custom-confirm-button-white {
+  border-radius: 10px;
+  color: black;
+}
+
+.swal2-confirm.custom-confirm-button-black {
+  border-radius: 10px;
+  color: white;
+}
+
+.swal2-cancel.custom-cancel-button {
+  color: black;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  border: 2px solid #424242;
 }

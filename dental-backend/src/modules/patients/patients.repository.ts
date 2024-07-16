@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { Appointment, MedicalHistory, Patient } from '@prisma/client';
-import { PatientRequestDto } from 'src/dtos';
+import { Patient } from '@prisma/client';
+import { PatientRequestDto, PatientResponseDto } from 'src/dtos';
 import { Context } from 'src/prisma/prisma.context';
 
 @Injectable()
@@ -40,11 +40,12 @@ export class PatientRepository {
       include: {
         appointments: true,
         medicalHistories: true,
+        prestations: true,
       },
     });
   }
 
-  async getPatientById(id: number): Promise<any> {
+  async getPatientById(id: number): Promise<PatientResponseDto> {
     return this.context.patient.findFirst({
       where: {
         id,
@@ -52,6 +53,7 @@ export class PatientRepository {
       include: {
         appointments: true,
         medicalHistories: true,
+        prestations: true,
       },
     });
   }

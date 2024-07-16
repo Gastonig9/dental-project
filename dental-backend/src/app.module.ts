@@ -8,6 +8,7 @@ import { SecretaryModule } from './modules/secretary/secretary.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { RecordModule } from './modules/record/record.module';
+import { PrestationsModule } from './modules/prestations/prestations.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RecordModule } from './modules/record/record.module';
     SecretaryModule,
     AppointmentModule,
     RecordModule,
+    PrestationsModule,
     MailerModule.forRoot({
       transport: {
         service: process.env.service,

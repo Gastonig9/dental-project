@@ -33,7 +33,6 @@ const PatientsList = () => {
       .then((res) => {
         setData(res.data.patients);
         setPatients(res.data.patients);
-        console.log(res.data.patients);
         setLoading(false);
       })
       .catch((err) => {
@@ -160,7 +159,7 @@ const PatientsList = () => {
           {loading ? (
             <Spinner />
           ) : (
-            <div className="flex flex-col gap-y-[33px] mt-5 overflow-y-scroll h-[546px] ">
+            <div className="flex flex-col gap-y-[33px] mt-5 overflow-y-scroll h-[546px] scrollbar-patient-list">
               {patients.map((paciente) => (
                 <div
                   key={String(paciente.id)}

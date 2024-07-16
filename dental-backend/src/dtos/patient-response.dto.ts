@@ -1,4 +1,4 @@
-import { Patient } from '@prisma/client';
+import { Appointment, Odontogram, Patient, Prestations } from '@prisma/client';
 
 type patient = Omit<Patient, 'phone'> & { phone: string };
 
@@ -20,6 +20,6 @@ export class PatientResponseDto implements patient {
   dni: number;
   phone: string;
   pEmail: string;
-  odontograma: string | null;
-  // appointments: Appointment[];
+  prestations: Prestations[];
+  appointments: Appointment[];
 }

@@ -5,10 +5,10 @@ import { PersonalInfo } from "../../sections/PatientManagement/PersonalInfo";
 import MedicalHistory from "./MedicalHistory";
 import { PatientContextProvider } from "../contexts/patientContext";
 import Navbar from "../../components/Platform/Navbar";
-import Prestaciones from "../../sections/PatientManagement/MedicalServices";
+import MedicalServices from "../../sections/PatientManagement/MedicalServices";
 
 export const NewPatient = () => {
-  const [activeTab, setActiveTab] = useState("My Account");
+  const [activeTab, setActiveTab] = useState("personal-information");
 
   return (
     <>
@@ -60,13 +60,13 @@ export const NewPatient = () => {
             </div>
 
             <PatientContextProvider>
-              <div className="p-4 rounded-lg">
+              <div className="p-0 rounded-lg">
                 {activeTab === "personal-information" && (
                   <section>
                     <PersonalInfo />
                   </section>
                 )}
-                {activeTab === "prestaciones" && <Prestaciones />}
+                {activeTab === "prestaciones" && <MedicalServices />}
                 {activeTab === "medical-record" && <MedicalHistory />}
               </div>
             </PatientContextProvider>

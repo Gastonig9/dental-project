@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -14,14 +15,15 @@ import { Appointment } from '@prisma/client';
 import { ApiBody } from '@nestjs/swagger';
 import { AppointmentRequestDto } from '../../dtos';
 import { ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/decorators/public.decorator';
 import { Response } from 'express';
+import { UpdateAppointmentStateDto } from 'src/dtos/update-appointment-state.dto';
+import { UpdateAppointmentDto } from 'src/dtos/update-appointment.to';
 
-@Public()
+
 @ApiTags('Citas')
 @Controller('api/appointments')
 export class AppointmentController {
-  constructor(private readonly service: AppointmentService) {}
+  constructor(private readonly service: AppointmentService) { }
 
   @Get()
   async getAllAppointments(): Promise<Appointment[]> {
@@ -50,19 +52,33 @@ export class AppointmentController {
     }
   }
 
-  @Put('/confirm-appointment/:appointmentId')
-  async confirmAppointment(
-    @Param('appointmentId') appointmentId: string,
+  @Put('/update-appointment/:appointmentId')
+  @ApiBody({ type: UpdateAppointmentDto })
+  async updateAppointment(@Param('appointmentId') appointmentId: string, @Body() newData: UpdateAppointmentDto, @Res() res: Response) {
+    try {
+      const appointmentUpdated = await this.service.updateAppointment(parseInt(appointmentId), newData)
+      return res.status(HttpStatus.OK).json({
+        statusCode: 200,
+        message: `Turno actualizado correctamente`,
+        appointmentUpdated,
+      });
+    } catch (error) {
+      throw error
+    }
+  }
+
+  @Put('/update-appointment-state/')
+  @ApiBody({ type: UpdateAppointmentStateDto })
+  async updateAppointmentState(
+    @Body() data: UpdateAppointmentStateDto,
     @Res() res: Response,
   ) {
     try {
-      const appointmentConfirmed = await this.service.ConfirmAppointment(
-        parseInt(appointmentId),
-      );
+      const appointmentUpdated = await this.service.changeAppointmentState(data)
       return res.status(HttpStatus.OK).json({
         statusCode: 200,
-        message: 'El turno ha sido confirmado',
-        appointmentConfirmed,
+        message: `El estado del turno ha cambiado a ${data.state}`,
+        appointmentUpdated,
       });
     } catch (error) {
       return res.json({

@@ -34,8 +34,6 @@ export class RolesGuard implements CanActivate {
 
     const { role } = this.jwtService.decode(token);
 
-    console.log(token, role);
-
     if (!requiredRoles.includes(role))
       throw new UnauthorizedException(
         `Role: ${role}, doesn't have access to this endpoint`,
