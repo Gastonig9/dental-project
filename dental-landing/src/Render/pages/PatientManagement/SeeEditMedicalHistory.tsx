@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios"
 import Swal from 'sweetalert2'
 import { useParams } from 'react-router-dom';
+import { token } from '../../../localStorage/token';
 
 const SeeEditMedicalHistory = () => {
   enum EnumInfoBoolean {
@@ -32,7 +33,7 @@ const SeeEditMedicalHistory = () => {
 
   const { id } = useParams();
   const [patientInfo, setPatientInfo] = useState<PatientFormat>({
-    patientId: 0,
+    patientId: Number(id),
     someDisease: '',
     someTreatment: '',
     consumeMedicaments: '',
@@ -55,11 +56,23 @@ const SeeEditMedicalHistory = () => {
   // bringing the patient's medical history from the backend
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/patient/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/patient/${id}`, {headers:{
+        "Authorization":`Bearer ${token()}`
+      }})
       .then((res) => {
+        if(!res.data.medicalHistories.length){
+          axios
+            .post(`${import.meta.env.VITE_API_URL}/records/create-record`, patientInfo, {headers:{
+              "Authorization":`Bearer ${token()}`
+            }})
+            .then((res)=>{
+              console.log('Se creó historia vacía: ', res)
+            })
+        }
         setPatientInfo(
           res.data.medicalHistories[res.data.medicalHistories.length - 1]
         );
+        
       })
       .catch((err) => {
         console.log(err.response.data.message);
@@ -94,7 +107,9 @@ const SeeEditMedicalHistory = () => {
     data.patientId = Number(id);
 
     axios
-      .put(`${import.meta.env.VITE_API_URL}/records/${id}`, data)
+      .put(`${import.meta.env.VITE_API_URL}/records/${id}`, data, {headers:{
+        "Authorization":`Bearer ${token()}`
+      }})
       .then((res) => {
         console.log(res);
         Swal.fire({
