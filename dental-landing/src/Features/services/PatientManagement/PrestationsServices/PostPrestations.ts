@@ -12,19 +12,29 @@ export const addPrestation = async (
 ) => {
   const requestData: PrestationRequest = {
     state: "PENDING", // or 'REALIZED'
-    patientId: patientId!,
+    patientId: patientId,
     date: prestationData.date,
     code: prestationData.code,
     observations: prestationData.observations || "",
     odontogram: prestationData.odontogram.map((tooth) => ({
-      toothNumber: tooth.toothNum,
-      parts: [tooth.part],
+      toothNumber: tooth.toothNumber,
+      parts: tooth.parts,
       ref: tooth.ref,
     })),
   };
-
-  return await axios.post(
-    `${import.meta.env.VITE_API_URL}${CREATE}`,
-    requestData
-  );
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}${CREATE}`,
+      requestData
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Axios error:", error.response?.data);
+      throw error;
+    } else {
+      console.error("Unexpected error:", error);
+      throw new Error("Unexpected error occurred");
+    }
+  }
 };

@@ -7,6 +7,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  z-index: 1;
 }
 
 .card-stick {
@@ -15,19 +16,6 @@
   bottom: 0;
   left: -20px;
   border-left: 3px solid #424242;
-}
-
-/* Palos individuales que se extienden hacia arriba */
-.card:first-child .card-stick {
-  top: 50%;
-}
-
-.card:not(:first-child) .card-stick {
-  top: 0;
-}
-
-.card:last-child .card-stick {
-  height: 50%;
 }
 
 .card-content {
@@ -43,6 +31,7 @@
   height: 15px;
   background: #76ffa8;
   border-radius: 50%;
+  z-index: 1;
 }
 
 .item {
