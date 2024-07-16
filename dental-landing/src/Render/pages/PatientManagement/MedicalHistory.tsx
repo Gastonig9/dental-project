@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { usePatientContext } from '../contexts/patientContext';
+import { token } from '../../../localStorage/token';
 
 const MedicalHistory = () => {
   const { register, handleSubmit } = useForm();
@@ -18,7 +19,9 @@ const MedicalHistory = () => {
       data.patientId = patient.id;
     }
     axios
-      .post(`${import.meta.env.VITE_API_URL}/records/create-record`, data)
+      .post(`${import.meta.env.VITE_API_URL}/records/create-record`, data, {headers:{
+        "Authorization":`Bearer ${token()}`
+      }})
       .then((res) => {
         console.log(res);
       })

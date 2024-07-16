@@ -15,12 +15,11 @@ import { Appointment } from '@prisma/client';
 import { ApiBody } from '@nestjs/swagger';
 import { AppointmentRequestDto } from '../../dtos';
 import { ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/decorators/public.decorator';
 import { Response } from 'express';
 import { UpdateAppointmentStateDto } from 'src/dtos/update-appointment-state.dto';
 import { UpdateAppointmentDto } from 'src/dtos/update-appointment.to';
 
-@Public()
+
 @ApiTags('Citas')
 @Controller('api/appointments')
 export class AppointmentController {
