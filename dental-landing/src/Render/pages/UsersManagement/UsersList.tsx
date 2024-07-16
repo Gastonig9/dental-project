@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Platform/Navbar";
+import Spinner from "../../components/Platform/Spinner";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { token } from "../../../localStorage/token";
 
 // icons
 import { IoSearchSharp } from "react-icons/io5";
 import { IoIosArrowForward } from "react-icons/io";
 import { BsTrash } from "react-icons/bs";
-import Spinner from "../../components/Platform/Spinner";
-import { token } from "../../../localStorage/token";
 
 interface userModel {
   email: string;
@@ -57,7 +57,6 @@ const UsersList = () => {
     const user = localStorage.getItem('user');
     if(user){
       const userObject = JSON.parse(user)
-      console.log(userObject)
       setActiveUser(userObject.email)
     }
   }, []);

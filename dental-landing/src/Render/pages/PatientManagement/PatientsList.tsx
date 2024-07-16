@@ -33,7 +33,6 @@ const PatientsList = () => {
       .then((res) => {
         setData(res.data.patients);
         setPatients(res.data.patients);
-        console.log(res.data.patients);
         setLoading(false);
       })
       .catch((err) => {

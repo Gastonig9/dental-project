@@ -222,7 +222,10 @@ const Navbar = () => {
 
       <header className="h-[127px] bg-[#DAE3DE] fixed top-0 w-full hidden lg:flex z-10">
         <div className="flex justify-between items-center w-10/12 mx-auto pl-[120px]">
-          <img src={logo} alt="Grinpol - Clínica Dental" className="w-44" />
+
+          <Link to="/">
+            <img src={logo} alt="Grinpol - Clínica Dental" className="w-44" />
+          </Link>
           <div className="relative">
             <button
               type="button"
