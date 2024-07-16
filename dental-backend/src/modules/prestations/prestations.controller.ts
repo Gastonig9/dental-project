@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { PrestationsService } from './prestations.service';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import {
   PrestationCreateDto,
   PrestationUpdateDto,

@@ -8,6 +8,19 @@
   margin-bottom: 10px;
 }
 
+.inputs-prestation {
+  border: 1px solid #424242;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 120%;
+  font-family: Poppins;
+  color: #424242;
+  margin-top: 4px;
+  padding: 8px;
+  width: 100%;
+  background: transparent;
+}
 /* Form CSS End */
 /* Odontogram CSS  */
 .odontogram {
