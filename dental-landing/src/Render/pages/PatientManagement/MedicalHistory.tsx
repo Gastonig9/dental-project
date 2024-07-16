@@ -42,7 +42,7 @@ const MedicalHistory = () => {
         <div>
           <h3 className="font-bold ">Antecedentes médicos</h3>
           <form className="text-[19px] flex flex-col gap-1 mt-2">
-            <label htmlFor="input1">Sufre alguna enfermdad? Cuál?</label>
+            <label htmlFor="input1">¿Sufre alguna enfermedad? ¿Cuál?</label>
             <input
               id="input1"
               type="text"
@@ -50,7 +50,7 @@ const MedicalHistory = () => {
               className=" py-1 px-4 rounded-lg"
             />
 
-            <label htmlFor="input2">Hace algún tratamiento médico? Cuál?</label>
+            <label htmlFor="input2">¿Hace algún tratamiento médico? ¿Cuál?</label>
             <input
               id="input2"
               type="text"
@@ -59,7 +59,7 @@ const MedicalHistory = () => {
             />
 
             <label htmlFor="input3">
-              Consume habitualmente medicamentos? Cuál?
+              ¿Consume habitualmente medicamentos? ¿Cuál?
             </label>
             <input
               id="input3"
@@ -69,7 +69,7 @@ const MedicalHistory = () => {
             />
 
             <label htmlFor="input4">
-              Es alérgico a algún medicamento? Cuál?
+              ¿Es alérgico a algún medicamento? ¿Cuál?
             </label>
             <input
               id="input4"
@@ -78,7 +78,7 @@ const MedicalHistory = () => {
               className=" py-1 px-4 rounded-lg"
             />
 
-            <label htmlFor="input5">Fue operado alguna vez? Cuándo?</label>
+            <label htmlFor="input5">¿Fue operado alguna vez? ¿Cuándo?</label>
             <input
               id="input5"
               type="text"
@@ -86,7 +86,7 @@ const MedicalHistory = () => {
               className=" py-1 px-4 rounded-lg"
             />
 
-            <label htmlFor="input6">Fuma?</label>
+            <label htmlFor="input6">¿Fuma?</label>
             <select
               id="input6"
               {...register('smokes')}
@@ -99,7 +99,7 @@ const MedicalHistory = () => {
               <option value="NO">NO</option>
             </select>
 
-            <label htmlFor="input7">Está embarazada? De cuántos meses?</label>
+            <label htmlFor="input7">¿Está embarazada?</label>
             <select
               id="input7"
               {...register('pregnant')}
@@ -120,7 +120,7 @@ const MedicalHistory = () => {
           <form
             className="text-[19px] flex flex-col gap-1 mt-2"
             onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor="input8">Por que asistió a la consulta?</label>
+            <label htmlFor="input8">¿Por qué asistió a la consulta?</label>
             <input
               id="input8"
               type="text"
@@ -128,7 +128,7 @@ const MedicalHistory = () => {
               className=" py-1 px-4 rounded-lg"
             />
 
-            <label htmlFor="input9">Tomó algún medicamento? Cuál?</label>
+            <label htmlFor="input9">¿Tomó algún medicamento? ¿Cuál?</label>
             <input
               id="input9"
               type="text"
@@ -136,7 +136,7 @@ const MedicalHistory = () => {
               className=" py-1 px-4 rounded-lg"
             />
 
-            <label htmlFor="input10">Ha tenido dolor? Describa el tipo</label>
+            <label htmlFor="input10">¿Ha tenido dolor?</label>
             <select
               id="input10"
               {...register('pains')}
@@ -150,7 +150,7 @@ const MedicalHistory = () => {
             </select>
 
             <label htmlFor="input11">
-              Sufrió algún golpe en los dientes? Cómo se produjo?
+              ¿Sufrió algún golpe en los dientes? ¿Cómo se produjo?
             </label>
             <input
               id="input11"
@@ -159,7 +159,7 @@ const MedicalHistory = () => {
               className=" py-1 px-4 rounded-lg"
             />
 
-            <label htmlFor="input12">Tiene movilidad en sus dientes?</label>
+            <label htmlFor="input12">¿Tiene movilidad en sus dientes?</label>
             <select
               id="input12"
               {...register('dentalMobility')}
@@ -172,7 +172,7 @@ const MedicalHistory = () => {
               <option value="NO">NO</option>
             </select>
 
-            <label htmlFor="input13">Ha tenido la cara hinchada?</label>
+            <label htmlFor="input13">¿Ha tenido la cara hinchada?</label>
             <select
               id="input13"
               {...register('swollenFace')}
@@ -185,7 +185,7 @@ const MedicalHistory = () => {
               <option value="NO">NO</option>
             </select>
 
-            <label htmlFor="input14">Presenta lesión en tejidos blandos?</label>
+            <label htmlFor="input14">¿Presenta lesión en tejidos blandos?</label>
             <select
               id="input14"
               {...register('injuries')}
