@@ -1,10 +1,8 @@
 import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
 import { DentistService } from './dentist.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/decorators/public.decorator';
 import { Response } from 'express';
 
-@Public()
 @ApiBearerAuth()
 @ApiTags('Dentistas')
 @Controller('/dentist')

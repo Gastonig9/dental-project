@@ -27,8 +27,6 @@ export const Login = () => {
     try {
       const response = await userServices.login({ email: data.email, password:data.password });
 
-      console.log('Login successful:', response.data);
-
       // Store the token in localStorage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));

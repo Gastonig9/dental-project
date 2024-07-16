@@ -13,11 +13,9 @@ import { RecordService } from './record.service';
 import { MedicalHistoryRequestDto } from 'src/dtos/record.dto';
 import { MedicalHistory } from '@prisma/client';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/decorators/public.decorator';
 import { Response } from 'express';
 import { RecordUpdateDto } from 'src/dtos/record-update.dto';
 
-@Public()
 @ApiBearerAuth()
 @ApiTags('HistorialMedico')
 @Controller('/records')
