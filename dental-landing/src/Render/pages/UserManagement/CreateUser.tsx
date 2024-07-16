@@ -1,45 +1,55 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link } from "react-router-dom";
-import Navbar from "../../components/Platform/Navbar";
-import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import { useForm, SubmitHandler } from "react-hook-form";
-import Swal from "sweetalert2";
-import axios from "axios";
-
-// Definir la interfaz para los datos del formulario
-interface DataForm {
-  firstName: string;
-  lastName: string;
-  dni: number;
-  email: string;
-  role_name: string;
-  password: string;
-}
+import { Link } from 'react-router-dom';
+import Navbar from '../../components/Platform/Navbar';
+import { ChevronLeftIcon } from '@heroicons/react/20/solid';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import Swal from 'sweetalert2';
+import { userServices } from '../../../services';
+import { CreateUserType } from '../../../types';
+import { AxiosError } from 'axios';
 
 const CreateUser = () => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<DataForm>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<CreateUserType>();
 
-  const onSubmit: SubmitHandler<DataForm> = async (data) => {
+  const onSubmit: SubmitHandler<CreateUserType> = async (data) => {
     try {
-      const convertedData = {
+      const convertedData: CreateUserType = {
         ...data,
         dni: parseInt(data.dni.toString(), 10),
       };
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/user/register-user`, convertedData);
+      console.log('creade user');
+
+      await userServices.register(convertedData);
+
       Swal.fire({
-        title: "Éxito",
-        text: "Usuario creado correctamente.",
-        icon: "success",
-        confirmButtonText: "OK",
+        title: 'Éxito',
+        text: 'Usuario creado correctamente.',
+        icon: 'success',
+        confirmButtonText: 'OK',
       });
-      reset()
+      reset();
     } catch (error) {
       console.log(error);
+      console.error('Error saving: ', error);
+      let text = 'Hubo un error al crear el usuario.';
+      let title = 'Error';
+      if (error instanceof AxiosError) {
+        if (error?.response?.status === 409) {
+          title = 'Campo Repetido';
+          text = error.response.data.message;
+        }
+      }
+
       Swal.fire({
-        title: "Error",
-        text: "Hubo un error al crear el usuario.",
-        icon: "error",
-        confirmButtonText: "OK",
+        title,
+        text,
+        icon: 'error',
+        confirmButtonText: 'OK',
       });
     }
   };
@@ -71,75 +81,94 @@ const CreateUser = () => {
                 <input
                   type="text"
                   id="firstName"
-                  {...register("firstName", { required: "El nombre es obligatorio" })}
+                  {...register('firstName', {
+                    required: 'El nombre es obligatorio',
+                  })}
                   className={`usermanagement-input-style`}
                 />
-                {errors.firstName && <p className="text-red-500">{errors.firstName.message}</p>}
+                {errors.firstName && (
+                  <p className="text-red-500">{errors.firstName.message}</p>
+                )}
               </div>
               <div className="flex flex-col">
                 <label htmlFor="lastName">Apellido Usuario</label>
                 <input
                   type="text"
                   id="lastName"
-                  {...register("lastName", { required: "El apellido es obligatorio" })}
+                  {...register('lastName', {
+                    required: 'El apellido es obligatorio',
+                  })}
                   className={`usermanagement-input-style`}
                 />
-                {errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
+                {errors.lastName && (
+                  <p className="text-red-500">{errors.lastName.message}</p>
+                )}
               </div>
               <div className="flex flex-col">
                 <label htmlFor="dni">DNI</label>
                 <input
                   type="text"
                   id="dni"
-                  {...register("dni", { required: "El DNI es obligatorio" })}
+                  {...register('dni', { required: 'El DNI es obligatorio' })}
                   className={`usermanagement-input-style`}
                 />
-                {errors.dni && <p className="text-red-500">{errors.dni.message}</p>}
+                {errors.dni && (
+                  <p className="text-red-500">{errors.dni.message}</p>
+                )}
               </div>
               <div className="flex flex-col">
                 <label htmlFor="email">Email</label>
                 <input
                   type="text"
                   id="email"
-                  {...register("email", {
-                    required: "El email es obligatorio",
+                  {...register('email', {
+                    required: 'El email es obligatorio',
                     pattern: {
                       value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                      message: "Formato de email inválido"
-                    }
+                      message: 'Formato de email inválido',
+                    },
                   })}
                   className={`usermanagement-input-style`}
                 />
-                {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+                {errors.email && (
+                  <p className="text-red-500">{errors.email.message}</p>
+                )}
               </div>
               <div className="flex flex-col">
                 <label htmlFor="rol_name">Rol</label>
                 <select
                   id="rol_name"
-                  {...register("role_name", { required: "El rol es obligatorio" })}
+                  {...register('role_name', {
+                    required: 'El rol es obligatorio',
+                  })}
                   className={`usermanagement-input-select-style `}>
                   <option value="">Seleccione un rol</option>
                   <option value="OWNER">OWNER</option>
                   <option value="SECRETARY">SECRETARY</option>
                   <option value="ASSOCIATED">ASSOCIATED</option>
                 </select>
-                {errors.role_name && <p className="text-red-500">{errors.role_name.message}</p>}
+                {errors.role_name && (
+                  <p className="text-red-500">{errors.role_name.message}</p>
+                )}
               </div>
               <div className="flex flex-col">
                 <label htmlFor="password">Contraseña</label>
                 <input
                   type="password"
                   id="password"
-                  {...register("password", { required: "La contraseña es obligatoria" })}
+                  {...register('password', {
+                    required: 'La contraseña es obligatoria',
+                  })}
                   className={`usermanagement-input-style`}
                 />
-                {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
               </div>
               <div>
                 <button
                   className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]"
-                  type="submit"
-                >
+                  type="submit">
                   Guardar
                 </button>
               </div>

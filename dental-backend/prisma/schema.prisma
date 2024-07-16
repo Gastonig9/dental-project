@@ -46,18 +46,20 @@ enum Parts {
 }
 
 model User {
-  id                 Int        @id @default(autoincrement())
-  firstName          String
-  lastName           String
-  dni                Int        @unique
-  email              String     @unique
-  password           String
-  resetPasswordToken String?
-  role               Roles      @relation(fields: [role_name], references: [name])
-  role_name          EnumRoles
-  dentist            Dentist?
-  secretary          Secretary?
-  owner              Owner?
+  id Int @id   @default(autoincrement())
+   firstName  String   
+   lastName  String
+   dni Int @unique
+   email     String   @unique
+   password  String
+   resetPasswordToken String?
+   failedAttempts Int     @default(0)
+   isLocked   Boolean     @default(false)
+   role  Roles @relation(fields: [role_name], references: [name])
+   role_name EnumRoles
+   dentist   Dentist?
+   secretary Secretary?
+   owner     Owner?
 }
 
 model Roles {
@@ -68,7 +70,6 @@ model Roles {
 
 model Dentist {
   id           Int           @id @default(autoincrement())
-  // specialty  String
   fullname     String
   notes        String?
   appointments Appointment[]
@@ -98,26 +99,26 @@ model MedicalHistory {
 }
 
 model Patient {
-  id                Int                @id @default(autoincrement())
-  name              String
-  surname           String
-  gender            String
-  pEmail            String
-  dni               Int
-  phone             String
-  age               Int?
-  addressNumber     Int?
-  floor             String?
-  street            String?
-  nationality       String?
-  locality          String?
-  establishment     String?
-  socialWork        String?
-  apartment         String?
-  birthDate         String?
-  prestations       Prestations[]
-  appointments      Appointment[]
-  medicalHistories  MedicalHistory[]
+  id        Int          @id @default(autoincrement())
+  name      String
+  surname   String
+  gender    String
+  pEmail    String
+  dni       Int @unique
+  phone     String
+  age Int?
+  addressNumber Int?
+  floor String?
+  street String?
+  nationality String?
+  locality String?
+  establishment String?
+  socialWork String?
+  apartment String?
+  birthDate String?
+  prestations      Prestations[]
+  appointments Appointment[]
+  medicalHistories MedicalHistory[]
 }
 
 model Prestations {
@@ -140,33 +141,7 @@ model Odontogram {
   ref           String
 }
 
-// model OdontogramTooth {
-//   id           Int           @id @default(autoincrement())
-//   odontogram      Odontogram      @relation(fields: [odontogramId], references: [id])
-//   odontogramId    Int
-//   tooth Int
-//   parts Parts
-// }
 
-
-// model Prestations {
-//   id        Int          @id @default(autoincrement())
-//   patientId Int
-//   patient   Patient      @relation(fields: [patientId], references: [id])
-//   odontogram Odontogram[]
-//   date String
-//   code String
-//   observations String?
-// }
-// model Odontogram {
-//   id        Int          @id @default(autoincrement())
-//   prestation Prestations @relation(fields: [prestationId], references: [id])
-//   prestationId Int
-//   toothNum Int
-//   part String
-//   ref String
-// }
- 
 model Secretary {
   id     Int  @id @default(autoincrement())
   userId Int  @unique

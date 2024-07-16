@@ -16,10 +16,7 @@ import {
   OdontogramUpdateDto,
   PrestationResponseDto,
 } from 'src/dtos';
-import { Public } from 'src/decorators/public.decorator';
 
-@Public()
-@ApiTags("Prestations")
 @Controller('api')
 export class PrestationsController {
   constructor(private readonly prestationsService: PrestationsService) {}

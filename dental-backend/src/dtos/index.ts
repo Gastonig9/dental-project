@@ -17,4 +17,5 @@ export {
   RequestResetPasswordDto,
   ResetPasswordDto,
   UserRegisterDto,
+  UserResponseDto,
 } from './user';

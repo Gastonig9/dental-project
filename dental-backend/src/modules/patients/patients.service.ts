@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
-import { Patient } from '@prisma/client';
+import { ConflictException, Injectable } from '@nestjs/common';
+import { Patient, Prestations } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import { PatientRepository } from './patients.repository';
 import { PatientRequestDto, PatientResponseDto } from 'src/dtos';
@@ -11,6 +11,12 @@ export class PatientService {
 
   async addPatient(patient: PatientRequestDto): Promise<Patient> {
     try {
+      const response = await this.repository.getPatientByDni(patient.dni);
+
+      if (response) {
+        throw new ConflictException('El dni ya se encuentra registrado');
+      }
+
       return this.repository.addPatient(patient);
     } catch (error) {
       throw error;
@@ -77,8 +83,15 @@ export class PatientService {
 
   async updatePatientById(
     id: number,
-    patient: Partial<Patient>,
+    patient: Partial<Patient & { prestations: Prestations[] }>,
   ): Promise<Patient> {
-    return this.repository.updatePatientById(id, patient);
+    const { prestations, ...rest } = patient;
+    const response = await this.repository.getPatientByDni(patient.dni);
+
+    if (response && response.id !== id) {
+      throw new ConflictException('El dni ya se encuentra registrado');
+    }
+
+    return this.repository.updatePatientById(id, rest);
   }
 }

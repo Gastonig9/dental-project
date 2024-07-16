@@ -7,4 +7,5 @@ export interface Appointment {
     patientId: number
     reason: string
     results: string
+    state: 'PENDING' | 'CANCEL' | 'REALIZED'
 }

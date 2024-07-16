@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useSearchParams } from "react-router-dom";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
+import { LuEye, LuEyeOff } from "react-icons/lu";
 import "./Login.css";
-import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
 export const ResetPassword = () => {
@@ -12,9 +12,13 @@ export const ResetPassword = () => {
   const [searchParams] = useSearchParams();
   const resetPasswordToken = searchParams.get("token");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,6 +46,7 @@ export const ResetPassword = () => {
           icon: "success",
         });
       }
+      
     } catch (error) {
       console.error("Error al actualizar contraseña:", error);
       Swal.fire({
@@ -91,11 +96,7 @@ export const ResetPassword = () => {
                   onClick={togglePasswordVisibility}
                   className="absolute pb-3 pr-3 lg:pr-0 inset-y-0 right-0 flex items-center focus:outline-none"
                 >
-                  {showPassword ? (
-                    <FaEyeSlash size={20} />
-                  ) : (
-                    <FaEye size={20} />
-                  )}
+                  {showPassword ? <LuEyeOff size={20} /> : <LuEye size={20} />}
                 </button>
               </div>
             </label>
@@ -107,7 +108,7 @@ export const ResetPassword = () => {
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
-                  type={showPassword ? "text" : "password"}
+                  type={showConfirmPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="w-full py-3 border lg:w-[345px] bg-gray-100/75 border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
@@ -115,13 +116,13 @@ export const ResetPassword = () => {
                 />
                 <button
                   type="button"
-                  onClick={togglePasswordVisibility}
+                  onClick={toggleConfirmPasswordVisibility}
                   className="absolute pb-3 pr-3 lg:pr-0 inset-y-0 right-0 flex items-center focus:outline-none"
                 >
-                  {showPassword ? (
-                    <FaEyeSlash size={20} />
+                  {showConfirmPassword ? (
+                    <LuEyeOff size={20} />
                   ) : (
-                    <FaEye size={20} />
+                    <LuEye size={20} />
                   )}
                 </button>
               </div>
