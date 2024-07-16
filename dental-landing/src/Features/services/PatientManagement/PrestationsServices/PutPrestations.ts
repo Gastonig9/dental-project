@@ -3,7 +3,8 @@ import {
   Prestations,
   OdontogramType,
 } from "../../../../types/dtos/Patient/NewPatient.type";
-import { PRESTATION_PATHS } from "../../../../constants";
+import { PRESTATION_PATHS } from "../../../../constants/paths/prestationsPatch";
+import { token } from "../../../../localStorage/token";
 
 const { PRESTATION_UPDATE } = PRESTATION_PATHS;
 
@@ -17,6 +18,9 @@ export const updatePrestation = async (
       {
         ...prestation,
         odontogram,
+      },
+      {
+        headers: { Authorization: `Bearer ${token()}` },
       }
     );
     return response.data;

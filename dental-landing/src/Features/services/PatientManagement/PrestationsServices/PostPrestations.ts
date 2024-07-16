@@ -3,7 +3,8 @@ import {
   PrestationRequest,
   Prestations,
 } from "../../../../types/dtos/Patient/NewPatient.type";
-import { PRESTATION_PATHS } from "../../../../constants";
+import { PRESTATION_PATHS } from "../../../../constants/paths/prestationsPatch";
+import { token } from "../../../../localStorage/token";
 const { CREATE } = PRESTATION_PATHS;
 
 export const addPrestation = async (
@@ -25,7 +26,10 @@ export const addPrestation = async (
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_API_URL}${CREATE}`,
-      requestData
+      requestData,
+      {
+        headers: { Authorization: `Bearer ${token()}` },
+      }
     );
     return response.data;
   } catch (error) {
