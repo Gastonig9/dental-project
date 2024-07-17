@@ -16,7 +16,6 @@ import { ApiTags } from '@nestjs/swagger';
 import { UpdatePatientDto } from 'src/dtos';
 import { Public } from 'src/decorators/public.decorator';
 
-@Public()
 @ApiTags('Pacientes')
 @Controller('/patient')
 export class PatientController {

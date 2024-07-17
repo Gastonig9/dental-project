@@ -4,6 +4,7 @@ import axios, { AxiosError } from 'axios';
 import Swal from 'sweetalert2';
 import { usePatientContext } from '../../pages/contexts/patientContext';
 import { Patient } from '../../../types/dtos/Patient/NewPatient.type';
+import { token } from '../../../localStorage/token';
 
 export const PersonalInfo = () => {
   const {
@@ -33,7 +34,8 @@ export const PersonalInfo = () => {
 
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/patient`,
-        data
+        data,
+        { headers: { Authorization: `Bearer ${token()}` } }
       );
       setPatient(response.data);
       Swal.fire({

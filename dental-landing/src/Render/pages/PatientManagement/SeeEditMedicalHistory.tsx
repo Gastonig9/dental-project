@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
-import { useForm } from "react-hook-form";
-import axios from "axios"
-import Swal from 'sweetalert2'
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
 import { token } from '../../../localStorage/token';
 
@@ -56,23 +56,30 @@ const SeeEditMedicalHistory = () => {
   // bringing the patient's medical history from the backend
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/patient/${id}`, {headers:{
-        "Authorization":`Bearer ${token()}`
-      }})
+      .get(`${import.meta.env.VITE_API_URL}/patient/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token()}`,
+        },
+      })
       .then((res) => {
-        if(!res.data.medicalHistories.length){
+        if (!res.data.medicalHistories.length) {
           axios
-            .post(`${import.meta.env.VITE_API_URL}/records/create-record`, patientInfo, {headers:{
-              "Authorization":`Bearer ${token()}`
-            }})
-            .then((res)=>{
-              console.log('Se creó historia vacía: ', res)
-            })
+            .post(
+              `${import.meta.env.VITE_API_URL}/records/create-record`,
+              patientInfo,
+              {
+                headers: {
+                  Authorization: `Bearer ${token()}`,
+                },
+              }
+            )
+            .then((res) => {
+              console.log('Se creó historia vacía: ', res);
+            });
         }
         setPatientInfo(
           res.data.medicalHistories[res.data.medicalHistories.length - 1]
         );
-        
       })
       .catch((err) => {
         console.log(err.response.data.message);
@@ -107,9 +114,11 @@ const SeeEditMedicalHistory = () => {
     data.patientId = Number(id);
 
     axios
-      .put(`${import.meta.env.VITE_API_URL}/records/${id}`, data, {headers:{
-        "Authorization":`Bearer ${token()}`
-      }})
+      .put(`${import.meta.env.VITE_API_URL}/records/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token()}`,
+        },
+      })
       .then((res) => {
         console.log(res);
         Swal.fire({
@@ -131,7 +140,7 @@ const SeeEditMedicalHistory = () => {
 
   return (
     <>
-      <main className='grid gap-y-10 lg:grid-cols-2 lg:gap-x-10 xl:gap-x-[136px] poppins'>
+      <main className="grid gap-y-10 lg:grid-cols-2 lg:gap-x-10 xl:gap-x-[136px] poppins">
         {/* FIRST FORM */}
         <div>
           <h3 className="font-bold ">Antecedentes médicos</h3>

@@ -17,6 +17,7 @@ import {
   PrestationResponseDto,
 } from 'src/dtos';
 
+@ApiTags('Prestaciones')
 @Controller('api')
 export class PrestationsController {
   constructor(private readonly prestationsService: PrestationsService) {}
