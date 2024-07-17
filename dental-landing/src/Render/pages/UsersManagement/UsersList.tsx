@@ -73,7 +73,7 @@ const UsersList = () => {
   // handle deleting for desktop
   const handleDelete = async (id: number, firstName: string, lastName: string) => {
     const result = await Swal.fire({
-      title: `¿Estás seguro que deseas eliminar a ${firstName} ${lastName}  ?`,
+      title: `¿Estás seguro que deseas eliminar a ${firstName} ${lastName}?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: '#d33',
