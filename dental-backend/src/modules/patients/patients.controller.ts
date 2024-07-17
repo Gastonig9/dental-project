@@ -8,7 +8,7 @@ import {
   HttpStatus,
   Put,
 } from '@nestjs/common';
-import { ApiBody, ApiQuery } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiQuery } from '@nestjs/swagger';
 import { Patient } from '@prisma/client';
 import { PatientRequestDto, PatientResponseDto } from 'src/dtos';
 import { PatientService } from './patients.service';
@@ -16,6 +16,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { UpdatePatientDto } from 'src/dtos';
 import { Public } from 'src/decorators/public.decorator';
 
+@ApiBearerAuth()
 @ApiTags('Pacientes')
 @Controller('/patient')
 export class PatientController {
@@ -74,14 +75,5 @@ export class PatientController {
     );
 
     return response;
-  }
-
-  // Endpoint temporal para mockear pacientes
-  @Post('mock-patients')
-  async mockPatients(): Promise<{ statusCode: number }> {
-    await this.patientService.mockPatients();
-    return {
-      statusCode: HttpStatus.OK,
-    };
   }
 }

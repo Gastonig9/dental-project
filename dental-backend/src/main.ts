@@ -8,8 +8,8 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .addBearerAuth()
-    .setTitle('Doc. App Dentist')
-    .setDescription('this is an example')
+    .setTitle('Grinpol')
+    .setDescription('API para gestion de consultorio odontologico')
     .setVersion('1.0')
     .addTag('test')
     .build();
