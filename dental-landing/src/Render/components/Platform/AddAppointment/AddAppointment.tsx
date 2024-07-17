@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 import { appointmentsServices, dentistService, patientServices } from "../../../../services";
 
 export const AddAppointment = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [patientSelected, setPatientSelected] = useState<Patient | null>(null);
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -192,7 +192,7 @@ export const AddAppointment = () => {
             />
           </div>
           <div className="w-full flex flex-col justify-evenly items-center gap-4 mt-4">
-            <DateTimeInput onDateChange={handleDateChange} />
+            <DateTimeInput onDateChange={handleDateChange} title="Seleccionar fecha"/>
             <div className="w-full flex flex-col lg:flex-row justify-evenly items-center gap-4 mt-4">
               <TimeInput onTimeChange={handleTimeChange} />
               <SelectInput

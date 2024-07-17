@@ -24,7 +24,7 @@ export class AppointmentReminderService {
 
   async sendAppointmentReminders() {
     try {
-      const minutesBeforeReminder = 3;
+      const minutesBeforeReminder = 60;
       const now = new Date();
       const appointments = await this.appointmentService.getAllAppointments();
 

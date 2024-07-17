@@ -1,8 +1,6 @@
 import React from "react";
 
-export const DateTimeInput: React.FC<{
-  onDateChange: (date: string) => void;
-}> = ({ onDateChange }) => {
+export const DateTimeInput: React.FC<{onDateChange: (date: string) => void; title: string}> = ({ onDateChange, title }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onDateChange(event.target.value);
   };
@@ -11,7 +9,7 @@ export const DateTimeInput: React.FC<{
     <div className="w-full mt-5 flex justify-center">
       <div className="w-full lg:w-[72%] flex flex-col lg:flex-row justify-around items-center rounded-[15px] bg-white shadow-lg border border-gray-300 p-4">
         <label className="text-[20px] md:text-[38px] mb-2 lg:mb-0" htmlFor="">
-          Selecciona una fecha
+          {title}
         </label>
         <input
           type="date"

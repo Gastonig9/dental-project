@@ -5,6 +5,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import axios from "axios";
 import Spinner from "../../components/Platform/Spinner";
 import { Link } from "react-router-dom";
+import { token } from "../../../localStorage/token";
 
 interface PatientsModel {
   id: Number;
@@ -29,7 +30,7 @@ const PatientsList = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${import.meta.env.VITE_API_URL}/patient/get-patients`)
+      .get(`${import.meta.env.VITE_API_URL}/patient/get-patients`, { headers:{Authorization: `Bearer ${token()}`} })
       .then((res) => {
         setData(res.data.patients);
         setPatients(res.data.patients);
