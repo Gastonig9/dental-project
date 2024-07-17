@@ -29,14 +29,13 @@ export class AppointmentRepository {
     return this.context.appointment.findFirst({ where: { id } });
   }
 
-  async checkAvailability(dentistId: number, date: Date): Promise<boolean> {
+  async checkAvailability(date: Date): Promise<boolean> {
     const startDate = new Date(date);
     const endDate = new Date(date);
     endDate.setMinutes(endDate.getMinutes() + 1);
 
     const appointments = await this.context.appointment.findMany({
       where: {
-        dentistId,
         date: {
           gte: startDate,
           lt: endDate,
@@ -47,7 +46,29 @@ export class AppointmentRepository {
     return appointments.length === 0;
   }
 
-  async checkTimeRangeAvailability(dentistId: number, date: Date): Promise<boolean> {
+  async checkDentistAvailability(dentistId: number, date: Date): Promise<number> {
+    const startDate = new Date(date);
+    startDate.setHours(0, 0, 0, 0);
+  
+    const endDate = new Date(date);
+    endDate.setHours(23, 59, 59, 999);
+  
+    const appointments = await this.context.appointment.findMany({
+      where: {
+        dentistId,
+        date: {
+          gte: startDate,
+          lt: endDate,
+        },
+        state: $Enums.AppointmentState.PENDING,
+      },
+    });
+  
+    return appointments.length;
+  }
+  
+
+  async checkTimeRangeAvailability(date: Date): Promise<boolean> {
     const startDate = new Date(date);
     const endDate = new Date(date);
     startDate.setMinutes(startDate.getMinutes() - 15);
@@ -55,7 +76,6 @@ export class AppointmentRepository {
 
     const appointments = await this.context.appointment.findMany({
       where: {
-        dentistId,
         date: {
           gte: startDate,
           lt: endDate,

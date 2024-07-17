@@ -102,8 +102,10 @@ export const EditUserInfo = () => {
                   {...register('firstName', {
                     required: 'El nombre es obligatorio',
                   })}
-                  className={`usermanagement-input-style ${
-                    !allowEdition ? 'bg-white' : ''
+                  className={`${
+                    !allowEdition
+                      ? 'usermanagement-input-style'
+                      : 'usermanagement-input-style-allowed'
                   }`}
                   readOnly={!allowEdition}
                 />
@@ -121,8 +123,10 @@ export const EditUserInfo = () => {
                   {...register('lastName', {
                     required: 'El apellido es obligatorio',
                   })}
-                  className={`usermanagement-input-style ${
-                    !allowEdition ? 'bg-white' : ''
+                  className={`${
+                    !allowEdition
+                      ? 'usermanagement-input-style'
+                      : 'usermanagement-input-style-allowed'
                   }`}
                   readOnly={!allowEdition}
                 />
@@ -144,8 +148,10 @@ export const EditUserInfo = () => {
                       message: 'Formato de email inválido',
                     },
                   })}
-                  className={`usermanagement-input-style ${
-                    !allowEdition ? 'bg-white' : ''
+                  className={`${
+                    !allowEdition
+                      ? 'usermanagement-input-style'
+                      : 'usermanagement-input-style-allowed'
                   }`}
                   readOnly={!allowEdition}
                 />
@@ -160,8 +166,10 @@ export const EditUserInfo = () => {
                   {...register('role_name', {
                     required: 'El rol es obligatorio',
                   })}
-                  className={`usermanagement-input-select-style ${
-                    !allowEdition ? 'bg-white' : ''
+                  className={`${
+                    !allowEdition
+                      ? 'usermanagement-input-style'
+                      : 'usermanagement-input-style-allowed'
                   }`}
                   disabled={!allowEdition}>
                   <option value="OWNER">OWNER</option>
