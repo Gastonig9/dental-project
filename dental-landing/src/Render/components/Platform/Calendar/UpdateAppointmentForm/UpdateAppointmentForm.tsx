@@ -15,7 +15,7 @@ interface UpdateAppointmentFormProps {
 
 export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
   selectedEvent,
-  closeUpdateWindow
+  closeUpdateWindow,
 }) => {
   const [dentists, setDentists] = useState<Dentist[]>([]);
   const [dentistSelected, setDentistSelected] = useState<Dentist | null>(null);
@@ -76,10 +76,10 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
   };
 
   const handleUpdateAppointment = async () => {
-    console.log(dataAppointment)
+    console.log(dataAppointment);
     const appointmentId = selectedEvent._def.publicId;
     try {
-      await appointmentsServices.updateAppointment(appointmentId, dataAppointment)
+      await appointmentsServices.updateAppointment(appointmentId, dataAppointment);
       Swal.fire({
         title: "Éxito",
         text: "La cita se ha actualizado correctamente.",
@@ -88,10 +88,11 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
       }).then((result) => {
         if (result.isConfirmed) {
           closeUpdateWindow();
+          location.reload()
         }
       });
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
       const errorMessage = error.response.data.message;
       const errorStatus = error.response.data.statusCode
         ? error.response.data.statusCode
@@ -103,7 +104,7 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
             ? 'No se han proporcionado todos los datos requeridos para actualizar el turno'
             : errorStatus === 409
             ? errorMessage
-            : "Interval server error. Por favor intente mas tarde"
+            : "Interval server error. Por favor intente más tarde"
         }`,
         icon: "error",
         confirmButtonText: "OK",
@@ -113,6 +114,7 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
       });
     }
   };
+  
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-40 p-4 animate__animated animate__bounceIn">
@@ -135,8 +137,16 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
             </span>
           </h1>
         </div>
+        <div className="w-full">
+          <h1 className="text-[25px]">
+            Dentista asignado actualmente:{" "}
+            <span className="poppins-bold">
+              {selectedEvent?.extendedProps.dentist?.fullname}{" "}
+            </span>
+          </h1>
+        </div>
         <div>
-          <DateTimeInput onDateChange={handleDateChange} />
+          <DateTimeInput onDateChange={handleDateChange} title="Seleccionar nueva fecha" />
         </div>
         <div className="flex flex-col sm:flex-row justify-around mt-5 space-y-5 sm:space-y-0">
           <TimeInput onTimeChange={handleTimeChange} />
