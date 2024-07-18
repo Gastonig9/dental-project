@@ -21,8 +21,16 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
   const { patientData, setPatientData } = usePatientContext();
   const patientId = patientData?.id;
 
+  const getCurrentDate = (): string => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   const [prestationData, setPrestationData] = useState({
-    date: "",
+    date: getCurrentDate(),
     code: "",
     observations: "",
     state: "PENDING",
