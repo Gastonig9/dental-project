@@ -28,9 +28,9 @@ export const NewPatient = () => {
         </div>
         <main className="w-[90%] max-w-[1594px] h-[740px] rounded-[35px] bg-lightgray border border-[#424242] py-[30px] px-[78px] mx-auto overflow-y-auto">
           <div>
-            <div className="flex space-x-16 mb-4 poppins-regular text-[19px]">
+            <div className="flex lg:space-x-16 mb-4 poppins-regular text-[19px] justify-center lg:justify-start">
               <button
-                className={`text-lg font-medium ${
+                className={`text-lg font-medium border border-black rounded-tl-xl px-5 py-1 lg:p-0 lg:border-none ${
                   activeTab === "personal-information"
                     ? "text-black"
                     : "text-[#9D9D9D]"
@@ -40,7 +40,7 @@ export const NewPatient = () => {
                 Ficha médica
               </button>
               <button
-                className={`text-lg font-medium ${
+                className={`text-lg font-medium border border-black rounded-tr-xl px-5 py-1 lg:p-0 lg:border-none ${
                   activeTab === "medical-record"
                     ? "text-black"
                     : "text-[#9D9D9D]"
@@ -50,7 +50,7 @@ export const NewPatient = () => {
                 Historia clínica
               </button>
               <button
-                className={`text-lg font-medium ${
+                className={`text-lg font-medium hidden lg:block ${
                   activeTab === "prestaciones" ? "text-black" : "text-[#9D9D9D]"
                 }`}
                 onClick={() => setActiveTab("prestaciones")}

@@ -245,11 +245,15 @@ const UsersList = () => {
                     {/* info and delete btns */}
                     <div className="flex items-center gap-2 newxl:gap-10 justify-end newxl:px-10">
                       <Link
-                        className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 lg:gap-1 newxl:gap-[70px]"
+                        className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 lg:gap-1 newxl:gap-[70px]" 
                         to={`/user-management/edit-user/${user.id}`}>
                         <p>Ver información</p>
                         <IoIosArrowForward />
                       </Link>
+
+                      {activeUser === user.email && <BsTrash
+                        className="text-transparent"
+                      />}
 
                       {activeUser !== user.email && <BsTrash
                         onClick={() => handleDelete(user.id, user.firstName, user.lastName)}

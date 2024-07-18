@@ -122,9 +122,10 @@ const PatientsList = () => {
                 </div>
               ))}
 
-              <button className="text-[13px] font-semibold rounded-[10px] bg-acento hover:bg-green-500 self-end p-2 mt-5">
+
+              <Link className="text-[13px font-semibold rounded-[10px] bg-acento hover:bg-green-500 self-end p-2 mt-5" to="/patient-management/new-patient">
                 Agregar nuevo paciente
-              </button>
+              </Link>
             </div>
           )}
         </section>

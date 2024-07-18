@@ -44,13 +44,15 @@ const Navbar = () => {
       {/* mobile navbar */}
       <nav className="bg-[#DAE3DE] h-[81px] p-5 fixed top-0 w-full flex items-center justify-between lg:hidden z-10">
         <IoMenu className="text-4xl" onClick={activeMobileMenu} />
-        <img src={logo} alt="Grinpol - Clínica Dental" className="w-28" />
+        <Link to="/">  
+          <img src={logo} alt="Grinpol - Clínica Dental" className="w-28" />
+        </Link>
         <div
           className={`bg-acento absolute top-0 w-full h-screen text-4xl duration-300 rounded-tr-[40px] ${
             mobileMenu ? "left-0 opacity-100" : "-left-[100%] opacity-0"
           }`}
         >
-          <div className="flex flex-col gap-10 justify-center w-3/5 h-[700px] mx-auto">
+          <div className="flex flex-col gap-10 justify-center w-3/5 h-[90%] mx-auto">
             <button
               className="absolute top-5 right-5"
               onClick={disactiveMobileMenu}
@@ -114,46 +116,38 @@ const Navbar = () => {
                 Reportes
               </h3>
             </Link>
+
+
+            {/* user name and log out btn */}
+            <div className="mt-[70px]">
+              <div className="flex items-start gap-1">
+                <button
+                  type="button"
+                  className="flex items-center gap-2 bg-acento text-[20px]"
+                  id="user-button"
+                  aria-expanded="true"
+                  aria-haspopup="true"
+                  onClick={toggleDropdown}
+                >
+                  <FaRegUserCircle />
+                  <h3 className="text-[20px] font-semibold">
+                    {userData.firstName} {userData.lastName}
+                  </h3>
+                </button>
+              </div>
+              <div className="mt-7">
+                <button
+                  className="flex poppins-semibold text-[20px] text-lg  text-black  items-center justify-center"
+                  onClick={logout}
+                >
+                  Cerrar sesión
+                  <span className="text-[20px] text-black ml-5"><IoLogOutOutline /></span>
+                </button>
+              </div>
+            </div>
+
           </div>
 
-          <div className="flex items-start gap-1 ms-[60px] mt-[10px]">
-            <button
-              type="button"
-              className="flex items-center gap-2 bg-acento py-3 px-8 rounded-3xl text-[20px]"
-              id="user-button"
-              aria-expanded="true"
-              aria-haspopup="true"
-              onClick={toggleDropdown}
-            >
-              <img
-                src={
-                  userData.role_name === "ASSOCIATED"
-                    ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
-                    : userData.role_name === "SECRETARY"
-                    ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
-                    : userData.role_name === "OWNER"
-                    ? "https://cdn0.iconfinder.com/data/icons/find-a-job-and-interview-flat/512/employee_person_man_business_office_businessman_people_male_worker-512.png"
-                    : ""
-                }
-                alt="User pic"
-                className="w-[30px] rounded-full"
-              />
-              <h3 className="text-[20px] font-semibold">
-                {userData.firstName} {userData.lastName}
-              </h3>
-            </button>
-          </div>
-          <div className="ms-[80px]">
-            <button
-              className="flex poppins-semibold text-[20px] text-lg w-[200px] z-10 p-3 text-black bg-acento items-center justify-center"
-              onClick={logout}
-            >
-              Cerrar sesión
-              <span className="ms-3 text-[20px] text-black">
-                <IoLogOutOutline />
-              </span>
-            </button>
-          </div>
         </div>
       </nav>
 
@@ -171,7 +165,7 @@ const Navbar = () => {
             {desktopMenu ? <RiMenuUnfold2Line /> : <RiMenuUnfoldLine />}
           </button>
 
-          <div className="flex flex-col gap-[100px] text-[34px]">
+          <div className="flex flex-col gap-10 newxl:gap-[100px] mt-[80px] newxl:mt-0">
             <Link
               className={`flex items-center gap-1 ${
                 location.pathname === "/dashboard"
