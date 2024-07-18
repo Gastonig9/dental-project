@@ -3,10 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Appointment, Dentist, Patient } from '@prisma/client';
 import { AppointmentRequestDto } from 'src/dtos';
+import { UpdateAppointmentDto } from 'src/dtos/update-appointment.to';
 
 @Injectable()
 export class EmailService {
-  constructor(private readonly mailerService: MailerService) {}
+  constructor(private readonly mailerService: MailerService) { }
 
   async sendConfirmEmail(
     patient: Patient,
@@ -18,19 +19,23 @@ export class EmailService {
       from: 'Consultorio Grinpol',
       to: patient.pEmail,
       subject: 'Se ha confirmado tu turno',
-      html: `<h1>¡Hola, ${patient.name}!</h1>
-               <br></br/>
-               <p>El turno ha sido confirmado</p>
-               <br></br/>
-               <p><b>Informacion del turno:<b></p>
-               <br></br/>
-               <ul>
-                 <li>Dentista: Dr. ${dentist.fullname}</li/>
-                 <li>Razon: ${appointmentInfo.reason}</li/>
-                 <li>Fecha del turno: ${appointmentDate.toLocaleString()}</li/>
-               </ul/>
-               <small><b>No responder a este correo</b></small>
-               <h3>¡Muchas gracias por elegirnos !</h3>`,
+      html: `
+      <div style="width: 100%; text-align: center;">
+           <div style="width: 100%;">
+             <img src="https://i.ibb.co/2knF9Wc/grinpol.jpg" style="width: 25%;" />
+           </div>
+           <h1 style="font-size: 2rem; text-align: center; margin-top: 1rem;">¡Hola, ${patient.name}!</h1>
+           <p style="font-size: 1rem; margin: 1rem 0;">Te informamos que tu turno ha sido confirmado.</p>
+           <p style="font-size: 1rem; margin: 1rem 0;"><b>Información del turno:</b></p>
+           <ul style="list-style-type: none; padding: 0; font-size: 1rem; text-align: left; display: inline-block; margin: 0 auto;">
+             <li style="margin-bottom: 0.5rem;">Fecha: ${appointmentDate.toLocaleString()}</li>
+             <li style="margin-bottom: 0.5rem;">Razón: ${appointmentInfo.reason}</li>
+             <li style="margin-bottom: 0.5rem;">Asignado: Dr. ${dentist.fullname}</li>
+           </ul>
+           <p style="font-size: 0.8rem; margin: 1rem 0;"><b>No responder a este correo</b></p>
+            <p style="font-size: 1rem; margin: 1rem 0;">¡Gracias por elegirnos!</p>
+      </div>
+      `,
     });
   }
 
@@ -43,18 +48,22 @@ export class EmailService {
       from: 'Consultorio Grinpol',
       to: patient.pEmail,
       subject: 'Se ha cancelado tu turno',
-      html: `<h1>¡Hola, ${patient.name}!</h1>
-               <br></br/>
-               <p>Te informamos que tu turno ha sido cancelado</p>
-               <br></br/>
-               <p><b>Informacion del turno cancelado:<b></p>
-               <br></br/>
-               <ul>
-                 <li>Razon: ${appointmentInfo.reason}</li/>
-                 <li>Fecha del turno: ${appointmentDate.toLocaleString()}</li/>
-               </ul/>
-               <small><b>No responder a este correo</b></small>
-               <h3>¡Muchas gracias por elegirnos !</h3>`,
+      html: `
+          <div style="width: 100%; text-align: center;">
+               <div style="width: 100%;">
+                 <img src="https://i.ibb.co/2knF9Wc/grinpol.jpg" style="width: 25%;" />
+               </div>
+               <h1 style="font-size: 2rem; text-align: center; margin-top: 1rem;">¡Hola, ${patient.name}!</h1>
+               <p style="font-size: 1rem; margin: 1rem 0;">Te informamos que tu turno ha sido cancelado.</p>
+               <p style="font-size: 1rem; margin: 1rem 0;"><b>Información del turno:</b></p>
+               <ul style="list-style-type: none; padding: 0; font-size: 1rem; text-align: left; display: inline-block; margin: 0 auto;">
+                 <li style="margin-bottom: 0.5rem;">Fecha: ${appointmentDate.toLocaleString()}</li>
+                 <li style="margin-bottom: 0.5rem;">Razón: ${appointmentInfo.reason}</li>
+               </ul>
+               <p style="font-size: 0.8rem; margin: 1rem 0;"><b>No responder a este correo</b></p>
+                <p style="font-size: 1rem; margin: 1rem 0;">¡Gracias por elegirnos!</p>
+          </div>
+          `,
     });
   }
 
@@ -63,15 +72,49 @@ export class EmailService {
       from: 'Consultorio Grinpol',
       to: patient.pEmail,
       subject: 'Recordatorio de turno',
-      html: `<h1>¡Hola, ${patient.name}!</h1>
-           <p>Este es un recordatorio para tu turno programado.</p>
-           <p><b>Información del turno:</b></p>
-           <ul>
-             <li>Fecha: ${appointment.date.toLocaleString()}</li>
-             <li>Razón: ${appointment.reason}</li>
+      html: `
+        <div style="width: 100%; text-align: center;">
+          <div style="width: 100%;">
+            <img src="https://i.ibb.co/2knF9Wc/grinpol.jpg" style="width: 25%;" />
+          </div>
+          <h1 style="font-size: 2rem; text-align: center; margin-top: 1rem;">¡Hola, ${patient.name}!</h1>
+          <p style="font-size: 1rem; margin: 1rem 0;">Este es un recordatorio para tu turno programado.</p>
+          <p style="font-size: 1rem; margin: 1rem 0;"><b>Información del turno:</b></p>
+          <ul style="list-style-type: none; padding: 0; font-size: 1rem; text-align: left; display: inline-block; margin: 0 auto;">
+            <li style="margin-bottom: 0.5rem;">Fecha: ${appointment.date.toLocaleString()}</li>
+            <li style="margin-bottom: 0.5rem;">Razón: ${appointment.reason}</li>
+          </ul>
+          <p style="font-size: 0.8rem; margin: 1rem 0;"><b>No responder a este correo</b></p>
+          <p style="font-size: 1rem; margin: 1rem 0;">¡Gracias por elegirnos!</p>
+        </div>
+      `,
+    });
+  }
+
+  async sendUpdateEmail(lastAppointment: Appointment, updateAppointment: UpdateAppointmentDto, patient: Patient, lastDentist: Dentist, newDentist: Dentist) {
+    const lastAappointmentDate = new Date(lastAppointment.date);
+    const newAppointmentDate = new Date(updateAppointment.date)
+    this.mailerService.sendMail({
+      from: 'Consultorio Grinpol',
+      to: patient.pEmail,
+      subject: 'Se ha confirmado tu turno',
+      html: `
+      <div style="width: 100%; text-align: center;">
+           <div style="width: 100%;">
+             <img src="https://i.ibb.co/2knF9Wc/grinpol.jpg" style="width: 25%;" />
+           </div>
+           <h1 style="font-size: 2rem; text-align: center; margin-top: 1rem;">¡Hola, ${patient.name}!</h1>
+           <p style="font-size: 1rem; margin: 1rem 0;">Hemos actualizado el turno que tenias en la fecha ${lastAappointmentDate.toLocaleString()} con el Dr. ${lastDentist.fullname}.</p>
+           <p style="font-size: 1rem; margin: 1rem 0;"><b>Esta es la nueva información del turno:</b></p>
+           <ul style="list-style-type: none; padding: 0; font-size: 1rem; text-align: left; display: inline-block; margin: 0 auto;">
+             <li style="margin-bottom: 0.5rem;">Nueva fecha: ${newAppointmentDate.toLocaleString()}</li>
+             <li style="margin-bottom: 0.5rem;">Razón: ${lastAppointment.reason}</li>
+             <li style="margin-bottom: 0.5rem;">Asignado: Dr. ${newDentist.fullname}</li>
            </ul>
-           <small><b>No responder a este correo</b></small>
-           <p>¡Gracias por elegirnos!</p>`,
+           <p style="font-size: 0.8rem; margin: 1rem 0;"><b>No responder a este correo</b></p>
+            <p style="font-size: 1rem; margin: 1rem 0;">¡Gracias por elegirnos!</p>
+      </div>
+      `,
     });
   }
 

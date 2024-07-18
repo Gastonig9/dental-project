@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { OdontogramType } from "../../../types/dtos/Patient/NewPatient.type";
-import "./Odontogram.css"; //using css cuz component too big
+import "./Odontogram.css";
 
 //set component props
 interface OdontogramProps {
@@ -34,10 +34,12 @@ const Odontogram: React.FC<OdontogramProps> = ({ odontogramData }) => {
   // Func to render a tooth with its parts
   const renderTooth = (number: number) => {
     const positions = ["top", "right", "bottom", "left", "center"];
+    const reversedOdontogramData = [...odontogramData].reverse();
     const toothDetails = positions.map((position) => ({
       position,
-      detail: odontogramData.find(
-        (detail) => detail.toothNum === number && detail.part === position
+      detail: reversedOdontogramData.find(
+        (detail) =>
+          detail.toothNumber === number && detail.parts.includes(position)
       ),
     }));
 
@@ -131,9 +133,7 @@ const Odontogram: React.FC<OdontogramProps> = ({ odontogramData }) => {
             </div>
           </div>
         </div>
-
         <div className="divider"></div>
-
         <div className="quadrant-row">
           <div className="quadrant">
             <div className="tooth-row">
@@ -151,7 +151,6 @@ const Odontogram: React.FC<OdontogramProps> = ({ odontogramData }) => {
           </div>
         </div>
       </div>
-
       <div className="pediatric-odontogram">
         <div className="odontogram-container">
           <div className="quadrant-row">

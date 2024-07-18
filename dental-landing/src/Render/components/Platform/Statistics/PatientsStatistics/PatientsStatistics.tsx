@@ -1,19 +1,19 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Spinner from "../../Spinner";
 import { PatientsByAgeChart } from "./PatientsByAgeChart/PatientsByAgeChart";
 import { PatientsByGenderChart } from "./PatientsByGenderChart/PatientsByGenderChart";
 import { PatientsByTreatmentChart } from "./PatientsByTreatmentChart/PatientsByTreatmentChart";
+import { appointmentsServices, patientServices } from "../../../../../services";
 
 export const PatientsStatistics = () => {
   const [data, setData] = useState([]);
-  const [dataAppointments, setdataAppointments] = useState([])
+  const [dataAppointments, setdataAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/patient/get-patients`)
+    patientServices
+      .getPatients()
       .then((res) => {
         setData(res.data.patients);
         setLoading(false);
@@ -26,11 +26,10 @@ export const PatientsStatistics = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/api/appointments`)
+    appointmentsServices
+      .getAppointments()
       .then((res) => {
         setdataAppointments(res.data);
-        console.log(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -51,7 +50,9 @@ export const PatientsStatistics = () => {
             Pacientes por tratamiento
           </h1>
           <p>Reporte de pacientes por tratamiento</p>
-          <PatientsByTreatmentChart dataAppointmentsForChart={dataAppointments} />
+          <PatientsByTreatmentChart
+            dataAppointmentsForChart={dataAppointments}
+          />
         </div>
         <div className="w-full lg:w-[30%] rounded-[35px] p-5 bg-lightgray text-center">
           <h1 className="text-2xl font-medium poppins-bold">Rango de edad</h1>

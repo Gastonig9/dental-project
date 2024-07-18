@@ -17,9 +17,4 @@ export class SecretaryController {
   async getAllUsers(): Promise<SecretaryResponseDto[]> {
     return await this.service.getAllSecretaries();
   }
-
-  @Get('/probarDecorator')
-  async getJson(): Promise<string> {
-    return 'para testear que el guarda de roles se puede agregar al controller directamente';
-  }
 }

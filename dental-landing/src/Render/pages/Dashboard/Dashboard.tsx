@@ -8,6 +8,7 @@ import Navbar from "../../components/Platform/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { IoIosArrowForward } from "react-icons/io";
+import { token } from "../../../localStorage/token";
 
 interface Appointment {
   id: number;
@@ -53,7 +54,11 @@ export const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/patient/get-patients`)
+      .get(`${import.meta.env.VITE_API_URL}/patient/get-patients`,{
+        headers:{
+          Authorization:`Bearer ${token()}`
+        }
+      })
       .then((res) => {
         setData(res.data.patients);
         setPatientsGET(res.data.patients);
@@ -130,7 +135,7 @@ export const Dashboard = () => {
           const dentistResponse = await axios.get<{
             appointments: Appointment[];
           }>(
-            `${import.meta.env.VITE_API_URL}/dentist/appointments/${dentistId}`
+            `${import.meta.env.VITE_API_URL}/dentist/appointments/${dentistId}` , { headers:{Authorization: `Bearer ${token}`} }
           );
           const dentistAppointments = dentistResponse.data.appointments.map(
             (appointment) => ({
@@ -149,7 +154,7 @@ export const Dashboard = () => {
         }
 
         const allResponse = await axios.get<Appointment[]>(
-          `${import.meta.env.VITE_API_URL}/api/appointments`
+          `${import.meta.env.VITE_API_URL}/api/appointments`, { headers:{Authorization: `Bearer ${token}`} }
         );
         allAppointments = [...allAppointments, ...allResponse.data];
 
@@ -166,7 +171,7 @@ export const Dashboard = () => {
         );
         const patientRequests = patientIds.map((patientId) =>
           axios.get<{ id: number; name: string; surname: string }>(
-            `${import.meta.env.VITE_API_URL}/patient/${patientId}`
+            `${import.meta.env.VITE_API_URL}/patient/${patientId}`, {headers : {Authorization:`Bearer ${token}`}}
           )
         );
 
@@ -255,8 +260,8 @@ export const Dashboard = () => {
               />
             </div>
 
-            <div className="flex flex-col gap-y-[10px] mt-5 overflow-y-scroll h-[346px] ">
-              {patientsGET.slice(0, 6).map((paciente) => (
+            <div className="flex flex-col gap-y-[10px] mt-5 overflow-y-scroll h-[346px] scrollbar-patients-dashboard">
+              {patientsGET.map((paciente) => (
                 <div
                   key={String(paciente.id)}
                   className="flex justify-between items-center w-full bg-[#D9D9D9] rounded-[20px] py-3 px-6"

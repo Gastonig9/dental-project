@@ -4,6 +4,7 @@ import { useState } from "react";
 import Navbar from "../../components/Platform/Navbar";
 import SeeEditMedicalHistory from "./SeeEditMedicalHistory";
 import { SeeEditPersonalInfo } from "../PatientManagement/SeeEditPersonalInfo";
+import SeeEditPrestations from "./SeeEditPatient/SeeEditPrestations";
 
 export const SeeEditPatient = () => {
   const [activeTab, setActiveTab] = useState("personal-information");
@@ -11,8 +12,8 @@ export const SeeEditPatient = () => {
   return (
     <>
       <Navbar />
-      <section className="max-w-[1594px] mt-[110px] lg:mt-[150px] lg:ml-[220px] xxl:mx-auto ">
-        <div className="flex items-center lg:mb-6">
+      <section className="max-w-[1594px] mt-[110px] lg:mt-[145px] lg:ml-[220px] xxl:mx-auto ">
+        <div className="flex items-center lg:mb-4">
           <Link to="/patient-management/patients-list" className="me-16">
             <button className="hidden lg:flex items-center bg-transparent poppins-medium">
               <ChevronLeftIcon
@@ -22,9 +23,11 @@ export const SeeEditPatient = () => {
               Atrás
             </button>
           </Link>
-          <h1 className="poppins-semibold text-[33px] hidden lg:block">Información del paciente</h1>
+          <h1 className="poppins-semibold text-[33px] hidden lg:block">
+            Información del paciente
+          </h1>
         </div>
-        <main className="w-[90%] max-w-[1594px] lg:h-[740px] lg:rounded-[35px] lg:bg-lightgray lg:border lg:border-[#424242] lg:py-[30px] lg:px-[78px] mx-auto overflow-y-scroll">
+        <main className="max-w-[1594px] lg:h-[740px] lg:rounded-[35px] lg:bg-lightgray lg:border lg:border-[#424242] lg:py-[30px] lg:px-[78px] mx-auto overflow-y-auto">
           <div>
             <div className="flex lg:space-x-16 mb-4 poppins-regular text-[19px] justify-center lg:justify-start">
               <button
@@ -39,7 +42,9 @@ export const SeeEditPatient = () => {
               </button>
               <button
                 className={`text-lg font-medium border border-black rounded-tr-xl px-5 py-1 lg:p-0 lg:border-none ${
-                  activeTab === "medical-record" ? "text-black" : "text-[#9D9D9D]"
+                  activeTab === "medical-record"
+                    ? "text-black"
+                    : "text-[#9D9D9D]"
                 }`}
                 onClick={() => setActiveTab("medical-record")}
               >
@@ -55,13 +60,13 @@ export const SeeEditPatient = () => {
               </button>
             </div>
 
-            <div className="p-4 rounded-lg">
+            <div className=" rounded-lg">
               {activeTab === "personal-information" && (
                 <section>
                   <SeeEditPersonalInfo />
                 </section>
               )}
-              {/* {activeTab === "prestaciones" && (<section>Content for Prestaciones</section>)} */}
+              {activeTab === "prestaciones" && <SeeEditPrestations />}
               {activeTab === "medical-record" && <SeeEditMedicalHistory />}
             </div>
           </div>

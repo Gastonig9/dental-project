@@ -44,6 +44,10 @@ export class UserRepository {
     return this.context.user.findFirst({ where: { email } });
   }
 
+  async GetUserByDni(dni: number): Promise<User> {
+    return this.context.user.findFirst({ where: { dni } });
+  }
+
   async DeleteUserById(id: number): Promise<User> {
     return this.context.user.delete({ where: { id } });
   }

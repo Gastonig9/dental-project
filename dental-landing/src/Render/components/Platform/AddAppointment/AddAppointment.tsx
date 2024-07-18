@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../UI/Button/Button";
 import { Patient } from "../../../../types/dtos/Patient/NewPatient.type";
-import { SearchPatientInput, SelectInput, DateTimeInput } from ".";
-import { TimeInput } from "./TimeInput/TimeInput";
+import { SearchPatientInput, SelectInput, DateTimeInput, TimeInput } from ".";
 import { Dentist } from "../../../../types/dtos/dentist/dentist.type";
 import Swal from "sweetalert2";
-import axios from "axios";
+import { appointmentsServices, dentistService, patientServices } from "../../../../services";
 
 export const AddAppointment = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [patientSelected, setPatientSelected] = useState<Patient | null>(null);
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -38,9 +38,7 @@ export const AddAppointment = () => {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/patient/get-patients`
-        );
+        const response = await patientServices.getPatients()
         setPatients(response.data.patients);
       } catch (error) {
         console.error("Error fetching patients:", error);
@@ -52,9 +50,7 @@ export const AddAppointment = () => {
   useEffect(() => {
     const fetchDentists = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/dentist`
-        );
+        const response = await dentistService.getDentists()
         setDentists(response.data.dentists);
       } catch (error) {
         console.error("Error fetching dentists:", error);
@@ -118,15 +114,16 @@ export const AddAppointment = () => {
 
   const handleCreateAppointment = async () => {
     try {
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/appointments/create-appointment`,
-        dataAppointment
-      );
+      await appointmentsServices.createAppointment(dataAppointment)
       Swal.fire({
         title: "Éxito",
         text: "La cita se ha creado correctamente.",
         icon: "success",
         confirmButtonText: "OK",
+      }).then((result) => {
+        if(result.isConfirmed) {
+          navigate('/appointments')
+        }
       });
     } catch (error: any) {
       console.log(error);
@@ -195,7 +192,7 @@ export const AddAppointment = () => {
             />
           </div>
           <div className="w-full flex flex-col justify-evenly items-center gap-4 mt-4">
-            <DateTimeInput onDateChange={handleDateChange} />
+            <DateTimeInput onDateChange={handleDateChange} title="Seleccionar fecha"/>
             <div className="w-full flex flex-col lg:flex-row justify-evenly items-center gap-4 mt-4">
               <TimeInput onTimeChange={handleTimeChange} />
               <SelectInput

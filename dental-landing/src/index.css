@@ -206,13 +206,17 @@
   }
 }
 
-.personalInfo-input-style {
+.personalInfo-input-style, .gender-input-select-style {
   width: 250px;
   height: 44px;
   padding: 14px;
   border-radius: 8px;
   border: 1px solid #424242;
   background: #f5f5f5;
+}
+
+.gender-input-select-style{
+  padding: 10px;
 }
 
 /* review and photos carousel styles */
@@ -223,6 +227,15 @@
   border-radius: 8px;
   border: 0;
   background: #d9d9d9;
+}
+
+.usermanagement-input-style-allowed{
+   width: 400px;
+  height: 44px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 0;
+  background: #fafafa;
 }
 
 .usermanagement-input-select-style {
@@ -236,6 +249,7 @@
 
 @media (max-width: 768px) {
   .personalInfo-input-style,
+  .gender-input-select-style,
   .usermanagement-input-style,
   .usermanagement-input-select-style {
     width: 100%;
@@ -286,10 +300,6 @@
   }
 }
 
-.holaSweet {
-  border: 7px solid red;
-}
-
 /* Archivo CSS: calendarStyles.css */
 .custom-event {
   width: 100%;
@@ -298,7 +308,6 @@
   padding: 10px 10px;
   border-radius: 4px;
   text-align: start;
-  font-size: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -306,6 +315,11 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
+}
+
+.custom-event .event-info {
+    display: flex;
+    gap: 20px;
 }
 
 .custom-event .event-buttons {
@@ -353,6 +367,23 @@
   cursor: pointer;
   transform: scale(1.1);
 }
+
+@media (max-width: 953px) {
+  .custom-event {
+    border: 5px solid orange;
+    padding: 0px;
+    font-size: 9px;
+  }
+
+  .custom-event .event-buttons {
+    width: 50%;
+  }
+
+  .custom-event .event-buttons div {
+    width: 50%;
+    padding: 6px;
+  }
+}
 /* CALENDAR HEADER */
 
 .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
@@ -386,21 +417,12 @@
   padding: 120px 120px !important;
 }
 
-.fc-v-event {
-  border: 2px solid black;
-}
-
-.fc-event-main {
-  background-color: #58d68d;
-  border: #000000 !important;
-}
-
 .fc-daygrid-day-frame.fc-scrollgrid-sync-inner:hover {
   cursor: pointer;
   background-color: #dad8d8;
 }
 
-/* Personalizar la scrollbar del cuerpo del calendario */
+/* Personalizar la scrollbars */
 .fc-scroller::-webkit-scrollbar {
   width: 12px;
 }
@@ -419,6 +441,67 @@
 .fc-scroller::-webkit-scrollbar-thumb:hover {
   background-color: #58d68d;
 }
+
+
+.scrollbar-reports::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar-reports::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.scrollbar-reports::-webkit-scrollbar-thumb {
+  background-color: #908e8e;
+  border-radius: 10px;
+  border: 3px solid #f5f5f5;
+}
+
+.scrollbar-reports::-webkit-scrollbar-thumb:hover {
+  background-color: #58d68d;
+}
+
+
+.scrollbar-patients-dashboard::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar-patients-dashboard::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.scrollbar-patients-dashboard::-webkit-scrollbar-thumb {
+  background-color: #908e8e;
+  border-radius: 10px;
+  border: 3px solid #f5f5f5;
+}
+
+.scrollbar-patients-dashboard::-webkit-scrollbar-thumb:hover {
+  background-color: #58d68d;
+}
+
+
+.scrollbar-patient-list::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar-patient-list::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.scrollbar-patient-list::-webkit-scrollbar-thumb {
+  background-color: #908e8e;
+  border-radius: 10px;
+  border: 3px solid #f5f5f5;
+}
+
+.scrollbar-patient-list::-webkit-scrollbar-thumb:hover {
+  background-color: #58d68d;
+}
+
 
 /* Calendar Mobile */
 
@@ -448,15 +531,6 @@
   .fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
     width: 100%;
     margin-left: 0px;
-  }
-
-  .custom-event .event-buttons {
-    width: 50%;
-  }
-
-  .custom-event .event-buttons div {
-    width: 50%;
-    padding: 6px;
   }
 
   .hide-on-small-screen {
@@ -491,8 +565,8 @@
 }
 
 .swal2-cancel.custom-cancel-button {
-  color: black; /* Cambia el color del texto del botón de cancelación */
-  background-color: #f5f5f5; /* Color de fondo del botón de cancelación */
+  color: black;
+  background-color: #f5f5f5;
   border-radius: 10px;
   border: 2px solid #424242;
 }
