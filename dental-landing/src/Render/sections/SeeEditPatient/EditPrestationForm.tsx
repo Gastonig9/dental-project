@@ -34,8 +34,16 @@ const EditPrestationsForm: React.FC<EditPrestationsFormProps> = ({
   setEditMode,
   patientId,
 }) => {
+  const getCurrentDate = (): string => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   const [prestationData, setPrestationData] = useState({
-    date: "",
+    date: getCurrentDate(),
     code: "",
     observations: "",
     state: "PENDING",
@@ -160,37 +168,30 @@ const EditPrestationsForm: React.FC<EditPrestationsFormProps> = ({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex-col gap-1 mt-2 absolute top-[-10px]"
-    >
-      <div>
-        <div className="flex flex-col">
-          <label htmlFor="date">Fecha</label>
-          <input
-            className="inputs"
-            type="date"
-            id="date"
-            name="date"
-            value={prestationData.date}
-            onChange={handlePrestationChange}
-            required
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="ml-10">
+      <div className="flex flex-col">
+        <label htmlFor="date">Fecha</label>
+        <input
+          className="inputs"
+          type="date"
+          id="date"
+          name="date"
+          value={prestationData.date}
+          onChange={handlePrestationChange}
+          required
+        />
       </div>
-      <div>
-        <div className="flex flex-col">
-          <label htmlFor="code">Código</label>
-          <input
-            className="inputs"
-            type="text"
-            id="code"
-            name="code"
-            value={prestationData.code}
-            onChange={handlePrestationChange}
-            required
-          />
-        </div>
+      <div className="flex flex-col">
+        <label htmlFor="code">Código</label>
+        <input
+          className="inputs"
+          type="text"
+          id="code"
+          name="code"
+          value={prestationData.code}
+          onChange={handlePrestationChange}
+          required
+        />
       </div>
       <div>
         <div className="flex flex-col">
