@@ -129,7 +129,7 @@ const Navbar = () => {
                   aria-haspopup="true"
                   onClick={toggleDropdown}
                 >
-                  <FaRegUserCircle />
+          
                   <h3 className="text-[20px] font-semibold">
                     {userData.firstName} {userData.lastName}
                   </h3>
