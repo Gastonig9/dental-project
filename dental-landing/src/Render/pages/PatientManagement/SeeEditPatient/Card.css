@@ -12,10 +12,11 @@
 
 .card-stick {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -20px;
+  left: -22px;
   border-left: 3px solid #424242;
+  position: absolute;
+  height: 120%;
+  bottom: 50%;
 }
 
 .card-content {
@@ -34,11 +35,29 @@
   z-index: 1;
 }
 
+.no-scroll {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 .item {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10px;
+}
+
+.item .poppins-semibold {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-height: 100px;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .item-title {
