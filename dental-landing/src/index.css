@@ -370,9 +370,8 @@
 
 @media (max-width: 953px) {
   .custom-event {
-    border: 5px solid orange;
-    padding: 0px;
-    font-size: 9px;
+    padding: 5px;
+    font-size: 12px;
   }
 
   .custom-event .event-buttons {
