@@ -19,7 +19,7 @@ npm run dev
 
 El servidor de desarrollo se ejecutará en http://localhost:5173
 
-### 3. Configuracion front backend
+### 3. Configuracion Backend
 
 ```bash
 cd dental-backend
