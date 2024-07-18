@@ -151,15 +151,17 @@ export const SeeEditPersonalInfo = () => {
           <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
             <div className="flex flex-col">
               <label htmlFor="gender">Género</label>
-              <input
+              <select
                 id="gender"
-                type="text"
-                {...register('gender')}
-                className={`personalInfo-input-style ${
-                  !allowEdition ? 'bg-white' : ''
-                }`}
-                readOnly={!allowEdition}
-              />
+                {...register("gender", { required: "El género es obligatorio" })}
+                className= "gender-input-select-style"
+                disabled={!allowEdition}
+              >
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Otro">Otro</option>
+              </select>
+              
             </div>
             <div className="flex flex-col">
               <label htmlFor="birthDate">Fecha De Nacimiento</label>

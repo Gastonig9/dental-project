@@ -73,7 +73,7 @@ export const EditOdontogramForm: React.FC<EditOdontogramFormProps> = ({
   };
 
   return (
-    <div className="mt-1 p-2 border border-[#424242] rounded-[8px] w-[290px] mb-2 max-h-[270px] overflow-y-auto flex-col-reverse flex">
+    <div className="mt-2 p-2 border border-[#424242] rounded-[8px] w-[290px] mb-2 max-h-[270px] overflow-y-auto">
       {odontogramData.map((tooth, index) => (
         <>
           <div key={index} className="mb-2 ">
