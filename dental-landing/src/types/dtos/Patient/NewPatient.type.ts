@@ -23,6 +23,7 @@ export interface Patient {
 }
 
 export interface Prestations {
+  patientId?: number;
   date: string;
   code: string;
   observations?: string;
@@ -31,7 +32,20 @@ export interface Prestations {
 }
 
 export interface OdontogramType {
-  toothNum: number;
-  part: string;
+  toothNumber: number;
+  parts: string[];
   ref: string;
+}
+
+export interface PrestationRequest {
+  state: string;
+  patientId: number;
+  date: string;
+  code: string;
+  observations: string;
+  odontogram: {
+    toothNumber: number;
+    parts: string[];
+    ref: string;
+  }[];
 }

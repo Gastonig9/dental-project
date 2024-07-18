@@ -1,6 +1,12 @@
 import { useState } from "react";
-import { IoPeople, IoStatsChart, IoHome, IoMenu, IoLogOutOutline } from "react-icons/io5";
-import { FaCalendar, FaChevronDown, FaRegUserCircle } from "react-icons/fa";
+import {
+  IoPeople,
+  IoStatsChart,
+  IoHome,
+  IoMenu,
+  IoLogOutOutline,
+} from "react-icons/io5";
+import { FaCalendar, FaChevronDown } from "react-icons/fa";
 import { RiMenuUnfoldLine, RiMenuUnfold2Line } from "react-icons/ri";
 import { MdClose } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
@@ -111,6 +117,7 @@ const Navbar = () => {
               </h3>
             </Link>
 
+
             {/* user name and log out btn */}
             <div className="mt-[70px]">
               <div className="flex items-start gap-1">
@@ -122,7 +129,7 @@ const Navbar = () => {
                   aria-haspopup="true"
                   onClick={toggleDropdown}
                 >
-                  <FaRegUserCircle />
+          
                   <h3 className="text-[20px] font-semibold">
                     {userData.firstName} {userData.lastName}
                   </h3>
@@ -138,6 +145,7 @@ const Navbar = () => {
                 </button>
               </div>
             </div>
+
           </div>
 
         </div>
@@ -228,20 +236,31 @@ const Navbar = () => {
 
       <header className="h-[127px] bg-[#DAE3DE] fixed top-0 w-full hidden lg:flex z-10">
         <div className="flex justify-between items-center w-10/12 mx-auto pl-[120px]">
-
           <Link to="/">
             <img src={logo} alt="Grinpol - Clínica Dental" className="w-44" />
           </Link>
           <div className="relative">
             <button
               type="button"
-              className="flex items-center gap-2 bg-[#B4B4B4] py-3 px-8 rounded-3xl text-[19px]"
+              className="flex items-center gap-2 bg-[#B4B4B4] py-3 px-5 rounded-3xl text-[19px]"
               id="user-button"
               aria-expanded="true"
               aria-haspopup="true"
               onClick={toggleDropdown}
             >
-              <FaRegUserCircle />
+              <img
+                src={
+                  userData.role_name === "ASSOCIATED"
+                    ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
+                    : userData.role_name === "SECRETARY"
+                    ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
+                    : userData.role_name === "OWNER"
+                    ? "https://cdn0.iconfinder.com/data/icons/find-a-job-and-interview-flat/512/employee_person_man_business_office_businessman_people_male_worker-512.png"
+                    : ""
+                }
+                alt="User pic"
+                className="w-[30px] rounded-full"
+              />
               {userData.firstName} {userData.lastName}
               <FaChevronDown />
             </button>
@@ -258,7 +277,19 @@ const Navbar = () => {
                   role="none"
                 >
                   <p className="text-center">Mi cuenta</p>
-                  <div className="w-[122px] h-[122px] rounded-full bg-[url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP34iSqZQyUhayGE4vjJnPqZJWfEDXq67Udg&s')] bg-no-repeat bg-center bg-cover"></div>
+                  <img
+                    src={
+                      userData.role_name === "ASSOCIATED"
+                        ? "https://png.pngtree.com/png-vector/20230715/ourmid/pngtree-female-doctor-avatar-vector-design-png-image_7642475.png"
+                        : userData.role_name === "SECRETARY"
+                        ? "https://cdn3.iconfinder.com/data/icons/white-man-professions/512/profession_avatar_man_people_user_professional_white_work_job-52-512.png"
+                        : userData.role_name === "OWNER"
+                        ? "https://cdn0.iconfinder.com/data/icons/find-a-job-and-interview-flat/512/employee_person_man_business_office_businessman_people_male_worker-512.png"
+                        : ""
+                    }
+                    alt="User pic"
+                    className="w-[88px] rounded-full mb-3"
+                  />
                   <p className="mb-2">
                     {userData.firstName} {userData.lastName}
                   </p>

@@ -4,6 +4,8 @@ import {
   NotFoundException,
   UnauthorizedException,
   PreconditionFailedException,
+  ConflictException,
+  NotAcceptableException,
 } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { User } from '@prisma/client';
@@ -20,7 +22,6 @@ import {
   UserUpdateDto,
 } from 'src/dtos/user';
 import { EmailService } from 'src/utils/email.service';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class UserService {
@@ -36,19 +37,26 @@ export class UserService {
 
   async register(user: UserRegisterDto): Promise<User> {
     user.password = await this.authService.hashPassword(user.password);
-    try {
-      const userResponse = await this.userRepository.AddUser(user);
-      const response = await this.AddUserType[user.role_name](userResponse);
 
-      return response;
-    } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError) {
-        throw new Error(
-          `posible valor repetido en base de datos, Email y Dni deben ser unicos, errorTarget:${error.meta?.target}`,
-        );
-      }
-      throw new Error(error);
+    if (!this.validateEmail(user.email)) {
+      throw new NotAcceptableException(
+        'El campo email debe contener un email valido',
+      );
     }
+
+    const checkUserEmail = await this.userRepository.GetUserByEmail(user.email);
+    const checkUserDni = await this.userRepository.GetUserByDni(user.dni);
+
+    if (checkUserDni || checkUserEmail) {
+      const message = `Ya existe un usuario para el o los campos: ${checkUserDni ? 'DNI' : ''} ${checkUserEmail ? 'EMAIL' : ''}`;
+
+      throw new ConflictException(message);
+    }
+
+    const userResponse = await this.userRepository.AddUser(user);
+    const response = await this.AddUserType[user.role_name](userResponse);
+
+    return response;
   }
 
   async login(user: UserLoginDto): Promise<UserAuthResponseDto> {
@@ -117,6 +125,28 @@ export class UserService {
   }
 
   async updateUser(id: number, data: UserUpdateDto): Promise<User> {
+    const checkUserEmail = data?.email
+      ? await this.userRepository.GetUserByEmail(data?.email)
+      : null;
+    const checkUserDni = data?.dni
+      ? await this.userRepository.GetUserByDni(data?.dni)
+      : null;
+
+    const duplicates = [];
+
+    if (checkUserDni && checkUserDni?.id !== id) {
+      duplicates.push('DNI');
+    }
+
+    if (checkUserEmail && checkUserEmail?.id !== id) {
+      duplicates.push('EMAIL');
+    }
+
+    if (duplicates.length > 0)
+      throw new ConflictException(
+        `Ya existe un usuario para el o los campos: ${duplicates.join(', ')}`,
+      );
+
     return this.userRepository.UpdateUser(data, id);
   }
 
@@ -218,4 +248,9 @@ export class UserService {
       return data;
     },
   };
+
+  private validateEmail(email: string) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
 }

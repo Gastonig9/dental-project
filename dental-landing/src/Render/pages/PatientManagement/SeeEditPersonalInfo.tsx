@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
+import { token } from '../../../localStorage/token';
 
 export const SeeEditPersonalInfo = () => {
   const { id } = useParams();
@@ -12,7 +13,7 @@ export const SeeEditPersonalInfo = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/patient/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/patient/${id}`,{ headers:{Authorization: `Bearer ${token()}`}})
       .then((res) => {
         setPatientInfo(res.data);
         const patient = res.data;
@@ -37,7 +38,8 @@ export const SeeEditPersonalInfo = () => {
       const { appointments, medicalHistories, ...rest } = data;
       const response = await axios.put(
         `${import.meta.env.VITE_API_URL}/patient/${id}`,
-        rest
+        rest,
+        { headers: { Authorization: `Bearer ${token()}` } }
       );
       setPatientInfo(response.data);
       Swal.fire({
@@ -48,9 +50,18 @@ export const SeeEditPersonalInfo = () => {
       console.log('Patient information saved:', response.data);
     } catch (error) {
       console.error('Error saving: ', error);
+      let text = 'Ocurrió un error al guardar la información.';
+      let title = 'Error';
+
+      if (error instanceof AxiosError) {
+        if (error?.response?.status === 409) {
+          title = 'Campo Repetido';
+          text = error.response.data.message;
+        }
+      }
       Swal.fire({
-        title: 'Error',
-        text: 'Ocurrió un error al guardar la información.',
+        title,
+        text,
         icon: 'error',
       });
     }
