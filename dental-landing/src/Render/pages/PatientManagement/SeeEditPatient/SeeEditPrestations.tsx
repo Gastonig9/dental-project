@@ -41,7 +41,7 @@ const SeeEditPrestations = () => {
   }, [editMode, patientId]);
 
   return (
-    <main className="flex mt-[20px] poppins-regular text-[16px] gap-10">
+    <main className="flex mt-[20px] poppins-regular text-[16px] gap-4">
       <section className="relative">
         <Odontogram odontogramData={odontogramData} />
         <Reference />
@@ -56,9 +56,7 @@ const SeeEditPrestations = () => {
           />
         ) : (
           <>
-            <PrestationCards
-              prestations={prestations}
-            />
+            <PrestationCards prestations={prestations} />
             <div className="absolute right-[77px] bottom-0">
               <button
                 className="bg-acento poppins-semibold py-3 px-3 rounded-[10px]"

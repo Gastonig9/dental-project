@@ -8,13 +8,9 @@ interface PrestationCardsProps {
 
 const PrestationCards: React.FC<PrestationCardsProps> = ({ prestations }) => {
   return (
-    <section className="flex-col gap-4 max-h-[500px] overflow-scroll w-[500px] pl-9">
+    <section className="flex-col gap-4 max-h-[500px] overflow-y-auto w-[500px] pl-9">
       {prestations.map((prestation) => (
-        <div
-          key={prestation.patientId}
-          className="card card-content"
-          onClick={() => {}}
-        >
+        <div key={prestation.patientId} className="card card-content">
           <div className="item">
             <p className="item-title">Fecha</p>
             <p className="poppins-semibold text-[16px]">{prestation.date}</p>

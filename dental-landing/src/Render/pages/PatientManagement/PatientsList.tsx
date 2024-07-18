@@ -24,13 +24,15 @@ const PatientsList = () => {
   const [data, setData] = useState<PatientsModel[]>([]);
   const [patients, setPatients] = useState<PatientsModel[]>([]);
   const [loading, setLoading] = useState(false);
-  const [inputData, setInputData] = useState('');
-  const [inputDataMobile, setInputDataMobile] = useState('');
+  const [inputData, setInputData] = useState("");
+  const [inputDataMobile, setInputDataMobile] = useState("");
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${import.meta.env.VITE_API_URL}/patient/get-patients`, { headers:{Authorization: `Bearer ${token()}`} })
+      .get(`${import.meta.env.VITE_API_URL}/patient/get-patients`, {
+        headers: { Authorization: `Bearer ${token()}` },
+      })
       .then((res) => {
         setData(res.data.patients);
         setPatients(res.data.patients);
@@ -101,24 +103,26 @@ const PatientsList = () => {
               {patients.map((paciente, index) => (
                 <div
                   key={index}
-                  className="grid grid-cols-8 items-center justify-between bg-[#D9D9D9] py-4 px-2 rounded-[20px] sm:px-8">
+                  className="grid grid-cols-8 items-center justify-between bg-[#D9D9D9] py-4 px-2 rounded-[20px] sm:px-8"
+                >
                   <h3 className="text-[16px] font-semibold col-span-4">
                     {paciente.name} {paciente.surname}
                   </h3>
                   <h4 className="text-[11px] text-center col-span-2">
-                    N° DNI: {String(paciente.dni)}{' '}
+                    N° DNI: {String(paciente.dni)}{" "}
                   </h4>
                   <div className="flex items-center justify-end gap-2 col-span-2">
                     <Link
                       to={`/patient-management/seeEditPatient/${paciente.id}`}
-                      className="bg-[#f5f5f5] p-2 rounded-lg ">
+                      className="bg-[#f5f5f5] p-2 rounded-lg "
+                    >
                       <IoIosArrowForward />
                     </Link>
                   </div>
                 </div>
               ))}
 
-              <button className="text-[13px font-semibold rounded-[10px] bg-acento hover:bg-green-500 self-end p-2 mt-5">
+              <button className="text-[13px] font-semibold rounded-[10px] bg-acento hover:bg-green-500 self-end p-2 mt-5">
                 Agregar nuevo paciente
               </button>
             </div>
@@ -127,7 +131,7 @@ const PatientsList = () => {
       </main>
 
       {/* desktop layout */}
-      <main className="mt-[150px] ml-[220px] pr-10 hidden lg:block p-10 ">
+      <main className="mt-[150px] ml-[220px] pr-10 hidden lg:block p-5 ">
         <section className="border-2 border-black bg-[#f5f5f5] rounded-[35px] max-w-[1594px] h-[826px]  shadow-2xl p-10 relative xxl:mx-auto z-2">
           {/* header */}
           <div className="grid newxl:grid-cols-12 gap-2 newxl:gap-0">
@@ -164,8 +168,9 @@ const PatientsList = () => {
               {patients.map((paciente) => (
                 <div
                   key={String(paciente.id)}
-                  className="grid grid-cols-12 justify-between w-full ml-auto bg-[#D9D9D9] rounded-[20px] pl-[96px] py-9 pr-[48px] ">
-                  <div className="grid col-span-10 grid-cols-2 items-center xl:grid-cols-6 text-[19px] font-bold flex ">
+                  className="grid grid-cols-12 justify-between w-full ml-auto bg-[#D9D9D9] rounded-[20px] pl-[96px] py-9 pr-[48px] "
+                >
+                  <div className="grid col-span-10 grid-cols-2 items-center xl:grid-cols-6 text-[19px] font-bold">
                     <h3 className="xl:col-span-2">
                       {paciente.name} {paciente.surname}
                     </h3>
@@ -173,14 +178,15 @@ const PatientsList = () => {
                       {String(paciente.dni)}
                     </h3>
                     <h3 className="text-center xl:col-span-2">
-                      {String(paciente.phone)}{' '}
+                      {String(paciente.phone)}{" "}
                     </h3>
                   </div>
 
                   <div className="flex col-span-2 items-center gap-7 justify-end">
                     <Link
                       className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 xl:gap-[10]"
-                      to={`/patient-management/seeEditPatient/${paciente.id}`}>
+                      to={`/patient-management/seeEditPatient/${paciente.id}`}
+                    >
                       <p className="hidden newxl:block">Ver ficha médica</p>
                       <IoIosArrowForward />
                     </Link>
@@ -192,7 +198,8 @@ const PatientsList = () => {
 
           <Link
             className="text[19px] bg-acento hover:bg-green-500 font-bold rounded-[10px] py-2 px-4 mt-[63px] absolute bottom-10 right-10"
-            to="/patient-management/new-patient">
+            to="/patient-management/new-patient"
+          >
             Agregar nuevo paciente
           </Link>
         </section>
