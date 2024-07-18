@@ -14,8 +14,8 @@ export const NewPatient = () => {
     <>
       <Navbar />
       <section className="lg:ms-[250px] max-w-[1594px] mt-[150px] xxl:mx-auto ">
-        <div className="flex items-center mb-4">
-          <Link to="/dashboard" className="me-16">
+        <div className="flex items-center mb-6">
+          <Link to="/patient-management/patients-list" className="me-16">
             <button className="flex items-center bg-transparent poppins-medium">
               <ChevronLeftIcon
                 className="h-5 w-5 flex-none text-black"
