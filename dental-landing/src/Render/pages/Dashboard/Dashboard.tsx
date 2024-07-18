@@ -193,13 +193,13 @@ export const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen min-w-full flex flex-col lg:flex-row justify-center items-center mt-[90px] ms-0 lg:ms-[100px] pt-6 bg-background">
-        <section className="mx-auto lg:mx-0 lg:me-[108px] w-[80%] lg:w-auto">
+      <main className="dashboard-medium min-h-screen min-w-full flex flex-col lg:flex-row justify-center items-center mt-[100px] ms-0 lg:ms-[100px] pt-6 bg-background">
+        <section className="mx-auto lg:mx-0 lg:me-[108px] w-[80%] lg:w-auto left-section-medium">
           <div className="mb-8">
-            <h1 className="poppins-bold text-[23px] lg:text-[40px] mb-2">
+            <h1 className="poppins-bold text-[23px] lg:text-[40px] mb-2 dashboard-title-medium">
               Bienvenido {userData.firstName} {userData.lastName}
             </h1>
-            <p className="poppins-regular text-[19px]">{currentDate}</p>
+            <p className="poppins-regular text-[19px] dashboard-text-medium">{currentDate}</p>
           </div>
 
           {/* SEARCH MOBILE */}
@@ -244,7 +244,7 @@ export const Dashboard = () => {
           </div>
           {/* SEARCH MOBILE */}
 
-          <div className="hidden lg:block bg-lightgray poppins-regular border border-[#424242] w-[510px] h-[480px] rounded-[20px] py-7 px-9 mb-12">
+          <div className="hidden lg:block bg-lightgray poppins-regular border border-[#424242] w-[510px] h-[480px] rounded-[20px] py-7 px-9 mb-12 search-container-medium">
             <div className="relative flex items-center">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <MagnifyingGlassIcon className="w-5 h-5 text-black" />
@@ -258,13 +258,13 @@ export const Dashboard = () => {
               />
             </div>
 
-            <div className="flex flex-col gap-y-[10px] mt-5 overflow-y-scroll h-[346px] scrollbar-patients-dashboard">
+            <div className="flex flex-col gap-y-[10px] mt-5 overflow-y-scroll h-[346px] scrollbar-patients-dashboard scroll-search-medium">
               {patientsGET.map((paciente) => (
                 <div
                   key={String(paciente.id)}
                   className="flex justify-between items-center w-full bg-[#D9D9D9] rounded-[20px] py-3 px-6"
                 >
-                  <div className="items-center text-[16px] font-bold flex ">
+                  <div className="items-center text-[16px] font-bold flex dashboard-search-text">
                     <h3 className="me-8">
                       {paciente.name} {paciente.surname}
                     </h3>
@@ -291,7 +291,7 @@ export const Dashboard = () => {
           {userData.role_name !== "SECRETARY" && (
             <div className="poppins-bold hidden lg:flex">
               <Link to="/users-management/users-list">
-                <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[25px]">
+                <button className="flex justify-around items-center border border-[#424242] rounded-[20px] p-3 text-[25px] management-button-medium">
                   <UsersIcon
                     className="text-[25px] h-7 w-7 flex-none text-black me-2"
                     aria-hidden="true"
@@ -307,54 +307,59 @@ export const Dashboard = () => {
           )}
         </section>
         <section className="flex justify-center items-center mx-auto lg:mx-0 pt-14">
-          <div className="w-[349px] lg:w-[840px] h-[646px] lg:h-[665px] bg-lightgray border border-[#424242] rounded-[20px] lg:rounded-[30px] px-3 lg:px-14 py-4 lg:py-12 overflow-y-auto">
-            <h1 className="poppins-bold ms-5 mb-4 lg:mb-4 text-[26px] lg:text-[40px]">
+          <div className="w-[349px] lg:w-[840px] h-[646px] lg:h-[665px] bg-lightgray border border-[#424242] rounded-[20px] lg:rounded-[30px] px-3 lg:px-14 py-4 lg:py-12 appointment-container-medium">
+            <h1 className="poppins-bold ms-5 mb-4 lg:mb-4 text-[26px] lg:text-[40px] dashboard-title-medium">
               Próximos turnos
             </h1>
-            <div>
-              {appointments.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).slice(0, 6).map((appointment, index) => (
-                <div
-                  key={`${appointment.id}-${index}`}
-                  className="flex items-center px-7 py-5 bg-acento w-full h-[70px] rounded-[10px] mb-2 poppins-medium text-typography text-[16px] lg:text-[20px]"
-                >
-                  <div className="flex items-center me-12">
-                    <p>
-                      {new Date(appointment.date).toLocaleDateString([], {
-                        month: "2-digit",
-                        day: "2-digit",
-                      })}
-                    </p>
-                    <p className="mx-3">-</p>
-                    <p>
-                      {new Date(appointment.date).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </p>
-                  </div>
-                  {userData.role_name === "SECRETARY" &&
-                    appointment.state ===
-                      "PENDING" &&(
-                        <>
-                          <p className="">
-                            {`${appointment.patient.name} ${appointment.patient.surname}`}
+            <div className="scroll-appoinments-medium">
+              {appointments
+                .sort(
+                  (a, b) =>
+                    new Date(a.date).getTime() - new Date(b.date).getTime()
+                )
+                .slice(0, 6)
+                .map(
+                  (appointment, index) =>
+                    appointment.state === "PENDING" && (
+                      <div
+                        key={`${appointment.id}-${index}`}
+                        className="flex items-center px-7 py-5 bg-acento w-full h-[70px] rounded-[10px] mb-2 poppins-medium text-typography text-[16px] lg:text-[20px] dashboard-text-medium"
+                      >
+                        <div className="flex items-center me-12">
+                          <p>
+                            {new Date(appointment.date).toLocaleDateString([], {
+                              month: "2-digit",
+                              day: "2-digit",
+                            })}
                           </p>
-                          <p className="ms-auto">
-                            {appointment.dentist.fullname}
+                          <p className="mx-3">-</p>
+                          <p>
+                            {new Date(appointment.date).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
                           </p>
-                        </>
-                      )}
-                  {userData.role_name !== "SECRETARY" &&
-                    appointment.state ===
-                      "PENDING" &&(
-                        <>
-                          <p className="me-4">
-                            {patients[appointment.patient.id]}
-                          </p>
-                        </>
-                      )}
-                </div>
-              ))}
+                        </div>
+                        {userData.role_name === "SECRETARY" && (
+                          <>
+                            <p className="">
+                              {`${appointment.patient.name} ${appointment.patient.surname}`}
+                            </p>
+                            <p className="ms-auto">
+                              {appointment.dentist.fullname}
+                            </p>
+                          </>
+                        )}
+                        {userData.role_name !== "SECRETARY" && (
+                          <>
+                            <p className="me-4">
+                              {patients[appointment.patient.id]}
+                            </p>
+                          </>
+                        )}
+                      </div>
+                    )
+                )}
             </div>
           </div>
         </section>
