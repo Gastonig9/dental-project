@@ -103,6 +103,8 @@ export class AppointmentService {
 
   async updateAppointment(id: number, newAppointment: UpdateAppointmentDto): Promise<Appointment> {
     try {
+      const now = new Date();
+      const newAppointmentDate = new Date(newAppointment.date)
       const existingAppointment = await this.getAppointment(id);
       if (!existingAppointment) {
         throw new NotFoundException('Cita no encontrada');
@@ -112,7 +114,28 @@ export class AppointmentService {
       const lastDentist = await this.dentistService.findDentist(existingAppointment.dentistId);
       const newDentist = await this.dentistService.findDentist(newAppointment.dentistId);
 
-      const newAppointmentUpdate = await this.repository.updateAppointment(id, newAppointment); // Usa await aquí
+      if (newAppointmentDate <= now) {
+        throw new HttpException('No se pueden asignar turnos en fechas y horarios pasados', HttpStatus.CONFLICT);
+      }
+  
+      const verifyDentist = await this.repository.checkDentistAvailability(newAppointment.dentistId, newAppointmentDate)
+      if(verifyDentist > 2) {
+        throw new HttpException(`El dentista seleccionado ya tiene mas de 3 turnos asignados para el dia ${newAppointmentDate.toLocaleDateString()}`, HttpStatus.CONFLICT);
+      }
+  
+      // Verificar si ya existe una cita para la misma fecha y dentista
+      const verifyDate = await this.repository.checkAvailability(newAppointmentDate);
+      if (!verifyDate) {
+        throw new ConflictException('Ya hay un turno asignado para esta fecha y horario');
+      }
+  
+      // Verificar si ya existe una cita en un rango de 15 minutos
+      const verifyTimeRange = await this.repository.checkTimeRangeAvailability(newAppointmentDate);
+      if (!verifyTimeRange) {
+        throw new HttpException('Ya hay un turno creado en un rango de 15 minutos al que deseas ingresar', HttpStatus.CONFLICT);
+      }
+
+      const newAppointmentUpdate = await this.repository.updateAppointment(id, newAppointment);
       await this.mailService.sendUpdateEmail(existingAppointment, newAppointmentUpdate, patient, lastDentist, newDentist);
       return newAppointmentUpdate;
     } catch (error) {

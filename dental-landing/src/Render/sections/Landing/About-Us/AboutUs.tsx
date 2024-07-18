@@ -3,7 +3,7 @@ import Carousel from "./Carousel";
 
 export const AboutUs = () => {
   return (
-    <main className="relative bg-background lg:pt-[183px]">
+    <main className="relative bg-background lg:pt-[183px]" id="nosotros">
       <section className="max-w-[1530px] mx-auto">
         <div className="about-us-img relative isolate overflow-hidden flex flex-col sm:flex-row justify-center items-center mx-auto px-4 lg:px-0">
           {/* Text and Title Container */}
@@ -16,7 +16,7 @@ export const AboutUs = () => {
             </div>
             <div className="mt-[38px]  mb-[55px] lg:mb-[0px]">
               {/* Us Text */}
-              <p className="poppins-medium text-[13px] w-[354px] lg:poppins-regular lg:text-[28px] lg:w-[729px] leading-[120%]">
+              <p className="poppins-medium text-[13px] w-[354px] lg:font-normal lg:text-[28px] lg:w-[729px] leading-[120%]">
                 Los doctores Natalia Ceballos y Pablo Cruz se han destacado en
                 la transformación de sonrisas con profesionalismo y dedicación.
                 Desde nuestros inicios, nos hemos comprometido a proporcionar

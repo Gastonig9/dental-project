@@ -34,7 +34,7 @@ export const Specialties = () => {
         <section className="xl:max-w-[1530px] md:max-w-[590px] mx-auto">
           {/* Title*/}
           <div className="sectionTitle2 w-[188px] ml-[15px] lg:ml-0 lg:w-[251px] lg:h-12 lg:mb-[52px]">
-            <p className="text-[19px] lg:text-[28px] leading-[120%]">
+            <p className="text-[19px] lg:text-[28px] leading-[120%]" id="especialidades">
               Especialidades
             </p>
           </div>
