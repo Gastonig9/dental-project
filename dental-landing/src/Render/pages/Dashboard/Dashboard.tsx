@@ -130,7 +130,8 @@ export const Dashboard = () => {
           const dentistResponse = await axios.get<{
             appointments: Appointment[];
           }>(
-            `${import.meta.env.VITE_API_URL}/dentist/appointments/${dentistId}` , { headers:{Authorization: `Bearer ${token}`} }
+            `${import.meta.env.VITE_API_URL}/dentist/appointments/${dentistId}`,
+            { headers: { Authorization: `Bearer ${token}` } }
           );
           const dentistAppointments = dentistResponse.data.appointments.map(
             (appointment) => ({
@@ -149,7 +150,8 @@ export const Dashboard = () => {
         }
 
         const allResponse = await axios.get<Appointment[]>(
-          `${import.meta.env.VITE_API_URL}/api/appointments`, { headers:{Authorization: `Bearer ${token}`} }
+          `${import.meta.env.VITE_API_URL}/api/appointments`,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         allAppointments = [...allAppointments, ...allResponse.data];
 
@@ -166,7 +168,8 @@ export const Dashboard = () => {
         );
         const patientRequests = patientIds.map((patientId) =>
           axios.get<{ id: number; name: string; surname: string }>(
-            `${import.meta.env.VITE_API_URL}/patient/${patientId}`, {headers : {Authorization:`Bearer ${token}`}}
+            `${import.meta.env.VITE_API_URL}/patient/${patientId}`,
+            { headers: { Authorization: `Bearer ${token}` } }
           )
         );
 
@@ -227,14 +230,14 @@ export const Dashboard = () => {
                   N° DNI: {String(paciente.dni)}{" "}
                 </h4>
                 {userData.role_name !== "SECRETARY" && (
-                <div className="flex items-center justify-end gap-2 col-span-2">
-                  <Link
-                    to={`/patient-management/seeEditPatient/${paciente.id}`}
-                    className="bg-[#f5f5f5] p-2 rounded-lg "
-                  >
-                    <IoIosArrowForward />
-                  </Link>
-                </div>
+                  <div className="flex items-center justify-end gap-2 col-span-2">
+                    <Link
+                      to={`/patient-management/seeEditPatient/${paciente.id}`}
+                      className="bg-[#f5f5f5] p-2 rounded-lg "
+                    >
+                      <IoIosArrowForward />
+                    </Link>
+                  </div>
                 )}
               </div>
             ))}
@@ -270,15 +273,15 @@ export const Dashboard = () => {
                     </h3>
                   </div>
                   {userData.role_name !== "SECRETARY" && (
-                  <div className="flexitems-center gap-7">
-                    <Link
-                      className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 xl:gap-[10]"
-                      to={`/patient-management/seeEditPatient/${paciente.id}`}
-                    >
-                      <p className="hidden">Ver ficha médica</p>
-                      <IoIosArrowForward />
-                    </Link>
-                  </div>
+                    <div className="flexitems-center gap-7">
+                      <Link
+                        className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 xl:gap-[10]"
+                        to={`/patient-management/seeEditPatient/${paciente.id}`}
+                      >
+                        <p className="hidden">Ver ficha médica</p>
+                        <IoIosArrowForward />
+                      </Link>
+                    </div>
                   )}
                 </div>
               ))}
@@ -309,7 +312,7 @@ export const Dashboard = () => {
               Próximos turnos
             </h1>
             <div>
-              {appointments.slice(0, 6).map((appointment, index) => (
+              {appointments.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).slice(0, 6).map((appointment, index) => (
                 <div
                   key={`${appointment.id}-${index}`}
                   className="flex items-center px-7 py-5 bg-acento w-full h-[70px] rounded-[10px] mb-2 poppins-medium text-typography text-[16px] lg:text-[20px]"
@@ -329,19 +332,27 @@ export const Dashboard = () => {
                       })}
                     </p>
                   </div>
-                  {userData.role_name === "SECRETARY" && (
-                    <>
-                      <p className="">
-                        {`${appointment.patient.name} ${appointment.patient.surname}`}
-                      </p>
-                      <p className="ms-auto">{appointment.dentist.fullname}</p>
-                    </>
-                  )}
-                  {userData.role_name !== "SECRETARY" && (
-                    <>
-                      <p className="me-4">{patients[appointment.patient.id]}</p>
-                    </>
-                  )}
+                  {userData.role_name === "SECRETARY" &&
+                    appointment.state ===
+                      "PENDING" &&(
+                        <>
+                          <p className="">
+                            {`${appointment.patient.name} ${appointment.patient.surname}`}
+                          </p>
+                          <p className="ms-auto">
+                            {appointment.dentist.fullname}
+                          </p>
+                        </>
+                      )}
+                  {userData.role_name !== "SECRETARY" &&
+                    appointment.state ===
+                      "PENDING" &&(
+                        <>
+                          <p className="me-4">
+                            {patients[appointment.patient.id]}
+                          </p>
+                        </>
+                      )}
                 </div>
               ))}
             </div>
