@@ -8,7 +8,7 @@ import { getPrestationsByPatientId } from "../../../../Features/services/Patient
 import { Reference } from "../../../components/PatientManagement/Reference";
 import Odontogram from "../../../components/PatientManagement/Odontogram";
 import EditPrestationsForm from "../../../sections/SeeEditPatient/EditPrestationForm";
-import PrestationCards from "../../../sections/SeeEditPatient/PrestationCard";
+import PrestationCards from "../../../components/PatientManagement/SeeEditPrestations/PrestationCard";
 import "../../../components/PatientManagement/Odontogram.css";
 import "./Card.css";
 
