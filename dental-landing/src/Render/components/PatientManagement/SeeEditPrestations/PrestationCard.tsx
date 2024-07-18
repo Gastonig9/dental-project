@@ -30,7 +30,7 @@ const PrestationCards: React.FC<PrestationCardsProps> = ({ prestations }) => {
               {prestation.observations}
             </p>
           </div>
-          <p
+          {/* <p
             className={`item item-title ${
               prestation.state === "PENDING"
                 ? "text-green-500"
@@ -38,7 +38,7 @@ const PrestationCards: React.FC<PrestationCardsProps> = ({ prestations }) => {
             }`}
           >
             {prestation.state.capitalize()}
-          </p>
+          </p> */}
         </div>
       ))}
     </section>

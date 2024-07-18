@@ -54,7 +54,7 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
     if (!patientId) {
       Swal.fire({
         title: "Error",
-        text: "Falta el ID del paciente.",
+        text: "Asegúrate de crear una ficha médica.",
         icon: "error",
       });
       return;
@@ -151,7 +151,6 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
             name="code"
             value={prestationData.code}
             onChange={handlePrestationChange}
-            required
           />
         </div>
       </div>

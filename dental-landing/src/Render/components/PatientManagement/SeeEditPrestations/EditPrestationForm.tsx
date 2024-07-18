@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import {
   OdontogramType,
   Prestations,
-} from "../../../types/dtos/Patient/NewPatient.type";
+} from "../../../../types/dtos/Patient/NewPatient.type";
+
+import { addPrestation } from "../../../../Features/services/PatientManagement/PrestationsServices/PostPrestations";
 import { EditOdontogramForm } from "./EditOdontogramForm";
-import { addPrestation } from "../../../Features/services/PatientManagement/PrestationsServices/PostPrestations";
 import Swal from "sweetalert2";
 
 const FDI_TEETH_NUMBERS = new Set([
