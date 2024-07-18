@@ -3,7 +3,7 @@ import Carousel from "./Carousel";
 
 export const AboutUs = () => {
   return (
-    <main className="relative bg-background lg:pt-[183px]">
+    <main className="relative bg-background lg:pt-[183px]" id="nosotros">
       <section className="max-w-[1530px] mx-auto">
         <div className="about-us-img relative isolate overflow-hidden flex flex-col sm:flex-row justify-center items-center mx-auto px-4 lg:px-0">
           {/* Text and Title Container */}

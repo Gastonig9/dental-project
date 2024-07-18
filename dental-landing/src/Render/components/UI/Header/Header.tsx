@@ -20,7 +20,7 @@ export const Header = () => {
   return (
     <header className="bg-lightgray poppins-semibold sticky top-0 z-50">
       <nav
-        className="mx-auto flex max-w-[1920px] items-center justify-center py-0 px-4"
+        className="mx-auto flex max-w-[1920px] items-center justify-center py-0 px-4 nav-medium"
         aria-label="Global"
       >
         <div className="flex me-auto lg:hidden">
@@ -36,17 +36,17 @@ export const Header = () => {
         <div className="flex lg:flex-1">
           <a href="#" className="p-1.5">
             <span className="sr-only">Grinpol - Clínica Dental</span>
-            <img src={logo} alt="Grinpol - Clínica Dental" className="w-28" />
+            <img src={logo} alt="Grinpol - Clínica Dental" className="w-16 lg:w-28 logo-medium" />
           </a>
         </div>
-        <PopoverGroup className="hidden lg:flex lg:gap-x-40 mx-10">
+        <PopoverGroup className="hidden lg:flex lg:gap-x-40 mx-10 gap-medium">
           <ScrollLink
             to="especialidades"
             spy={true}
             smooth={true}
             duration={800}
             onClick={() => scrollToSection("especialidades")}
-            className="text-lg cursor-pointer"
+            className="header-text-medium text-lg cursor-pointer"
           >
             Especialidades
           </ScrollLink>
@@ -56,7 +56,7 @@ export const Header = () => {
             smooth={true}
             duration={800}
             onClick={() => scrollToSection("nosotros")}
-            className="text-lg cursor-pointer"
+            className="header-text-medium text-lg cursor-pointer"
           >
             Nosotros
           </ScrollLink>
@@ -66,7 +66,7 @@ export const Header = () => {
             smooth={true}
             duration={800}
             onClick={() => scrollToSection("faq")}
-            className="text-lg cursor-pointer"
+            className="header-text-medium text-lg cursor-pointer"
           >
             FAQ
           </ScrollLink>
@@ -76,14 +76,14 @@ export const Header = () => {
             smooth={true}
             duration={800}
             onClick={() => scrollToSection("contactanos")}
-            className="text-lg cursor-pointer"
+            className="header-text-medium text-lg cursor-pointer"
           >
             Contáctanos
           </ScrollLink>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link to="/login" className="text-lg">
-            <button className="flex items-center bg-acento p-3 rounded-lg">
+            <button className="flex items-center bg-acento p-3 rounded-lg header-button-medium">
               Profesional
               <ChevronRightIcon
                 className="h-5 w-5 flex-none text-black"
