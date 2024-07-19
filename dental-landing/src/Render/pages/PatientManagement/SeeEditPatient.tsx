@@ -1,6 +1,6 @@
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../../components/Platform/Navbar";
 import SeeEditMedicalHistory from "./SeeEditMedicalHistory";
 import { SeeEditPersonalInfo } from "../PatientManagement/SeeEditPersonalInfo";
@@ -8,6 +8,14 @@ import SeeEditPrestations from "./SeeEditPatient/SeeEditPrestations";
 
 export const SeeEditPatient = () => {
   const [activeTab, setActiveTab] = useState("personal-information");
+  const [user, setUser] = useState('')
+
+  useEffect(()=>{
+    let user: any = localStorage.getItem('user')
+    user = JSON.parse(user)
+    
+    setUser(user.role_name)
+  }, [])
 
   return (
     <>
@@ -50,14 +58,14 @@ export const SeeEditPatient = () => {
               >
                 Historia clínica
               </button>
-              <button
+              {user !== 'SECRETARY' && <button
                 className={`text-lg font-medium hidden lg:block ${
                   activeTab === "prestaciones" ? "text-black" : "text-[#9D9D9D]"
                 }`}
                 onClick={() => setActiveTab("prestaciones")}
               >
                 Prestaciones
-              </button>
+              </button>}
             </div>
 
             <div className=" rounded-lg">

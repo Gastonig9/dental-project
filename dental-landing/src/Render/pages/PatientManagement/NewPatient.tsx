@@ -1,6 +1,6 @@
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PersonalInfo } from "../../sections/PatientManagement/PersonalInfo";
 import MedicalHistory from "./MedicalHistory";
 import { PatientContextProvider } from "../contexts/patientContext";
@@ -9,6 +9,14 @@ import MedicalServices from "../../sections/PatientManagement/MedicalServices";
 
 export const NewPatient = () => {
   const [activeTab, setActiveTab] = useState("personal-information");
+  const [user, setUser] = useState('')
+
+  useEffect(()=>{
+    let user: any = localStorage.getItem('user')
+    user = JSON.parse(user)
+    
+    setUser(user.role_name)
+  }, [])
 
   return (
     <>
@@ -49,14 +57,14 @@ export const NewPatient = () => {
               >
                 Historia clínica
               </button>
-              <button
+              {user !== 'SECRETARY' && <button
                 className={`text-lg font-medium hidden lg:block ${
                   activeTab === "prestaciones" ? "text-black" : "text-[#9D9D9D]"
                 }`}
                 onClick={() => setActiveTab("prestaciones")}
               >
                 Prestaciones
-              </button>
+              </button>}
             </div>
 
             <PatientContextProvider>
