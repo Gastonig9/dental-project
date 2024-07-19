@@ -7,10 +7,10 @@ import "./Login.css";
 import Swal from "sweetalert2";
 
 export const ResetPassword = () => {
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [searchParams] = useSearchParams();
   const resetPasswordToken = searchParams.get("token");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -46,7 +46,6 @@ export const ResetPassword = () => {
           icon: "success",
         });
       }
-      
     } catch (error) {
       console.error("Error al actualizar contraseña:", error);
       Swal.fire({
@@ -88,7 +87,7 @@ export const ResetPassword = () => {
                   type={showPassword ? "text" : "password"}
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full py-3 border lg:w-[345px] bg-gray-100/75 border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
+                  className="w-full py-3 border lg:w-[345px] bg-gray-100/75 border-[#424242] rounded-lg px-3 hover:shadow mb-3"
                   placeholder="******"
                 />
                 <button
@@ -111,7 +110,7 @@ export const ResetPassword = () => {
                   type={showConfirmPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full py-3 border lg:w-[345px] bg-gray-100/75 border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow mb-3"
+                  className="w-full py-3 border lg:w-[345px] bg-gray-100/75 border-[#424242] rounded-lg px-3 hover:shadow mb-3"
                   placeholder="******"
                 />
                 <button
