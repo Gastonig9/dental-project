@@ -16,8 +16,7 @@ export const AppointmentsStatistics = () => {
         setData(res.data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         setLoading(false);
       });
   }, []);

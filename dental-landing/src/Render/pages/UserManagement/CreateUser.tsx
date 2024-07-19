@@ -33,7 +33,6 @@ const CreateUser = () => {
       });
       reset();
     } catch (error) {
-      console.log(error);
       console.error('Error saving: ', error);
       let text = 'Hubo un error al crear el usuario.';
       let title = 'Error';

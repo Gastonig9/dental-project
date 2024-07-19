@@ -43,7 +43,6 @@ export const PersonalInfo = () => {
         text: 'Información personal guardada con éxito.',
         icon: 'success',
       });
-      console.log('Patient information saved:', response.data);
     } catch (error) {
       console.error('Error saving: ', error);
       let text = 'Ocurrió un error al guardar la información.';

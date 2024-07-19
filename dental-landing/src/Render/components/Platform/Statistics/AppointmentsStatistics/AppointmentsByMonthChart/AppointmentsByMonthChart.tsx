@@ -39,7 +39,6 @@ export const AppointmentsByMonthChart: React.FC<DataAppointmentsChartProps> = ({
   ];
 
   const monthCounts = dataAppointmentsForChart && dataAppointmentsForChart.reduce((acc, patient) => {
-    console.log(acc);
     const month = new Date(patient.date).getMonth();
     acc[month] = acc[month] ? acc[month] + 1 : 1;
     return acc;

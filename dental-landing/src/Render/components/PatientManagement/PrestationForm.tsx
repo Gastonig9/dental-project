@@ -44,7 +44,6 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
       ...prestationData,
       [e.target.name]: e.target.value,
     });
-    console.log("PrestationData: ", prestationData);
   };
 
   // Maneja el envío del formulario
@@ -72,7 +71,6 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
     try {
       // Usar axios con PrestationsServices
       await addPrestation(newPrestation, patientId);
-      console.log("Prestation info saved:", newPrestation);
 
       // Verifica si prestations está definido, si no, inicializa como un array vacío
       const updatedPrestations = patientData?.prestations
