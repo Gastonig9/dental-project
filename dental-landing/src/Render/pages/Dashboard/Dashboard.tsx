@@ -63,7 +63,8 @@ export const Dashboard = () => {
         setData(res.data.patients);
         setPatientsGET(res.data.patients);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
