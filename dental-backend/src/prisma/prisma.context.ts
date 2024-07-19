@@ -7,7 +7,6 @@ export class Context extends PrismaClient implements OnModuleInit {
     try {
       return await this.$connect();
     } catch (error) {
-      console.log(error);
       throw new Error(error);
     }
   }

@@ -76,7 +76,6 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
   };
 
   const handleUpdateAppointment = async () => {
-    console.log(dataAppointment);
     const appointmentId = selectedEvent._def.publicId;
     try {
       await appointmentsServices.updateAppointment(appointmentId, dataAppointment);
@@ -92,7 +91,6 @@ export const UpdateAppointmentForm: React.FC<UpdateAppointmentFormProps> = ({
         }
       });
     } catch (error: any) {
-      console.log(error);
       const errorMessage = error.response.data.message;
       const errorStatus = error.response.data.statusCode
         ? error.response.data.statusCode

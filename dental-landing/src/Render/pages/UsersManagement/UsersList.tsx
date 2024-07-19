@@ -45,8 +45,7 @@ const UsersList = () => {
         setUsers(res.data);
         setLoading(false)
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         setLoading(false)
       });
   }
@@ -73,7 +72,7 @@ const UsersList = () => {
   // handle deleting for desktop
   const handleDelete = async (id: number, firstName: string, lastName: string) => {
     const result = await Swal.fire({
-      title: `¿Estás seguro que deseas eliminar a ${firstName} ${lastName}  ?`,
+      title: `¿Estás seguro que deseas eliminar a ${firstName} ${lastName}?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: '#d33',
@@ -153,8 +152,7 @@ const UsersList = () => {
                   Authorization: `Bearer ${token()}`
                 },
               } )
-              .then((res)=>{
-                console.log(res)
+              .then(()=>{
                 Swal.fire({
                   toast: true,
                   timerProgressBar: true,
@@ -168,8 +166,7 @@ const UsersList = () => {
                 fetchData();
                 setBooleanArray(Array(users.length).fill(false))
               })
-              .catch((err)=>{
-                console.log(err)
+              .catch(()=>{
                 Swal.fire(
                   "Ocurrió un error",
                   "Ocurrió un error al eliminar a este usuario.",
@@ -245,11 +242,15 @@ const UsersList = () => {
                     {/* info and delete btns */}
                     <div className="flex items-center gap-2 newxl:gap-10 justify-end newxl:px-10">
                       <Link
-                        className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 lg:gap-1 newxl:gap-[70px]"
+                        className="bg-[#f5f5f5] rounded-[10px] flex items-center p-2 font-semibold text-[16px] gap-2 lg:gap-1 newxl:gap-[70px]" 
                         to={`/user-management/edit-user/${user.id}`}>
                         <p>Ver información</p>
                         <IoIosArrowForward />
                       </Link>
+
+                      {activeUser === user.email && <BsTrash
+                        className="text-transparent"
+                      />}
 
                       {activeUser !== user.email && <BsTrash
                         onClick={() => handleDelete(user.id, user.firstName, user.lastName)}

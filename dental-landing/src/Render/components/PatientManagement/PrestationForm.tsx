@@ -21,8 +21,16 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
   const { patientData, setPatientData } = usePatientContext();
   const patientId = patientData?.id;
 
+  const getCurrentDate = (): string => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   const [prestationData, setPrestationData] = useState({
-    date: "",
+    date: getCurrentDate(),
     code: "",
     observations: "",
     state: "PENDING",
@@ -36,7 +44,6 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
       ...prestationData,
       [e.target.name]: e.target.value,
     });
-    console.log("PrestationData: ", prestationData);
   };
 
   // Maneja el envío del formulario
@@ -46,7 +53,7 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
     if (!patientId) {
       Swal.fire({
         title: "Error",
-        text: "Falta el ID del paciente.",
+        text: "Asegúrate de crear una ficha médica.",
         icon: "error",
       });
       return;
@@ -64,7 +71,6 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
     try {
       // Usar axios con PrestationsServices
       await addPrestation(newPrestation, patientId);
-      console.log("Prestation info saved:", newPrestation);
 
       // Verifica si prestations está definido, si no, inicializa como un array vacío
       const updatedPrestations = patientData?.prestations
@@ -143,7 +149,6 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
             name="code"
             value={prestationData.code}
             onChange={handlePrestationChange}
-            required
           />
         </div>
       </div>

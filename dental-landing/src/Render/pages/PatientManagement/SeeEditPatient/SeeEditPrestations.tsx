@@ -7,8 +7,8 @@ import {
 import { getPrestationsByPatientId } from "../../../../Features/services/PatientManagement/PrestationsServices/GetPrestations";
 import { Reference } from "../../../components/PatientManagement/Reference";
 import Odontogram from "../../../components/PatientManagement/Odontogram";
-import EditPrestationsForm from "../../../sections/SeeEditPatient/EditPrestationForm";
-import PrestationCards from "../../../sections/SeeEditPatient/PrestationCard";
+import EditPrestationsForm from "../../../components/PatientManagement/SeeEditPrestations/EditPrestationForm";
+import PrestationCards from "../../../components/PatientManagement/SeeEditPrestations/PrestationCard";
 import "../../../components/PatientManagement/Odontogram.css";
 import "./Card.css";
 
@@ -25,7 +25,6 @@ const SeeEditPrestations = () => {
     const fetchPrestations = async () => {
       try {
         const fetchedPrestations = await getPrestationsByPatientId(patientId);
-        console.log("Fetched prestations: ", fetchedPrestations); // Verificar la respuesta
         setPrestations(fetchedPrestations);
         if (fetchedPrestations.length > 0) {
           setOdontogramData(
@@ -41,7 +40,7 @@ const SeeEditPrestations = () => {
   }, [editMode, patientId]);
 
   return (
-    <main className="flex mt-[20px] poppins-regular text-[16px] gap-10">
+    <main className="flex mt-[20px] poppins-regular text-[16px] gap-4">
       <section className="relative">
         <Odontogram odontogramData={odontogramData} />
         <Reference />
@@ -56,9 +55,7 @@ const SeeEditPrestations = () => {
           />
         ) : (
           <>
-            <PrestationCards
-              prestations={prestations}
-            />
+            <PrestationCards prestations={prestations} />
             <div className="absolute right-[77px] bottom-0">
               <button
                 className="bg-acento poppins-semibold py-3 px-3 rounded-[10px]"

@@ -8,6 +8,7 @@ import Navbar from "../../components/Platform/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { IoIosArrowForward } from "react-icons/io";
+import { token } from "../../../localStorage/token";
 
 interface Appointment {
   id: number;
@@ -53,14 +54,16 @@ export const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/patient/get-patients`)
+      .get(`${import.meta.env.VITE_API_URL}/patient/get-patients`,{
+        headers:{
+          Authorization:`Bearer ${token()}`
+        }
+      })
       .then((res) => {
         setData(res.data.patients);
         setPatientsGET(res.data.patients);
-        console.log(res.data.patients);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
       });
   }, []);
 

@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import axios, { AxiosError } from 'axios';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
+import { token } from '../../../localStorage/token';
 
 export const SeeEditPersonalInfo = () => {
   const { id } = useParams();
@@ -12,7 +13,7 @@ export const SeeEditPersonalInfo = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/patient/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/patient/${id}`,{ headers:{Authorization: `Bearer ${token()}`}})
       .then((res) => {
         setPatientInfo(res.data);
         const patient = res.data;
@@ -33,11 +34,11 @@ export const SeeEditPersonalInfo = () => {
       data.age = Number(data.age);
       data.addressNumber = Number(data.addressNumber);
 
-      console.log('DATA', data);
       const { appointments, medicalHistories, ...rest } = data;
       const response = await axios.put(
         `${import.meta.env.VITE_API_URL}/patient/${id}`,
-        rest
+        rest,
+        { headers: { Authorization: `Bearer ${token()}` } }
       );
       setPatientInfo(response.data);
       Swal.fire({
@@ -45,9 +46,7 @@ export const SeeEditPersonalInfo = () => {
         text: 'Información personal guardada con éxito.',
         icon: 'success',
       });
-      console.log('Patient information saved:', response.data);
     } catch (error) {
-      console.error('Error saving: ', error);
       let text = 'Ocurrió un error al guardar la información.';
       let title = 'Error';
 
@@ -149,15 +148,17 @@ export const SeeEditPersonalInfo = () => {
           <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
             <div className="flex flex-col">
               <label htmlFor="gender">Género</label>
-              <input
+              <select
                 id="gender"
-                type="text"
-                {...register('gender')}
-                className={`personalInfo-input-style ${
-                  !allowEdition ? 'bg-white' : ''
-                }`}
-                readOnly={!allowEdition}
-              />
+                {...register("gender", { required: "El género es obligatorio" })}
+                className= "gender-input-select-style"
+                disabled={!allowEdition}
+              >
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Otro">Otro</option>
+              </select>
+              
             </div>
             <div className="flex flex-col">
               <label htmlFor="birthDate">Fecha De Nacimiento</label>

@@ -39,7 +39,7 @@ export const EditUserInfo = () => {
 
   const onSubmit = async (data: any) => {
     try {
-      const response = await axios.put(
+          await axios.put(
         `${import.meta.env.VITE_API_URL}/api/user/${id}`,
         data,
         {
@@ -53,9 +53,7 @@ export const EditUserInfo = () => {
         text: 'Información del usuario guardada con éxito.',
         icon: 'success',
       });
-      console.log('User information saved:', response.data);
     } catch (error) {
-      console.error('Error saving: ', error);
       let text = 'Ocurrió un error al guardar la información.';
       let title = 'Error';
       if (error instanceof AxiosError) {
@@ -77,7 +75,7 @@ export const EditUserInfo = () => {
       <Navbar />
       <section className="mx-auto lg:ms-[200px] max-w-[1594px] mt-[150px]">
         <div className="flex items-center mb-6">
-          <Link to="/dashboard" className="me-16">
+          <Link to="/users-management/users-list" className="me-16">
             <button className="flex items-center bg-transparent poppins-medium">
               <ChevronLeftIcon
                 className="h-5 w-5 flex-none text-black"
@@ -102,8 +100,10 @@ export const EditUserInfo = () => {
                   {...register('firstName', {
                     required: 'El nombre es obligatorio',
                   })}
-                  className={`usermanagement-input-style ${
-                    !allowEdition ? 'bg-white' : ''
+                  className={`${
+                    !allowEdition
+                      ? 'usermanagement-input-style'
+                      : 'usermanagement-input-style-allowed'
                   }`}
                   readOnly={!allowEdition}
                 />
@@ -121,8 +121,10 @@ export const EditUserInfo = () => {
                   {...register('lastName', {
                     required: 'El apellido es obligatorio',
                   })}
-                  className={`usermanagement-input-style ${
-                    !allowEdition ? 'bg-white' : ''
+                  className={`${
+                    !allowEdition
+                      ? 'usermanagement-input-style'
+                      : 'usermanagement-input-style-allowed'
                   }`}
                   readOnly={!allowEdition}
                 />
@@ -144,8 +146,10 @@ export const EditUserInfo = () => {
                       message: 'Formato de email inválido',
                     },
                   })}
-                  className={`usermanagement-input-style ${
-                    !allowEdition ? 'bg-white' : ''
+                  className={`${
+                    !allowEdition
+                      ? 'usermanagement-input-style'
+                      : 'usermanagement-input-style-allowed'
                   }`}
                   readOnly={!allowEdition}
                 />
@@ -160,8 +164,10 @@ export const EditUserInfo = () => {
                   {...register('role_name', {
                     required: 'El rol es obligatorio',
                   })}
-                  className={`usermanagement-input-select-style ${
-                    !allowEdition ? 'bg-white' : ''
+                  className={`${
+                    !allowEdition
+                      ? 'usermanagement-input-style'
+                      : 'usermanagement-input-style-allowed'
                   }`}
                   disabled={!allowEdition}>
                   <option value="OWNER">OWNER</option>

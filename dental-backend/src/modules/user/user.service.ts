@@ -5,6 +5,7 @@ import {
   UnauthorizedException,
   PreconditionFailedException,
   ConflictException,
+  NotAcceptableException,
 } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { User } from '@prisma/client';
@@ -36,6 +37,12 @@ export class UserService {
 
   async register(user: UserRegisterDto): Promise<User> {
     user.password = await this.authService.hashPassword(user.password);
+
+    if (!this.validateEmail(user.email)) {
+      throw new NotAcceptableException(
+        'El campo email debe contener un email valido',
+      );
+    }
 
     const checkUserEmail = await this.userRepository.GetUserByEmail(user.email);
     const checkUserDni = await this.userRepository.GetUserByDni(user.dni);
@@ -241,4 +248,9 @@ export class UserService {
       return data;
     },
   };
+
+  private validateEmail(email: string) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
 }

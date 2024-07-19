@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { PrestationsService } from './prestations.service';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import {
   PrestationCreateDto,
   PrestationUpdateDto,
@@ -17,6 +17,8 @@ import {
   PrestationResponseDto,
 } from 'src/dtos';
 
+@ApiBearerAuth()
+@ApiTags('Prestaciones')
 @Controller('api')
 export class PrestationsController {
   constructor(private readonly prestationsService: PrestationsService) {}

@@ -305,6 +305,15 @@
   background: #d9d9d9;
 }
 
+.usermanagement-input-style-allowed{
+   width: 400px;
+  height: 44px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 0;
+  background: #fafafa;
+}
+
 .usermanagement-input-select-style {
   width: 400px;
   height: 49px;
@@ -437,9 +446,8 @@
 
 @media (max-width: 953px) {
   .custom-event {
-    border: 5px solid orange;
-    padding: 0px;
-    font-size: 9px;
+    padding: 5px;
+    font-size: 12px;
   }
 
   .custom-event .event-buttons {

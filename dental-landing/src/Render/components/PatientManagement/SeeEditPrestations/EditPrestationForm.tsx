@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import {
   OdontogramType,
   Prestations,
-} from "../../../types/dtos/Patient/NewPatient.type";
+} from "../../../../types/dtos/Patient/NewPatient.type";
+
+import { addPrestation } from "../../../../Features/services/PatientManagement/PrestationsServices/PostPrestations";
 import { EditOdontogramForm } from "./EditOdontogramForm";
-import { addPrestation } from "../../../Features/services/PatientManagement/PrestationsServices/PostPrestations";
 import Swal from "sweetalert2";
 
 const FDI_TEETH_NUMBERS = new Set([
@@ -34,8 +35,16 @@ const EditPrestationsForm: React.FC<EditPrestationsFormProps> = ({
   setEditMode,
   patientId,
 }) => {
+  const getCurrentDate = (): string => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   const [prestationData, setPrestationData] = useState({
-    date: "",
+    date: getCurrentDate(),
     code: "",
     observations: "",
     state: "PENDING",
@@ -48,7 +57,6 @@ const EditPrestationsForm: React.FC<EditPrestationsFormProps> = ({
       ...prestationData,
       [e.target.name]: e.target.value,
     });
-    console.log("PrestationData: ", prestationData);
   };
 
   // Maneja el envío del formulario
@@ -125,7 +133,6 @@ const EditPrestationsForm: React.FC<EditPrestationsFormProps> = ({
     try {
       // Usar axios con PrestationsServices
       await addPrestation(newPrestation, patientId);
-      console.log("Prestation info saved:", newPrestation);
 
       Swal.fire({
         title: "Agregado",
@@ -160,37 +167,30 @@ const EditPrestationsForm: React.FC<EditPrestationsFormProps> = ({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex-col gap-1 mt-2 absolute top-[-10px]"
-    >
-      <div>
-        <div className="flex flex-col">
-          <label htmlFor="date">Fecha</label>
-          <input
-            className="inputs"
-            type="date"
-            id="date"
-            name="date"
-            value={prestationData.date}
-            onChange={handlePrestationChange}
-            required
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="ml-10">
+      <div className="flex flex-col">
+        <label htmlFor="date">Fecha</label>
+        <input
+          className="inputs"
+          type="date"
+          id="date"
+          name="date"
+          value={prestationData.date}
+          onChange={handlePrestationChange}
+          required
+        />
       </div>
-      <div>
-        <div className="flex flex-col">
-          <label htmlFor="code">Código</label>
-          <input
-            className="inputs"
-            type="text"
-            id="code"
-            name="code"
-            value={prestationData.code}
-            onChange={handlePrestationChange}
-            required
-          />
-        </div>
+      <div className="flex flex-col">
+        <label htmlFor="code">Código</label>
+        <input
+          className="inputs"
+          type="text"
+          id="code"
+          name="code"
+          value={prestationData.code}
+          onChange={handlePrestationChange}
+          required
+        />
       </div>
       <div>
         <div className="flex flex-col">

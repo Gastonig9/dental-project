@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -9,12 +8,8 @@ const MedicalHistory = () => {
   const { register, handleSubmit } = useForm();
   const { patientData: patient } = usePatientContext();
 
-  useEffect(() => {
-    console.log('Got CONTEXT ID: ', patient);
-  }, [patient]);
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = (data: any) => {;
     if (patient !== null) {
       data.patientId = patient.id;
     }
@@ -22,11 +17,10 @@ const MedicalHistory = () => {
       .post(`${import.meta.env.VITE_API_URL}/records/create-record`, data, {headers:{
         "Authorization":`Bearer ${token()}`
       }})
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+
       })
-      .catch((err) => {
-        console.log(err.response.data.message);
+      .catch(() => {
       });
     Swal.fire({
       title: 'Agregado',
