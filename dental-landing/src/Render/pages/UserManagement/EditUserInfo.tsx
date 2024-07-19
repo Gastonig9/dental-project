@@ -39,7 +39,7 @@ export const EditUserInfo = () => {
 
   const onSubmit = async (data: any) => {
     try {
-      const response = await axios.put(
+          await axios.put(
         `${import.meta.env.VITE_API_URL}/api/user/${id}`,
         data,
         {
@@ -53,9 +53,7 @@ export const EditUserInfo = () => {
         text: 'Información del usuario guardada con éxito.',
         icon: 'success',
       });
-      console.log('User information saved:', response.data);
     } catch (error) {
-      console.error('Error saving: ', error);
       let text = 'Ocurrió un error al guardar la información.';
       let title = 'Error';
       if (error instanceof AxiosError) {
