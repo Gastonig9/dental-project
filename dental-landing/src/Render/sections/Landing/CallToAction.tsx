@@ -15,7 +15,7 @@ export const CalltoAction = () => {
             a lograr una sonrisa más saludable y radiante.
           </p>
           <div className="mt-4 lg:mt-20">
-            <a href="https://wa.me/5493512408874?text=¡Hola! Me gustaría agendar un turno. 🦷😊" className="text-lg">
+            <a href="https://wa.me/5493512408874?text=¡Hola! Me gustaría agendar un turno. 🦷😊" target="_blank" className="text-lg">
               <button className="bg-acento p-3 rounded-lg poppins-semibold">
                 Agendar turno
               </button>
