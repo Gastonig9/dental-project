@@ -34,7 +34,6 @@ export const SeeEditPersonalInfo = () => {
       data.age = Number(data.age);
       data.addressNumber = Number(data.addressNumber);
 
-      console.log('DATA', data);
       const { appointments, medicalHistories, ...rest } = data;
       const response = await axios.put(
         `${import.meta.env.VITE_API_URL}/patient/${id}`,
@@ -47,9 +46,7 @@ export const SeeEditPersonalInfo = () => {
         text: 'Información personal guardada con éxito.',
         icon: 'success',
       });
-      console.log('Patient information saved:', response.data);
     } catch (error) {
-      console.error('Error saving: ', error);
       let text = 'Ocurrió un error al guardar la información.';
       let title = 'Error';
 

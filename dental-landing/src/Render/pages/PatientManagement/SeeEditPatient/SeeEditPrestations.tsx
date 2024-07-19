@@ -25,7 +25,6 @@ const SeeEditPrestations = () => {
     const fetchPrestations = async () => {
       try {
         const fetchedPrestations = await getPrestationsByPatientId(patientId);
-        console.log("Fetched prestations: ", fetchedPrestations); // Verificar la respuesta
         setPrestations(fetchedPrestations);
         if (fetchedPrestations.length > 0) {
           setOdontogramData(

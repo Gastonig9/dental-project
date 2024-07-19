@@ -18,8 +18,7 @@ export const PatientsStatistics = () => {
         setData(res.data.patients);
         setLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         setLoading(false);
       });
   }, []);
@@ -32,8 +31,7 @@ export const PatientsStatistics = () => {
         setdataAppointments(res.data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         setLoading(false);
       });
   }, []);

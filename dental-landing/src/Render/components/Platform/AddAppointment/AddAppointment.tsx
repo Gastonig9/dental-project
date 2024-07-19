@@ -126,7 +126,6 @@ export const AddAppointment = () => {
         }
       });
     } catch (error: any) {
-      console.log(error);
       const errorMessage = error.response.data.message;
       const errorStatus = error.response.data.statusCode
         ? error.response.data.statusCode

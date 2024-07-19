@@ -45,8 +45,7 @@ const UsersList = () => {
         setUsers(res.data);
         setLoading(false)
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         setLoading(false)
       });
   }
@@ -153,8 +152,7 @@ const UsersList = () => {
                   Authorization: `Bearer ${token()}`
                 },
               } )
-              .then((res)=>{
-                console.log(res)
+              .then(()=>{
                 Swal.fire({
                   toast: true,
                   timerProgressBar: true,
@@ -168,8 +166,7 @@ const UsersList = () => {
                 fetchData();
                 setBooleanArray(Array(users.length).fill(false))
               })
-              .catch((err)=>{
-                console.log(err)
+              .catch(()=>{
                 Swal.fire(
                   "Ocurrió un error",
                   "Ocurrió un error al eliminar a este usuario.",

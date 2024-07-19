@@ -57,7 +57,6 @@ const EditPrestationsForm: React.FC<EditPrestationsFormProps> = ({
       ...prestationData,
       [e.target.name]: e.target.value,
     });
-    console.log("PrestationData: ", prestationData);
   };
 
   // Maneja el envío del formulario
@@ -134,7 +133,6 @@ const EditPrestationsForm: React.FC<EditPrestationsFormProps> = ({
     try {
       // Usar axios con PrestationsServices
       await addPrestation(newPrestation, patientId);
-      console.log("Prestation info saved:", newPrestation);
 
       Swal.fire({
         title: "Agregado",

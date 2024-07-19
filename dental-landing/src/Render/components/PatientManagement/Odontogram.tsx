@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { OdontogramType } from "../../../types/dtos/Patient/NewPatient.type";
 import "./Odontogram.css";
 
@@ -8,10 +7,6 @@ interface OdontogramProps {
 }
 
 const Odontogram: React.FC<OdontogramProps> = ({ odontogramData }) => {
-  // Log odontogram data on change
-  useEffect(() => {
-    console.log("Got OdontogramData: ", odontogramData);
-  }, [odontogramData]);
 
   // Func to set a color based on the ref
   const getFillColor = (reference: string) => {

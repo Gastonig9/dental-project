@@ -68,10 +68,9 @@ export class DentistRepository {
         dentistId: id,
       },
       include: {
-        patient: true
-      }
+        patient: true,
+      },
     });
-    console.log(response);
 
     return response;
   }
