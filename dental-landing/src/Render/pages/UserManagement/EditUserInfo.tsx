@@ -75,7 +75,7 @@ export const EditUserInfo = () => {
       <Navbar />
       <section className="mx-auto lg:ms-[200px] max-w-[1594px] mt-[150px]">
         <div className="flex items-center mb-6">
-          <Link to="/dashboard" className="me-16">
+          <Link to="/users-management/users-list" className="me-16">
             <button className="flex items-center bg-transparent poppins-medium">
               <ChevronLeftIcon
                 className="h-5 w-5 flex-none text-black"
