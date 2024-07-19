@@ -28,7 +28,7 @@ npm install
 
 Debe crearse un archivo .env y agregarle las variables de entorno que se encuentran en .env.template
 
-En la variable DATABASE_URL debe agregarse un string connection para postgreSQL ya que es la base de datos que utiliza el projecto, ejemplo: postgresql://<user>:<password>@localhost:5435/<databasename>?schema=public
+En la variable DATABASE_URL debe agregarse un string connection para postgreSQL ya que es la base de datos que utiliza el projecto, ejemplo:``` postgresql://<user>:<password>@localhost:5435/<databasename>?schema=public```
 
 ```bash
 npx prisma migrate dev
