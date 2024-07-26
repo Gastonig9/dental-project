@@ -1,10 +1,8 @@
-/* eslint-disable prettier/prettier */
 import {
   ConflictException,
   HttpException,
   HttpStatus,
   Injectable,
-  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { AppointmentRepository } from './appointment.repository';
@@ -152,57 +150,3 @@ export class AppointmentService {
     return appointment;
   }
 }
-
-
-
-
-// async ConfirmAppointment(appointmentId: number): Promise<Appointment> {
-//   try {
-//     const appointment = await this.getAppointment(appointmentId);
-//     if (!appointment) {
-//       throw new NotFoundException('Appointment not found');
-//     }
-
-//     const confirmState = $Enums.AppointmentState.REALIZED;
-//     const dentist = await this.dentistService.findDentist(
-//       appointment.dentistId,
-//     );
-//     const patient = await this.patientService.getPatient(
-//       appointment.patientId,
-//     );
-
-//     if (!patient || !dentist) {
-//       throw new NotFoundException(
-//         'No se pudo encontrar al paciente o al dentista',
-//       );
-//     }
-
-//     // Actualizar el estado del turno
-//     const updatedAppointment = await this.repository.updateAppointmentState(
-//       appointmentId,
-//       confirmState,
-//     );
-
-//     // Asignar el turno confirmado al dentista
-//     const addAppointmentToDentist =
-//       await this.dentistService.assignAppointmentToDentist(
-//         updatedAppointment.id,
-//         updatedAppointment.dentistId,
-//       );
-//     if (!addAppointmentToDentist)
-//       throw new ConflictException(
-//         'Ocurrio un error al intentar asignar el turno al dentista',
-//       );
-
-//     // Enviar correo de confirmación
-//     await this.mailService.sendConfirmEmail(
-//       patient,
-//       updatedAppointment,
-//       dentist,
-//     );
-
-//     return updatedAppointment;
-//   } catch (error) {
-//     throw new InternalServerErrorException('Error al confirmar la cita');
-//   }
-// }

@@ -27,7 +27,6 @@ function App() {
           <Route path="/user/forgot-password" element={<ForgotPassword />} />
           <Route path="/user/reset-password" element={<ResetPassword />} />
           <Route path="/*" element={<NotFound />} />
-          {/* PROTECTED ROUTES */}
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/appointments" element={<AppointmentManagement />} />
@@ -37,7 +36,6 @@ function App() {
               element={<NewPatient />}
             />
 
-            {/* Brians routes */}
             <Route
               path="/patient-management/patients-list"
               element={<PatientsList />}
@@ -54,7 +52,6 @@ function App() {
               path="/create-appointment"
               element={<CreateAppointment />}></Route>
             <Route path="/user/create-user" element={<CreateUser />}></Route>
-            {/* <Route path="/patient-management/new-patient" element={<NewPatient />}/> */}
 
             <Route
               path="/patient-management/patients-list"
@@ -77,7 +74,6 @@ function App() {
               element={<PatientsList />}
             />
           </Route>
-          {/* PROTECTED ROUTES */}
         </Routes>
       </AuthProvider>
     </>
