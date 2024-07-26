@@ -11,7 +11,8 @@ import { RiMenuUnfoldLine, RiMenuUnfold2Line } from "react-icons/ri";
 import { MdClose } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/img/platform/navbar/logo.png";
-import { useAuth } from "../../pages/contexts/AuthContext";
+import { useAuth } from "../../../Features/contexts/AuthContext";
+
 
 const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);

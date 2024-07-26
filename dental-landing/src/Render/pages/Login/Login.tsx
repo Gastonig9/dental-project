@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../../Features/contexts/AuthContext";
 import { useForm } from "react-hook-form";
 import { AxiosError } from "axios";
 import { userServices } from "../../../services";

@@ -10,12 +10,13 @@ import PatientsList from '../pages/PatientManagement/PatientsList';
 import { SeeEditPatient } from '../pages/PatientManagement/SeeEditPatient';
 import { ForgotPassword } from '../pages/Login/ForgotPassword';
 import { ResetPassword } from '../pages/Login/ResetPassword';
-import { AuthProvider } from '../pages/contexts/AuthContext';
+
 import PrivateRoute from '../guards/PrivateRoute';
 import UsersList from '../pages/UsersManagement/UsersList';
 import { EditUserInfo } from '../pages/UserManagement/EditUserInfo';
 import CreateUser from '../pages/UserManagement/CreateUser';
 import Reports from '../pages/Reports/Reports';
+import { AuthProvider } from '../../Features/contexts/AuthContext';
 
 function App() {
   return (

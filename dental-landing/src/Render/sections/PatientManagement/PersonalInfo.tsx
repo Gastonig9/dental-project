@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import axios, { AxiosError } from 'axios';
 import Swal from 'sweetalert2';
-import { usePatientContext } from '../../pages/contexts/patientContext';
+
 import { Patient } from '../../../types/dtos/Patient/NewPatient.type';
 import { token } from '../../../localStorage/token';
+import { usePatientContext } from '../../../Features/contexts/patientContext';
 
 export const PersonalInfo = () => {
   const {
