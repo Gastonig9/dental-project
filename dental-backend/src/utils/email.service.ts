@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Appointment, Dentist, Patient } from '@prisma/client';
 import { AppointmentRequestDto } from 'src/dtos';
-import { UpdateAppointmentDto } from 'src/dtos/update-appointment.to';
+import { UpdateAppointmentDto } from 'src/dtos/update-appointment.dto';
 import { format, toZonedTime } from 'date-fns-tz';
 import { es } from 'date-fns/locale';
 

@@ -12,7 +12,7 @@ import { PatientService } from '../patients/patients.service';
 import { DentistService } from '../dentists/dentist.service';
 import { EmailService } from 'src/utils/email.service';
 import { UpdateAppointmentStateDto } from 'src/dtos/update-appointment-state.dto';
-import { UpdateAppointmentDto } from 'src/dtos/update-appointment.to';
+import { UpdateAppointmentDto } from 'src/dtos/update-appointment.dto';
 
 @Injectable()
 export class AppointmentService {
