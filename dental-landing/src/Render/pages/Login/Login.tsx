@@ -1,18 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
-import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import "./Login.css";
 import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import { useAuth } from "../contexts/AuthContext";
 import { useForm } from "react-hook-form";
+import { AxiosError } from "axios";
+import { userServices } from "../../../services";
+import { ChevronLeftIcon } from "@heroicons/react/20/solid";
+import { LuEye, LuEyeOff } from "react-icons/lu";
+import Swal from "sweetalert2";
+import "./Login.css";
 
 interface LoginFormInputs {
   email: string;
   password: string;
 }
-import { userServices } from "../../../services";
-import { AxiosError } from "axios";
-import { LuEye, LuEyeOff } from "react-icons/lu";
 
 export const Login = () => {
   const {

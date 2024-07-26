@@ -138,7 +138,7 @@ const Reviews = () => {
           }}
         >
           {mockReviews.map((review) => (
-            <SplideSlide >
+            <SplideSlide>
               <div
                 className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg"
                 key={review.id}
@@ -206,7 +206,7 @@ const Reviews = () => {
           {mockReviews.map((review) => (
             <SplideSlide>
               <div
-                className="py-[20px] 2xl:px-[25px]  px-[25px] 2xl:px-[35px] bg-white rounded-[20px] shadow-lg pb-10"
+                className="py-[20px] px-[25px] 2xl:px-[35px] bg-white rounded-[20px] shadow-lg pb-10"
                 key={review.id}
               >
                 <div className="flex flex-col leading-6">

@@ -29,9 +29,9 @@ export const Specialties = () => {
         style={{
           background: "linear-gradient(135deg, #81FBB8 0%, #28C76F 100%)",
         }}
-        className="relative pt-[55px] md:pt-[50px] md:pb-[120px] lg:border-[0.25px] lg:px-[184px]"
+        className="relative pt-[55px] md:pt-[50px] md:pb-[120px] lg:px-[97px]"
       >
-        <section className="xl:max-w-[1530px] md:max-w-[590px] mx-auto">
+        <section className="xl:max-w-[1530px] mx-auto">
           {/* Title*/}
           <div className="sectionTitle2 w-[188px] ml-[15px] lg:ml-0 lg:w-[251px] lg:h-12 lg:mb-[52px]">
             <p className="text-[19px] lg:text-[28px] leading-[120%]" id="especialidades">
