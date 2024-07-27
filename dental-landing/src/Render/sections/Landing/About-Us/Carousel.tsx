@@ -27,12 +27,8 @@ const Carousel = () => {
           focus: 0,
           autoplay: true,
           breakpoints: {
-            390: {
-              perPage: 2,
-            },
-            1280: {
-              perPage: 3,
-            },
+            580: { perPage: 2 },
+            1280: { perPage: 3 },
           },
         }}
       >
@@ -43,7 +39,7 @@ const Carousel = () => {
                 <img
                   src={image}
                   alt={`Slide ${index}`}
-                  className="object-cover w-full h-full rounded-[10px] lg:rounded-[50px] shadow-2xl"
+                  className="object-cover w-full h-full rounded-[10px] xl:rounded-[30px] shadow-2xl"
                 />
               </picture>
             </div>

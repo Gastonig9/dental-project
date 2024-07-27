@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {
   Injectable,
   NotFoundException,
@@ -6,6 +5,7 @@ import {
   PreconditionFailedException,
   ConflictException,
   NotAcceptableException,
+  NotImplementedException,
 } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { User } from '@prisma/client';
@@ -238,14 +238,7 @@ export class UserService {
       return res;
     },
     [ROLES.CLIENT]: async (data: User) => {
-      // const res = await this.userRepository.AddUser({
-      //   email: data.email,
-      //   password: data.password,
-      //   role_name: data.role_name,
-      //   username: data.username,
-      //   fullname: data.fullname,
-      // });
-      return data;
+      throw new NotImplementedException('Rol client no implementado');
     },
   };
 
