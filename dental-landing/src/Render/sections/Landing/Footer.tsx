@@ -10,7 +10,7 @@ export const Footer = () => {
   return (
     // <!-- Footer -->
     <footer className="bg-lightgray p-10 md:px-[150px] py-10 " id="contactanos">
-      <div className="max-w-[1826px] mx-auto flex flex-col-reverse lg:flex-row gap-[48px] border-b-4 py-10 max-w-[1450px]">
+      <div className="max-w-[1826px] mx-auto flex flex-col-reverse lg:flex-row gap-[48px] border-b-4 py-10">
         <FooterMap />
 
 

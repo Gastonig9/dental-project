@@ -1,40 +1,39 @@
-import odontologiaImage from "/src/assets/img/landing/specialties/Odontología.png";
-import cirugiaImage from "/src/assets/img/landing/specialties/Cirugía.png";
-import odontopediatriaImage from "/src/assets/img/landing/specialties/Odontopediatra.png";
-import endodonciaImage from "/src/assets/img/landing/specialties/Endodoncia.png";
+import { useEffect, useState } from "react";
 
-const specialties = [
-  {
-    name: "Odontología general",
-    image: odontologiaImage,
-  },
-  {
-    name: "Cirugía",
-    image: cirugiaImage,
-  },
-  {
-    name: "Odontopediatría",
-    image: odontopediatriaImage,
-  },
-  {
-    name: "Endodoncia",
-    image: endodonciaImage,
-  },
-];
+interface Specialty {
+  name: string;
+  image: string;
+}
 
 export const Specialties = () => {
+  const [specialties, setSpecialties] = useState<Specialty[]>([]);
+
+  useEffect(() => {
+    fetch("/src/data/specialties.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setSpecialties(data);
+      })
+      .catch((error) =>
+        console.error("Error fetching specialties data:", error)
+      );
+  }, []);
+
   return (
     <>
       <main
         style={{
           background: "linear-gradient(135deg, #81FBB8 0%, #28C76F 100%)",
         }}
-        className="relative pt-[55px] md:pt-[50px] md:pb-[120px] lg:border-[0.25px] lg:px-[184px]"
+        className="relative pt-[55px] md:pt-[50px] md:pb-[120px] lg:px-[97px]"
       >
-        <section className="xl:max-w-[1530px] md:max-w-[590px] mx-auto">
+        <section className="xl:max-w-[1530px] mx-auto">
           {/* Title*/}
           <div className="sectionTitle2 w-[188px] ml-[15px] lg:ml-0 lg:w-[251px] lg:h-12 lg:mb-[52px]">
-            <p className="text-[19px] lg:text-[28px] leading-[120%]" id="especialidades">
+            <p
+              className="text-[19px] lg:text-[28px] leading-[120%]"
+              id="especialidades"
+            >
               Especialidades
             </p>
           </div>

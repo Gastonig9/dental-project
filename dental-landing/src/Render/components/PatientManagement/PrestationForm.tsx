@@ -4,10 +4,11 @@ import {
   Prestations,
 } from "../../../types/dtos/Patient/NewPatient.type";
 import { addPrestation } from "../../../Features/services/PatientManagement/PrestationsServices/PostPrestations";
-import { usePatientContext } from "../../pages/contexts/patientContext";
+
 import Swal from "sweetalert2";
 import "./Odontogram.css";
 import { OdontogramForm } from "./OdontogramForm";
+import { usePatientContext } from "../../../Features/contexts/patientContext";
 
 interface PrestationFormProps {
   odontogramData: OdontogramType[];
