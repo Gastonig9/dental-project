@@ -71,7 +71,6 @@ export default function AppointmentList() {
             `${import.meta.env.VITE_API_URL}/api/appointments`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
-          console.log(secretaryResponse.data);
 
           setOrderAppointments(secretaryResponse.data);
         }
@@ -85,7 +84,7 @@ export default function AppointmentList() {
 
   return (
     <section className="flex justify-center items-center mx-auto lg:mx-0 pt-14">
-      <div className="w-[349px] lg:w-[840px] h-[646px] lg:h-[665px] bg-lightgray border border-[#424242] rounded-[20px] lg:rounded-[30px] px-3 lg:px-14 py-4 lg:py-12 appointment-container-medium">
+      <div className="min-w-[349px] lg:w-[840px] h-[646px] lg:h-[665px] bg-lightgray border border-[#424242] rounded-[20px] lg:rounded-[30px] px-3 lg:px-14 py-4 lg:py-12 appointment-container-medium">
         <h1 className="poppins-bold ms-5 mb-4 lg:mb-4 text-[26px] lg:text-[40px] dashboard-title-medium">
           Próximos turnos
         </h1>
