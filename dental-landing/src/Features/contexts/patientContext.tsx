@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { Patient } from "../../../types/dtos/Patient/NewPatient.type";
+import React, { createContext, useContext, useState } from "react";
+import { Patient } from "../../types/dtos/Patient/NewPatient.type";
 
 interface InitialState {
   patientData: Patient | null;
@@ -12,10 +12,6 @@ export const PatientContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [patientData, setPatientData] = useState<Patient | null>(null);
-
-  useEffect(() => {
-    console.log("From Context:", patientData);
-  }, [patientData]);
 
   return (
     <PatientContext.Provider value={{ patientData, setPatientData }}>

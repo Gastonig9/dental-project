@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { PersonalInfo } from "../../sections/PatientManagement/PersonalInfo";
 import MedicalHistory from "./MedicalHistory";
-import { PatientContextProvider } from "../contexts/patientContext";
+
 import Navbar from "../../components/Platform/Navbar";
 import MedicalServices from "../../sections/PatientManagement/MedicalServices";
+import { PatientContextProvider } from "../../../Features/contexts/patientContext";
 
 export const NewPatient = () => {
   const [activeTab, setActiveTab] = useState("personal-information");
@@ -22,8 +23,8 @@ export const NewPatient = () => {
     <>
       <Navbar />
       <section className="lg:ms-[250px] max-w-[1594px] mt-[150px] xxl:mx-auto ">
-        <div className="flex items-center mb-4">
-          <Link to="/dashboard" className="me-16">
+        <div className="flex items-center mb-6">
+          <Link to="/patient-management/patients-list" className="me-16">
             <button className="flex items-center bg-transparent poppins-medium">
               <ChevronLeftIcon
                 className="h-5 w-5 flex-none text-black"

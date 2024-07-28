@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import {
   OdontogramType,
   Prestations,
-} from "../../../types/dtos/Patient/NewPatient.type";
+} from "../../../../types/dtos/Patient/NewPatient.type";
+
+import { addPrestation } from "../../../../Features/services/PatientManagement/PrestationsServices/PostPrestations";
 import { EditOdontogramForm } from "./EditOdontogramForm";
-import { addPrestation } from "../../../Features/services/PatientManagement/PrestationsServices/PostPrestations";
 import Swal from "sweetalert2";
 
 const FDI_TEETH_NUMBERS = new Set([
@@ -56,7 +57,6 @@ const EditPrestationsForm: React.FC<EditPrestationsFormProps> = ({
       ...prestationData,
       [e.target.name]: e.target.value,
     });
-    console.log("PrestationData: ", prestationData);
   };
 
   // Maneja el envío del formulario
@@ -133,7 +133,6 @@ const EditPrestationsForm: React.FC<EditPrestationsFormProps> = ({
     try {
       // Usar axios con PrestationsServices
       await addPrestation(newPrestation, patientId);
-      console.log("Prestation info saved:", newPrestation);
 
       Swal.fire({
         title: "Agregado",

@@ -65,7 +65,7 @@ export const ForgotPassword = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full py-3 border lg:w-[335px] bg-gray-100/75 border-slate-200 rounded-lg px-3 focus:outline-none focus:border-[#424242] hover:shadow mb-3"
+                className="w-full py-3 border lg:w-[335px] bg-gray-100/75 rounded-lg px-3 border-[#424242] hover:shadow mb-3"
                 placeholder="Ejemplo@gmail.com "
                 required
               />
@@ -75,8 +75,8 @@ export const ForgotPassword = () => {
                 <FiAlertCircle className="h-[20px] w-[20px]" />
               </span>
               <p className="ml-1">
-                De no estar registrado el mail utilizado en nuestra base de
-                datos, el formulario para reestablecer su contraseña, no será
+                De no estar registrado el email utilizado en nuestra base de
+                datos, el formulario para reestablecer su contraseña no será
                 enviado.
               </p>
             </div>

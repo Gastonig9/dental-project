@@ -17,7 +17,7 @@ import { AppointmentRequestDto } from '../../dtos';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { UpdateAppointmentStateDto } from 'src/dtos/update-appointment-state.dto';
-import { UpdateAppointmentDto } from 'src/dtos/update-appointment.to';
+import { UpdateAppointmentDto } from 'src/dtos/update-appointment.dto';
 
 @ApiBearerAuth()
 @ApiTags('Citas')

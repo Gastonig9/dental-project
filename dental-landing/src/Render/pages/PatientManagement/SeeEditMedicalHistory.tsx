@@ -73,16 +73,17 @@ const SeeEditMedicalHistory = () => {
                 },
               }
             )
-            .then((res) => {
-              console.log('Se creó historia vacía: ', res);
-            });
         }
         setPatientInfo(
           res.data.medicalHistories[res.data.medicalHistories.length - 1]
         );
       })
-      .catch((err) => {
-        console.log(err.response.data.message);
+      .catch(() => {
+          Swal.fire(
+            'Ocurrió un error',
+            'Ocurrió un error al eliminar a este usuario.',
+            'error'
+          );
       });
   }, []);
 
@@ -119,8 +120,7 @@ const SeeEditMedicalHistory = () => {
           Authorization: `Bearer ${token()}`,
         },
       })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         Swal.fire({
           title: 'Agregado',
           text: 'Historia clínica agregada con éxito.',
@@ -128,11 +128,10 @@ const SeeEditMedicalHistory = () => {
         });
         setAllowEdition(false);
       })
-      .catch((err) => {
-        console.log(err.response.data.message);
+      .catch(() => {
         Swal.fire({
           title: 'Error',
-          text: 'No se pudo actualizar historia clínica.',
+          text: 'Ocurrio un error',
           icon: 'error',
         });
       });

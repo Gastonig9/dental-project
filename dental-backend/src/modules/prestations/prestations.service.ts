@@ -59,8 +59,6 @@ export class PrestationsService {
       if (typeof toothNumber !== 'undefined') {
         nomenclaturaFDI.forEach((side) => {
           if (side.includes(toothNumber)) {
-            console.log(toothNumber);
-
             valid.numberTooth = true;
           }
         });

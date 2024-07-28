@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Injectable, Logger } from '@nestjs/common';
 import * as cron from 'node-cron';
 import { EmailService } from './email.service';
@@ -31,11 +30,6 @@ export class AppointmentReminderService {
       if (appointments.length > 0) {
         for (const appointment of appointments) {
           const adjustedAppointmentDate = appointment.date
-          // if (adjustedAppointmentDate < now) {
-          //   await this.appointmentService.deleteAppointment(appointment.id);
-          //   this.logger.debug(`Cita eliminada: ${adjustedAppointmentDate.toLocaleString()}`);
-          //   continue;
-          // }
 
           const nowHours = now.getHours();
           const nowMinutes = now.getMinutes();

@@ -7,7 +7,7 @@ import {
 import { getPrestationsByPatientId } from "../../../../Features/services/PatientManagement/PrestationsServices/GetPrestations";
 import { Reference } from "../../../components/PatientManagement/Reference";
 import Odontogram from "../../../components/PatientManagement/Odontogram";
-import EditPrestationsForm from "../../../sections/SeeEditPatient/EditPrestationForm";
+import EditPrestationsForm from "../../../components/PatientManagement/SeeEditPrestations/EditPrestationForm";
 import PrestationCards from "../../../components/PatientManagement/SeeEditPrestations/PrestationCard";
 import "../../../components/PatientManagement/Odontogram.css";
 import "./Card.css";
@@ -25,7 +25,6 @@ const SeeEditPrestations = () => {
     const fetchPrestations = async () => {
       try {
         const fetchedPrestations = await getPrestationsByPatientId(patientId);
-        console.log("Fetched prestations: ", fetchedPrestations); // Verificar la respuesta
         setPrestations(fetchedPrestations);
         if (fetchedPrestations.length > 0) {
           setOdontogramData(
