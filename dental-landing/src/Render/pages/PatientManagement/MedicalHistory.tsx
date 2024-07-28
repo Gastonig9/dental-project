@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { usePatientContext } from '../contexts/patientContext';
+
 import { token } from '../../../localStorage/token';
+import { usePatientContext } from '../../../Features/contexts/patientContext';
 
 const MedicalHistory = () => {
   const { register, handleSubmit } = useForm();

@@ -1,7 +1,5 @@
-/* eslint-disable prettier/prettier */
 import { ApiProperty } from '@nestjs/swagger';
-import { $Enums } from '@prisma/client';
-import { IsString, IsEnum, IsDateString, IsNumber } from 'class-validator';
+import {  IsDateString, IsNumber } from 'class-validator';
 
 
 export class UpdateAppointmentDto {

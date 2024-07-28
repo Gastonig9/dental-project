@@ -1,129 +1,24 @@
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css/sea-green";
+import { useEffect, useState } from "react";
+
+interface Review {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  stars: number;
+}
 
 const Reviews = () => {
-  const mockReviews = [
-    {
-      id: 1,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 5,
-    },
-    {
-      id: 2,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 4,
-    },
-    {
-      id: 3,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 4,
-    },
-    {
-      id: 4,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 4,
-    },
-    {
-      id: 5,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 5,
-    },
-    {
-      id: 6,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 5,
-    },
-    {
-      id: 7,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 4,
-    },
-    {
-      id: 8,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 4,
-    },
-    {
-      id: 9,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 4,
-    },
-    {
-      id: 10,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 5,
-    },
-    {
-      id: 11,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 5,
-    },
-    {
-      id: 12,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 4,
-    },
-    {
-      id: 13,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 4,
-    },
-    {
-      id: 14,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 4,
-    },
-    {
-      id: 15,
-      title: "Usuario",
-      subtitle: "Subhead",
-      description:
-        "Please add your content here. Keep it short and simple. And smile :) ",
-      stars: 5,
-    },
-  ];
+  const [reviews, setReviews] = useState<Review[]>([]);
+
+  useEffect(() => {
+    fetch("/reviews.json")
+      .then((response) => response.json())
+      .then((data) => setReviews(data))
+      .catch((error) => console.error("Error fetching reviews data:", error));
+  }, []);
 
   return (
     <section className="bg-greenGradient text-[#3C3C43] pt-8 pb-3" id="reviews">
@@ -137,8 +32,8 @@ const Reviews = () => {
             perPage: 1,
           }}
         >
-          {mockReviews.map((review) => (
-            <SplideSlide >
+          {reviews.map((review) => (
+            <SplideSlide>
               <div
                 className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg"
                 key={review.id}
@@ -170,7 +65,7 @@ const Reviews = () => {
             perPage: 2,
           }}
         >
-          {mockReviews.map((review) => (
+          {reviews.map((review) => (
             <SplideSlide>
               <div
                 className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg"
@@ -194,7 +89,7 @@ const Reviews = () => {
       </div>
 
       {/* laptops */}
-      <div className="hidden xl:block xl:w-full xl:mx-auto bg-greenGradient px-[80px] max-w-[1700px]">
+      <div className="hidden xl:block xl:w-full xl:mx-auto px-[80px] max-w-[1700px]">
         <Splide
           aria-label="My Favorite Images"
           options={{
@@ -203,10 +98,10 @@ const Reviews = () => {
             perPage: 5,
           }}
         >
-          {mockReviews.map((review) => (
+          {reviews.map((review) => (
             <SplideSlide>
               <div
-                className="py-[20px] 2xl:px-[25px]  px-[25px] 2xl:px-[35px] bg-white rounded-[20px] shadow-lg pb-10"
+                className="py-[20px] px-[25px] 2xl:px-[35px] bg-white rounded-[20px] shadow-lg pb-10"
                 key={review.id}
               >
                 <div className="flex flex-col leading-6">

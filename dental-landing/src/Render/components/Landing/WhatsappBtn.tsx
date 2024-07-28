@@ -5,7 +5,7 @@ const WhatsappBtn = () => {
     <a
       href="https://wa.me/573173253124?text=¡Hola! Me gustaría agendar un turno. 🦷😊"
       target="_blank"
-      className="fixed bottom-10 lg:bottom-[70px] 2xl:bottom-[199px] right-7 lg:right-10 2xl:right-[106px] z-10">
+      className="fixed bottom-10 right-7 lg:right-10 z-10">
       <img
         src={wsIcon}
         alt="Whatsapp Icon"

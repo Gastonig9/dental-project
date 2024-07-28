@@ -60,8 +60,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* width: 390px;
-    height: 394px; */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -224,36 +222,36 @@
     margin-top: 126px;
     padding-bottom: 213px;
   }
-  .dashboard-title-medium{
+  .dashboard-title-medium {
     font-size: 30px !important;
   }
-  .left-section-medium{
+  .left-section-medium {
     padding-left: 190px;
   }
-  .dashboard-text-medium{
+  .dashboard-text-medium {
     font-size: 15px !important;
   }
-  .search-container-medium{
+  .search-container-medium {
     width: 395px;
     height: 420px;
   }
-  .dashboard-search-text{
+  .dashboard-search-text {
     font-size: 12px;
   }
-  .scroll-search-medium{
+  .scroll-search-medium {
     overflow-y: scroll;
     height: 300px;
   }
-  .scroll-appoinments-medium{
+  .scroll-appoinments-medium {
     overflow-y: scroll;
     height: 400px;
   }
-  .appointment-container-medium{
-    width: 566px  !important;
+  .appointment-container-medium {
+    width: 566px !important;
     height: 500px !important;
-    padding:25px 27px !important;
+    padding: 25px 27px !important;
   }
-  .management-button-medium{
+  .management-button-medium {
     font-size: 19px !important;
   }
 }
@@ -305,8 +303,8 @@
   background: #d9d9d9;
 }
 
-.usermanagement-input-style-allowed{
-   width: 400px;
+.usermanagement-input-style-allowed {
+  width: 400px;
   height: 44px;
   padding: 8px;
   border-radius: 8px;

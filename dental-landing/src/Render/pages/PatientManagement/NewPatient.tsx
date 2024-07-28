@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { PersonalInfo } from "../../sections/PatientManagement/PersonalInfo";
 import MedicalHistory from "./MedicalHistory";
-import { PatientContextProvider } from "../contexts/patientContext";
+
 import Navbar from "../../components/Platform/Navbar";
 import MedicalServices from "../../sections/PatientManagement/MedicalServices";
+import { PatientContextProvider } from "../../../Features/contexts/patientContext";
 
 export const NewPatient = () => {
   const [activeTab, setActiveTab] = useState("personal-information");
