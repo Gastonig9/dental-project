@@ -10,6 +10,114 @@ interface Review {
   stars: number;
 }
 
+const mockReviews: Review[] = [
+  {
+    id: 1,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  },
+  {
+    id: 2,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 4
+  },
+  {
+    id: 3,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  },
+  {
+    id: 4,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  },
+  {
+    id: 5,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  },
+  {
+    id: 6,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  },
+  {
+    id: 7,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 4
+  },
+  {
+    id: 8,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  },
+  {
+    id: 9,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  },
+  {
+    id: 10,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  },
+  {
+    id: 11,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  },
+  {
+    id: 12,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  },
+  {
+    id: 13,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  },
+  {
+    id: 14,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  },
+  {
+    id: 15,
+    title: "Usuario",
+    subtitle: "Subhead",
+    description: "Please add your content here. Keep it short and simple. And smile :) ",
+    stars: 5
+  }
+]
+
 const Reviews = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
