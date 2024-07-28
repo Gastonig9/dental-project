@@ -100,7 +100,7 @@ export const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <main className="dashboard-medium min-h-screen min-w-full flex flex-col lg:flex-row justify-center items-center mt-[100px] ms-0 lg:ms-[100px] pt-6 bg-background">
+      <main className="dashboard-medium min-h-screen min-w-full flex flex-col newlg:flex-row justify-center items-center mt-[100px] ms-0 lg:ms-[100px] pt-6 bg-background">
         <section className="mx-auto lg:mx-0 lg:me-[108px] w-[80%] lg:w-auto left-section-medium">
           <div className="mb-8">
             <h1 className="poppins-bold text-[23px] lg:text-[40px] mb-2 dashboard-title-medium">
