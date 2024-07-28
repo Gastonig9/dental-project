@@ -138,10 +138,9 @@ const Reviews = () => {
           }}
         >
           {mockReviews.map((review) => (
-            <SplideSlide >
+            <SplideSlide key={review.id}>
               <div
                 className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg"
-                key={review.id}
               >
                 <div className="flex flex-col leading-6">
                   <p className="text-[19px] font-semibold">{review.title}</p>
@@ -171,10 +170,9 @@ const Reviews = () => {
           }}
         >
           {mockReviews.map((review) => (
-            <SplideSlide>
+            <SplideSlide key={review.id}>
               <div
                 className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg"
-                key={review.id}
               >
                 <div className="flex flex-col leading-6">
                   <p className="text-[19px] font-semibold">{review.title}</p>
@@ -194,7 +192,7 @@ const Reviews = () => {
       </div>
 
       {/* laptops */}
-      <div className="hidden xl:block xl:w-full xl:mx-auto bg-greenGradient px-[80px] max-w-[1700px]">
+      <div className="hidden xl:block xl:w-full xl:mx-auto bg-transparent px-[80px] max-w-[1700px]">
         <Splide
           aria-label="My Favorite Images"
           options={{
@@ -204,10 +202,9 @@ const Reviews = () => {
           }}
         >
           {mockReviews.map((review) => (
-            <SplideSlide>
+            <SplideSlide key={review.id}>
               <div
                 className="py-[20px] 2xl:px-[25px]  px-[25px] 2xl:px-[35px] bg-white rounded-[20px] shadow-lg pb-10"
-                key={review.id}
               >
                 <div className="flex flex-col leading-6">
                   <p className="text-[19px] font-semibold">{review.title}</p>
