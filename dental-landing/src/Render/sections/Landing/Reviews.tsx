@@ -10,114 +10,6 @@ interface Review {
   stars: number;
 }
 
-const mockReviews: Review[] = [
-  {
-    id: 1,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  },
-  {
-    id: 2,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 4
-  },
-  {
-    id: 3,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  },
-  {
-    id: 4,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  },
-  {
-    id: 5,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  },
-  {
-    id: 6,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  },
-  {
-    id: 7,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 4
-  },
-  {
-    id: 8,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  },
-  {
-    id: 9,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  },
-  {
-    id: 10,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  },
-  {
-    id: 11,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  },
-  {
-    id: 12,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  },
-  {
-    id: 13,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  },
-  {
-    id: 14,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  },
-  {
-    id: 15,
-    title: "Usuario",
-    subtitle: "Subhead",
-    description: "Please add your content here. Keep it short and simple. And smile :) ",
-    stars: 5
-  }
-]
-
 const Reviews = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
@@ -140,12 +32,11 @@ const Reviews = () => {
             perPage: 1,
           }}
         >
-
-          {mockReviews.map((review) => (
-            <SplideSlide key={review.id}>
-
+          {reviews.map((review) => (
+            <SplideSlide>
               <div
                 className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg"
+                key={review.id}
               >
                 <div className="flex flex-col leading-6">
                   <p className="text-[19px] font-semibold">{review.title}</p>
@@ -174,12 +65,11 @@ const Reviews = () => {
             perPage: 2,
           }}
         >
-
-          {mockReviews.map((review) => (
-            <SplideSlide key={review.id}>
-
+          {reviews.map((review) => (
+            <SplideSlide>
               <div
                 className="py-[16px] px-[24px] bg-white rounded-[20px] shadow-lg"
+                key={review.id}
               >
                 <div className="flex flex-col leading-6">
                   <p className="text-[19px] font-semibold">{review.title}</p>
@@ -199,7 +89,7 @@ const Reviews = () => {
       </div>
 
       {/* laptops */}
-      <div className="hidden xl:block xl:w-full xl:mx-auto bg-transparent px-[80px] max-w-[1700px]">
+      <div className="hidden xl:block xl:w-full xl:mx-auto bg-greenGradient px-[80px] max-w-[1700px]">
         <Splide
           aria-label="My Favorite Images"
           options={{
@@ -208,12 +98,11 @@ const Reviews = () => {
             perPage: 5,
           }}
         >
-
-          {mockReviews.map((review) => (
-            <SplideSlide key={review.id}>
+          {reviews.map((review) => (
+            <SplideSlide>
               <div
-                className="py-[20px] 2xl:px-[25px]  px-[25px] 2xl:px-[35px] bg-white rounded-[20px] shadow-lg pb-10"
-
+                className="py-[20px] px-[25px] 2xl:px-[35px] bg-white rounded-[20px] shadow-lg pb-10"
+                key={review.id}
               >
                 <div className="flex flex-col leading-6">
                   <p className="text-[19px] font-semibold">{review.title}</p>
