@@ -29,6 +29,7 @@ export const PersonalInfo = () => {
     
     setMaxDate(today.toISOString().split('T')[0]);
     setMinDate(hundredYearsAgo.toISOString().split('T')[0]);
+    console.log(minDate)
   }, []);
 
   useEffect(() => {
