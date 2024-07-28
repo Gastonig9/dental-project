@@ -122,7 +122,7 @@ const Reviews = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
-    fetch("/src/data/reviews.json")
+    fetch("/reviews.json")
       .then((response) => response.json())
       .then((data) => setReviews(data))
       .catch((error) => console.error("Error fetching reviews data:", error));
