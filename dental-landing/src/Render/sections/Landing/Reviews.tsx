@@ -89,7 +89,7 @@ const Reviews = () => {
       </div>
 
       {/* laptops */}
-      <div className="hidden xl:block xl:w-full xl:mx-auto bg-greenGradient px-[80px] max-w-[1700px]">
+      <div className="hidden xl:block xl:w-full xl:mx-auto px-[80px] max-w-[1700px]">
         <Splide
           aria-label="My Favorite Images"
           options={{
