@@ -68,7 +68,7 @@ export const Header = () => {
             onClick={() => scrollToSection("faq")}
             className="header-text-medium text-lg cursor-pointer"
           >
-            FAQ
+            Preguntas frecuentes
           </ScrollLink>
           <ScrollLink
             to="contactanos"
@@ -142,7 +142,7 @@ export const Header = () => {
                   onClick={() => scrollToSection("faq")}
                   className="-mx-3 block rounded-lg px-3 py-2 text-lg font-semibold leading-7 cursor-pointer"
                 >
-                  FAQ
+                  Preguntas frecuentes
                 </ScrollLink>
                 <ScrollLink
                   to="contactanos"
