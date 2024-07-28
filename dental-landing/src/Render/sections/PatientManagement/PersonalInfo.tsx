@@ -1,21 +1,35 @@
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import axios, { AxiosError } from 'axios';
-import Swal from 'sweetalert2';
-
-import { Patient } from '../../../types/dtos/Patient/NewPatient.type';
-import { token } from '../../../localStorage/token';
-import { usePatientContext } from '../../../Features/contexts/patientContext';
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import axios, { AxiosError } from "axios";
+import Swal from "sweetalert2";
+import { usePatientContext } from "../../pages/contexts/patientContext";
+import { Patient } from "../../../types/dtos/Patient/NewPatient.type";
+import { token } from "../../../localStorage/token";
 
 export const PersonalInfo = () => {
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<Patient>();
   const { patientData: patient, setPatientData: setPatient } =
     usePatientContext();
+
+  const birthDate = watch("birthDate");
+  const [maxDate, setMaxDate] = useState("");
+  const [minDate, setMinDate] = useState("");
+
+  // MAX AND MIN DATE FOR BIRTHDAY INPUT
+  useEffect(() => {
+    const today = new Date();
+    const hundredYearsAgo = new Date();
+    hundredYearsAgo.setFullYear(today.getFullYear() - 100);
+    
+    setMaxDate(today.toISOString().split('T')[0]);
+    setMinDate(hundredYearsAgo.toISOString().split('T')[0]);
+  }, []);
 
   useEffect(() => {
     if (patient) {
@@ -26,6 +40,20 @@ export const PersonalInfo = () => {
       }
     }
   }, [patient, setValue]);
+
+  // AUTOFILL FOR AGE INPUTT
+  useEffect(() => {
+    if (birthDate) {
+      const birth = new Date(birthDate);
+      const today = new Date();
+      let age = today.getFullYear() - birth.getFullYear();
+      const m = today.getMonth() - birth.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+        age--;
+      }
+      setValue("age", age > 0 ? age : 0);
+    }
+  }, [birthDate, setValue]);
 
   const onSubmit = async (data: Patient) => {
     try {
@@ -40,25 +68,25 @@ export const PersonalInfo = () => {
       );
       setPatient(response.data);
       Swal.fire({
-        title: 'Guardado',
-        text: 'Información personal guardada con éxito.',
-        icon: 'success',
+        title: "Guardado",
+        text: "Información personal guardada con éxito.",
+        icon: "success",
       });
     } catch (error) {
-      console.error('Error saving: ', error);
-      let text = 'Ocurrió un error al guardar la información.';
-      let title = 'Error';
+      console.error("Error saving: ", error);
+      let text = "Ocurrió un error al guardar la información.";
+      let title = "Error";
 
       if (error instanceof AxiosError) {
         if (error?.response?.status === 409) {
-          title = 'Campo Repetido';
+          title = "Campo Repetido";
           text = error.response.data.message;
         }
       }
       Swal.fire({
         title,
         text,
-        icon: 'error',
+        icon: "error",
       });
     }
   };
@@ -76,7 +104,13 @@ export const PersonalInfo = () => {
               <input
                 id="name"
                 type="text"
-                {...register('name', { required: 'El nombre es obligatorio' })}
+                {...register("name", {
+                  required: "El nombre es obligatorio",
+                  pattern: {
+                    value: /^[A-Za-z]+$/,
+                    message: "El nombre solo debe contener letras",
+                  },
+                })}
                 className="personalInfo-input-style"
               />
               {errors.name && (
@@ -90,8 +124,12 @@ export const PersonalInfo = () => {
               <input
                 id="surname"
                 type="text"
-                {...register('surname', {
-                  required: 'El apellido es obligatorio',
+                {...register("surname", {
+                  required: "El apellido es obligatorio",
+                  pattern: {
+                    value: /^[A-Za-z]+$/,
+                    message: "El apellido solo debe contener letras",
+                  },
                 })}
                 className="personalInfo-input-style"
               />
@@ -106,8 +144,20 @@ export const PersonalInfo = () => {
               <input
                 id="phone"
                 type="text"
-                {...register('phone', {
-                  required: 'El teléfono es obligatorio',
+                {...register("phone", {
+                  required: "El teléfono es obligatorio",
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: "El teléfono solo debe contener números",
+                  },
+                  minLength: {
+                    value: 7,
+                    message: "El teléfono debe tener al menos 7 dígitos",
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: "El teléfono no puede tener más de 15 dígitos",
+                  },
                 })}
                 className="personalInfo-input-style"
               />
@@ -124,7 +174,16 @@ export const PersonalInfo = () => {
               <input
                 id="dni"
                 type="number"
-                {...register('dni', { required: 'El DNI es obligatorio' })}
+                min={0}
+                {...register("dni", {
+                  required: "El DNI es obligatorio",
+                  validate: {
+                    length: (value) =>
+                      (String(value).length >= 7 &&
+                        String(value).length <= 10) ||
+                      "El DNI debe tener entre 7 y 10 dígitos",
+                  },
+                })}
                 className="personalInfo-input-style"
               />
               {errors.dni && (
@@ -138,7 +197,16 @@ export const PersonalInfo = () => {
               <input
                 id="age"
                 type="number"
-                {...register('age', { required: 'La edad es obligatoria' })}
+                min={0}
+                max={100}
+                {...register("age", {
+                  required: "La edad es obligatoria",
+                  validate: {
+                    length: (value) =>
+                      String(value).length <= 3 ||
+                      "La edad no puede tener más de 3 dígitos",
+                  },
+                })}
                 className="personalInfo-input-style"
               />
               {errors.age && (
@@ -150,9 +218,17 @@ export const PersonalInfo = () => {
               <input
                 id="nationality"
                 type="text"
-                {...register('nationality')}
+                {...register("nationality", {
+                  pattern: {
+                    value: /^[A-Za-z]+$/,
+                    message: "La nacionalidad solo debe contener letras",
+                  },
+                })}
                 className="personalInfo-input-style"
               />
+              {errors.nationality && (
+                <p className="text-red-500">{errors.nationality.message}</p>
+              )}
             </div>
           </div>
           <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
@@ -162,10 +238,11 @@ export const PersonalInfo = () => {
               </label>
               <select
                 id="gender"
-                {...register('gender', {
-                  required: 'El género es obligatorio',
+                {...register("gender", {
+                  required: "El género es obligatorio",
                 })}
-                className="gender-input-select-style">
+                className="gender-input-select-style"
+              >
                 <option value="Femenino">Femenino</option>
                 <option value="Masculino">Masculino</option>
                 <option value="Otro">Otro</option>
@@ -181,8 +258,24 @@ export const PersonalInfo = () => {
               <input
                 id="birthDate"
                 type="date"
-                {...register('birthDate', {
-                  required: 'La fecha de nacimiento es obligatoria',
+                max={maxDate}
+                {...register("birthDate", {
+                  required: "La fecha de nacimiento es obligatoria",
+                  validate: {
+                    validDate: (value) => {
+                      const date = new Date(value);
+                      const today = new Date();
+                      const hundredYearsAgo = new Date();
+                      hundredYearsAgo.setFullYear(today.getFullYear() - 100);
+                      if (date >= today) {
+                        return "La fecha de nacimiento debe ser anterior a hoy";
+                      }
+                      if (date <= hundredYearsAgo) {
+                        return "La fecha de es anterior a 100 años";
+                      }
+                      return true;
+                    },
+                  },
                 })}
                 className="personalInfo-input-style"
               />
@@ -197,7 +290,13 @@ export const PersonalInfo = () => {
               <input
                 id="pEmail"
                 type="text"
-                {...register('pEmail', { required: 'El email es obligatorio' })}
+                {...register("pEmail", {
+                  required: "El email es obligatorio",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                    message: "Ingrese un email válido",
+                  },
+                })}
                 className="personalInfo-input-style"
               />
               {errors.pEmail && (
@@ -215,7 +314,7 @@ export const PersonalInfo = () => {
               <input
                 id="street"
                 type="text"
-                {...register('street')}
+                {...register("street")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -224,7 +323,7 @@ export const PersonalInfo = () => {
               <input
                 id="addressNumber"
                 type="number"
-                {...register('addressNumber')}
+                {...register("addressNumber")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -235,7 +334,7 @@ export const PersonalInfo = () => {
               <input
                 id="floor"
                 type="text"
-                {...register('floor')}
+                {...register("floor")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -244,7 +343,7 @@ export const PersonalInfo = () => {
               <input
                 id="apartment"
                 type="text"
-                {...register('apartment')}
+                {...register("apartment")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -253,7 +352,7 @@ export const PersonalInfo = () => {
               <input
                 id="locality"
                 type="text"
-                {...register('locality')}
+                {...register("locality")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -264,7 +363,7 @@ export const PersonalInfo = () => {
               <input
                 id="establishment"
                 type="text"
-                {...register('establishment')}
+                {...register("establishment")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -273,7 +372,7 @@ export const PersonalInfo = () => {
               <input
                 id="socialWork"
                 type="text"
-                {...register('socialWork')}
+                {...register("socialWork")}
                 className="personalInfo-input-style"
               />
             </div>
@@ -282,7 +381,8 @@ export const PersonalInfo = () => {
         <div className="mt-4 lg:mt-0 flex justify-center lg:justify-end">
           <button
             type="submit"
-            className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]">
+            className="bg-acento poppins-semibold py-2 px-4 rounded-[8px]"
+          >
             Guardar
           </button>
         </div>
