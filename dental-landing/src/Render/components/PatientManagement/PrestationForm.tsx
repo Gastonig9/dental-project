@@ -4,10 +4,11 @@ import {
   Prestations,
 } from "../../../types/dtos/Patient/NewPatient.type";
 import { addPrestation } from "../../../Features/services/PatientManagement/PrestationsServices/PostPrestations";
-import { usePatientContext } from "../../pages/contexts/patientContext";
+
 import Swal from "sweetalert2";
 import "./Odontogram.css";
 import { OdontogramForm } from "./OdontogramForm";
+import { usePatientContext } from "../../../Features/contexts/patientContext";
 
 interface PrestationFormProps {
   odontogramData: OdontogramType[];
@@ -44,7 +45,6 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
       ...prestationData,
       [e.target.name]: e.target.value,
     });
-    console.log("PrestationData: ", prestationData);
   };
 
   // Maneja el envío del formulario
@@ -54,7 +54,7 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
     if (!patientId) {
       Swal.fire({
         title: "Error",
-        text: "Falta el ID del paciente.",
+        text: "Asegúrate de crear una ficha médica.",
         icon: "error",
       });
       return;
@@ -72,7 +72,6 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
     try {
       // Usar axios con PrestationsServices
       await addPrestation(newPrestation, patientId);
-      console.log("Prestation info saved:", newPrestation);
 
       // Verifica si prestations está definido, si no, inicializa como un array vacío
       const updatedPrestations = patientData?.prestations
@@ -151,7 +150,6 @@ export const PrestationForm: React.FC<PrestationFormProps> = ({
             name="code"
             value={prestationData.code}
             onChange={handlePrestationChange}
-            required
           />
         </div>
       </div>

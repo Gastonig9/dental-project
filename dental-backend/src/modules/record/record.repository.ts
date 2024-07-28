@@ -28,8 +28,6 @@ export class RecordRepository {
     id: number,
     data: Partial<MedicalHistoryRequestDto>,
   ): Promise<MedicalHistory> {
-    console.log(id, data);
-
     return this.context.medicalHistory.update({
       where: { id },
       data,

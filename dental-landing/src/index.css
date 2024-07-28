@@ -60,8 +60,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* width: 390px;
-    height: 394px; */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -183,6 +181,81 @@
   font-style: italic;
 }
 
+@media (min-width: 1024px) and (max-width: 1513px) {
+  .nav-medium {
+    padding: 10px 16px 10px 16px;
+  }
+  .logo-medium {
+    width: 70px !important;
+  }
+  .gap-medium {
+    margin-left: 0;
+    gap: 0 100px !important;
+  }
+  .header-button-medium {
+    padding: 9px;
+    font-size: 15px;
+  }
+  .medium-hero {
+    padding: 40px 100px 40px 100px;
+  }
+  .medium-hero-img {
+    width: 500px;
+    height: 500px;
+  }
+  .container-medium {
+    margin: 0 !important;
+    width: 590px;
+  }
+  .cta-text {
+    font-size: 17px !important;
+    width: 76%;
+  }
+  .cta-title {
+    font-size: 24px !important;
+  }
+}
+/* -------DASHBOARD ------------*/
+@media (min-width: 1024px) and (max-width: 1650px) {
+  .dashboard-medium {
+    margin-inline-start: 0px !important;
+    margin-top: 126px;
+    padding-bottom: 213px;
+  }
+  .dashboard-title-medium {
+    font-size: 30px !important;
+  }
+  .left-section-medium {
+    padding-left: 190px;
+  }
+  .dashboard-text-medium {
+    font-size: 15px !important;
+  }
+  .search-container-medium {
+    width: 395px;
+    height: 420px;
+  }
+  .dashboard-search-text {
+    font-size: 12px;
+  }
+  .scroll-search-medium {
+    overflow-y: scroll;
+    height: 300px;
+  }
+  .scroll-appoinments-medium {
+    overflow-y: scroll;
+    height: 400px;
+  }
+  .appointment-container-medium {
+    width: 566px !important;
+    height: 500px !important;
+    padding: 25px 27px !important;
+  }
+  .management-button-medium {
+    font-size: 19px !important;
+  }
+}
+
 @media (max-width: 768px) {
   .callToAction-bg-img {
     position: relative;
@@ -206,7 +279,8 @@
   }
 }
 
-.personalInfo-input-style, .gender-input-select-style {
+.personalInfo-input-style,
+.gender-input-select-style {
   width: 250px;
   height: 44px;
   padding: 14px;
@@ -215,7 +289,7 @@
   background: #f5f5f5;
 }
 
-.gender-input-select-style{
+.gender-input-select-style {
   padding: 10px;
 }
 
@@ -229,8 +303,8 @@
   background: #d9d9d9;
 }
 
-.usermanagement-input-style-allowed{
-   width: 400px;
+.usermanagement-input-style-allowed {
+  width: 400px;
   height: 44px;
   padding: 8px;
   border-radius: 8px;
@@ -318,8 +392,8 @@
 }
 
 .custom-event .event-info {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 .custom-event .event-buttons {
@@ -370,9 +444,8 @@
 
 @media (max-width: 953px) {
   .custom-event {
-    border: 5px solid orange;
-    padding: 0px;
-    font-size: 9px;
+    padding: 5px;
+    font-size: 12px;
   }
 
   .custom-event .event-buttons {
@@ -442,7 +515,6 @@
   background-color: #58d68d;
 }
 
-
 .scrollbar-reports::-webkit-scrollbar {
   width: 12px;
 }
@@ -461,7 +533,6 @@
 .scrollbar-reports::-webkit-scrollbar-thumb:hover {
   background-color: #58d68d;
 }
-
 
 .scrollbar-patients-dashboard::-webkit-scrollbar {
   width: 12px;
@@ -482,7 +553,6 @@
   background-color: #58d68d;
 }
 
-
 .scrollbar-patient-list::-webkit-scrollbar {
   width: 12px;
 }
@@ -501,7 +571,6 @@
 .scrollbar-patient-list::-webkit-scrollbar-thumb:hover {
   background-color: #58d68d;
 }
-
 
 /* Calendar Mobile */
 

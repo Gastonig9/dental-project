@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Swal from "sweetalert2";
 import { OdontogramType } from "../../../types/dtos/Patient/NewPatient.type";
 import "./Odontogram.css";
 
@@ -31,6 +30,7 @@ export const OdontogramForm: React.FC<OdontogramFormProps> = ({
     parts: [],
     ref: "",
   });
+  const [error, setError] = useState<string>("");
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -61,45 +61,35 @@ export const OdontogramForm: React.FC<OdontogramFormProps> = ({
   const addTooth = () => {
     const { toothNumber, parts, ref } = currentTooth;
     if (!FDI_TEETH_NUMBERS.has(toothNumber)) {
-      Swal.fire({
-        title: "Error",
-        text: "Número de diente no válido.",
-        icon: "error",
-      });
+      setError("Número de diente no válido.");
       return;
     }
     if (
       parts.length === 0 ||
       !parts.every((part) => VALID_PARTS.includes(part))
     ) {
-      Swal.fire({
-        title: "Error",
-        text:
-          parts.length === 0
-            ? "Debe seleccionar al menos una parte del diente."
-            : "Parte del diente no válida.",
-        icon: "error",
-      });
+      setError(
+        parts.length === 0
+          ? "Debe seleccionar una parte del diente."
+          : "Parte del diente no válida."
+      );
       return;
     }
     if (!VALID_REFS.includes(ref)) {
-      Swal.fire({
-        title: "Error",
-        text: "Prestación dental no válida.",
-        icon: "error",
-      });
+      setError("Debe seleccionar una prestación dental.");
       return;
     }
     setOdontogramData((prev) => [...prev, currentTooth]);
     setCurrentTooth({ toothNumber: 0, parts: [], ref: "" });
+    setError("");
   };
 
   const resetOdontogramData = () => {
     setOdontogramData([]);
     setCurrentTooth({ toothNumber: 0, parts: [], ref: "" });
+    setError("");
   };
 
-  // Determina el valor actual del select en el value de parts
   const selectedOption =
     currentTooth.parts.length === 5 &&
     VALID_PARTS.every((part) => currentTooth.parts.includes(part))
@@ -107,10 +97,10 @@ export const OdontogramForm: React.FC<OdontogramFormProps> = ({
       : currentTooth.parts[0] || "";
 
   return (
-    <div className="mt-4 p-2 border border-[#424242] rounded-[10px] w-[290px] mb-2">
+    <div className="mt-2 p-2 border border-[#424242] rounded-[10px] w-[290px] mb-2">
       <div className="mb-2">
         <label htmlFor="toothNumber" className="block font-medium text-[13px]">
-          N° diente
+          N° diente<span className="text-red-500">*</span>
         </label>
         <input
           type="number"
@@ -120,10 +110,13 @@ export const OdontogramForm: React.FC<OdontogramFormProps> = ({
           onChange={handleInputChange}
           className="inputs-prestation shadow-sm"
         />
+        {error === "Número de diente no válido." && (
+          <p className="text-red-500 text-[13px]">{error}</p>
+        )}
       </div>
       <div className="mb-2">
         <label htmlFor="parts" className="block font-medium text-[13px]">
-          Cara del diente
+          Cara del diente<span className="text-red-500">*</span>
         </label>
         <select
           id="parts"
@@ -140,10 +133,14 @@ export const OdontogramForm: React.FC<OdontogramFormProps> = ({
           <option value="right">Derecha</option>
           <option value="center">Centro</option>
         </select>
+        {(error === "Debe seleccionar una parte del diente." ||
+          error === "Parte del diente no válida.") && (
+          <p className="text-red-500 text-[13px]">{error}</p>
+        )}
       </div>
       <div className="mb-2">
         <label htmlFor="ref" className="block font-medium text-[13px]">
-          Prestación
+          Prestación<span className="text-red-500">*</span>
         </label>
         <select
           id="ref"
@@ -167,6 +164,9 @@ export const OdontogramForm: React.FC<OdontogramFormProps> = ({
           </option>
           <option value="Corona">Corona</option>
         </select>
+        {error === "Debe seleccionar una prestación dental." && (
+          <p className="text-red-500 text-[13px]">{error}</p>
+        )}
       </div>
       <div className="flex justify-between pt-2">
         {odontogramData.length > 0 ? (

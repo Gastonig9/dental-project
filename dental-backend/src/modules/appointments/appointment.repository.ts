@@ -2,7 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { $Enums, Appointment } from '@prisma/client';
 import { AppointmentRequestDto } from 'src/dtos';
-import { UpdateAppointmentDto } from 'src/dtos/update-appointment.to';
+import { UpdateAppointmentDto } from 'src/dtos/update-appointment.dto';
 import { Context } from 'src/prisma/prisma.context';
 
 @Injectable()
