@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Odontología general",
+    "image": "/img/landing/specialties/Odontología.png"
+  },
+  {
+    "name": "Cirugía",
+    "image": "/img/landing/specialties/Cirugía.png"
+  },
+  {
+    "name": "Odontopediatría",
+    "image": "/img/landing/specialties/Odontopediatra.png"
+  },
+  {
+    "name": "Endodoncia",
+    "image": "/img/landing/specialties/Endodoncia.png"
+  }
+]

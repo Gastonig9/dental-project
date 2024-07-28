@@ -9,7 +9,7 @@ export const Specialties = () => {
   const [specialties, setSpecialties] = useState<Specialty[]>([]);
 
   useEffect(() => {
-    fetch("/src/data/specialties.json")
+    fetch("/specialties.json")
       .then((response) => response.json())
       .then((data) => {
         setSpecialties(data);
