@@ -7,9 +7,10 @@ interface FAQItem {
 
 const FAQInfo: FAQItem[] = [
   {
-    question: "¿Qué tratamientos dentales puedes encontrar en nuestro consultorio?",
+    question:
+      "¿Qué tratamientos dentales puedes encontrar en nuestro consultorio?",
     answer:
-      "Los tratamientos que ofrecemos desde limpieza dentales hasta ortodoncia, implantes dentales, y tratamientos estéticos como el blanqueamiento dental. Nos esforzamos por cubrir todas tus necesidades odontológicas con la más alta calidad.",
+      "Ofrecemos una amplia gama de tratamientos que incluyen limpiezas dentales, ortodoncia, implantes y procedimientos estéticos como el blanqueamiento dental.",
   },
   {
     question: "¿Cuándo puedes visitarnos?",
@@ -19,7 +20,7 @@ const FAQInfo: FAQItem[] = [
   {
     question: "¿Cúal es el proceso para reservar tu próxima cita?",
     answer:
-      "Reservar tu cita es muy sencillo. Llámanos al [número de teléfono] o visita nuestra página web [dirección web], donde podrás utilizar nuestro fácil formulario de contacto. ¡Te esperamos!",
+      "Puedes reservar tu cita utilizando el botón “Agendar turno” en la parte superior o el botón de WhatsApp. Ambos te conectarán directamente con nuestro personal para una conversación inmediata.",
   },
   {
     question: "¿Cuánto tiempo debo esperar para obtener una cita?",
