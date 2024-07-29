@@ -26,10 +26,10 @@ export const PersonalInfo = () => {
     const today = new Date();
     const hundredYearsAgo = new Date();
     hundredYearsAgo.setFullYear(today.getFullYear() - 100);
-    
-    setMaxDate(today.toISOString().split('T')[0]);
-    setMinDate(hundredYearsAgo.toISOString().split('T')[0]);
-    console.log(minDate)
+
+    setMaxDate(today.toISOString().split("T")[0]);
+    setMinDate(hundredYearsAgo.toISOString().split("T")[0]);
+    console.log(minDate);
   }, []);
 
   useEffect(() => {
@@ -72,6 +72,8 @@ export const PersonalInfo = () => {
         title: "Guardado",
         text: "Información personal guardada con éxito.",
         icon: "success",
+      }).then(() => {
+        window.location.href = "/patient-management/patients-list";
       });
     } catch (error) {
       console.error("Error saving: ", error);
@@ -105,10 +107,12 @@ export const PersonalInfo = () => {
               <input
                 id="name"
                 type="text"
+                maxLength={20}
+                minLength={2}
                 {...register("name", {
                   required: "El nombre es obligatorio",
                   pattern: {
-                    value: /^[A-Za-z]+$/,
+                    value: /^[A-Za-zñÑ\s]+$/,
                     message: "El nombre solo debe contener letras",
                   },
                 })}
@@ -125,10 +129,12 @@ export const PersonalInfo = () => {
               <input
                 id="surname"
                 type="text"
+                maxLength={20}
+                minLength={2}
                 {...register("surname", {
                   required: "El apellido es obligatorio",
                   pattern: {
-                    value: /^[A-Za-z]+$/,
+                    value: /^[A-Za-zñÑ\s]+$/,
                     message: "El apellido solo debe contener letras",
                   },
                 })}
@@ -145,19 +151,13 @@ export const PersonalInfo = () => {
               <input
                 id="phone"
                 type="text"
+                maxLength={15}
+                minLength={7}
                 {...register("phone", {
                   required: "El teléfono es obligatorio",
                   pattern: {
                     value: /^[0-9]+$/,
                     message: "El teléfono solo debe contener números",
-                  },
-                  minLength: {
-                    value: 7,
-                    message: "El teléfono debe tener al menos 7 dígitos",
-                  },
-                  maxLength: {
-                    value: 15,
-                    message: "El teléfono no puede tener más de 15 dígitos",
                   },
                 })}
                 className="personalInfo-input-style"
@@ -184,72 +184,15 @@ export const PersonalInfo = () => {
                         String(value).length <= 10) ||
                       "El DNI debe tener entre 7 y 10 dígitos",
                   },
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: "El DNI solo debe contener números",
+                  },
                 })}
                 className="personalInfo-input-style"
               />
               {errors.dni && (
                 <p className="text-red-500">{errors.dni.message}</p>
-              )}
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="age">
-                Edad<span className="text-red-500">*</span>
-              </label>
-              <input
-                id="age"
-                type="number"
-                min={0}
-                max={100}
-                {...register("age", {
-                  required: "La edad es obligatoria",
-                  validate: {
-                    length: (value) =>
-                      String(value).length <= 3 ||
-                      "La edad no puede tener más de 3 dígitos",
-                  },
-                })}
-                className="personalInfo-input-style"
-              />
-              {errors.age && (
-                <p className="text-red-500">{errors.age.message}</p>
-              )}
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="nationality">Nacionalidad</label>
-              <input
-                id="nationality"
-                type="text"
-                {...register("nationality", {
-                  pattern: {
-                    value: /^[A-Za-z]+$/,
-                    message: "La nacionalidad solo debe contener letras",
-                  },
-                })}
-                className="personalInfo-input-style"
-              />
-              {errors.nationality && (
-                <p className="text-red-500">{errors.nationality.message}</p>
-              )}
-            </div>
-          </div>
-          <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
-            <div className="flex flex-col">
-              <label htmlFor="gender">
-                Género<span className="text-red-500">*</span>
-              </label>
-              <select
-                id="gender"
-                {...register("gender", {
-                  required: "El género es obligatorio",
-                })}
-                className="gender-input-select-style"
-              >
-                <option value="Femenino">Femenino</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Otro">Otro</option>
-              </select>
-              {errors.gender && (
-                <p className="text-red-500">{errors.gender.message}</p>
               )}
             </div>
             <div className="flex flex-col">
@@ -282,6 +225,69 @@ export const PersonalInfo = () => {
               />
               {errors.birthDate && (
                 <p className="text-red-500">{errors.birthDate.message}</p>
+              )}
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="age">
+                Edad<span className="text-red-500">*</span>
+              </label>
+              <input
+                id="age"
+                type="number"
+                min={0}
+                max={100}
+                {...register("age", {
+                  required: "La edad es obligatoria",
+                  validate: {
+                    length: (value) =>
+                      String(value).length <= 3 ||
+                      "La edad no puede tener más de 3 dígitos",
+                  },
+                })}
+                className="personalInfo-input-style"
+              />
+              {errors.age && (
+                <p className="text-red-500">{errors.age.message}</p>
+              )}
+            </div>
+          </div>
+          <div className="block lg:flex space-x-0 space-y-2 lg:space-x-9 lg:space-y-0">
+            <div className="flex flex-col">
+              <label htmlFor="gender">
+                Género<span className="text-red-500">*</span>
+              </label>
+              <select
+                id="gender"
+                {...register("gender", {
+                  required: "El género es obligatorio",
+                })}
+                className="gender-input-select-style"
+              >
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Otro">Otro</option>
+              </select>
+              {errors.gender && (
+                <p className="text-red-500">{errors.gender.message}</p>
+              )}
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="nationality">Nacionalidad</label>
+              <input
+                id="nationality"
+                type="text"
+                maxLength={15}
+                minLength={3}
+                {...register("nationality", {
+                  pattern: {
+                    value: /^[A-Za-zñÑ\s]+$/,
+                    message: "La nacionalidad solo debe contener letras",
+                  },
+                })}
+                className="personalInfo-input-style"
+              />
+              {errors.nationality && (
+                <p className="text-red-500">{errors.nationality.message}</p>
               )}
             </div>
             <div className="flex flex-col">
