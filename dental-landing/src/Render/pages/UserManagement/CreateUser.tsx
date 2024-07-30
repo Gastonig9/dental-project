@@ -79,8 +79,14 @@ const CreateUser = () => {
                 <input
                   type="text"
                   id="firstName"
+                  minLength={4}
+                  maxLength={20}
                   {...register('firstName', {
                     required: 'El nombre es obligatorio',
+                    pattern: {
+                      value: /^[A-Za-zñÑ\s]+$/,
+                      message: 'El nombre solo debe contener letras',
+                    },
                   })}
                   className={`usermanagement-input-style`}
                 />
@@ -93,8 +99,14 @@ const CreateUser = () => {
                 <input
                   type="text"
                   id="lastName"
+                  minLength={4}
+                  maxLength={20}
                   {...register('lastName', {
                     required: 'El apellido es obligatorio',
+                    pattern: {
+                      value: /^[A-Za-zñÑ\s]+$/,
+                      message: 'El nombre solo debe contener letras',
+                    },
                   })}
                   className={`usermanagement-input-style`}
                 />
@@ -107,7 +119,21 @@ const CreateUser = () => {
                 <input
                   type="text"
                   id="dni"
-                  {...register('dni', { required: 'El DNI es obligatorio' })}
+                  minLength={7}
+                  maxLength={10}
+                  {...register('dni', {
+                    required: 'El DNI es obligatorio',
+                    validate: {
+                      length: (value) =>
+                        (String(value).length >= 7 &&
+                          String(value).length <= 10) ||
+                        'El DNI debe tener entre 7 y 10 dígitos',
+                    },
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: 'El DNI solo debe contener números',
+                    },
+                  })}
                   className={`usermanagement-input-style`}
                 />
                 {errors.dni && (
@@ -154,6 +180,8 @@ const CreateUser = () => {
                 <input
                   type="password"
                   id="password"
+                  minLength={4}
+                  maxLength={14}
                   {...register('password', {
                     required: 'La contraseña es obligatoria',
                   })}
