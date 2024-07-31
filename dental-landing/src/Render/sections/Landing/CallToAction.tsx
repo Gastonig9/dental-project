@@ -7,12 +7,7 @@ export const CalltoAction = () => {
             Sonrisas Saludables, Vidas Felices
           </h2>
           <p className="cta-text mt-0 lg:mt-5 text-[15px] lg:text-2xl leading-8 text-black poppins-regular">
-            En Consultorios Odontológicos Grinpol, nos dedicamos a ofrecer
-            cuidados odontológicos de excelencia. Nuestro equipo se compromete a
-            proporcionar la más alta calidad en atención dental como así también
-            nos esforzamos por hacer que cada visita sea una experiencia
-            positiva y agradable. Lo invitamos a descubrir cómo podemos ayudarlo
-            a lograr una sonrisa más saludable y radiante.
+          En Consultorios Odontológicos Grinpol, nos dedicamos a ofrecer cuidados odontológicos de excelencia. Nuestro equipo se compromete a proporcionar la más alta calidad en atención dental, así como también nos esforzamos por hacer que cada visita sea una experiencia positiva y agradable. Lo invitamos a descubrir cómo podemos ayudarlo a lograr una sonrisa más saludable y radiante.
           </p>
           <div className="mt-4 lg:mt-20">
             <a href="https://wa.me/5493512408874?text=¡Hola! Me gustaría agendar un turno. 🦷😊" target="_blank" className="text-lg">

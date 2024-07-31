@@ -22,7 +22,7 @@ export const Footer = () => {
 
         <div className="flex flex-col w-full lg:basis-1/2 poppins">
           {/* texts */}
-          <div className="text-center lg:text-left">
+          <div className="text-center lg:text-left lg:pr-20">
             <h3 className="text-xl lg:text-[40px] poppins-bold">Contacto</h3>
             <div className="mt-5 lg:mt-[70px] flex flex-col gap-5 lg:gap-10 lg:text-left text-xl lg:text-[28px]">
               <div className="flex gap-2 items-center text-left">
@@ -52,7 +52,7 @@ export const Footer = () => {
                 </p>
                 <h5>
                   <span className="font-semibold">Horario: </span>Lunes a
-                  viernes de 8:00 AM a 12:00 PM y de 2:00 PM a 6:00 PM
+                  viernes de 9:00 a.m. hasta las 6:00 p.m., o los sábados desde las 9:00 a.m. hasta las 2:00 p.m.
                 </h5>
               </div>
             </div>

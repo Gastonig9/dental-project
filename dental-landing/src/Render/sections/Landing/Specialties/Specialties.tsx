@@ -27,7 +27,7 @@ export const Specialties = () => {
         }}
         className="relative pt-[55px] md:pt-[50px] md:pb-[120px] lg:px-[97px]"
       >
-        <section className="xl:max-w-[1530px] mx-auto">
+        <section className="xl:max-w-[1530px] mx-auto px-10">
           {/* Title*/}
           <div className="sectionTitle2 w-[188px] ml-[15px] lg:ml-0 lg:w-[251px] lg:h-12 lg:mb-[52px]">
             <p
@@ -39,7 +39,7 @@ export const Specialties = () => {
           </div>
           <div className="flex justify-center content-center mx-auto">
             {/* Specialties */}
-            <div className=" grid grid-cols-2 pt-[45px] pb-[50px] gap-4 lg:gap-[115px] md:pb-0 newxl::px-0 lg:grid-cols-4 justify-items-center">
+            <div className=" grid grid-cols-2 pt-[45px] pb-[50px] gap-4 lg:gap-[90px] md:pb-0 newxl::px-0 lg:grid-cols-4 justify-items-center">
               {specialties.map((specialty, index) => (
                 <div
                   key={index}

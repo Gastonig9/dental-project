@@ -4,7 +4,7 @@ import Carousel from "./Carousel";
 export const AboutUs = () => {
   return (
     <main className="relative bg-background lg:pt-[183px]" id="nosotros">
-      <section className="max-w-[1530px] mx-auto">
+      <section className="max-w-[1530px] mx-auto px-10">
         <div className="about-us-img relative isolate overflow-hidden flex flex-col sm:flex-row justify-center items-center mx-auto max-xl:px-[80px]">
           {/* Text and Title Container */}
           <div className="flex flex-col justify-center lg:mb-[107px] lg:gap-[20px] max-md:mt-10">
@@ -17,8 +17,7 @@ export const AboutUs = () => {
             <div className="mt-[38px] max-2xl:max-w-[590px] max-lg:mb-[55px]">
               {/* Us Text */}
               <p className="poppins-medium text-[15px] text-justify lg:text-start md:font-normal lg:text-[18px] xl:text-[28px] 2xl:w-[729px] leading-[120%]">
-                Los doctores Natalia Ceballos y Pablo Cruz se han destacado en
-                la transformación de sonrisas con profesionalismo y dedicación.
+                Los doctores Natalia Ceballos y Pablo Cruz se han destacado en la transformación de sonrisas con profesionalismo y dedicación.
                 Desde nuestros inicios, nos hemos comprometido a proporcionar
                 cuidados odontológicos de excelencia, con un enfoque integral en
                 la salud bucal y el bienestar de nuestros pacientes. <br />
