@@ -18,7 +18,7 @@ export const AboutUs = () => {
               {/* Us Text */}
 
               <p className="poppins-medium text-[15px] text-justify lg:text-start md:font-normal lg:text-[18px] xl:text-[28px] 2xl:w-[729px] leading-[120%]">
-                Los doctores Natalia Ceballos y Pablo Cruz se han destacado en la transformación de sonrisas con profesionalismo y dedicación.
+                Somos Natalia Ceballos y Pablo Cruz y como odontólogos, nos hemos destacado en la transformación de sonrisas con profesionalismo y dedicación.
                 Desde nuestros inicios, nos hemos comprometido a proporcionar
                 cuidados odontológicos de excelencia, con un enfoque integral en
                 la salud bucal y el bienestar de nuestros pacientes. <br />
