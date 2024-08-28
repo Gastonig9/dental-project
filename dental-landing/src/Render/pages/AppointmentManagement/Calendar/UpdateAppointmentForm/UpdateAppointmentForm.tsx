@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import cancel from "../../../../../assets/img/calendar/Cancel.png";
-import { DateTimeInput, SelectInput } from "../../AddAppointment";
-import { TimeInput } from "../../AddAppointment/TimeInput/TimeInput";
+import { DateTimeInput, SelectInput } from "../../../CreateAppointment/AddAppointment";
+import { TimeInput } from "../../../CreateAppointment/AddAppointment/TimeInput/TimeInput";
 import { Dentist } from "../../../../../types/dtos/dentist/dentist.type";
 import Swal from "sweetalert2";
-import { Button } from "../../../UI/Button/Button";
+import { Button } from "../../../../components/UI/Button/Button";
 import { appointmentsServices, dentistService } from "../../../../../services";
 
 interface UpdateAppointmentFormProps {

@@ -1,5 +1,5 @@
 import Navbar from "../../components/Platform/Navbar";
-import { AddAppointment } from "../../components/Platform/AddAppointment/AddAppointment";
+import { AddAppointment } from "./AddAppointment/AddAppointment";
 
 const CreateAppointment = () => {
   return (

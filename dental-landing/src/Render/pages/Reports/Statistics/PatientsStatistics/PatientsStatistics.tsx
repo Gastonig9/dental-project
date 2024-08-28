@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import Spinner from "../../Spinner";
-import { PatientsByAgeChart } from "./PatientsByAgeChart/PatientsByAgeChart";
-import { PatientsByGenderChart } from "./PatientsByGenderChart/PatientsByGenderChart";
-import { PatientsByTreatmentChart } from "./PatientsByTreatmentChart/PatientsByTreatmentChart";
+import Spinner from "../../../../components/Platform/Spinner";
+import { PatientsByAgeChart, PatientsByGenderChart, PatientsByTreatmentChart } from "..";
 import { appointmentsServices, patientServices } from "../../../../../services";
 
 export const PatientsStatistics = () => {
