@@ -4,17 +4,20 @@ import { patientServices } from "../services";
 
 export const usePatientSearch = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
-  const [patientSelected, setPatientSelected] = useState<Patient | null>(null);
   const [filteredPatients, setFilteredPatients] = useState<Patient[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchPatients = async () => {
+      setLoading(true);
       try {
         const response = await patientServices.getPatients();
         setPatients(response.data.patients);
       } catch (error) {
         console.error("Error fetching patients:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchPatients();
@@ -34,20 +37,11 @@ export const usePatientSearch = () => {
     }
   }, [searchTerm, patients]);
 
-  const handlePatientSelected = (patient: Patient) => {
-    setPatientSelected(patient);
-    setSearchTerm(`${patient.name} ${patient.surname}`);
-    setFilteredPatients([]);
-  };
-
   return {
     patients,
-    patientSelected,
     filteredPatients,
     searchTerm,
     setSearchTerm,
-    setFilteredPatients,
-    setPatientSelected,
-    handlePatientSelected
+    loading,  // Exporta el estado de loading
   };
 };
