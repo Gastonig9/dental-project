@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link } from 'react-router-dom';
 import Navbar from '../../components/Platform/Navbar';
-import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { userServices } from '../../../services';
 import { CreateUserType } from '../../../types';
 import { AxiosError } from 'axios';
+import { GoBack } from '../../components/UI';
 
 const CreateUser = () => {
   const {
@@ -56,17 +55,7 @@ const CreateUser = () => {
     <>
       <Navbar />
       <section className="mx-auto lg:ms-[200px] max-w-[1594px] mt-[150px]">
-        <div className="flex items-center mb-6">
-          <Link to="/users-management/users-list" className="me-16">
-            <button className="flex items-center bg-transparent poppins-medium">
-              <ChevronLeftIcon
-                className="h-5 w-5 flex-none text-black"
-                aria-hidden="true"
-              />
-              Atrás
-            </button>
-          </Link>
-        </div>
+        <GoBack path='users-management/users-list' titleGoBack='Atrás'/>
         <main className="w-[90%] max-w-[1594px] h-[900px] rounded-[35px] bg-lightgray border border-[#424242] py-[30px] px-[78px] mx-auto">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col justify-center items-center poppins-light text-[16px] space-y-4">

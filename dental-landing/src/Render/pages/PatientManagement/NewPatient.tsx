@@ -1,5 +1,4 @@
-import { ChevronLeftIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { PersonalInfo } from "../../sections/PatientManagement/PersonalInfo";
 import MedicalHistory from "./MedicalHistory";
@@ -7,6 +6,7 @@ import MedicalHistory from "./MedicalHistory";
 import Navbar from "../../components/Platform/Navbar";
 import MedicalServices from "../../sections/PatientManagement/MedicalServices";
 import { PatientContextProvider } from "../../../Features/contexts/patientContext";
+import { GoBack } from "../../components/UI";
 
 export const NewPatient = () => {
   const [activeTab, setActiveTab] = useState("personal-information");
@@ -23,18 +23,7 @@ export const NewPatient = () => {
     <>
       <Navbar />
       <section className="lg:ms-[250px] max-w-[1594px] mt-[150px] xxl:mx-auto ">
-        <div className="flex items-center mb-6">
-          <Link to="/patient-management/patients-list" className="me-16">
-            <button className="flex items-center bg-transparent poppins-medium">
-              <ChevronLeftIcon
-                className="h-5 w-5 flex-none text-black"
-                aria-hidden="true"
-              />
-              Atrás
-            </button>
-          </Link>
-          <h1 className="poppins-semibold text-[33px]">Nuevo paciente</h1>
-        </div>
+        <GoBack path="patient-management/patients-list" titleGoBack="Atrás"/>
         <main className="w-[90%] max-w-[1594px] h-[740px] rounded-[35px] bg-lightgray border border-[#424242] py-[30px] px-[78px] mx-auto overflow-y-auto">
           <div>
             <div className="flex lg:space-x-16 mb-4 poppins-regular text-[19px] justify-center lg:justify-start">

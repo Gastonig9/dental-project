@@ -1,5 +1,5 @@
 import Navbar from "../../components/Platform/Navbar";
-import { Calendar } from "../../components/Platform/Calendar/Calendar";
+import { Calendar } from "./Calendar/Calendar";
 import { Link } from "react-router-dom";
 
 const AppointmentManagement = () => {

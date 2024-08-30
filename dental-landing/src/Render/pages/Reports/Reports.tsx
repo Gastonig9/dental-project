@@ -2,8 +2,7 @@ import { useState } from 'react';
 import Navbar from '../../components/Platform/Navbar';
 import { Link } from 'react-router-dom';
 import { ChevronLeftIcon } from '@heroicons/react/20/solid';
-import { PatientsStatistics } from '../../components/Platform/Statistics/PatientsStatistics/PatientsStatistics';
-import { AppointmentsStatistics } from '../../components/Platform/Statistics/AppointmentsStatistics/AppointmentsStatistics';
+import { PatientsStatistics, AppointmentsStatistics } from './Statistics';
 
 const Reports = () => {
   const [activeTab, setActiveTab] = useState('patients-reports');

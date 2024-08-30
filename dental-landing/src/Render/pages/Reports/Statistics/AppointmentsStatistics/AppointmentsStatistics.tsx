@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Spinner from "../../Spinner";
+import Spinner from "../../../../components/Platform/Spinner";
 import { AppointmentsByMonthChart } from "./AppointmentsByMonthChart/AppointmentsByMonthChart";
 import { AppointmentsByConfirm } from "./AppointmentsByConfirm/AppointmentsByConfirm";
 import { appointmentsServices } from "../../../../../services";
