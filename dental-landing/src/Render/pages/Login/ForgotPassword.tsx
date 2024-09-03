@@ -39,7 +39,7 @@ export const ForgotPassword = () => {
     <section className="min-h-screen min-w-full login-bg-img flex items-center justify-center">
       <div className="login-form w-[350px] md:w-[500px] lg:w-[929px] h-[495px] mx-auto my-2 bg-lightgray bg-opacity-60 p-5 lg:p-8 rounded-xl border border-slate-700">
         <div>
-          <Link to="/login">
+          <Link to="/">
             <button className="flex items-center bg-transparent poppins-medium">
               <ChevronLeftIcon
                 className="h-5 w-5 flex-none text-black"
