@@ -14,14 +14,14 @@ import {
   EditUserInfo,
   NotFound,
   Login,
-  Landing,
+  // Landing,
   Dashboard
 } from "../Render/pages";
 
 const RoutesConfig = () => (
   <Routes>
-    <Route path="/" element={<Landing />} />
-    <Route path="/login" element={<Login />} />
+    {/* <Route path="/" element={<Landing />} /> */}
+    <Route path="/" element={<Login />} />
     <Route path="/user/forgot-password" element={<ForgotPassword />} />
     <Route path="/user/reset-password" element={<ResetPassword />} />
     <Route path="/*" element={<NotFound />} />
