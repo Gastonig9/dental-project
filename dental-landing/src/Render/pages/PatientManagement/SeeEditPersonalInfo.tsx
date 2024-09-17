@@ -1,69 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import axios, { AxiosError } from 'axios';
-import Swal from 'sweetalert2';
-import { useParams } from 'react-router-dom';
-import { token } from '../../../localStorage/token';
+import { useEditPersonalInfo } from '../../../hooks/useEditPersonalInfo';
 
 export const SeeEditPersonalInfo = () => {
-  const { id } = useParams();
-  const [, setPatientInfo] = useState({});
-  const [allowEdition, setAllowEdition] = useState(false);
-  const { register, handleSubmit, setValue } = useForm();
-
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/patient/${id}`,{ headers:{Authorization: `Bearer ${token()}`}})
-      .then((res) => {
-        setPatientInfo(res.data);
-        const patient = res.data;
-        for (const key in patient) {
-          if (Object.prototype.hasOwnProperty.call(patient, key)) {
-            setValue(key, patient[key]);
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err.response.data.message);
-      });
-  }, [id, setValue]);
-
-  const onSubmit = async (data: any) => {
-    try {
-      data.dni = Number(data.dni);
-      data.age = Number(data.age);
-      data.addressNumber = Number(data.addressNumber);
-
-      const { appointments, medicalHistories, ...rest } = data;
-      const response = await axios.put(
-        `${import.meta.env.VITE_API_URL}/patient/${id}`,
-        rest,
-        { headers: { Authorization: `Bearer ${token()}` } }
-      );
-      setPatientInfo(response.data);
-      Swal.fire({
-        title: 'Guardado',
-        text: 'Información personal guardada con éxito.',
-        icon: 'success',
-      });
-    } catch (error) {
-      let text = 'Ocurrió un error al guardar la información.';
-      let title = 'Error';
-
-      if (error instanceof AxiosError) {
-        if (error?.response?.status === 409) {
-          title = 'Campo Repetido';
-          text = error.response.data.message;
-        }
-      }
-      Swal.fire({
-        title,
-        text,
-        icon: 'error',
-      });
-    }
-  };
-
+  const { allowEdition, setAllowEdition, onSubmit, handleSubmit, register } = useEditPersonalInfo()
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -208,7 +146,7 @@ export const SeeEditPersonalInfo = () => {
                 type="number"
                 {...register('addressNumber')}
                 className={`personalInfo-input-style ${
-                  !allowEdition ? 'bg-white' : ''
+                  !allowEdition ? 'bg-white' : 'bg-slate-200 outline-none'
                 }`}
                 readOnly={!allowEdition}
               />

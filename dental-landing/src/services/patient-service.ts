@@ -40,6 +40,23 @@ export class PatientService {
     }
   }
 
+  async updatePatient(id: string | undefined, data: any) {
+    try {
+      const { appointments, medicalHistories, ...rest } = data;
+      const response = await axios.put(
+        `${this.baseURL}${this.paths.GET_PATIENT}/${id}`,
+        rest,
+        { headers: { Authorization: `Bearer ${token()}` } }
+      );
+      return response
+    } catch (error) {
+      console.error(`Error fetching patient with ID ${id}:`, error);
+      throw error;
+    }
+  }
+
+  // RECORDS
+
   async createRecord(patientInfo: PatientFormat): Promise<AxiosResponse<any>> {
     try {
       const response = await axios.post(
