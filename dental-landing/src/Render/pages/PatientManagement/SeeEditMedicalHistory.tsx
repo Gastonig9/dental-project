@@ -1,142 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import { useParams } from 'react-router-dom';
-import { token } from '../../../localStorage/token';
+import { useEditMedicalHistory } from '../../../hooks';
 
 const SeeEditMedicalHistory = () => {
-  enum EnumInfoBoolean {
-    SI = 'SI',
-    NO = 'NO',
-    SIN_INFORMACION = 'SIN_INFORMACION',
-  }
-
-  interface PatientFormat {
-    patientId: number;
-    someDisease: string;
-    someTreatment: string;
-    consumeMedicaments: string;
-    allergyMedicament: string;
-    operations: string;
-    smokes: EnumInfoBoolean;
-    pregnant: EnumInfoBoolean;
-    attendance?: string;
-    takeSomeMedication?: string;
-    pains: EnumInfoBoolean;
-    blowToTeeth?: string; //golpe en dientes
-    dentalMobility: EnumInfoBoolean;
-    swollenFace: EnumInfoBoolean; //cara inchada
-    injuries: EnumInfoBoolean; //lesion tejidos blandos
-    observations?: string;
-  }
-
-  const { id } = useParams();
-  const [patientInfo, setPatientInfo] = useState<PatientFormat>({
-    patientId: Number(id),
-    someDisease: '',
-    someTreatment: '',
-    consumeMedicaments: '',
-    allergyMedicament: '',
-    operations: '',
-    smokes: EnumInfoBoolean.SIN_INFORMACION,
-    pregnant: EnumInfoBoolean.SIN_INFORMACION,
-    attendance: '',
-    takeSomeMedication: '',
-    pains: EnumInfoBoolean.SIN_INFORMACION,
-    blowToTeeth: '', //golpe en dientes
-    dentalMobility: EnumInfoBoolean.SIN_INFORMACION,
-    swollenFace: EnumInfoBoolean.SIN_INFORMACION, //cara inchada
-    injuries: EnumInfoBoolean.SIN_INFORMACION, //lesion tejidos blandos
-    observations: '',
-  });
-  const [allowEdition, setAllowEdition] = useState(false);
-  const { register, handleSubmit, reset } = useForm();
-
-  // bringing the patient's medical history from the backend
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/patient/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token()}`,
-        },
-      })
-      .then((res) => {
-        if (!res.data.medicalHistories.length) {
-          axios
-            .post(
-              `${import.meta.env.VITE_API_URL}/records/create-record`,
-              patientInfo,
-              {
-                headers: {
-                  Authorization: `Bearer ${token()}`,
-                },
-              }
-            )
-        }
-        setPatientInfo(
-          res.data.medicalHistories[res.data.medicalHistories.length - 1]
-        );
-      })
-      .catch(() => {
-          Swal.fire(
-            'Ocurrió un error',
-            'Ocurrió un error al eliminar a este usuario.',
-            'error'
-          );
-      });
-  }, []);
-
-  // showing latest info in the input fields
-  useEffect(() => {
-    if (patientInfo) {
-      reset({
-        someDisease: patientInfo.someDisease,
-        someTreatment: patientInfo.someTreatment,
-        consumeMedicaments: patientInfo.consumeMedicaments,
-        allergyMedicament: patientInfo.allergyMedicament,
-        operations: patientInfo.operations,
-        smokes: patientInfo.smokes,
-        pregnant: patientInfo.pregnant,
-        attendance: patientInfo.attendance,
-        takeSomeMedication: patientInfo.takeSomeMedication,
-        pains: patientInfo.pains,
-        blowToTeeth: patientInfo.blowToTeeth,
-        dentalMobility: patientInfo.dentalMobility,
-        swollenFace: patientInfo.swollenFace,
-        injuries: patientInfo.injuries,
-        observations: patientInfo.observations,
-      });
-    }
-  }, [patientInfo]);
-
-  // update info on submit
-  const onSubmit = (data: any) => {
-    data.patientId = Number(id);
-
-    axios
-      .put(`${import.meta.env.VITE_API_URL}/records/${id}`, data, {
-        headers: {
-          Authorization: `Bearer ${token()}`,
-        },
-      })
-      .then(() => {
-        Swal.fire({
-          title: 'Agregado',
-          text: 'Historia clínica agregada con éxito.',
-          icon: 'success',
-        });
-        setAllowEdition(false);
-      })
-      .catch(() => {
-        Swal.fire({
-          title: 'Error',
-          text: 'Ocurrio un error',
-          icon: 'error',
-        });
-      });
-  };
-
+  const { allowEdition, setAllowEdition, handleSubmit, onSubmit, register } = useEditMedicalHistory()
   return (
     <>
       <main className="grid gap-y-10 lg:grid-cols-2 lg:gap-x-10 xl:gap-x-[136px] poppins">
@@ -152,7 +17,7 @@ const SeeEditMedicalHistory = () => {
               className={`py-1 px-4 rounded-lg ${
                 !allowEdition ? 'bg-slate-200 outline-none' : ''
               }`}
-              readOnly={!allowEdition}
+              
             />
 
             <label htmlFor="input2">¿Hace algún tratamiento médico? ¿Cuál?</label>

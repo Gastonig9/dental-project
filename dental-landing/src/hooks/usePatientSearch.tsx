@@ -33,7 +33,7 @@ export const usePatientSearch = () => {
         )
       );
     } else {
-      setFilteredPatients([]);
+      setFilteredPatients(patients);
     }
   }, [searchTerm, patients]);
 
@@ -42,6 +42,6 @@ export const usePatientSearch = () => {
     filteredPatients,
     searchTerm,
     setSearchTerm,
-    loading,  // Exporta el estado de loading
+    loading,
   };
 };
